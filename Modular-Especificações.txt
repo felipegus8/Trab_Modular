@@ -61,3 +61,19 @@ Módulo para testar a lista:
 
 Módulo Tabuleiro:
 
+-InserirPeça:Recebe a coordenada linha-coluna onde a peça deve ser inserida e o Id da Peça a ser inserida(composto pelo nome e cor da peça).Pode retornar 0 se inseriu OK ou 1 se a coordenada não existe.(condições de retorno não explicitadas no trabalho).Tem que se preocupar também com o que essa inserção muda nas listas referentes a cada peça no tabuleiro.
+
+-MoverPeça:Recebe a coordenada de origem e a de destino.Deve verificar se a peça que está naquela coordenada pode executar aquele movimento.Se não puder retornar erro.Se puder fazê-lo e verificar se vai capturar uma peça na coordenada de destino.Se capturar chamar a função Retirar Peça para elimina-la do tabuleiro.Essa função também tem que dar um update nas listas referentes as peças.
+
+-Retirar Peça:Recebe a coordenada da casa que contem a peça a ser retirada.Retorna 0 se teve sucesso.Tem que dar update nas listas de cada peça envolvida nessa retirada.Retorna erro caso não tenha peça naquela casa ou caso a coordenada não exista na matriz.
+
+-Obter Peça:Recebe a coordenada linha-coluna e devolve o Id da Peça(composto por cor e nome).Se não tiver nenhuma peça naquela casa pode retornar um erro.Pode ser usada em praticamente todas as outras funções.
+
+-ObterListaAmeaçantes:Recebe a coordenada linha coluna e retorna  a lista que contem todas as peças que essa peça está ameaçando(retorna o ponteiro para a cabeça da lista).
+
+-ObterListaAmeaçados:Recebe a coordenada linha coluna e retorna a lista que contem todas a peças que estão sendo ameaçadas pela peça em questão.Retorna 0 se deu certo.Para que essa função(e a anterior também) dêm certo é importante manter essas listas sempre atualizadas(pior parte do módulo).
+
+-DestruirTabuleiro:Destroi o conteudo de cada casa do tabuleiro e o proprio tabuleiro.Tem que dar free em cada casa e no tabuleiro completo.
+
+-Módulo Teste Tabuleiro:
+Aqui o script de teste tem que ser feito por inteiro(ele não nos dá a linguagem do script,nós temos que criar) e baseada nessa linguagem tem que ser feito os testes.
