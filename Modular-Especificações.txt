@@ -1,71 +1,63 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1504
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;\csgray\c100000;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+Especificação dos módulos:
 
-\f0\fs24 \cf0 Especifica\'e7\'e3o dos m\'f3dulos:\
-\
--M\'f3dulo Lista:Tem que instanciar todas as listas que v\'e3o ser usadas no jogo.Armazena conte\'fados de tipo vari\'e1vel (n\'e3o apenas listas de char).S\'f3 quando for testar no script que \'e9 pra usar char.\
-\
--M\'f3dulo para testar a lista:Tipo TestLis.Coordena a execu\'e7\'e3o dos testes com o script.\
-\
--M\'f3dulo Tabuleiro:Matriz de 8x8.Cada casa da matriz armazena as informa\'e7\'f5es da pe\'e7a que est\'e1 naquela casa.Essas informa\'e7\'f5es s\'e3o: o id da pe\'e7a(composta pelo nome e cor da pe\'e7a),a lista de pe\'e7as que est\'e3o amea\'e7ando a pe\'e7a em quest\'e3o e a lista de pe\'e7as que est\'e3o sendo amea\'e7adas pela pe\'e7a em quest\'e3o.\
-As cores s\'e3o V(Vazio),P(Preto),B(Branco).\
-Deve ser poss\'edvel criar novas pe\'e7as com movimentos customizados.\
-\
--M\'f3dulo para interpretar o script do Tabuleiro:Tem que fazer um m\'f3dulo de teste para interpretar uma linguagem de script criada por n\'f3s(como o TestLis fazia no trabalho 1).\
-\
-\
-O script gerado no fim do trabalho 2 ainda n\'e3o simula uma partida.Tamb\'e9m n\'e3o cria n\'f3s nas listas.As listas devem ser criadas e permanecerem vazias durante toda a execu\'e7\'e3o desse trabalho.\
-\
-\
-\
-Especifica\'e7\'e3o das fun\'e7\'f5es:\
-\
-M\'f3dulo Lista:\
--Criar Lista:Cria a cabe\'e7a de uma lista identificada por idLista.Retorna um ponteiro para a lista criada.\
-\
--Obter ID Lista:Retorna o valor do idLista contido na sua cabe\'e7a.Essa fun\'e7\'e3o n\'e3o compara esse ID com o passado pelo script.Essa compara\'e7\'e3o \'e9 feita no modulo de testar a lista(TestLis).\
-\
--Inserir N\'f3:Insere na lista um novo n\'f3 ap\'f3s o n\'f3 corrente.Caso esteja vazia insere o primeiro elemento.\
-\
--ObterN\'f3: Obt\'eam o valor contido no n\'f3 corrente e o retorna.O teste para comparar se esse valor \'e9 igual ao passado no script ser\'e1 feito no TestLis.\
-\
--ExcluirN\'f3Corrente:Exclui o n\'f3 corrente da lista.Caso esteja vazia, n\'e3o faz nada e retorna erro.\
-\
--IrProx: Muda o ponteiro do corrente para o pr\'f3ximo elemento da lista.Caso n\'e3o tenha pr\'f3ximo elemento n\'e3o faz nada.\
-\
--IrAnt: Muda o ponteiro do corrente para o elemento anterior da lista.Caso n\'e3o tenha elemento anterior n\'e3o faz nada.\
-\
--Alterar N\'f3 Corrente:Altera o conte\'fado do n\'f3 corrente para o valor recebido pela fun\'e7\'e3o.Se a lista estiver vazia retorna um erro.\
-\
--Destr\'f3i Lista:Destr\'f3i a cabe\'e7a da lista e todos os n\'f3s existentes nela.Todos os espa\'e7os devem ser desalocados com free.\
-\
-\
-\
-M\'f3dulo para testar a lista:\
-\
--Teste da criar Lista:Recebe do script Inx(posi\'e7\'e3o que a lista vai ser armazenada no vetor),idLista(identificador da lista, nesse caso uma string) e uma condRet. Tem que testar se a string passada pelo script respeita os padr\'f5es(tem at\'e9 4 caracteres).Deve armazenar o ponteiro recebido pela fun\'e7\'e3o de criar lista   em um vetor auxiliar na posi\'e7\'e3o que for passada pelo script(inx).\'c9 por meio desse vetor que deve ser controlado se as listas existem ou n\'e3o.Os retornos poss\'edveis s\'e3o 0 caso tenha criado com sucesso ou 6 se faltou mem\'f3ria.\
-\
--Teste da Obter ID Lista:Recebe um Inx e o ID Lista do script.Esse teste deve chamar a Obter Id Lista e comparar se o IDLista retorna para aquele inx \'e9 igual ao passado pelo script.Condi\'e7\'f5es de retorno n\'e3o especificadas.Pode colocar 0 se for o mesmo e 1 caso n\'e3o seja.\
-\
--Teste da Inserir N\'f3:Recebe do script um Inx,um char e uma CondRet.Sempre que receber um char tem que testar se tem no m\'e1ximo 4 caracteres.Retorna 0 se inseriu OK ou 6 caso tenha faltado mem\'f3ria.\
-\
--Teste da ObterN\'f3:Recebe do script Inx, uma string e uma CondRet.Chama a fun\'e7\'e3o e compara o valor retornado pela fun\'e7\'e3o com o passado pelo script.Esse teste ser\'e1 feito no modulo de testes por uma quest\'e3o de manter o padr\'e3o.Retorna 0 se obteve corretamente ou 2 caso a lista esteja vazia.\
-\
--Teste ExcluirNoCorrente:Recebe do script Inx. Chama a fun\'e7\'e3o e pode retornar 0 se exclui corretamente ou 2 se a lista estiver vazia.Esses retornos n\'e3o est\'e3o expl\'edcitos no trabalho mas ser\'e3o feitos dessa forma para manter o padr\'e3o.\
-\
--Teste IrProx:Recebe do script um Inx e uma CondRet. Chama a fun\'e7\'e3o e pode retornar 0 caso a movimenta\'e7\'e3o tenha sido bem sucedida,2 caso a lista esteja vazia ou 4 caso o n\'f3 corrente seja o ultimo e n\'e3o tenha pr\'f3ximo para ir.  \
-\
--Teste IrAnt:Recebe do script um Inx e uma CondRet.Chama a fun\'e7\'e3o e pode retornar 0 caso a movimenta\'e7\'e3o tenha dado certo,2 caso a lista esteja vazia ou 5 caso o n\'f3 corrente seja o primeiro e n\'e3o tenha elemento anterior para ir.\
-\
--Teste Alterar N\'f3 Corrente:Recebe do script um Inx,uma string para ser colocado no conte\'fado do n\'f3 corrente e uma CondRet. Deve testar para ver se a string atende aos padr\'f5es(menos de 4 caracteres).Pode retornar 0 caso a altera\'e7\'e3o tenha sido bem sucedida,2 caso a lista esteja vazia ou 3 caso a lista n\'e3o exista no vetor.Essa verifica\'e7\'e3o da lista existir ou n\'e3o no vetor ser\'e1 feita aqui no m\'f3dulo de testes(n\'e3o explicito no texto).\
-\
--Teste Destr\'f3i Lista:Recebe do script um Inx e uma CondRet.Chama a fun\'e7\'e3o e pode retornar 0 se a exclus\'e3o foi OK ou 3 se a Lista n\'e3o existe.Novamente o texto n\'e3o explicita onde testar se a lista existe ou n\'e3o.Ser\'e1 feito no m\'f3dulo de testes.\
-\
-\
-M\'f3dulo Tabuleiro:\
-\
-}
+-Módulo Lista:Tem que instanciar todas as listas que vão ser usadas no jogo.Armazena conteúdos de tipo variável (não apenas listas de char).Só quando for testar no script que é pra usar char.
+
+-Módulo para testar a lista:Tipo TestLis.Coordena a execução dos testes com o script.
+
+-Módulo Tabuleiro:Matriz de 8x8.Cada casa da matriz armazena as informações da peça que está naquela casa.Essas informações são: o id da peça(composta pelo nome e cor da peça),a lista de peças que estão ameaçando a peça em questão e a lista de peças que estão sendo ameaçadas pela peça em questão.
+As cores são V(Vazio),P(Preto),B(Branco).
+Deve ser possível criar novas peças com movimentos customizados.
+
+-Módulo para interpretar o script do Tabuleiro:Tem que fazer um módulo de teste para interpretar uma linguagem de script criada por nós(como o TestLis fazia no trabalho 1).
+
+
+O script gerado no fim do trabalho 2 ainda não simula uma partida.Também não cria nós nas listas.As listas devem ser criadas e permanecerem vazias durante toda a execução desse trabalho.
+
+
+
+Especificação das funções:
+
+Módulo Lista:
+-Criar Lista:Cria a cabeça de uma lista identificada por idLista.Retorna um ponteiro para a lista criada.
+
+-Obter ID Lista:Retorna o valor do idLista contido na sua cabeça.Essa função não compara esse ID com o passado pelo script.Essa comparação é feita no modulo de testar a lista(TestLis).
+
+-Inserir Nó:Insere na lista um novo nó após o nó corrente.Caso esteja vazia insere o primeiro elemento.
+
+-ObterNó: Obtêm o valor contido no nó corrente e o retorna.O teste para comparar se esse valor é igual ao passado no script será feito no TestLis.
+
+-ExcluirNóCorrente:Exclui o nó corrente da lista.Caso esteja vazia, não faz nada e retorna erro.
+
+-IrProx: Muda o ponteiro do corrente para o próximo elemento da lista.Caso não tenha próximo elemento não faz nada.
+
+-IrAnt: Muda o ponteiro do corrente para o elemento anterior da lista.Caso não tenha elemento anterior não faz nada.
+
+-Alterar Nó Corrente:Altera o conteúdo do nó corrente para o valor recebido pela função.Se a lista estiver vazia retorna um erro.
+
+-Destrói Lista:Destrói a cabeça da lista e todos os nós existentes nela.Todos os espaços devem ser desalocados com free.
+
+
+
+Módulo para testar a lista:
+
+-Teste da criar Lista:Recebe do script Inx(posição que a lista vai ser armazenada no vetor),idLista(identificador da lista, nesse caso uma string) e uma condRet. Tem que testar se a string passada pelo script respeita os padrões(tem até 4 caracteres).Deve armazenar o ponteiro recebido pela função de criar lista   em um vetor auxiliar na posição que for passada pelo script(inx).É por meio desse vetor que deve ser controlado se as listas existem ou não.Os retornos possíveis são 0 caso tenha criado com sucesso ou 6 se faltou memória.
+
+-Teste da Obter ID Lista:Recebe um Inx e o ID Lista do script.Esse teste deve chamar a Obter Id Lista e comparar se o IDLista retorna para aquele inx é igual ao passado pelo script.Condições de retorno não especificadas.Pode colocar 0 se for o mesmo e 1 caso não seja.
+
+-Teste da Inserir Nó:Recebe do script um Inx,um char e uma CondRet.Sempre que receber um char tem que testar se tem no máximo 4 caracteres.Retorna 0 se inseriu OK ou 6 caso tenha faltado memória.
+
+-Teste da ObterNó:Recebe do script Inx, uma string e uma CondRet.Chama a função e compara o valor retornado pela função com o passado pelo script.Esse teste será feito no modulo de testes por uma questão de manter o padrão.Retorna 0 se obteve corretamente ou 2 caso a lista esteja vazia.
+
+-Teste ExcluirNoCorrente:Recebe do script Inx. Chama a função e pode retornar 0 se exclui corretamente ou 2 se a lista estiver vazia.Esses retornos não estão explícitos no trabalho mas serão feitos dessa forma para manter o padrão.
+
+-Teste IrProx:Recebe do script um Inx e uma CondRet. Chama a função e pode retornar 0 caso a movimentação tenha sido bem sucedida,2 caso a lista esteja vazia ou 4 caso o nó corrente seja o ultimo e não tenha próximo para ir.  
+
+-Teste IrAnt:Recebe do script um Inx e uma CondRet.Chama a função e pode retornar 0 caso a movimentação tenha dado certo,2 caso a lista esteja vazia ou 5 caso o nó corrente seja o primeiro e não tenha elemento anterior para ir.
+
+-Teste Alterar Nó Corrente:Recebe do script um Inx,uma string para ser colocado no conteúdo do nó corrente e uma CondRet. Deve testar para ver se a string atende aos padrões(menos de 4 caracteres).Pode retornar 0 caso a alteração tenha sido bem sucedida,2 caso a lista esteja vazia ou 3 caso a lista não exista no vetor.Essa verificação da lista existir ou não no vetor será feita aqui no módulo de testes(não explicito no texto).
+
+-Teste Destrói Lista:Recebe do script um Inx e uma CondRet.Chama a função e pode retornar 0 se a exclusão foi OK ou 3 se a Lista não existe.Novamente o texto não explicita onde testar se a lista existe ou não.Será feito no módulo de testes.
+
+
+Módulo Tabuleiro:
+
