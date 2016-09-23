@@ -252,14 +252,14 @@ typedef struct LIS_tagLista {
 *  ****/
       int destroiLista(LIS_tpp lista) {
 
-          #ifdef _DEBUG
-          assert( lista != NULL ) ;
-          #endif
+          if(lista == NULL) {
+                   return 3;
+          } 
 
       EsvaziarLista( lista ) ;
 
       free( lista ) ;
-
+      return 0;
    } /* Fim funÁ„o: LIS  &Destruir lista */
 
 /***************************************************************************
