@@ -220,6 +220,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 			CondRet = alterarNoCorrente(vtListas[inxLista],pDado);
 			return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao alterar o conteúdo do nó corrente" ) ;
 		 }/*fim ativa:Testar alterar nó corrente*/
+		 
 		 else if(strcmp(ComandoTeste,DESTROI_LISTA) == 0)
 		 {
 			  numLidos = LER_LerParametros( "i" ,&inxLista,&CondRetEsp ) ;
@@ -232,21 +233,13 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             CondRet = destroiLista( vtListas[ inxLista ] ) ;
             vtListas[ inxLista ] = NULL ;
             return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao destruir a lista" ) ;
-		 }			 
-		 }
-   }
+		 }/*fim ativa:Testar destrói lista*/	 
+		 
+		return TST_CondRetNaoConhec ;
+   }  /* Fim função: TLIS &Testar lista */
 	  
-
-
-
-
-
-
-
-
-
-
-
+	  
+	  
 /*****  Código das funções encapsuladas no módulo  *****/
 
 
