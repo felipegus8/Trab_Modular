@@ -159,11 +159,11 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *  $FC Função: LIS  &Obter nó na lista
 *
 *  $ED Descrição da função
-*     Obtem valor contido no nó corrente
+*     Obtem valor contido no nó corrente e o copia para s
 *
 *  $EP Parâmetros
 *     pLista = ponteiro para a lista de onde deverá ser obtido o elemento
-    
+      s = string para onde será copiado o valor contido no elemento corrente
 *
 *  $FV Valor retornado
 *     Retorna 0 caso tenha obtido corretamente.
