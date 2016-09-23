@@ -51,7 +51,7 @@ typedef struct LIS_tagLista {
 
    static void LimparCabeca( LIS_tppLista lista );
 
-   static void EsvaziarLista(LIS_tppLista lista)
+   static void EsvaziarLista(LIS_tppLista lista);
 /***************************************************************************
 *
 *  Função: LIS  &Criar lista
@@ -69,7 +69,7 @@ typedef struct LIS_tagLista {
          return NULL ;
       } /* if */
 
-      LimparCabeca( lista ) ;
+      LimparCabeca( lista );
 
       lista->ExcluirValor = ExcluirValor;
       
@@ -77,7 +77,7 @@ typedef struct LIS_tagLista {
       
       strcpy(lista->idLista, idLista);
 
-      return lista ;
+      return lista;
 
    } /* Fim função: LIS  &Criar lista */
    
