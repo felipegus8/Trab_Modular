@@ -9,11 +9,11 @@
 *
 *
 *  $ED Descrição do módulo
-*     Implementa listas genÈricas duplamente encadeadas.
+*     Implementa listas genéricas duplamente encadeadas.
 *     Podem existir n listas em operação simultaneamente.
 *     As listas possuem uma cabeça encapsulando o seu estado.
 *
-*     Cada lista È homogenea quanto ao tipo dos dados que armazena.
+*     Cada lista é homogenea quanto ao tipo dos dados que armazena.
 *     Cada elemento da lista referencia o valor que contÈm.
 *
 *     Os ponteiros para os dados são copiados para elementos da lista.
@@ -26,12 +26,12 @@
 *        desalocados os dados nela contidos.
 *
 *     A função de liberação dos valores contidos nos elementos deve
-*        assegurar a liberaÁ„o de todos os espaÁos referÍnciados pelo
+*        assegurar a liberação de todos os espaços referênciados pelo
 *        valor contido em um elemento.
-*        Esta funÁ„o È chamada antes de se desalocar um elemento
+*        Esta função é chamada antes de se desalocar um elemento
 *        de uma lista.
 *        Caso não seja necess·rio desalocar o valor referenciado pelo
-*        elemento, o ponteiro para a funÁ„o de liberaÁ„o poder· ser NULL .
+*        elemento, o ponteiro para a função de liberação pode ser NULL .
 *        Caso o elemento da lista seja a ˙nica ‚ncora do valor referenciado,
 *        esta função deve promover a destruição (free) desse valor e
 *        de todos os dados nele ancorados.
@@ -89,7 +89,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 *  $ED Descrição da função
 *     Cria uma lista genérica duplamente encadeada.
-*     Os possÌveis tipos são desconhecidos a priori.
+*     Os possíveis tipos são desconhecidos a priori.
 *     A tipagem é implicita.
 *     Há uma string de até 4 caracteres que serve como identificador da lista.
 *
@@ -113,13 +113,167 @@ typedef struct LIS_tagLista * LIS_tppLista ;
              void   ( * ExcluirValor ) ( void * pDado ) ) ;
              
              
+             
+ ***********************************************************************/
+
+*  $FC Função: LIS  &Obter Id Lista
+*
+*  $ED Descrição da função
+*     Obtem idLista de uma lista duplamente encadeada 
+*
+*  $EP Parâmetros
+*     pLista = ponteiro para a lista de onde deve ser obtido o valor de IdLista
+*
+*  $FV Valor retornado
+*     Se executou corretamente retorna o valor de IdLista(string de até 4 caracteres).
+*     Se ocorreu algum erro, por exemplo pLista não existe,
+*     a função retornar· NULL.
+
+
 ***********************************************************************/
-
-
-
 
    char *obterIdLista(LIS_tppLista lista);
 
 ************************************************************************/ 
+
+*  $FC Função: LIS  &Inserir nó na lista
+*
+*  $ED Descrição da função
+*     Insere elemento do tipo char na posição seguinte à corrente
+*
+*  $EP Parâmetros
+*     pLista = ponteiro para a lista onde deverá ser inserido o elemento
+      elemento = string que será inserida no nó seguinte ao nó corrente
+*
+*  $FV Valor retornado
+*     Retorna 0 caso a inserção tenha conseguido inserir com sucesso.
+*     Já, em caso de, falta de memória retorna 6
+
+***********************************************************************/
+
+
+   int inserirNo(LIS_tppLista lista, char *elemento);
+   
+************************************************************************/ 
+
+*  $FC Função: LIS  &Obter nó na lista
+*
+*  $ED Descrição da função
+*     Obtem valor contido no nó corrente
+*
+*  $EP Parâmetros
+*     pLista = ponteiro para a lista de onde deverá ser obtido o elemento
+    
+*
+*  $FV Valor retornado
+*     Retorna 0 caso tenha obtido corretamente.
+*     Já,se a lista estiver vazia, retorna 2
+   
+************************************************************************/   
+   
+  int obterNo(LIS_tppLista lista); 
+
+************************************************************************/ 
+
+*  $FC Função: LIS  &Excluir nó corrente
+*
+*  $ED Descrição da função
+*     exclui o nó corrente da lista
+*
+*  $EP Parâmetros
+*     pLista = ponteiro para a lista de onde deverá ser excluido o nó corrente
+    
+*
+*  $FV Valor retornado
+*     Retorna 0 caso tenha excluido corretamente.
+*     Já,se a lista estiver vazia, não faz nada e retorna 2
+   
+************************************************************************/   
+
+int excluirNoCorrente(LIS_tppLista lista);
+
+************************************************************************/ 
+
+*  $FC Função: LIS  &Ir para o próximo nó
+*
+*  $ED Descrição da função
+*     Avança o elemento corrente um elemento a frente
+*
+*  $EP Parâmetros
+*     pLista = ponteiro para a lista de onde deverá ser excluido o nó corrente
+    
+*
+*  $FV Valor retornado
+*     Retorna 0 caso a movimentação tenha sido bem sucedida
+*     Retorna 2, caso a lista esteja vazia.
+*     Retorna 4, caso o nó corrente seja o ultimo
+   
+************************************************************************/   
+
+int irProx(LIS_tppLista lista);
+
+************************************************************************/ 
+
+*  $FC Função: LIS  &Ir para o nó anterior
+*
+*  $ED Descrição da função
+*     Retorna o elemento corrente um elemento para trás
+*
+*  $EP Parâmetros
+*     pLista = ponteiro para a lista de onde deverá ser excluido o nó corrente
+    
+*
+*  $FV Valor retornado
+*     Retorna 0 caso a movimentação tenha sido bem sucedida
+
+
+
+*     Retorna 2, caso a lista esteja vazia.
+*     Retorna 5, caso o nó corrente seja o primeiro
+   
+************************************************************************/   
+
+int irAnt(LIS_tppLista lista);
+
+************************************************************************/ 
+
+*  $FC Função: LIS  &Alterar nó corrente
+*
+*  $ED Descrição da função
+*     Altera o valor do elemento corrente para o valor da string passada como parâmetro
+*
+*  $EP Parâmetros
+*     pLista = ponteiro para a lista de onde deverá ser excluido o nó corrente
+*     novo = string, a qual substituirá o valor do elemento corrente 
+*
+*  $FV Valor retornado
+*     Retorna 0 caso a alteração tenha sido bem sucedida
+*     Retorna 2, caso a lista esteja vazia.
+*     Retorna 3, caso a lista não exista
+   
+************************************************************************/  
+
+int alterarNoCorrente(LIS_tppLista lista, char *novo);
+
+************************************************************************/  
+
+*  $FC Função: LIS  &Destroi lista
+*
+*  $ED Descrição da função
+*     Destroi a cabeça da lista fornecida como parâmetro e todos os nós existentes na lista.
+*
+*  $EP Parâmetros
+*     pLista = ponteiro para a lista que deverá ser excluida
+*
+*  $FV Valor retornado
+*     Retorna 0 caso a destruição tenha sido bem sucedida
+*     Retorna 3, caso a lista não exista
+
+************************************************************************/ 
+
+   int destroiLista(LIS_tppLista lista);
+
+************************************************************************/ 
+
 
 
