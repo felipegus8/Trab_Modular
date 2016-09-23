@@ -109,6 +109,17 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-   LIS_tppLista LIS_CriarLista(
+   LIS_tppLista LIS_CriarLista(char idLista[4]
              void   ( * ExcluirValor ) ( void * pDado ) ) ;
+             
+             
+***********************************************************************/
+
+
+
+
+   char *obterIdLista(LIS_tppLista lista);
+
+************************************************************************/ 
+
 
