@@ -130,16 +130,19 @@ typedef struct LIS_tagLista {
            return 0;
   }
 
+  /***************************************************************************
+*
+*  Função: LIS  &Obter nó na Lista
+*  ****/
+   
+   int obterNo(LIS_tppLista lista, char *s) {
+           #ifdef _DEBUG
+           assert( pLista != NULL ) ;
+           #endif
+           if(lista->pElemCorr == NULL) {
+                    return 2;
+           }
+           strcpy(s, (char *)lista->pElemCorr->pValor);
+           return 0;
+   } 
 
-/*
-char *obterIdLista(LIS_tppLista pLista) {
-   #ifdef _DEBUG
-   assert(plista != NULL) 
-    #endif
-    if(pLista == NULL) {
-        return NULL;
-    }
-    return pLista->idLista;
-   }
-
-*/
