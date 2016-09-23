@@ -71,7 +71,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
           numLidos   = -1 ,
           CondRetEsp = -1  ;
 
-      TST_tpCondRet CondRet ;
+      int CondRet ;
 
       char   StringDado[  DIM_VALOR ] ;
       char * pDado ;
@@ -115,12 +115,78 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 			 pDado = ( char * ) obterIdLista( vtListas[ inxLista ] ) ;
 
             return TST_CompararString( StringDado , pDado ,
-                         "Valor do elemento errado." ) ;
+                         "Valor do ID Lista errado." ) ;
          } /* fim ativa: Testar obter valor do idLista */
+		 
 		 else if (strcmp(ComandoTeste,INSERIR_NO) == 0)
 		 {
-			 
-		 }
+			  numLidos = LER_LerParametros( "isi" ,
+                       &inxLista , StringDado , &CondRetEsp ) ;
+
+            if ( ( numLidos != 3 )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) || !(ValidarString(StringDado)) )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+			pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
+            if ( pDado == NULL )
+            {
+               return TST_CondRetMemoria ;
+            } /* if */
+
+            strcpy( pDado , StringDado ) ;
+			
+			CondRet = inserirNo( vtListas[ inxLista ] , pDado ) ;
+
+            if ( CondRet != 0 )
+            {
+               free( pDado ) ;
+            } /* if */
+
+            return TST_CompararInt( CondRetEsp , CondRet ,
+                     "Condicao de retorno errada ao inserir o nó." ) ;
+		 }/*fim ativa:Testar inserir nó*/
+		 
+		 else if (strcmp(ComandoTeste,OBTER_NO) == 0)
+		 {
+			  numLidos = LER_LerParametros( "isi" ,
+                       &inxLista , StringDado , &CondRetEsp ) ;
+
+            if ( ( numLidos != 3 )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) || !(ValidarString(StringDado)) )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+			pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
+            if ( pDado == NULL )
+            {
+               return TST_CondRetMemoria ;
+            } /* if */
+
+            strcpy( pDado , StringDado ) ;
+			
+			CondRet = obterNo(vtListas[inxLista],pDado);
+			 if ( CondRet != 0 )
+            {
+               free( pDado ) ;
+            } /* if */
+			  return TST_CompararString( StringDado , pDado ,
+                         "Valor Encontrado diferente do esperado." ) ;
+		 }/*fim ativa:Testar obter nó*/
+		 
+		 else if (strcmp(ComandoTeste,EXCLUIR_NO_CORRENTE) == 0)
+		 {
+				numLidos = LER_LerParametros("i",&inxLista);
+				if ( ( numLidos != 1 )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+            {
+               return TST_CondRetParm ;
+            } /* if */
+			CondRetEsp = 0
+			return TST_CompararInt( CondRetEsp ,
+                      excluirNoCorrente( vtListas[ inxLista ] ) ,
+                     "Condição de retorno errada ao excluir o no corrente."  ) ;
+		 }/*fim ativa:Testar excluir nó corrente*/
 		 }
    }
 	  
