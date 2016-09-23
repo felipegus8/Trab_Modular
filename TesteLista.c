@@ -27,7 +27,7 @@ static const char DESTROI_LISTA             [ ] = "=destroiLista"     ;
 #define VAZIO     0
 #define NAO_VAZIO 1
 
-#define DIM_VT_LISTA   100
+#define DIM_VT_LISTA   10
 #define DIM_VALOR     100
 
 LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
@@ -47,7 +47,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 *  $FC Função: TLIS &Testar lista
 *
 *  $ED Descrição da função
-*     Podem ser criadas até 100 listas, identificadas pelos índices 0 a 100
+*     Podem ser criadas até 10 listas, identificadas pelos índices 0 a 10
 *
 *     Comandos disponíveis:
 *
@@ -90,8 +90,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             numLidos = LER_LerParametros( "isi" ,
                        &inxLista,StringDado,&CondRetEsp ) ;
 
-            if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , VAZIO )) || !(ValidarString(StringDado)))
+            if ( ( numLidos != 3 ) || ( ! ValidarInxLista( inxLista , VAZIO )) || !(ValidarString(StringDado)))
             {
                return TST_CondRetParm ;
             } /* if */
@@ -99,23 +98,20 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             vtListas[ inxLista ] =
                  LIS_CriarLista( StringDado,DestruirValor ) ;
 
-            return TST_CompararPonteiroNulo( 1 , vtListas[ inxLista ] ,
-               "Erro em ponteiro de nova lista."  ) ;
+            return TST_CompararPonteiroNulo( 1 , vtListas[ inxLista ] , "Erro em ponteiro de nova lista."  ) ;
 
          } /* fim ativa: Testar CriarLista */
 		 else if (strcmp(ComandoTeste , OBTER_ID_LISTA) == 0)
 		 {
 			 numLidos = LER_LerParametros("is",&inxLista,StringDado);
-			  if ( ( numLidos != 2 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) || !(ValidarString(StringDado)))
+			  if ( ( numLidos != 2 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) || !(ValidarString(StringDado)))
             {
                return TST_CondRetParm ;
             } /* if */
 			
 			 pDado = ( char * ) obterIdLista( vtListas[ inxLista ] ) ;
 
-            return TST_CompararString( StringDado , pDado ,
-                         "Valor do ID Lista errado." ) ;
+            return TST_CompararString( StringDado , pDado , "Valor do ID Lista errado." ) ;
          } /* fim ativa: Testar obter valor do idLista */
 		 
 		 else if (strcmp(ComandoTeste,INSERIR_NO) == 0)
@@ -123,8 +119,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 			  numLidos = LER_LerParametros( "isi" ,
                        &inxLista , StringDado , &CondRetEsp ) ;
 
-            if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) || !(ValidarString(StringDado)) )
+            if ( ( numLidos != 3 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) || !(ValidarString(StringDado)) )
             {
                return TST_CondRetParm ;
             } /* if */
@@ -143,8 +138,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                free( pDado ) ;
             } /* if */
 
-            return TST_CompararInt( CondRetEsp , CondRet ,
-                     "Condicao de retorno errada ao inserir o nó." ) ;
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao inserir o nó." ) ;
 		 }/*fim ativa:Testar inserir nó*/
 		 
 		 else if (strcmp(ComandoTeste,OBTER_NO) == 0)
@@ -152,8 +146,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 			  numLidos = LER_LerParametros( "isi" ,
                        &inxLista , StringDado , &CondRetEsp ) ;
 
-            if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) || !(ValidarString(StringDado)) )
+            if ( ( numLidos != 3 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) || !(ValidarString(StringDado)) )
             {
                return TST_CondRetParm ;
             } /* if */
@@ -170,23 +163,76 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             {
                free( pDado ) ;
             } /* if */
-			  return TST_CompararString( StringDado , pDado ,
-                         "Valor Encontrado diferente do esperado." ) ;
+			  return TST_CompararString( StringDado , pDado ,"Valor Encontrado diferente do esperado." ) ;
 		 }/*fim ativa:Testar obter nó*/
 		 
 		 else if (strcmp(ComandoTeste,EXCLUIR_NO_CORRENTE) == 0)
 		 {
 				numLidos = LER_LerParametros("i",&inxLista);
-				if ( ( numLidos != 1 )
+				if ( ( numLidos != 1 )|| ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+            {
+               return TST_CondRetParm ;
+            } /* if */
+			CondRetEsp = 0;
+			return TST_CompararInt( CondRetEsp ,excluirNoCorrente( vtListas[ inxLista ] ) ,"Condição de retorno errada ao excluir o no corrente."  ) ;
+		 }/*fim ativa:Testar excluir nó corrente*/
+		 
+		 
+		 else if (strcmp(ComandoTeste,IR_PROX) == 0)
+		 {
+			 numLidos = LER_LerParametros("ii",&inxLista,&CondRetEsp);
+			 if ( ( numLidos != 2 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+            {
+               return TST_CondRetParm ;
+            } /* if */
+			CondRet = irProx(vtLista[inxLista]);
+			return TST_CompararInt( CondRetEsp ,CondRet,"Condição de retorno errada ao ir para o próximo elemento da lista"  ) ;
+		 }/*fim ativa:Testar ir próximo*/
+		 
+		 
+		 else if (strcmp(ComandoTeste,IR_ANT) == 0)
+		 {
+			 numLidos = LER_LerParametros("ii",&inxLista,&CondRetEsp);
+			 if ( ( numLidos != 2 )
               || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
-			CondRetEsp = 0
-			return TST_CompararInt( CondRetEsp ,
-                      excluirNoCorrente( vtListas[ inxLista ] ) ,
-                     "Condição de retorno errada ao excluir o no corrente."  ) ;
-		 }/*fim ativa:Testar excluir nó corrente*/
+			CondRet = irAnt(vtLista[inxLista]);
+			return TST_CompararInt( CondRetEsp ,CondRet ,"Condição de retorno errada ao ir para o elemento anterior da lista" ) ;
+		 }/*fim ativa:Testar ir anterior*/
+		 
+		 
+		 else if(strcmp(ComandoTeste,ALTERAR_NO_CORRENTE) == 0)
+		 {
+			 numLidos = LER_LerParametros("isi",&inxLista,StringDado,&CondRetEsp);
+			 if ( ( numLidos != 2 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+            {
+               return TST_CondRetParm ;
+            } /* if */
+			pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
+            if ( pDado == NULL )
+            {
+               return TST_CondRetMemoria ;
+            } /* if */
+
+            strcpy( pDado , StringDado ) ;
+			CondRet = alterarNoCorrente(vtListas[inxLista],pDado);
+			return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao alterar o conteúdo do nó corrente" ) ;
+		 }/*fim ativa:Testar alterar nó corrente*/
+		 else if(strcmp(ComandoTeste,DESTROI_LISTA) == 0)
+		 {
+			  numLidos = LER_LerParametros( "i" ,&inxLista,&CondRetEsp ) ;
+
+            if ( ( numLidos != 2 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRet = destroiLista( vtListas[ inxLista ] ) ;
+            vtListas[ inxLista ] = NULL ;
+            return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao destruir a lista" ) ;
+		 }			 
 		 }
    }
 	  
