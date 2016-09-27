@@ -109,8 +109,8 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-   LIS_tppLista LIS_CriarLista(char idLista[4]
-             void   ( * ExcluirValor ) ( void * pDado ) ) ;
+   LIS_tpCondRet LIS_CriarLista(char idLista[4]
+             void   ( * ExcluirValor ) ( void * pDado ),LIS_tppLista lista ) ;
              
              
              
@@ -132,7 +132,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
 ***********************************************************************/
 
-   char *obterIdLista(LIS_tppLista lista);
+   LIS_tpCondRet obterIdLista(LIS_tppLista lista, char *IdLista);
 
 ************************************************************************/ 
 
@@ -152,7 +152,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 ***********************************************************************/
 
 
-   int inserirNo(LIS_tppLista lista, char *elemento);
+   LIS_tpCondRet inserirNo(LIS_tppLista lista, char *elemento);
    
 ************************************************************************/ 
 
@@ -171,7 +171,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
    
 ************************************************************************/   
    
-  int obterNo(LIS_tppLista lista); 
+  LIS_tpCondRet obterNo(LIS_tppLista lista); 
 
 ************************************************************************/ 
 
@@ -190,7 +190,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
    
 ************************************************************************/   
 
-int excluirNoCorrente(LIS_tppLista lista);
+LIS_tpCondRet excluirNoCorrente(LIS_tppLista lista);
 
 ************************************************************************/ 
 
@@ -210,7 +210,7 @@ int excluirNoCorrente(LIS_tppLista lista);
    
 ************************************************************************/   
 
-int irProx(LIS_tppLista lista);
+LIS_tpCondRet irProx(LIS_tppLista lista);
 
 ************************************************************************/ 
 
@@ -233,7 +233,7 @@ int irProx(LIS_tppLista lista);
    
 ************************************************************************/   
 
-int irAnt(LIS_tppLista lista);
+LIS_tpCondRet irAnt(LIS_tppLista lista);
 
 ************************************************************************/ 
 
@@ -253,7 +253,7 @@ int irAnt(LIS_tppLista lista);
    
 ************************************************************************/  
 
-int alterarNoCorrente(LIS_tppLista lista, char *novo);
+LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, char *novo);
 
 ************************************************************************/  
 
@@ -271,7 +271,7 @@ int alterarNoCorrente(LIS_tppLista lista, char *novo);
 
 ************************************************************************/ 
 
-   int destroiLista(LIS_tppLista lista);
+   LIS_tpCondRet destroiLista(LIS_tppLista lista);
 
 ************************************************************************/ 
 
