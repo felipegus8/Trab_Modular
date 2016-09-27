@@ -57,8 +57,8 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Criar lista
 *  ****/
 
-   LIS_tppLista LIS_CriarLista(char idLista[4]
-             void   ( * ExcluirValor ) ( void * pDado ))
+   LIS_tpCondRet LIS_CriarLista(char idLista[4]
+             void   ( * ExcluirValor ) ( void * pDado ), LIS_tppLista lista)
    {
 
       LIS_tppLista * lista = NULL ;
@@ -66,7 +66,7 @@ typedef struct LIS_tagLista {
       lista = ( LIS_tpLista * ) malloc( sizeof( LIS_tppLista )) ;
       if ( lista == NULL )
       {
-         return NULL ;
+         return LIS_CondRetFaltouMemoria ;
       } /* if */
 
       LimparCabeca( lista );
@@ -77,7 +77,7 @@ typedef struct LIS_tagLista {
       
       strcpy(lista->idLista, idLista);
 
-      return lista;
+      return LIS_CondRetOK;
 
    } /* Fim função: LIS  &Criar lista */
    
@@ -87,11 +87,11 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Obter Id Lista
 *  ****/
    
-   char *obterIdLista(LIS_tppLista lista) {
+   LIS_tpCondRet obterIdLista(LIS_tppLista lista, char IdLista[4]) {
             if(lista == NULL) {
-                     return NULL;
+                     return LIS_tpCondRetNaoAchou;
             }
-             return lista->idLista;
+             return LIS_tpCondRetOK;
    } 
 
 /***************************************************************************
@@ -99,7 +99,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Inserir nó na lista
 *  ****/
 
-  int inserirNo(LIS_tppLista lista, char *elemento) {
+  LIS_tpCondRet inserirNo(LIS_tppLista lista, char *elemento) {
            tpElemLista *novo;
            tpElemLista *aux;
            #ifdef _DEBUG
@@ -109,13 +109,13 @@ typedef struct LIS_tagLista {
            novo =  (tpElemLista *) malloc(sizeof(tpElemLista));
            if(novo == NULL) {
                    // printf("falta de memória para inserir novo elemento na lista\n");
-                    return 6;
+                    return LIS_CondRetFaltouMemoria;
            }
            
            tpElemLista->pValor = (char *) malloc(sizeof(char) * strlen(elemento));
            if(tpElemLista->pValor) {
                     // printf("falta de memória para inserir novo elemento na lista\n");
-                    return 6;
+                    return LIS_CondRetFaltouMemoria;
            }
            strcpy(tpElemLista->pValor, elemento);
            aux = lista->pElemCorr->pProx;
@@ -127,7 +127,7 @@ typedef struct LIS_tagLista {
            } else {
                     novo->pProx = NULL;
            }
-           return 0;
+           return LIS_CondRetOK;
   }
 
   /***************************************************************************
@@ -140,10 +140,10 @@ typedef struct LIS_tagLista {
            assert( lista != NULL ) ;
            #endif
            if(lista->pElemCorr == NULL) {
-                    return 2;
+                    return LIS_CondRetListaVazia;
            }
            strcpy(s, (char *)lista->pElemCorr->pValor);
-           return 0;
+           return LIS_CondRetOK;
    } 
 
    /***************************************************************************
@@ -159,7 +159,7 @@ typedef struct LIS_tagLista {
            tppElemLista * pElem;
            pElem = lista->pElemCorr;
            if(lista->pElemCorr == NULL) {
-                    return 2;
+                    return LIS_CondRetListaVazia;
            }
            /* Desencadeia esquerda */
 
@@ -184,7 +184,7 @@ typedef struct LIS_tagLista {
 
       LiberarElemento( pLista , pElem ) ;
 
-      return 0;
+      return LIS_CondRetOK;
             
    }/* fim função: Lis &Excluir nó  */
 
@@ -199,14 +199,14 @@ typedef struct LIS_tagLista {
            #endif
            
            if(lista->pElemCorr == NULL) {
-                    return 2;
+                    return LIS_CondRetListaVazia;
            } 
            
            if(lista->pElemCorr->pProx = NULL) {
-                    return 4;
+                    return LIS_CondRetFimLista;
            }
            lista->pElemCorr = lista->pElemCorr->pProx;
-           return 0;
+           return LIS_CondRetOK;
   }/* fim função: Lis &Ir para o próximo nó
 
    /***************************************************************************
@@ -219,14 +219,14 @@ typedef struct LIS_tagLista {
            #endif
            
            if(lista->pElemCorr == NULL) {
-                    return 2;
+                    return LIS_CondRetListaVazia;
            } 
            
            if(lista->pElemCorr->pAnt = NULL) {
-                    return 5;
+                    return LIS_CondRetFimLista;
            }
            lista->pElemCorr = lista->pElemCorr->pAnt;
-           return 0;
+           return LIS_CondRetOK;
   }/* fim função: Lis &Ir para o nó anterior */
    
      /***************************************************************************
@@ -235,15 +235,15 @@ typedef struct LIS_tagLista {
 *  ****/
    int alterarNoCorrente(LIS_tppLista lista, char *novo) {
            if(lista != NULL ) {
-                    return 3;
+                    return LIS_CondRetFimLista;
            }
            
            if(lista->pElemCorr == NULL) {
-                    return 2;
+                    return LIS_CondRetListaVazia;
            }  
            
            strcpy(lista->pElemCorr->pValor, novo);
-           return 0;
+           return LIS_CondRetOK;
    }/* fim função: Lis &Alterar nó corrente */
     
         /***************************************************************************
@@ -253,13 +253,13 @@ typedef struct LIS_tagLista {
       int destroiLista(LIS_tpp lista) {
 
           if(lista == NULL) {
-                   return 3;
+                   return LIS_CondRetFimLista;
           } 
 
       EsvaziarLista( lista ) ;
 
       free( lista ) ;
-      return 0;
+      return LIS_CondRetOK;
    } /* Fim funÁ„o: LIS  &Destruir lista */
 
 /***************************************************************************
