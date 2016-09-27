@@ -123,11 +123,12 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 *  $EP Parâmetros
 *     pLista = ponteiro para a lista de onde deve ser obtido o valor de IdLista
+*     IdLista = string identificador da lista
 *
 *  $FV Valor retornado
-*     Se executou corretamente retorna o valor de IdLista(string de até 4 caracteres).
+*     Se executou corretamente retorna OK.
 *     Se ocorreu algum erro, por exemplo pLista não existe,
-*     a função retornar· NULL.
+*     a função retorna NaoAchou.
 
 
 ***********************************************************************/
@@ -146,8 +147,8 @@ typedef struct LIS_tagLista * LIS_tppLista ;
       elemento = string que será inserida no nó seguinte ao nó corrente
 *
 *  $FV Valor retornado
-*     Retorna 0 caso a inserção tenha conseguido inserir com sucesso.
-*     Já, em caso de, falta de memória retorna 6
+*     Retorna OK, caso a inserção tenha sido bem sucedida.
+*     Já, em caso de, retorna FaltouMemoria.
 
 ***********************************************************************/
 
@@ -166,8 +167,8 @@ typedef struct LIS_tagLista * LIS_tppLista ;
       s = string para onde será copiado o valor contido no elemento corrente
 *
 *  $FV Valor retornado
-*     Retorna 0 caso tenha obtido corretamente.
-*     Já,se a lista estiver vazia, retorna 2
+*     Retorna OK caso tenha obtido corretamente.
+*     Já,se a lista estiver vazia, retorna ListaVazia
    
 ************************************************************************/   
    
@@ -185,8 +186,8 @@ typedef struct LIS_tagLista * LIS_tppLista ;
     
 *
 *  $FV Valor retornado
-*     Retorna 0 caso tenha excluido corretamente.
-*     Já,se a lista estiver vazia, não faz nada e retorna 2
+*     Retorna OK caso tenha excluido corretamente.
+*     Já,se a lista estiver vazia, não faz nada e retorna ListaVazia
    
 ************************************************************************/   
 
@@ -204,9 +205,9 @@ LIS_tpCondRet excluirNoCorrente(LIS_tppLista lista);
     
 *
 *  $FV Valor retornado
-*     Retorna 0 caso a movimentação tenha sido bem sucedida
-*     Retorna 2, caso a lista esteja vazia.
-*     Retorna 4, caso o nó corrente seja o ultimo
+*     Retorna OK caso a movimentação tenha sido bem sucedida
+*     Retorna ListaVazia, caso a lista esteja vazia.
+*     Retorna FimLista, caso o nó corrente seja o ultimo
    
 ************************************************************************/   
 
@@ -224,12 +225,9 @@ LIS_tpCondRet irProx(LIS_tppLista lista);
     
 *
 *  $FV Valor retornado
-*     Retorna 0 caso a movimentação tenha sido bem sucedida
-
-
-
-*     Retorna 2, caso a lista esteja vazia.
-*     Retorna 5, caso o nó corrente seja o primeiro
+*     Retorna OK caso a movimentação tenha sido bem sucedida
+*     Retorna ListaVazia, caso a lista esteja vazia.
+*     Retorna FimLista, caso o nó corrente seja o primeiro
    
 ************************************************************************/   
 
@@ -247,9 +245,9 @@ LIS_tpCondRet irAnt(LIS_tppLista lista);
 *     novo = string, a qual substituirá o valor do elemento corrente 
 *
 *  $FV Valor retornado
-*     Retorna 0 caso a alteração tenha sido bem sucedida
-*     Retorna 2, caso a lista esteja vazia.
-*     Retorna 3, caso a lista não exista
+*     Retorna OK caso a alteração tenha sido bem sucedida
+*     Retorna ListaVazia, caso a lista esteja vazia.
+*     Retorna FimLista, caso a lista não exista
    
 ************************************************************************/  
 
@@ -264,10 +262,11 @@ LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, char *novo);
 *
 *  $EP Parâmetros
 *     pLista = ponteiro para a lista que deverá ser excluida
+*     novo = string que entrará no lugar da string no nó corrente
 *
 *  $FV Valor retornado
-*     Retorna 0 caso a destruição tenha sido bem sucedida
-*     Retorna 3, caso a lista não exista
+*     Retorna OK caso a destruição tenha sido bem sucedida
+*     Retorna FimLista, caso a lista não exista
 
 ************************************************************************/ 
 
