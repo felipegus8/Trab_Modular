@@ -28,19 +28,19 @@ typedef enum {
 
 
    
-Lis_tpCondRet InserirPeca(int x,char y,char *cor);
+TAB_tpCondRet InserirPeca(int x,char y,char *cor);
 
-Lis_tpCondRet MoverPeca(int xo,char yo,int xd,char yd);
+TAB_tpCondRet MoverPeca(int xo,char yo,int xd,char yd);
 
-LIS_tpCondRet RetirarPeca(int x, char y);
+TAB_tpCondRet RetirarPeca(int x, char y);
 
-LIS_tpCondRet ObterPeca(int x, char y,char *nome,char *cor);
+TAB_tpCondRet ObterPeca(int x, char y,char *nome,char *cor);
 
-LIS_tpCondRet ObterListaAmeacantes(int x,char y,LIS_tppLista lista); //a ser editada
+TAB_tpCondRet ObterListaAmeacantes(int x,char y,LIS_tppLista lista); //a ser editada
 
-LIS_tpCondRet ObterListaAmeacados(int x,char y,LIS_tppLista lista); //a ser editada
+TAB_tpCondRet ObterListaAmeacados(int x,char y,LIS_tppLista lista); //a ser editada
 
-LIS_tpCondRet DestruirTabuleiro();
+TAB_tpCondRet DestruirTabuleiro();
 
 
 
