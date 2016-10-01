@@ -6,6 +6,24 @@ typedef struct casa Casa;
 
 typedef tabuleiro Casa[8][8];
 
+typedef enum {
+
+         TAB_CondRetOK ,
+               /* Concluiu corretamente */
+
+         TAB_CondRetCasaVazia ,
+               /* A casa não contém peças */
+
+         LIS_CondRetFimLista ,
+               /* Foi atingido o fim de lista */
+
+         LIS_CondRetNaoAchou ,
+               /* Não encontrou o valor procurado */
+
+         TAB_CondRetFaltouMemoria
+               /* Faltou memória ao tentar criar uma lista dentro da casa*/
+
+   } TAB_tpCondRet ;
 
 
 
