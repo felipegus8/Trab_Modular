@@ -44,9 +44,40 @@ typedef struct LIS_tagLista {
    
    
    
+   typedef struct casa {
+         LIS_tppLista *ameacados;
+         /* ponteiro para a cabeça da lista que contém as peças ameaçadas pela peça da casa */
+         LIS_tppLista *amecantes;
+         /* ponteiro para a cabeça da lista que contém as peças que ameaçam a peça da casa */
+         Peca *peca;
+         /*ponteiro para a estrutura da peça contida na casa */
+   } Casa;
+
+   void destruirValor(void *pValor);
    
+   TAB_tpCondRet criaTabuleiro(Casa **tabuleiro,char idListaAmeacados[4],char idListaAmeacantes[4]) {
    
+    int i = 0,j=0;
+    tabuleiro = malloc(sizeof(Casa) * 64);
+    if(tabuleiro == NULL) {
+         return -1;
+    }        
+    
+    while(i<8) {
+         while(j<8) {
+              LIS_CriarLista(idListaAmeacados,DestruirValor,tabuleiro[i][j]->ameacados);
+              LIS_CriarLista(idListaAmeacantes,DestruirValor,tabuleiro[i][j]->ameacantes);
+              tabuleiro[i][j]->peca = NULL;
+              j++;
+         }
+         i++;
+    }
+            
+   return LIS_CondRetOK;
+   }
+
    
-   
-   
+   void destruirValor(void *pValor) {
+        free(pValor);
+   }
 
