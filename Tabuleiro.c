@@ -4,45 +4,7 @@
 #include <assert.h>
 #include <string.h>
 #include "Tabuleiro.h"
-
-
-typedef struct tagElemLista {
-
-         void * pValor ;
-               /* Ponteiro para o valor contido no elemento */
-
-         struct tagElemLista * pAnt ;
-               /* Ponteiro para o elemento predecessor */
-
-         struct tagElemLista * pProx ;
-               /* Ponteiro para o elemento sucessor */
-
-   } tpElemLista ;
-
-
-typedef struct LIS_tagLista {
-
-         tpElemLista * pOrigemLista ;
-               /* Ponteiro para a origem da lista */
-
-         tpElemLista * pFimLista ;
-               /* Ponteiro para o final da lista */
-
-         tpElemLista * pElemCorr ;
-               /* Ponteiro para o elemento corrente da lista */
-
-         int numElem ;
-               /* Número de elementos da lista */
-               
-         char idLista[4];
-              /*  String que identifica a lista */
-         void ( * ExcluirValor ) ( void * pValor ) ;
-               /* Ponteiro para a função de destruição do valor contido em um elemento */
-
-   } LIS_tppLista ;
-   
-   
-   
+    
    
    typedef struct casa {
          LIS_tppLista *ameacados;
@@ -55,25 +17,47 @@ typedef struct LIS_tagLista {
 
    void destruirValor(void *pValor);
    
-   TAB_tpCondRet criaTabuleiro(Casa **tabuleiro,char idListaAmeacados[4],char idListaAmeacantes[4]) {
+   TAB_tpCondRet criaTabuleiro(Casa **tabuleiro) {
    
     int i = 0,j=0;
+    char a = 'A';
+    char b = 'B';
+    char idListaAmeacadosX = '0';//linha da casa onde reside a lista ameacados
+    char idListaAmeacadosY; //coluna da casa onde reside a lista ameacados
+    char idListaAmeacantesX = '0';//linha da casa onde reside a lista ameacantes
+    char idListaAmeacadosY;//coluna da casa onde reside a lista ameacantes
+    char idListaAmeacantes[4];
+    char idListaAmecantes[4];
     tabuleiro = malloc(sizeof(Casa) * 64);
     if(tabuleiro == NULL) {
-         return -1;
+         return TAB_CondRetFaltouMemoria;
     }        
     
     while(i<8) {
+             idListaAmeacadosY = 'A';
+             idListaAmeacantesY = 'A';
          while(j<8) {
+              strcpy(idListaAmeacados,idListaAmeacadosX);
+              strcat(idLIstaAmeacados,idListaAmeacadosY);
+              strcat(idListaAmeacados,a);
+              //as 3 linhas acima fazem com que a string identificadora da lista fique da forma "linhaColunaA"
+              strcpy(idListaAmeacantes,idListaAmeacantesX);
+              strcat(idLIstaAmeacantes,idListaAmeacantesY);
+              strcat(idListaAmeacantes,b);
+              //as 3 linhas acima fazem com que a string identificadora da lista fique da forma "linhaColunaB"    
               LIS_CriarLista(idListaAmeacados,DestruirValor,tabuleiro[i][j]->ameacados);
               LIS_CriarLista(idListaAmeacantes,DestruirValor,tabuleiro[i][j]->ameacantes);
               tabuleiro[i][j]->peca = NULL;
+              idListaAmeacadosY++;
+              idListaAmeacantesY++;
               j++;
          }
+         idListaAmeacadosX++;
+         idListaAmeacantesX++;
          i++;
     }
             
-   return LIS_CondRetOK;
+   return TAB_CondRetOK;
    }
 
    
