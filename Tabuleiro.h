@@ -9,24 +9,6 @@ typedef tabuleiro Casa[8][8];
 
 
 
-typedef enum {
-
-         LIS_CondRetOK ,
-               /* Concluiu corretamente */
-
-         LIS_CondRetListaVazia ,
-               /* A lista não contÈm elementos */
-
-         LIS_CondRetFimLista ,
-               /* Foi atingido o fim de lista */
-
-         LIS_CondRetNaoAchou ,
-               /* Não encontrou o valor procurado */
-
-         LIS_CondRetFaltouMemoria
-               /* Faltou memória ao tentar criar um elemento de lista */
-
-   } LIS_tpCondRet ;
    
 Lis_tpCondRet InserirPeca(int x,char y,char *cor);
 
