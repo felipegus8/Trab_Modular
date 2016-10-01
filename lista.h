@@ -275,4 +275,4 @@ LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, char *novo);
 ************************************************************************/ 
 
 
-
+#endif
