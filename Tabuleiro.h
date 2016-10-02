@@ -17,8 +17,8 @@ typedef enum {
          TAB_CondRetCoordenadaNExiste ,
                /* coordenada inserida não existe */
 
-         TAB_CondRetNaoAchou ,
-               /* Não encontrou o valor procurado */
+         TAB_CondRetNaoAchouPeca ,
+               /* Não encontrou a peca procurada */
 
          TAB_CondRetFaltouMemoria
                /* Faltou memória ao tentar criar uma lista dentro da casa*/
