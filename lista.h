@@ -153,7 +153,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 ***********************************************************************/
 
 
-   LIS_tpCondRet inserirNo(LIS_tppLista lista, char *elemento);
+   LIS_tpCondRet inserirNo(LIS_tppLista lista, void *elemento);
    
 ************************************************************************/ 
 
@@ -242,7 +242,7 @@ LIS_tpCondRet irAnt(LIS_tppLista lista);
 *
 *  $EP Parâmetros
 *     pLista = ponteiro para a lista de onde deverá ser excluido o nó corrente
-*     novo = string, a qual substituirá o valor do elemento corrente 
+*     novo = valor o qual substituirá o valor do elemento corrente 
 *
 *  $FV Valor retornado
 *     Retorna OK caso a alteração tenha sido bem sucedida
@@ -251,7 +251,7 @@ LIS_tpCondRet irAnt(LIS_tppLista lista);
    
 ************************************************************************/  
 
-LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, char *novo);
+LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, void *novo);
 
 ************************************************************************/  
 
@@ -262,7 +262,6 @@ LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, char *novo);
 *
 *  $EP Parâmetros
 *     pLista = ponteiro para a lista que deverá ser excluida
-*     novo = string que entrará no lugar da string no nó corrente
 *
 *  $FV Valor retornado
 *     Retorna OK caso a destruição tenha sido bem sucedida
