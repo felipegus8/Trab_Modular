@@ -4,6 +4,8 @@
 #include <assert.h>
 #include <string.h>
 #include "Tabuleiro.h"
+
+//Felipe e Luis, não consegui pensar em nenhuma maneira criativa de representar a movimentação da peça
     
    typedef struct peca {
         char *id;  // string identificadora da peça
