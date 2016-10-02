@@ -36,9 +36,9 @@ TAB_tpCondRet RetirarPeca(int x, char y);
 
 TAB_tpCondRet ObterPeca(int x, char y,char *nome,char *cor);
 
-TAB_tpCondRet ObterListaAmeacantes(int x,char y,LIS_tppLista lista); //a ser editada
+TAB_tpCondRet ObterListaAmeacantes(int x,char y,LIS_tppLista listaAmeacados); //a ser editada
 
-TAB_tpCondRet ObterListaAmeacados(int x,char y,LIS_tppLista lista); //a ser editada
+TAB_tpCondRet ObterListaAmeacados(int x,char y,LIS_tppLista listaAmeacantes); //a ser editada
 
 TAB_tpCondRet DestruirTabuleiro();
 
