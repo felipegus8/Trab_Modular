@@ -14,10 +14,10 @@ typedef enum {
          TAB_CondRetCasaVazia ,
                /* A casa não contém peças */
 
-         LIS_CondRetFimLista ,
-               /* Foi atingido o fim de lista */
+         TAB_CondRetCoordenadaNExiste ,
+               /* coordenada inserida não existe */
 
-         LIS_CondRetNaoAchou ,
+         TAB_CondRetNaoAchou ,
                /* Não encontrou o valor procurado */
 
          TAB_CondRetFaltouMemoria
