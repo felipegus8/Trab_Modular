@@ -6,8 +6,8 @@
 #include "Tabuleiro.h"
     
    typedef struct peca {
-        char id;  // string identificadora da peça
-        char cor; //cor da peça
+        char *id;  // string identificadora da peça
+        char *cor; //cor da peça
         int x; //quantidade de movimentos no eixo vertical
         int y; // quantidade de movimentos no eixo horizontal
    }Peca;   
@@ -98,7 +98,10 @@
 
    TAB_tpCondRet inserirPeca(int x, char y,char *cor,char *id) {
         int y = (int)(y - 'A');
-        
+        x--;
+        if(x>7 || x<0 || y>7 || y<0) {
+            return TAB_CondRetCoordenadaNExiste; 
+        }
         Peca *novo= (Peca *) malloc(sizeof(Peca));
         if(novo == NULL) {
             return TAB_CondRetFaltouMemoria;
@@ -109,8 +112,58 @@
         return TAB_CondRetOK:
    }
 
-
+   TAB_tpCondRet ObterListaAmeacantes(int x, char y,LIS_tppLista listaAmeacantes) {
+          int y = (int)(y - 'A');
+           x--;
+          if(x>7 || x<0 || y>7 || y<0) {
+             return TAB_CondRetCoordenadaNExiste; 
+          }
+          listaAmeacantes = tabuleiro[x,y]->ameacantes;
+          return TAB_CondRetOK;
+   }
    
+   TAB_tpCondRet ObterListaAmeacados(int x, char y,LIS_tppLista listaAmeacados) {
+          int y = (int)(y - 'A');
+           x--;
+          if(x>7 || x<0 || y>7 || y<0) {
+             return TAB_CondRetCoordenadaNExiste; 
+          }
+          listaAmeacados = tabuleiro[x,y]->ameacados;
+          return TAB_CondRetOK;
+   }
+
+   TAB_tpCondRet obterPeca(int x, char y, char *cor, char *id) {
+          Peca *peca;
+          int y = (int)(y - 'A');
+          x--;
+          if(x>7 || x<0 || y>7 || y<0) {
+             return TAB_CondRetCoordenadaNExiste; 
+          }
+          peca = tabuleiro[x][y]->peca;
+          if(peca == NULL) {
+             return TAB_CondRetCasaVazia;
+          }
+          strcpy(cor,peca->cor); 
+          strcpy(id,peca->id);
+   }
+
+   TAB_tpCondRet RetirarPeca(int x,char y) {
+          Peca *peca;
+          int y = (int)(y - 'A');
+          x--;
+          if(x>7 || x<0 || y>7 || y<0) {
+             return TAB_CondRetCoordenadaNExiste; 
+          }
+          if(peca == NULL) {
+             return TAB_CondRetCasaVazia;
+          }
+          free(peca->cor);
+          free(peca->id);
+          peca = NULL;
+   }
+
+  
+
    void destruirValor(void *pValor) {
         free(pValor);
    }
