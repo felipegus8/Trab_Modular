@@ -143,7 +143,8 @@ typedef struct LIS_tagLista {
            if(lista->pElemCorr == NULL) {
                     return LIS_CondRetListaVazia;
            }
-           strcpy(s, (char *)lista->pElemCorr->pValor);
+           //strcpy(s, (char *)lista->pElemCorr->pValor);
+           s = lista->pElemCorr->pValor;
            return LIS_CondRetOK;
    } 
 
