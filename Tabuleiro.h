@@ -4,7 +4,7 @@
 
 typedef struct casa Casa;
 
-typedef tabuleiro Casa[8][8];
+typedef struct peca Peca;
 
 typedef enum {
 
