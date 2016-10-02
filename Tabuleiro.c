@@ -28,74 +28,18 @@
 
    void destruirValor(void *pValor);
 
-   TAB_tpCondRet obterValorPeca(char *id,int movimentoX, int movimentoY) {
-            
+   void criaPeca(Peca *novo);
+   void criarListaPecas();
+   void liberarPeca(Peca *peca);
    
-   }
-   
-   TAB_tpCondRet criaTabuleiro() {
-   
-    int i = 0,j=0;
-    char a = 'A';
-    char b = 'B';    
-    char idListaAmeacadosX = '1';//linha da casa onde reside a lista ameacados
-    char idListaAmeacadosY; //coluna da casa onde reside a lista ameacados
-    char idListaAmeacantesX = '1';//linha da casa onde reside a lista ameacantes
-    char idListaAmeacadosY;//coluna da casa onde reside a lista ameacantes
-    char idListaAmeacantes[4];
-    char idListaAmecantes[4];
-    if(tabuleiro == NULL) {
-         return TAB_CondRetFaltouMemoria;
-    }        
-    
-    while(i<8) {
-             idListaAmeacadosY = 'A';
-             idListaAmeacantesY = 'A';
-         while(j<8) {
-              strcpy(idListaAmeacados,&idListaAmeacadosX);
-              strcat(idLIstaAmeacados,&idListaAmeacadosY);
-              strcat(idListaAmeacados,&a);
-              //as 3 linhas acima fazem com que a string identificadora da lista fique da forma "linhaColunaA"
-              strcpy(idListaAmeacantes,&idListaAmeacantesX);
-              strcat(idLIstaAmeacantes,&idListaAmeacantesY);
-              strcat(idListaAmeacantes,&b);
-              //as 3 linhas acima fazem com que a string identificadora da lista fique da forma "linhaColunaB"    
-              LIS_CriarLista(idListaAmeacados,DestruirValor,tabuleiro[i][j]->ameacados);
-              LIS_CriarLista(idListaAmeacantes,DestruirValor,tabuleiro[i][j]->ameacantes);
-              tabuleiro[i][j]->peca = NULL;
-              idListaAmeacadosY++;
-              idListaAmeacantesY++;
-              j++;
-         }
-         idListaAmeacadosX++;
-         idListaAmeacantesX++;
-         i++;
-    }
             
    return TAB_CondRetOK;
    }
-
-   void criaListaPecas() {
-            
-            LIS_CriarLista(idListaPeca,DestruirValor,listaPecas);
    
-   }
-   
-   criaTabuleiro(tabuleiro);
+   criaTabuleiro();
    criaListaPecas();    
 
-   TAB_tpCondRet criaPeca (char *id,int movimentoX,int movimentoY) {
-       void *elemento;
-       inserirNo(listaPecas,elemento);
-       elemento = (Peca *) malloc(sizeof(Peca));
-       if(elemento == NULL) {
-             return TAB_CondRetFaltouMemoria;
-       }
-       elemento->id = (char *) malloc(sizeof(char));
-       strcpy(elemento->id,id);
-       elemento->x = movimentoX;
-       elemento->y = movimentoY;
-   }
+   
 
    TAB_tpCondRet inserirPeca(int x, char y,char *cor,char *id) {
         int y = (int)(y - 'A');
@@ -103,11 +47,6 @@
         if(x>7 || x<0 || y>7 || y<0) {
             return TAB_CondRetCoordenadaNExiste; 
         }
-        Peca *novo= (Peca *) malloc(sizeof(Peca));
-        if(novo == NULL) {
-            return TAB_CondRetFaltouMemoria;
-        }
-        
         strcpy(peca->cor,cor);
         strcpy(peca->id,id);
         tabuleiro[x][y]->peca = novo;
@@ -184,12 +123,6 @@
    }
   
 
-   void liberaPeca(Peca *peca) {
-         free(peca->cor);
-         free(peca->id);
-         free(peca);
-   }
-
    TAB_tpCondRet DestruirTabuleiro() {
           int i=0,j=0;
           while(i<8) {
@@ -204,9 +137,88 @@
    
    }
 
+   TAB_tpCondRet criaTabuleiro() {
+   
+    int i = 0,j=0;
+    char a = 'A';
+    char b = 'B';    
+    char idListaAmeacadosX = '1';//linha da casa onde reside a lista ameacados
+    char idListaAmeacadosY; //coluna da casa onde reside a lista ameacados
+    char idListaAmeacantesX = '1';//linha da casa onde reside a lista ameacantes
+    char idListaAmeacadosY;//coluna da casa onde reside a lista ameacantes
+    char idListaAmeacantes[4];
+    char idListaAmecantes[4];
+    if(tabuleiro == NULL) {
+         return TAB_CondRetFaltouMemoria;
+    }        
+    
+    while(i<8) {
+             idListaAmeacadosY = 'A';
+             idListaAmeacantesY = 'A';
+         while(j<8) {
+              strcpy(idListaAmeacados,&idListaAmeacadosX);
+              strcat(idLIstaAmeacados,&idListaAmeacadosY);
+              strcat(idListaAmeacados,&a);
+              //as 3 linhas acima fazem com que a string identificadora da lista fique da forma "linhaColunaA"
+              strcpy(idListaAmeacantes,&idListaAmeacantesX);
+              strcat(idLIstaAmeacantes,&idListaAmeacantesY);
+              strcat(idListaAmeacantes,&b);
+              //as 3 linhas acima fazem com que a string identificadora da lista fique da forma "linhaColunaB"    
+              LIS_CriarLista(idListaAmeacados,DestruirValor,tabuleiro[i][j]->ameacados);
+              LIS_CriarLista(idListaAmeacantes,DestruirValor,tabuleiro[i][j]->ameacantes);
+              criaPeca(tabuleiro[i][j]->peca);
+              idListaAmeacadosY++;
+              idListaAmeacantesY++;
+              j++;
+         }
+         idListaAmeacadosX++;
+         idListaAmeacantesX++;
+         i++;
+    }
+       
+   TAB_tpCondRet criaPeca(Peca *novo) {
+          novo = (Peca *) malloc(sizeof(Peca));
+          if(novo == NULL) {
+            return TAB_CondRetFaltouMemoria;
+          }
+          novo->id = (char *) sizeof(char);
+          if(novo->id == NULL) {
+            return TAB_CondRetFaltouMemoria;
+          }
+          *(novo->id) = 'V';
+          novo->cor = (char *) sizeof(char);
+          if(novo->cor == NULL) {
+            return TAB_CondRetFaltouMemoria;
+          }
+          *(novo->cor) = 'V';
+          return TAB_CondRetOK; 
+   }
+   /*
+   TAB_tpCondRet criaPeca (char *id,int movimentoX,int movimentoY) {
+       void *elemento;
+       inserirNo(listaPecas,elemento);
+       elemento = (Peca *) malloc(sizeof(Peca));
+       if(elemento == NULL) {
+             return TAB_CondRetFaltouMemoria;
+       }
+       elemento->id = (char *) malloc(sizeof(char));
+       strcpy(elemento->id,id);
+       elemento->x = movimentoX;
+       elemento->y = movimentoY;
+   }
+   */
+   void criaListaPecas() {
+            LIS_CriarLista(idListaPeca,DestruirValor,listaPecas);
+   }
+
+   void liberaPeca(Peca *peca) {
+         free(peca->cor);
+         free(peca->id);
+         free(peca);
+   }
+  
    void destruirValor(void *pValor) {
         free(pValor);
    }
-
 
 
