@@ -99,7 +99,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Inserir nó na lista
 *  ****/
 
-  LIS_tpCondRet inserirNo(LIS_tppLista lista, char *elemento) {
+  LIS_tpCondRet inserirNo(LIS_tppLista lista, void *elemento) {
            tpElemLista *novo;
            tpElemLista *aux;
            #ifdef _DEBUG
@@ -112,12 +112,13 @@ typedef struct LIS_tagLista {
                     return LIS_CondRetFaltouMemoria;
            }
            
-           tpElemLista->pValor = (char *) malloc(sizeof(char) * strlen(elemento));
+           //tpElemLista->pValor = (char *) malloc(sizeof(char) * strlen(elemento));
            if(tpElemLista->pValor) {
                     // printf("falta de memória para inserir novo elemento na lista\n");
                     return LIS_CondRetFaltouMemoria;
            }
-           strcpy(tpElemLista->pValor, elemento);
+           //strcpy(tpElemLista->pValor, elemento);
+           elemento = tpElemLista->pValor;
            aux = lista->pElemCorr->pProx;
            novo->pAnt = lista->pElemCorr;
            if(aux != NULL) {
@@ -135,7 +136,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Obter nó na Lista
 *  ****/
    
-   int obterNo(LIS_tppLista lista, char *s) {
+   LIS_tpCondRet obterNo(LIS_tppLista lista, void *s) {
            #ifdef _DEBUG
            assert( lista != NULL ) ;
            #endif
@@ -151,7 +152,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Excluir nó corrente
 *  ****/
    
-   int excluirNoCorrente(LIS_tppLista lista) {
+   LIS_tpCondRet excluirNoCorrente(LIS_tppLista lista) {
            #ifdef _DEBUG
            assert(lista != NULL ) ;
            #endif
@@ -193,7 +194,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Ir para o próximo nó
 *  ****/
   
-  int irProx(LIS_tppLista lista) {
+  LIS_tpCondRet irProx(LIS_tppLista lista) {
            #ifdef _DEBUG
            assert(lista != NULL ) ;
            #endif
@@ -213,7 +214,7 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Ir para o nó anterior
 *  ****/
-   int irAnt(LIS_tppLista lista) {
+   LIS_tpCondRet irAnt(LIS_tppLista lista) {
            #ifdef _DEBUG
            assert(lista != NULL ) ;
            #endif
@@ -233,7 +234,7 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Alterar nó corrente
 *  ****/
-   int alterarNoCorrente(LIS_tppLista lista, char *novo) {
+   LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, void *novo) {
            if(lista != NULL ) {
                     return LIS_CondRetFimLista;
            }
@@ -242,7 +243,8 @@ typedef struct LIS_tagLista {
                     return LIS_CondRetListaVazia;
            }  
            
-           strcpy(lista->pElemCorr->pValor, novo);
+           //strcpy(lista->pElemCorr->pValor, novo);
+           novo = lista->pElemCorr->pValor;
            return LIS_CondRetOK;
    }/* fim função: Lis &Alterar nó corrente */
     
@@ -250,7 +252,7 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Destruir lista
 *  ****/
-      int destroiLista(LIS_tpp lista) {
+      LIS_tpCondRet destroiLista(LIS_tpp lista) {
 
           if(lista == NULL) {
                    return LIS_CondRetFimLista;
