@@ -191,6 +191,8 @@
             return TAB_CondRetFaltouMemoria;
           }
           *(novo->cor) = 'V';
+          novo.x = 0;
+          novo.y = 0;
           return TAB_CondRetOK; 
    }
    /*
