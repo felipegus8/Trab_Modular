@@ -82,6 +82,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
       int numElem = -1 ;
 
+       void * elemento;
       StringDado[ 0 ] = 0 ;
 	  
 	   if ( strcmp( ComandoTeste , CRIAR_LISTA ) == 0 )
@@ -130,8 +131,10 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             } /* if */
 
             strcpy( pDado , StringDado ) ;
-			
-			CondRet = inserirNo( vtListas[ inxLista ] , pDado ) ;
+			 elemento = (void*)malloc(sizeof(void*));
+             
+			CondRet = inserirNo( vtListas[ inxLista ] , elemento ) ;
+             strcpy((char)elemento,pDado);
 
             if ( CondRet != 0 )
             {
@@ -157,8 +160,13 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             } /* if */
 
             strcpy( pDado , StringDado ) ;
-			
-			CondRet = obterNo(vtListas[inxLista],pDado);
+            
+             elemento = (void*)malloc(sizeof(void*));
+             
+			CondRet = obterNo(vtListas[inxLista],elemento);
+             
+             strcpy((char)elemento,pDado);
+             
 			 if ( CondRet != 0 )
             {
                free( pDado ) ;
@@ -216,8 +224,12 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetMemoria ;
             } /* if */
 
-            strcpy( pDado , StringDado ) ;
-			CondRet = alterarNoCorrente(vtListas[inxLista],pDado);
+            strcpy( pDado , StringDado);
+             
+             elemento = (void*)malloc(sizeof(void*));
+             
+			CondRet = alterarNoCorrente(vtListas[inxLista],elemento);
+             strcpy(char(elemento),pDado);
 			return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao alterar o conteúdo do nó corrente" ) ;
 		 }/*fim ativa:Testar alterar nó corrente*/
 		 
