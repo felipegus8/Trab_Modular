@@ -3,15 +3,16 @@
 #include "peca.h"
 
 
-
-typedef struct peca {
+ struct peca {
         char *id;  // string identificadora da peça
         char *cor; //cor da peça
-        int x; //quantidade de movimentos no eixo vertical
-        int y; // quantidade de movimentos no eixo horizontal
-   }Peca;  
+        Movimento *movPeca;
+ };
 
-
+struct movimento{
+    int x;
+    int y;
+};
 
 TAB_tpCondRet criaPeca(Peca *novo) {
           novo = (Peca *) malloc(sizeof(Peca));
@@ -28,8 +29,6 @@ TAB_tpCondRet criaPeca(Peca *novo) {
             return TAB_CondRetFaltouMemoria;
           }
           *(novo->cor) = 'V';
-          novo.x = 0;
-          novo.y = 0;
           return TAB_CondRetOK; 
    }
 
