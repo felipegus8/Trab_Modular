@@ -26,9 +26,7 @@
 
    void destruirValor(void *pValor);
 
-   void criaPeca(Peca *novo);
    void criarListaPecas();
-   void liberarPeca(Peca *peca);
    
             
    return TAB_CondRetOK;
@@ -45,9 +43,13 @@
         if(x>7 || x<0 || y>7 || y<0) {
             return TAB_CondRetCoordenadaNExiste; 
         }
-        strcpy(peca->cor,cor);
-        strcpy(peca->id,id);
-        tabuleiro[x][y]->peca = novo;
+        Peca *novo;
+        //strcpy(peca->cor,cor);
+        //strcpy(peca->id,id);
+        tabuleiro[x][y]->elemento = (Peca *) malloc(sizeof(Peca));
+        novo = tabuleiro[x][y]->elemento;
+        strcpy(novo->cor,cor);
+        strcpy(novo->id,id);
         return TAB_CondRetOK:
    }
 
@@ -164,7 +166,7 @@
               //as 3 linhas acima fazem com que a string identificadora da lista fique da forma "linhaColunaB"    
               LIS_CriarLista(idListaAmeacados,DestruirValor,tabuleiro[i][j]->ameacados);
               LIS_CriarLista(idListaAmeacantes,DestruirValor,tabuleiro[i][j]->ameacantes);
-              criaPeca(tabuleiro[i][j]->peca);
+              //criaPeca(tabuleiro[i][j]->peca);
               idListaAmeacadosY++;
               idListaAmeacantesY++;
               j++;
