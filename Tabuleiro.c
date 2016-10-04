@@ -15,8 +15,8 @@
          /* ponteiro para a cabeça da lista que contém as peças ameaçadas pela peça da casa */
          LIS_tppLista *amecantes;
          /* ponteiro para a cabeça da lista que contém as peças que ameaçam a peça da casa */
-         Peca *peca;
-         /*ponteiro para a estrutura da peça contida na casa */
+         void *elemento;
+         /*ponteiro para o elemento contido na casa */
    } Casa;
     
    Casa tabuleiro[8][8];
