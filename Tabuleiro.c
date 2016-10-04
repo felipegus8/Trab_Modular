@@ -8,12 +8,7 @@
 
 //Felipe e Luis, não consegui pensar em nenhuma maneira criativa de representar a movimentação da peça
     
-   typedef struct peca {
-        char *id;  // string identificadora da peça
-        char *cor; //cor da peça
-        int x; //quantidade de movimentos no eixo vertical
-        int y; // quantidade de movimentos no eixo horizontal
-   }Peca;   
+   
 
    typedef struct casa {
          LIS_tppLista *ameacados;
