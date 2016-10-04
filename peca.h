@@ -22,6 +22,6 @@ typedef enum {
 typedef struct peca Peca;
 typedef struct movimento Movimento;
 PEC_tpCondRet criaPeca(Peca *novo);
-PEC_tpCondRet ensinaMovimentosPecasconhecidas(Peca *novo);
-void liberarPeca(Peca *peca);
+PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca *novo);
+PEC_tpCondRet liberarPeca(Peca *peca);
 
