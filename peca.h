@@ -1,6 +1,27 @@
 #include <stdio.h>
 
+typedef enum {
+
+         PEC_CondRetOK ,
+               /* Concluiu corretamente */
+
+         PEC_CondRetCasaVazia ,
+               /* A casa não contém peças */
+
+         PEC_CondRetCoordenadaNExiste ,
+               /* coordenada inserida não existe */
+
+         PEC_CondRetNaoAchouPeca ,
+               /* Não encontrou a peca procurada */
+
+         PEC_CondRetFaltouMemoria
+               /* Faltou memória ao tentar criar uma lista dentro da casa*/
+
+   } PEC_tpCondRet ;
+
 typedef struct peca Peca;
 typedef struct movimento Movimento;
-TAB_tpCondRet criaPeca(Peca *novo);
+PEC_tpCondRet criaPeca(Peca *novo);
+PEC_tpCondRet ensinaMovimentosPecasconhecidas(Peca *novo);
 void liberarPeca(Peca *peca);
+
