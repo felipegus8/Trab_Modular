@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <string.h>
 #include "Tabuleiro.h"
+#include "Peca.h"
 
 //Felipe e Luis, não consegui pensar em nenhuma maneira criativa de representar a movimentação da peça
     
@@ -178,25 +179,7 @@
          i++;
     }
        
-   TAB_tpCondRet criaPeca(Peca *novo) {
-          novo = (Peca *) malloc(sizeof(Peca));
-          if(novo == NULL) {
-            return TAB_CondRetFaltouMemoria;
-          }
-          novo->id = (char *) sizeof(char);
-          if(novo->id == NULL) {
-            return TAB_CondRetFaltouMemoria;
-          }
-          *(novo->id) = 'V';
-          novo->cor = (char *) sizeof(char);
-          if(novo->cor == NULL) {
-            return TAB_CondRetFaltouMemoria;
-          }
-          *(novo->cor) = 'V';
-          novo.x = 0;
-          novo.y = 0;
-          return TAB_CondRetOK; 
-   }
+   
    /*
    TAB_tpCondRet criaPeca (char *id,int movimentoX,int movimentoY) {
        void *elemento;
@@ -215,12 +198,7 @@
             LIS_CriarLista(idListaPeca,DestruirValor,listaPecas);
    }
 
-   void liberaPeca(Peca *peca) {
-         free(peca->cor);
-         free(peca->id);
-         free(peca);
-   }
-  
+ 
    void destruirValor(void *pValor) {
         free(pValor);
    }
