@@ -33,23 +33,75 @@ PEC_tpCondRet criaPeca(Peca *novo) {
 
 PEC_tpCondRet ensinaMovimentosPecasconhecidas(Peca *novo)
 {
-	int i = 1,j = 1;
-	switch(novo->id)
+	int i = 1,j = 1,k;
+	switch(*(novo->id))
 	{
-	case "T":
+	case 'T':
 		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*14);
-		for(i=0;i<8;i++)
+		for(i=1;i<8;i++)
 		{
-			novo->movPeca->x = i;
-			novo->movPeca->y = 0;
+			novo->movPeca[i].x = i;
+			novo->movPeca[i].y = 0;
 		}
+		for(j=1;j<8;j++)
+		{
+			novo->movPeca[i].x = 0;
+			novo->movPeca[i].y = j;
+			i++;
+		}
+	break;
+	case 'C':
+		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
+		novo->movPeca[0].x = 2;
+		novo->movPeca[0].y = 1;
+		novo->movPeca[1].x = 1;
+		novo->movPeca[1].y = 2;
+		break;
+	case 'B':
+		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*7);
 		i = 1;
-		for(j=0;j<8;j++)
+		for(k=1;k<8;k++)
 		{
-			novo->movPeca->x = 0;
-			novo->movPeca->y = j;
+			novo->movPeca[k].x = i;
+			novo->movPeca[k].y = i;
 		}
-	}
+		break;
+	case 'P':
+		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
+		novo->movPeca[0].x = 1;
+		novo->movPeca[0].y = 0;
+		novo->movPeca[1].x = 1;
+		novo->movPeca[1].y = 1;
+		break;
+	case 'D':
+		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*21);
+		for(i=1;i<8;i++)
+		{
+			novo->movPeca[i].x = i;
+			novo->movPeca[i].y = 0;
+		}
+		for(j=1;j<8;j++)
+		{
+			novo->movPeca[i].x = 0;
+			novo->movPeca[i].y = j;
+			i++;
+		}
+		j=1;
+		for(k=1;k<8;k++)
+		{
+			novo->movPeca[i].x = j;
+			novo->movPeca[i].y = j;
+		}
+		break;
+	case 'R':
+		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*3);
+		novo->movPeca[0].x = 1;
+		novo->movPeca[0].y = 0;
+		novo->movPeca[1].x = 1;
+		novo->movPeca[1].y = 1;
+		novo->movPeca[2].x = 0;
+		novo->movPeca[2].y = 1;
+		break;
 }
 
 
