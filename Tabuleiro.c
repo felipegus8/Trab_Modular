@@ -77,12 +77,12 @@
 
    TAB_tpCondRet obterPeca(int x, char y, char *cor, char *id) {
           Peca *peca;
-          int y = (int)(y - 'A');
+          int yi = (int)(y - 'A');
           x--;
-          if(x>7 || x<0 || y>7 || y<0) {
+          if(x>7 || x<0 || yi>7 || yi < 0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          peca = tabuleiro[x][y]->peca;
+          peca = tabuleiro[x][yi]->peca;
           if(peca == NULL) {
              return TAB_CondRetCasaVazia;
           }
