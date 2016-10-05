@@ -18,7 +18,31 @@ typedef struct casa {
    
    GEN_tpCondRet criaCasa(Casa *casa) {
               casa->ameacados = (LIS_tppLista *) malloc(sizeof(LIS_tppLista));
+              if(casa->ameacados == NULL) {
+                   return GEN_CondRetFaltouMemoria;
+              }
               casa->ameacadas = (LIS_tppLista *) malloc(sizeof(LIS_tppLista));
+              if(casa->ameacantes == NULL) {
+                   return GEN_CondRetFaltouMemoria;
+              }
    }
    
-   
+   GEN_tpCondRet obterListaAmeacantes(Casa *casa,LIS_tppLista *ameacantes) {
+                    ameacantes = casa->ameacantes;
+   }
+
+   GEN_tpCondRet obterListaAmeacados(Casa *casa,LIS_tppLista *ameacados) {
+                    ameacados = casa->ameacados;
+   }
+
+
+   GEN_tpCondRet liberaCasa(Casa *casa) {
+                    free(casa->ameacados);
+                    free(casa->ameacantes);
+                    if(casa->elemento == NULL) {
+                         return GEN_CondRetNExiste;
+                    }
+                    free(casa->elemento);
+                    free(Casa);
+   }
+
