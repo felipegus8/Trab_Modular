@@ -40,38 +40,38 @@
 
 
    TAB_tpCondRet inserirPeca(Casa tabuleiro[8][8],int x, char y,char *cor,char *id) {
-        int y = (int)(y - 'A');
+        int yi = (int)(y - 'A');
         x--;
-        if(x>7 || x<0 || y>7 || y<0) {
+        if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
         }
         Peca *novo;
         //strcpy(peca->cor,cor);
         //strcpy(peca->id,id);
-        tabuleiro[x][y]->elemento = (Peca *) malloc(sizeof(Peca));
-        novo = tabuleiro[x][y]->elemento;
+        tabuleiro[x][yi]->elemento = (Peca *) malloc(sizeof(Peca));
+        novo = tabuleiro[x][yi]->elemento;
         strcpy(novo->cor,cor);
         strcpy(novo->id,id);
         return TAB_CondRetOK:
    }
 
    TAB_tpCondRet ObterListaAmeacantes(int x, char y,LIS_tppLista listaAmeacantes) {
-          int y = (int)(y - 'A');
+          int yi = (int)(y - 'A');
            x--;
-          if(x>7 || x<0 || y>7 || y<0) {
+          if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          listaAmeacantes = tabuleiro[x,y]->ameacantes;
+          listaAmeacantes = tabuleiro[x,yi]->ameacantes;
           return TAB_CondRetOK;
    }
    
    TAB_tpCondRet ObterListaAmeacados(int x, char y,LIS_tppLista listaAmeacados) {
-          int y = (int)(y - 'A');
+          int yi = (int)(y - 'A');
            x--;
-          if(x>7 || x<0 || y>7 || y<0) {
+          if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          listaAmeacados = tabuleiro[x,y]->ameacados;
+          listaAmeacados = tabuleiro[x,yi]->ameacados;
           return TAB_CondRetOK;
    }
 
