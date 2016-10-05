@@ -5,6 +5,7 @@
  struct peca {
         char id;  // string identificadora da peça
         char cor; //cor da peça
+	int qtdMov;
         Movimento *movPeca;
  };
 
