@@ -32,7 +32,7 @@
               tabuleiro = (Casa **) malloc(sizeof(Casa) * 64);
               while(i<8) {
                   while(j<8) {
-                        tabuleiro[i][j] = 
+                        //tabuleiro[i][j] = 
                   }
               }
    }
