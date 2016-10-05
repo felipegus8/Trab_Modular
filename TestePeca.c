@@ -1,7 +1,7 @@
 #include    <string.h>
 #include    <stdio.h>
 #include    <malloc.h>
-
+#include    <stdlib.h>
 
 #include    "Generico.h"
 #include    "LerParm.h"
@@ -20,10 +20,10 @@ static const char LIBERA_PECA               				[ ] = "=liberapeca"        ;
 #define VAZIO     0
 #define NAO_VAZIO 1
 
-#define DIM_VT_PECA   64
+#define DIM_VT_PECA   100
 #define DIM_VALOR     100
 
-Peca vtPecas[DIM_VT_PECA];
+Peca* vtPecas[DIM_VT_PECA];
 
 /***** Protótipos das funções encapuladas no módulo *****/
  static int ValidarInxPeca( int inxPeca , int Modo ) ;
@@ -51,18 +51,18 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	 int inxPeca  = -1 ,
           numLidos   = -1 ,
           CondRetEsp = -1  ;
-      int CondRet ;
-
+      TST_tpCondRet CondRet ;
+	  Movimento *mov;
       char   StringDado[  DIM_VALOR ],StringDado2[DIM_VALOR],NomeArquivo[DIM_VALOR],ConteudoArquivo[1000],strAux[1000] ;
 	  char idPeca,corPeca,idLido,corLido;
       char * pDado ;
 	  FILE *fp;
       int ValEsp = -1 ;
-
+	  int x,y,j;
       int i ;
-	Peca *novo;
+		Peca *novo;
       int numElem = -1 ;
-	  Movimento *mov;
+	  
        void * elemento;
       StringDado[ 0 ] = 0,StringDado2[0] = 0;
 
@@ -74,23 +74,23 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		   {
 			    return TST_CondRetParm;
 		   }
-		   vtPecas[inxPeca] = criaPeca(&novo,StringDado,StringDado2);    
-		 return TST_CompararPonteiroNulo( 1 , vtPecas[ inxPeca ] , "Erro em ponteiro de nova lista."  ) ;
+		   CondRet = criaPeca( &vtPecas[inxPeca],idPeca,corPeca);    
+		 return TST_CompararPonteiroNulo( 1 , vtPecas[inxPeca] , "Erro em ponteiro de nova lista."  ) ;
 	   }/* fim ativa: Testar CriarPeca */
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_CONHECIDAS) == 0)
 	   {
 		   numLidos = LER_LerParametros("ii", &inxPeca,&CondRetEsp);
-		  if ((numLidos != 2) (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
+		  if ((numLidos != 2) || (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
 		   {
 			    return TST_CondRetParm;
 		   }
-		CondRet = ensinaMovimentosPecasConhecidas(*vtPecas[inxPeca]);
+		CondRet = ensinaMovimentosPecasConhecidas(&vtPecas[inxPeca]);
 		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 	   }/* fim ativa: Testar EnsinaMovimentosPecasConhecidas */
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_DESCONHECIDAS) == 0)
 	   {
-		   numLidos = LER_LerParametros("icci",&inxPeca,idPeca,CorPeca,&CondRetEsp);
-		    if ((numLidos != 4) (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
+		   numLidos = LER_LerParametros("icci",&inxPeca,idPeca,corPeca,&CondRetEsp);
+		    if ((numLidos != 4) || (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
 		   {
 			    return TST_CondRetParm;
 			}
@@ -112,7 +112,11 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 			}
 
 		}
-		mov = (Movimento*)malloc(sizeof(Movimento)*i);
+		CondRet = alocaMovimento(&vtPecas[inxPeca],i);
+		if (mov == NULL)
+		{
+			return TST_CondRetMemoria;
+		}
 		i = 0;
 		fclose(fp);
 		if ((fp=fopen("PecasNovas.txt","r"))==NULL)
@@ -126,20 +130,15 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 			{
 				while (fscanf(fp,"%d %d",&x,&y))
 				{
-					 mov[i].x = x;
-					 mov[i].y = y;
+					CondRet = recebeX(x,&vtPecas[inxPeca],i);
+					CondRet = recebeY(y,&vtPecas[inxPeca],i);
 					i++;
 				}
 				break;
 			}
 
 		}
-		for(j = 0;j<i;j++)
-		{
-			printf("%d %d",mov[j].x,mov[j].y);
-			printf("\n");
-		}
-		CondRet = ensinaMovimentosPecasDesconhecidas(*vtPecas[inxPeca],mov);
+		CondRet = ensinaMovimentosPecasDesconhecidas(&vtPecas[inxPeca],&vtPecas[inxPeca]->movPeca);
 		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça desconhecida.");
 	   }/* fim ativa: Testar EnsinaMovimentosPecasDesconhecidas */
 
@@ -147,11 +146,11 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	   else if(strcmp(ComandoTeste,LIBERA_PECA) == 0)
 	   {
 		    numLidos = LER_LerParametros("ii", &inxPeca,&CondRetEsp);
-		  if ((numLidos != 4) (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
+		  if ((numLidos != 4) || (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
 		   {
 			    return TST_CondRetParm;
 		   }
-		  CondRet = liberaPeca(*vtPecas[inxPeca]);
+		  CondRet = liberaPeca(vtPecas[inxPeca]);
 		  vtPecas[inxPeca] = NULL;
 		   return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao liberar uma peça" ) ;
 	   }/* fim ativa: Testar LiberaPeca */
@@ -176,13 +175,13 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
          
       if ( Modo == VAZIO )
       {
-         if ( vtPecas[ inxLPeca ] != 0 )
+         if ( vtPecas[ inxPeca ] != 0 )
          {
             return FALSE ;
          } /* if */
       } else
       {
-         if ( vtPecas[ inxLista ] == 0 )
+         if ( vtPecas[ inxPeca ] == 0 )
          {
             return FALSE ;
          } /* if */
