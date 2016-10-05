@@ -71,23 +71,47 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	   {
 		   numLidos = LER_LerParametros( "issi" ,
                        &inxPeca,StringDado,StringDado2,&CondRetEsp );
-		   if (numLidos != 4)
+		   if ((numLidos != 4) || (( ! ValidarInxPeca( inxPeca , VAZIO ))))
 		   {
 			    return TST_CondRetParm;
 		   }
 		   vtPecas[inxPeca] = criaPeca(novo,StringDado,StringDado2);    
-		 return TST_CompararPonteiroNulo( 1 , vtListas[ inxLista ] , "Erro em ponteiro de nova lista."  ) ;
+		 return TST_CompararPonteiroNulo( 1 , vtPecas[ inxPeca ] , "Erro em ponteiro de nova lista."  ) ;
 	   }
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_CONHECIDAS) == 0)
 	   {
-		   numLidos = LER_LerParametros("");
+		   numLidos = LER_LerParametros("issi", &inxPeca,StringDado,StringDado2,&CondRetEsp);
+		  if ((numLidos != 4) (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
+		   {
+			    return TST_CondRetParm;
+		   }
+		CondRet = ensinaMovimentosPecasConhecidas(vtPecas[inxPeca]);
+		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
+	   }
+	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_DESCONHECIDAS) == 0)
+	   {
+		   numLidos = LER_LerParametros("issi");
+		   //Isso eu não sei fazer
+	   }
+
+	   else if(strcmp(ComandoTeste,LIBERA_PECA) == 0)
+	   {
+		    numLidos = LER_LerParametros("issi", &inxPeca,StringDado,StringDado2,&CondRetEsp);
+		  if ((numLidos != 4) (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
+		   {
+			    return TST_CondRetParm;
+		   }
+		  CondRet = liberaPeca(vtPecas[inxPeca]);
+		  vtPecas[inxPeca] = NULL;
+		   return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao liberar uma peça" ) ;
 	   }
 }
 /*****  Código das funções encapsuladas no módulo  *****/
 
 /***********************************************************************
 *
-*  $FC Função: TLIS -Validar indice de lista
+*  $FC Função: TLIS -Validar indice da peca.
+
 *
 ***********************************************************************/
 
