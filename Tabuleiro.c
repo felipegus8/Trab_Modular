@@ -84,8 +84,9 @@
           if(peca == NULL) {
              return TAB_CondRetCasaVazia;
           }
-          strcpy(cor,peca->cor); 
-          strcpy(id,peca->id);
+          strcpy(*cor,peca->cor); 
+          strcpy(*id,peca->id); 
+          return TAB_CondRetOK;
    }
 
    TAB_tpCondRet RetirarPeca(int x,char y) {
@@ -101,6 +102,7 @@
           free(peca->cor);
           free(peca->id);
           peca = NULL;
+          return TAB_CondRetOK;
    }
 
    TAB_tpCondRet MoverPeca(int xo,char yo,int xd,char yd) {
