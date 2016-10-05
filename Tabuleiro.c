@@ -111,7 +111,7 @@
           void *elemento;
           Peca *peca;
           LIS_tpCondRet ret;
-          obterpeca(x0,y0,&cor,&id);
+          obterpeca(xo,yo,&cor,&id);
           obterno(lista,elemento);
           peca = (Peca *)elemento;
           while(strcmp(peca->id,id) != 0) {
@@ -139,7 +139,7 @@
    
    }
 
-   TAB_tpCondRet criaTabuleiro() {
+  /* TAB_tpCondRet criaTabuleiro() {
    
     int i = 0,j=0;
     char a = 'A';
@@ -176,7 +176,7 @@
          idListaAmeacadosX++;
          idListaAmeacantesX++;
          i++;
-    }
+    }*/
        
    
    /*
