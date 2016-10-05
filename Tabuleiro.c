@@ -114,12 +114,12 @@ typedef struct casa {
           int movX,movY;
           Peca *peca;
           LIS_tpCondRet ret;
-          obterpeca(x0,y0,&cor,&id);
+          obterpeca(xo,yo,&cor,&id);
           obterno(lista,elemento);
           peca = (Peca *)elemento;
           int yi = (int)(yo - 'A');
-           x0--;
-           if(x0>7 || x0<0 || yi>7 || yi<0) {
+           xo--;
+           if(xo>7 || xo<0 || yi>7 || yi<0) {
               return TAB_CondRetCoordenadaNExiste; 
            }
            int yi2 = (int)(yd - 'A');
@@ -160,7 +160,7 @@ typedef struct casa {
    
    }
 
-   TAB_tpCondRet criaTabuleiro() {
+  /* TAB_tpCondRet criaTabuleiro() {
    
     int i = 0,j=0;
     char a = 'A';
@@ -198,7 +198,7 @@ typedef struct casa {
          idListaAmeacantesX++;
          i++;
     }
-       
+  */     
    
    /*
    TAB_tpCondRet criaPeca (char *id,int movimentoX,int movimentoY) {
