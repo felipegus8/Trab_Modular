@@ -111,6 +111,7 @@ typedef struct casa {
           int i;
           char id;
           void *elemento;
+          int movX,movY;
           Peca *peca;
           LIS_tpCondRet ret;
           obterpeca(x0,y0,&cor,&id);
@@ -135,6 +136,8 @@ typedef struct casa {
               irProx(listaPecas);
           }
           for(i=0;i<peca->qtdMov;i++) {
+                movX = xd - xo;
+                movY = yd - yo;
                 if(xd - xo == movPeca[i].x && yd - yo == movPeca[i].y) {
                         //return movOk;
                 }
