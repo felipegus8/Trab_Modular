@@ -6,14 +6,14 @@
 
 == Inicializar valores
 =declararparm   lista0  int 0
-=declararparm   lista1  int 1
-=declararparm   lista2  int 2
 
 
 =declararparm   str0    string  "abcdefg"
 =declararparm   str1    string  "qwerty"
 =declararparm   str2    string  "xxx"
 =declararparm   str3    string  "xpto"
+=declararparm   str4    string  "IdUm"
+=declararparm   str5    string  "IdDo"
 
 
 =declararparm   OK             int  0
@@ -24,126 +24,78 @@
 
 =declararparm   pNULL          int  0
 =declararparm   pNaoNULL       int  1
- 
-
 
 == Criar a lista 0
-=criarlista      lista0 
+=criarlista      lista0    str5   OK
  
 == Criar a lista 0
-=criarlista      lista0  
+=criarlista      lista0    str5   OK  
 =recuperar
+
+==ObterIdLista
+=obterIdLista  lista0   str5
 
 == Verificar ObterNo relativo a lista vazia
 =obterNo  lista0   "???"     "???"  pNULL
 
-== Verificar ObterId relativo a lista vazia
-=obterIdLista  lista0   "???"     "???"  pNULL
-
 == Inserir elemento em lista vazia
-=inserirNo    lista0   str0   str1    OK
-=obtervalorelem  lista0   str0   str1    pNaoNULL
+=inserirNo    lista0   str0    OK
+=obterNo      lista0   str0    pNaoNULL
 
+== Inserir elemento com um elemento
+=inserirNo    lista0   str1    OK
+=obterNo      lista0   str1    pNaoNULL
 
+== Inserir elemento com dois elemtos
+=inserirNo    lista0   str2    OK
+=obterNo      lista0   str2    pNaoNULL
 
-== Inserir elemento após primeiro
-=inselemapos     lista0   str1  str0  OK
-=obtervalorelem  lista0   str1  str0  pNaoNULL
+==Ir para o proximo nó corrente
+=irProx  lista0   OK
 
+==Ir para o proximo nó corrente
+=irProx  lista0   OK
 
+==Ir para o proximo nó corrente
+=irProx  lista0   FimLista
 
-== Inserir elemento antes do último
-=inselemantes    lista0   str0   str2   OK
-=obtervalorelem  lista0   str0   str2   pNaoNULL
+==Ir para o anterior nó corrente
+=irAnt   lista0   OK
 
-== Excluir elemento do meio 
-=obtervalorelem  lista0   str0  str2  pNaoNULL
-=excluirelem     lista0             OK
+==Ir para o anterior nó corrente
+=irAnt   lista0   OK
 
-== Excluir elemento do início
-=obtervalorelem  lista0   str0  str1  pNaoNULL
-=excluirelem     lista0             OK
+==Ir para o anterior nó corrente
+=irAnt   lista0   FimLista   
 
-== Excluir elemento final, único 
-=obtervalorelem  lista0   str1   str0   pNaoNULL
-=excluirelem     lista0             OK
+==Excluo o no que corrente esta apontando
+=excluirNoCorrente   lista0
+
+== Inserir elemento 
+=inserirNo    lista0   str0    OK
+=obterNo      lista0   str0    pNaoNULL
+
+==Altera o valor do no corrente
+=alterarNoCorrente   lista0  str3   OK
+
+== Excluir elemento corrente
+=excluirNoCorrente            lista0
+
+== Excluir elemento corrente
+=excluirNoCorrente            lista0
+
+== Excluir elemento corrente
+=excluirNoCorrente            lista0
 
 == Ver se a lista ficou vazia
-=obtervalorelem  lista0   "???"  str0    pNULL
+=obterNo      lista0   str0    ListaVazia
+
+== Ver se a lista ficou vazia
+=obterNo      lista0   str1    ListaVazia
+
+== Ver se a lista ficou vazia
+=obterNo      lista0   str2    ListaVazia
 
 == Destruir a lista
-=destruirlista   lista0
-
-== Criar uma lista com dois elementos
-=criarlista      lista1 
-=inselemapos     lista1   str0   str2   OK
-=inselemapos     lista1   str1   str3   OK
-
-== Esvaziar a lista e ver se ficou vazia
-=esvaziarlista   lista1
-=obtervalorelem  lista1   "???"  str0   pNULL
-
-== Destruir a lista
-=destruirlista   lista1
-
-== Criar uma lista com quatro elementos
-=criarlista      lista2 
-=inselemapos     lista2   str0   str1  OK
-=inselemapos     lista2   str1   str2  OK
-=inselemapos     lista2   str2   str3  OK
-=inselemapos     lista2   str3   str0  OK
-
-== Verificar a lista de trás para diante
-=obtervalorelem  lista2   str3   str0 pNaoNULL
-=avancarelem     lista2   -1     OK
-=obtervalorelem  lista2   str2    str3 pNaoNULL
-=avancarelem     lista2   -1     OK
-=obtervalorelem  lista2   str1    str2 pNaoNULL
-=avancarelem     lista2   -1     OK
-=obtervalorelem  lista2   str0    str1  pNaoNULL
-=avancarelem     lista2   -1     FimLista
-
-== Verificar a lista de frente para trás
-=obtervalorelem  lista2   str0   str1    pNaoNULL
-=avancarelem     lista2   1      OK
-=obtervalorelem  lista2   str1   str2    pNaoNULL
-=avancarelem     lista2   1      OK
-=obtervalorelem  lista2   str2   str3    pNaoNULL
-=avancarelem     lista2   1      OK
-=obtervalorelem  lista2   str3   str0    pNaoNULL
-=avancarelem     lista2   1      FimLista
-
-== Verificar a lista andando demais de trás para diante
-=avancarelem     lista2   -10     FimLista
-=obtervalorelem  lista2   str0    str1  pNaoNULL
-
-== Verificar a lista andando demais de frente para trás
-=avancarelem     lista2   10     FimLista
-=obtervalorelem  lista2   str3   str0   pNaoNULL
-
-== Destruir a lista
-=destruirlista   lista2
-
-==Obter Struct Nome
-=criarlista    	lista0
-=obterStructNome  str0   str1  pNaoNULL
-
-==Insere Ordenado na Lista
-=inserirordenado lista0   str2  str1  pNaoNULL
-=inserirordenado lista0   str3  str0  pNaoNULL
-=inserirordenado lista0   str0  str3  pNaoNULL
-=obtervalorelem  lista0   str0  str3  pNaoNULL
-=avancarelem     lista0   1     OK
-=obtervalorelem  lista0   str3  str0  pNaoNULL
-=avancarelem     lista0   1     OK
-=obtervalorelem  lista0   str2  str1  pNaoNULL
-=destruirlista   lista0
-
-==Imprimir em Ordem
-=criarlista  lista1
-=inselemapos lista1  str2    str1   OK
-=inselemapos lista1  str3    str0   OK
-=inselemapos lista1  str0    str3   OK
-=inselemapos lista1  str1    str0   OK
-=imprimirordenado lista1   pNaoNULL
+=destroiLista   lista0
 // fim
