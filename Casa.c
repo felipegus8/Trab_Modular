@@ -13,7 +13,7 @@ typedef struct casa {
    } Casa;
    
    
-   GEN_tpCondRet criaCasa(Casa *casa) {
+   GEN_tpCondRet criaCasa(Casa *casa,void *vazio) {
               casa->ameacados = (LIS_tppLista *) malloc(sizeof(LIS_tppLista));
               if(casa->ameacados == NULL) {
                    return GEN_CondRetFaltouMemoria;
@@ -22,6 +22,7 @@ typedef struct casa {
               if(casa->ameacantes == NULL) {
                    return GEN_CondRetFaltouMemoria;
               }
+              vazio = casa->elemento;
    }
    
    GEN_tpCondRet obterListaAmeacantes(Casa *casa,LIS_tppLista *ameacantes) {
