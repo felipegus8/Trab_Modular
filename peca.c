@@ -22,12 +22,12 @@ PEC_tpCondRet criaPeca(Peca *novo,char *id,char *cor) {
           if(novo->id == NULL) {
             return PEC_CondRetFaltouMemoria;
           }
-          *(novo->id) = 'V';
+          strcpy(novo->id,id);
           novo->cor = (char *) sizeof(char);
           if(novo->cor == NULL) {
             return PEC_CondRetFaltouMemoria;
           }
-          *(novo->cor) = 'V';
+          strcpy(novo->cor,cor);
           return PEC_CondRetOK; 
    }
 
