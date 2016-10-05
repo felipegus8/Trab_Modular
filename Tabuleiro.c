@@ -45,15 +45,12 @@
         if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
         }
-        Peca *novo;
-        //strcpy(peca->cor,cor);
-        //strcpy(peca->id,id);
-        //tabuleiro[x][yi]->elemento = (Peca *) malloc(sizeof(Peca));
-        criaPeca((Peca *)tabuleiro[x][yi]->elemento,id,cor);
+        criaPeca((Peca *)&tabuleiro[x][yi]->elemento,id,cor);
+        //insere peça nova na lista
         return TAB_CondRetOK:
    }
 
-   TAB_tpCondRet ObterListaAmeacantes(int x, char y,LIS_tppLista **listaAmeacantes) {
+   TAB_tpCondRet ObterListaAmeacantes(Casa tabuleiro[8][8],int x, char y,LIS_tppLista **listaAmeacantes) {
           int yi = (int)(y - 'A');
            x--;
           if(x>7 || x<0 || yi>7 || yi<0) {
@@ -63,7 +60,7 @@
           return TAB_CondRetOK;
    }
    
-   TAB_tpCondRet ObterListaAmeacados(int x, char y,LIS_tppLista **listaAmeacados) {
+   TAB_tpCondRet ObterListaAmeacados(Casa tabuleiro[8][8],int x, char y,LIS_tppLista **listaAmeacados) {
           int yi = (int)(y - 'A');
            x--;
           if(x>7 || x<0 || yi>7 || yi<0) {
@@ -73,7 +70,7 @@
           return TAB_CondRetOK;
    }
 
-   TAB_tpCondRet obterPeca(int x, char y, char *cor, char *id) {
+   TAB_tpCondRet obterPeca(Casa tabuleiro[8][8],int x, char y, char cor, char id) {
           Peca *peca;
           int yi = (int)(y - 'A');
           x--;
@@ -84,12 +81,12 @@
           if(peca == NULL) {
              return TAB_CondRetCasaVazia;
           }
-          strcpy(*cor,peca->cor); 
-          strcpy(*id,peca->id); 
-          return TAB_CondRetOK;
+          //strcpy(cor,peca->cor); 
+          cor = peca->cor;
+          id = peca->id;
    }
 
-   TAB_tpCondRet RetirarPeca(int x,char y) {
+   TAB_tpCondRet RetirarPeca(Casa tabuleiro[8][8],int x,char y) {
           Peca *peca;
           int y = (int)(y - 'A');
           x--;
@@ -102,18 +99,29 @@
           free(peca->cor);
           free(peca->id);
           peca = NULL;
-          return TAB_CondRetOK;
    }
 
-   TAB_tpCondRet MoverPeca(int xo,char yo,int xd,char yd) {
+   TAB_tpCondRet MoverPeca(Casa tabuleiro[8][8],int xo,char yo,int xd,char yd) {
           char cor;
+          int i;
           char id;
           void *elemento;
           Peca *peca;
           LIS_tpCondRet ret;
-          obterpeca(xo,yo,&cor,&id);
+          obterpeca(x0,y0,&cor,&id);
           obterno(lista,elemento);
           peca = (Peca *)elemento;
+          int yi = (int)(yo - 'A');
+           x0--;
+           if(x0>7 || x0<0 || yi>7 || yi<0) {
+              return TAB_CondRetCoordenadaNExiste; 
+           }
+           int yi2 = (int)(yo - 'A');
+           x1--;
+           if(x1>7 || x1<0 || yi2>7 || yi2<0) {
+              return TAB_CondRetCoordenadaNExiste; 
+           }
+          //procura na lista pelo id da peça e checa se o movimento está ok
           while(strcmp(peca->id,id) != 0) {
                 if(obterno(lista,peca) == LIS_CondRetFimLista) {
                      return TAB_CondRetNaoAchouPeca;
@@ -121,11 +129,16 @@
                 
               irProx(listaPecas);
           }
-          
+          for(i=0;i<peca->qtdMov;i++) {
+                if(xd - xo == movPeca[i].x && yd - yo == movPeca[i].y) {
+                        //return movOk;
+                }
+          }
+          //return movIrregular
    }
   
 
-   TAB_tpCondRet DestruirTabuleiro() {
+   TAB_tpCondRet DestruirTabuleiro(Casa tabuleiro[8][8]) {
           int i=0,j=0;
           while(i<8) {
                while(i<8) {
@@ -139,7 +152,7 @@
    
    }
 
-  /* TAB_tpCondRet criaTabuleiro() {
+   TAB_tpCondRet criaTabuleiro() {
    
     int i = 0,j=0;
     char a = 'A';
@@ -176,7 +189,7 @@
          idListaAmeacadosX++;
          idListaAmeacantesX++;
          i++;
-    }*/
+    }
        
    
    /*
@@ -207,3 +220,4 @@
   {
 
   }
+
