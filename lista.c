@@ -64,18 +64,18 @@ typedef struct LIS_tagLista {
       //LIS_tppLista * lista = NULL ;
 
       lista = ( LIS_tpLista * ) malloc( sizeof( LIS_tppLista)) ;
-      if ( lista == NULL )
+      if ( *lista == NULL )
       {
          return LIS_CondRetFaltouMemoria ;
       } /* if */
 
-      LimparCabeca( lista );
+      LimparCabeca( *lista );
 
-      lista->ExcluirValor = ExcluirValor;
+      *lista->ExcluirValor = ExcluirValor;
       
-      lista->idLista = (char *) malloc(sizeof(char) * strlen(idLista));
+      *lista->idLista = (char *) malloc(sizeof(char) * strlen(idLista));
       
-      strcpy(lista->idLista, idLista);
+      strcpy(*lista->idLista, idLista);
 
       return LIS_CondRetOK;
 
@@ -119,7 +119,7 @@ typedef struct LIS_tagLista {
                     return LIS_CondRetFaltouMemoria;
            }
            //strcpy(tpElemLista->pValor, elemento);
-           elemento = tpElemLista->pValor;
+           *elemento = tpElemLista->pValor;
            aux = lista->pElemCorr->pProx;
            novo->pAnt = lista->pElemCorr;
            if(aux != NULL) {
@@ -137,7 +137,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Obter nó na Lista
 *  ****/
    
-   LIS_tpCondRet obterNo(LIS_tppLista lista, void *s) {
+   LIS_tpCondRet obterNo(LIS_tppLista lista, void **referencia) {
            #ifdef _DEBUG
            assert( lista != NULL ) ;
            #endif
@@ -145,7 +145,7 @@ typedef struct LIS_tagLista {
                     return LIS_CondRetListaVazia;
            }
            //strcpy(s, (char *)lista->pElemCorr->pValor);
-           s = lista->pElemCorr->pValor;
+           *referencia = lista->pElemCorr->pValor;
            return LIS_CondRetOK;
    } 
 
@@ -236,7 +236,7 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Alterar nó corrente
 *  ****/
-   LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, void *novo) {
+   LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, void **referencia) {
            if(lista != NULL ) {
                     return LIS_CondRetFimLista;
            }
@@ -246,7 +246,7 @@ typedef struct LIS_tagLista {
            }  
            
            //strcpy(lista->pElemCorr->pValor, novo);
-           novo = lista->pElemCorr->pValor;
+           *referencia = lista->pElemCorr->pValor;
            return LIS_CondRetOK;
    }/* fim função: Lis &Alterar nó corrente */
     
