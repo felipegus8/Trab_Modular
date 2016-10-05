@@ -44,11 +44,13 @@ typedef enum {
 
    } PEC_tpCondRet ;
 
-/* Tipo referencia para uma peça */
-typedef struct peca Peca;
-
 /* Tipo referencia para um movimento */
 typedef struct movimento Movimento;
+/* Tipo referencia para uma peça */
+typedef struct peca Peca;
+PEC_tpCondRet alocaMovimento(Peca **novo,int i);
+PEC_tpCondRet recebeX(int x,Peca **novo,int i);
+PEC_tpCondRet recebeY(int y,Peca **novo,int i);
 
 
 /***********************************************************************
@@ -72,7 +74,7 @@ typedef struct movimento Movimento;
 *  
 *
 ***********************************************************************/
-PEC_tpCondRet criaPeca(Peca *novo,char id,char cor);
+PEC_tpCondRet criaPeca(Peca **novo,char id,char cor);
 
 
 /***********************************************************************
@@ -94,7 +96,7 @@ PEC_tpCondRet criaPeca(Peca *novo,char id,char cor);
 *  
 *
 ***********************************************************************/
-PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca *novo);
+PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca **novo);
 
 /***********************************************************************
 *  $FC Função: PEC  &EnsinaMovimentosPecasDesconhecidas
@@ -116,7 +118,7 @@ PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca *novo);
 *  
 *
 ***********************************************************************/
-PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca *novo,Movimento *movPecaNova);
+PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo,Movimento *movPecaNova);
 
 /***********************************************************************
 *  $FC Função: PEC  &Libera Peça
