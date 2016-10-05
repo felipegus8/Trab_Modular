@@ -116,9 +116,9 @@
            if(x0>7 || x0<0 || yi>7 || yi<0) {
               return TAB_CondRetCoordenadaNExiste; 
            }
-           int yi2 = (int)(yo - 'A');
-           x1--;
-           if(x1>7 || x1<0 || yi2>7 || yi2<0) {
+           int yi2 = (int)(yd - 'A');
+           xd--;
+           if(xd>7 || xd<0 || yi2>7 || yi2<0) {
               return TAB_CondRetCoordenadaNExiste; 
            }
           //procura na lista pelo id da peça e checa se o movimento está ok
