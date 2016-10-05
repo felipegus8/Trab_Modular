@@ -94,7 +94,7 @@
           Peca *peca;
           int y = (int)(y - 'A');
           x--;
-          if(x>7 || x<0 || y>7 || y<0) {
+          if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
           if(peca == NULL) {
