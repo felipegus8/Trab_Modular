@@ -69,8 +69,8 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 
 	   if ( strcmp( ComandoTeste , CRIAR_ PECA) == 0 )s
 	   {
-		   numLidos = LER_LerParametros( "issi" ,
-                       &inxPeca,StringDado,StringDado2,&CondRetEsp );
+		   numLidos = LER_LerParametros( "icci" ,
+                       &inxPeca,idPeca,corPeca,&CondRetEsp );
 		   if ((numLidos != 4) || (( ! ValidarInxPeca( inxPeca , VAZIO ))))
 		   {
 			    return TST_CondRetParm;
@@ -82,8 +82,8 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_CONHECIDAS) == 0)
 	   {
-		   numLidos = LER_LerParametros("isssi", &inxPeca,StringDado,StringDado2,&CondRetEsp);
-		  if ((numLidos != 4) (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
+		   numLidos = LER_LerParametros("ii", &inxPeca,&CondRetEsp);
+		  if ((numLidos != 2) (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
 		   {
 			    return TST_CondRetParm;
 		   }
@@ -93,8 +93,8 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_DESCONHECIDAS) == 0)
 	   {
-		   numLidos = LER_LerParametros("iccsi",&inxPeca,idPeca,CorPeca,NomeArquivo,&CondRetEsp);
-		    if ((numLidos != 5) (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
+		   numLidos = LER_LerParametros("icci",&inxPeca,idPeca,CorPeca,&CondRetEsp);
+		    if ((numLidos != 4) (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
 		   {
 			    return TST_CondRetParm;
 			}
@@ -150,7 +150,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 
 	   else if(strcmp(ComandoTeste,LIBERA_PECA) == 0)
 	   {
-		    numLidos = LER_LerParametros("issi", &inxPeca,StringDado,StringDado2,&CondRetEsp);
+		    numLidos = LER_LerParametros("ii", &inxPeca,&CondRetEsp);
 		  if ((numLidos != 4) (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
 		   {
 			    return TST_CondRetParm;

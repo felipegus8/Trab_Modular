@@ -1,0 +1,40 @@
+// Script:    TestePeca.script
+// Autores:    Felipe Viberti,Luis Claudio,Victor Nogueira
+// Data:      05/out/2016
+// Propósito: Testar de forma específica o módulo Peca.
+//
+
+== Inicializar valores
+=declararparm   peca0  int 0
+=declararparm   peca1  int 1
+=declararparm   peca2  int 2
+//=declararparm   peca3  int 3
+
+=declararparm   idPeca0    caracter  'T'
+=declararparm   corPeca0  caracter  'B'
+=declararparm   idPeca1   caracter  'R'
+=declararparm   corPeca1   caracter  'P'
+=declararparm   idPeca2    caracter  'H'
+=declararparm   corPeca2   caracter  'B'
+
+=declararparm   OK             int  0
+=declararparm   NaoAchou       int  3
+=declararparm   FaltouMemoria  int  4
+
+=declararparm   pNULL          int  0
+=declararparm   pNaoNULL       int  1
+
+=Criar a peca0
+=criarpeca peca0 idPeca0 corPeca0 pNaoNULL
+ 
+ 
+=Ensina Movimentos Peca Conhecida
+=criarpeca peca1 idPeca1 corPeca1 pNaoNULL
+=ensinamovimentospecasconhecidas peca1 pNaoNULL
+ 
+ =Ensina Movimentos Peca Desconhecida
+ =criarpeca peca2 idPeca2 corPeca2 pNaoNULL
+ =ensinamovimentospecasconhecidas peca1 idPeca2 corPeca2 pNaoNULL
+ 
+ =Libera Peca
+ =liberapeca peca0 pNaoNULL

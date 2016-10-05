@@ -3,8 +3,8 @@
 #include "peca.h"
 
  struct peca {
-        char *id;  // string identificadora da peça
-        char *cor; //cor da peça
+        char id;  // string identificadora da peça
+        char cor; //cor da peça
         Movimento *movPeca;
  };
 
@@ -13,28 +13,21 @@ struct movimento{
     int y;
 };
 
-PEC_tpCondRet criaPeca(Peca *novo,char *id,char *cor) {
+PEC_tpCondRet criaPeca(Peca *novo,char id,char cor) {
           novo = (Peca *) malloc(sizeof(Peca));
           if(novo == NULL) {
             return PEC_CondRetFaltouMemoria;
           }
-          novo->id = (char *) sizeof(char);
-          if(novo->id == NULL) {
-            return PEC_CondRetFaltouMemoria;
-          }
-          strcpy(novo->id,id);
-          novo->cor = (char *) sizeof(char);
-          if(novo->cor == NULL) {
-            return PEC_CondRetFaltouMemoria;
-          }
-          strcpy(novo->cor,cor);
+		  novo->id = id;
+    
+		  novo->cor = cor;
           return PEC_CondRetOK; 
    }
 
 PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca *novo)
 {
 	int i = 1,j = 1,k;
-	switch(*(novo->id))
+	switch(novo->id)
 	{
 	case 'T':
 		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*14);
@@ -148,8 +141,6 @@ PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca *novo,Movimento *movPecaNo
 
 
 PEC_tpCondRet liberaPeca(Peca *peca) {
-         free(peca->cor);
-         free(peca->id);
          free(peca);
 		 return PEC_CondRetOK;
    }

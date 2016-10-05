@@ -60,8 +60,8 @@ typedef struct movimento Movimento;
 *
 *  $EP Parâmetros
 *     pnovo  - ponteiro para a peça que será criado.
-*     id - String contendo o Id da peça a ser criada.
-*		cor- String contendo a cor da Peça.
+*     id - Caracter contendo o Id da peça a ser criada.
+*		cor- Caracter contendo a cor da Peça.
 *
 *  $FV Valor retornado
 *     Se executou corretamente retorna o ponteiro para a peça por referência.
@@ -72,7 +72,7 @@ typedef struct movimento Movimento;
 *  
 *
 ***********************************************************************/
-PEC_tpCondRet criaPeca(Peca *novo,char *id,char *cor);
+PEC_tpCondRet criaPeca(Peca *novo,char id,char cor);
 
 
 /***********************************************************************
