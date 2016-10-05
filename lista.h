@@ -84,7 +84,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 /***********************************************************************/
 
 
-*
+*/***********************************************************************
 *  $FC Função: LIS  &Criar lista
 *
 *  $ED Descrição da função
@@ -114,7 +114,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
              
              
              
- ***********************************************************************/
+/***********************************************************************
 
 *  $FC Função: LIS  &Obter Id Lista
 *
@@ -135,7 +135,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
    LIS_tpCondRet obterIdLista(LIS_tppLista lista, char *IdLista);
 
-************************************************************************/ 
+/************************************************************************
 
 *  $FC Função: LIS  &Inserir nó na lista
 *
@@ -155,7 +155,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
    LIS_tpCondRet inserirNo(LIS_tppLista lista, void *elemento);
    
-************************************************************************/ 
+/************************************************************************
 
 *  $FC Função: LIS  &Obter nó na lista
 *
@@ -174,7 +174,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
    
   LIS_tpCondRet obterNo(LIS_tppLista lista); 
 
-************************************************************************/ 
+/************************************************************************
 
 *  $FC Função: LIS  &Excluir nó corrente
 *
@@ -193,7 +193,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
 LIS_tpCondRet excluirNoCorrente(LIS_tppLista lista);
 
-************************************************************************/ 
+/************************************************************************
 
 *  $FC Função: LIS  &Ir para o próximo nó
 *
@@ -213,7 +213,7 @@ LIS_tpCondRet excluirNoCorrente(LIS_tppLista lista);
 
 LIS_tpCondRet irProx(LIS_tppLista lista);
 
-************************************************************************/ 
+/************************************************************************
 
 *  $FC Função: LIS  &Ir para o nó anterior
 *
@@ -233,7 +233,7 @@ LIS_tpCondRet irProx(LIS_tppLista lista);
 
 LIS_tpCondRet irAnt(LIS_tppLista lista);
 
-************************************************************************/ 
+/************************************************************************
 
 *  $FC Função: LIS  &Alterar nó corrente
 *
@@ -253,7 +253,7 @@ LIS_tpCondRet irAnt(LIS_tppLista lista);
 
 LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, void *novo);
 
-************************************************************************/  
+/************************************************************************
 
 *  $FC Função: LIS  &Destroi lista
 *
@@ -271,7 +271,6 @@ LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, void *novo);
 
    LIS_tpCondRet destroiLista(LIS_tppLista lista);
 
-************************************************************************/ 
-
+/********** Fim do módulo de definição: LIS  Lista duplamente encadeada **********/
 
 #endif

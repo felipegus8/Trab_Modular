@@ -203,3 +203,7 @@
    }
 
 
+  TAB_tpCondRet verificaMovimentoValido(Casa tabuleiro[8][8],Peca *movida,Movimento *movPeca)
+  {
+
+  }
