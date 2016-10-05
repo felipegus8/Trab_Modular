@@ -5,12 +5,13 @@
 #include <string.h>
 #include "Tabuleiro.h"
 #include "Peca.h"
+#include "Casa.h"
 
 //Felipe e Luis, não consegui pensar em nenhuma maneira criativa de representar a movimentação da peça
     
-   Casa tabuleiro[8][8];
-   char idListaPeca[4] = "PeLI";
-   LIS_tppLista listaPecas;
+   //Casa tabuleiro[8][8];
+   //char idListaPeca[4] = "PeLI";
+   //LIS_tppLista listaPecas;
 
 
    void destruirValor(void *pValor);
@@ -25,8 +26,20 @@
    criaListaPecas();    
 
    
+   GER_tpCondRet criaTabuleiro(Casa tabuleiro[8][8]) {
+              int i = 0;
+              int y = 0;
+              tabuleiro = (Casa **) malloc(sizeof(Casa) * 64);
+              while(i<8) {
+                  while(j<8) {
+                        tabuleiro[i][j] = 
+                  }
+              }
+   }
 
-   TAB_tpCondRet inserirPeca(int x, char y,char *cor,char *id) {
+
+
+   TAB_tpCondRet inserirPeca(Casa tabuleiro[8][8],int x, char y,char *cor,char *id) {
         int y = (int)(y - 'A');
         x--;
         if(x>7 || x<0 || y>7 || y<0) {
