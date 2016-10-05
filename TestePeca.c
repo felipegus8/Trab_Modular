@@ -20,7 +20,7 @@ static const char LIBERA_PECA               				[ ] = "=liberapeca"        ;
 #define VAZIO     0
 #define NAO_VAZIO 1
 
-#define DIM_VT_PECA   100
+#define DIM_VT_PECA   64
 #define DIM_VALOR     100
 
 Peca vtPecas[DIM_VT_PECA];
@@ -66,7 +66,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
        void * elemento;
       StringDado[ 0 ] = 0,StringDado2[0] = 0;
 
-	   if ( strcmp( ComandoTeste , CRIAR_ PECA) == 0 )s
+	   if ( strcmp( ComandoTeste , CRIAR_PECA) == 0 )
 	   {
 		   numLidos = LER_LerParametros( "icci" ,
                        &inxPeca,idPeca,corPeca,&CondRetEsp );
@@ -77,8 +77,6 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		   vtPecas[inxPeca] = criaPeca(&novo,StringDado,StringDado2);    
 		 return TST_CompararPonteiroNulo( 1 , vtPecas[ inxPeca ] , "Erro em ponteiro de nova lista."  ) ;
 	   }/* fim ativa: Testar CriarPeca */
-
-
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_CONHECIDAS) == 0)
 	   {
 		   numLidos = LER_LerParametros("ii", &inxPeca,&CondRetEsp);
@@ -89,7 +87,6 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		CondRet = ensinaMovimentosPecasConhecidas(*vtPecas[inxPeca]);
 		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 	   }/* fim ativa: Testar EnsinaMovimentosPecasConhecidas */
-
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_DESCONHECIDAS) == 0)
 	   {
 		   numLidos = LER_LerParametros("icci",&inxPeca,idPeca,CorPeca,&CondRetEsp);
