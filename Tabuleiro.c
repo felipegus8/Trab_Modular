@@ -7,11 +7,16 @@
 #include "Peca.h"
 #include "Casa.h"
 
-//Felipe e Luis, não consegui pensar em nenhuma maneira criativa de representar a movimentação da peça
+
     
-   //Casa tabuleiro[8][8];
-   //char idListaPeca[4] = "PeLI";
-   //LIS_tppLista listaPecas;
+typedef struct casa {
+         LIS_tppLista *ameacados;
+         /* ponteiro para a cabeça da lista que contém as peças ameaçadas pela peça da casa */
+         LIS_tppLista *amecantes;
+         /* ponteiro para a cabeça da lista que contém as peças que ameaçam a peça da casa */
+         void *elemento;
+         /*ponteiro para o elemento contido na casa */
+   } Casa;
 
 
    void destruirValor(void *pValor);
