@@ -2,13 +2,12 @@
 #include    <stdio.h>
 #include    <malloc.h>
 
-#include    "TestePeca.h"
 
 #include    "Generico.h"
 #include    "LerParm.h"
 
 #include    "peca.h"
-#include    "TesteLista.h"
+#include    "TST_ESPC.h"
 
 static const char CRIAR_PECA             	                            [ ] = "=criarpeca" ;
 static const char ENSINA_MOVIMENTOS_PECAS_CONHECIDAS          	        [ ] = "=ensinamovimentospecasconhecidas"   ;

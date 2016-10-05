@@ -2,7 +2,7 @@
 #include    <stdio.h>
 #include    <malloc.h>
 
-#include    "TesteLista.h"
+#include    "TST_ESPC.h"
 
 #include    "Generico.h"
 #include    "LerParm.h"
