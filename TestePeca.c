@@ -9,10 +9,10 @@
 #include    "peca.h"
 #include    "TST_ESPC.h"
 
-static const char CRIAR_PECA             	                            [ ] = "=criarpeca" ;
+static const char CRIAR_PECA             	                        [ ] = "=criarpeca" ;
 static const char ENSINA_MOVIMENTOS_PECAS_CONHECIDAS          	        [ ] = "=ensinamovimentospecasconhecidas"   ;
 static const char ENSINA_MOVIMENTOS_PECAS_DESCONHECIDAS              	[ ] = "=ensinamovimentospecasdesconhecidas"      ;
-static const char LIBERA_PECA               							[ ] = "=liberapeca"        ;
+static const char LIBERA_PECA               				[ ] = "=liberapeca"        ;
 
 #define TRUE  1
 #define FALSE 0
@@ -25,24 +25,24 @@ static const char LIBERA_PECA               							[ ] = "=liberapeca"        ;
 
 Peca vtPecas[DIM_VT_PECA];
 
-/***** Protótipos das funções encapuladas no módulo *****/
+/***** ProtÃ³tipos das funÃ§Ãµes encapuladas no mÃ³dulo *****/
  static int ValidarInxPeca( int inxPeca , int Modo ) ;
 
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
 
 /***********************************************************************
 *
-*  $FC Função: TLIS &Testar Peça
+*  $FC FunÃ§Ã£o: TLIS &Testar PeÃ§a
 *
-*  $ED Descrição da função
-*     Podem ser criadas até 100 peças, identificadas pelos índices 0 a 10
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Podem ser criadas atÃ© 100 peÃ§as, identificadas pelos Ã­ndices 0 a 10
 *
-*     Comandos disponíveis:
+*     Comandos disponÃ­veis:
 *
 *     =criarpeca					                 inxPeca  idPeca   corPeca(string)  CondRetEsp
 *     =ensinamovimentospecasconhecidas               inxPeca  idPeca   corPeca(string)  CondRetEsp
-*     =ensinamovimentospecasdesconhecidas            inxPeca   idPeca  corPeca(string)    NomeArquivo(Onde as peças novas ficam guardadas) CondRetEsp
+*     =ensinamovimentospecasdesconhecidas            inxPeca   idPeca  corPeca(string)    NomeArquivo(Onde as peÃ§as novas ficam guardadas) CondRetEsp
 *     =liberapeca                                    inxPeca   CondRetEsp
 ***********************************************************************/
 
@@ -60,7 +60,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
       int ValEsp = -1 ;
 
       int i ;
-	  Peca *novo;
+	Peca *novo;
       int numElem = -1 ;
 	  Movimento *mov;
        void * elemento;
@@ -74,7 +74,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		   {
 			    return TST_CondRetParm;
 		   }
-		   vtPecas[inxPeca] = criaPeca(novo,StringDado,StringDado2);    
+		   vtPecas[inxPeca] = criaPeca(&novo,StringDado,StringDado2);    
 		 return TST_CompararPonteiroNulo( 1 , vtPecas[ inxPeca ] , "Erro em ponteiro de nova lista."  ) ;
 	   }/* fim ativa: Testar CriarPeca */
 
@@ -86,8 +86,8 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		   {
 			    return TST_CondRetParm;
 		   }
-		CondRet = ensinaMovimentosPecasConhecidas(vtPecas[inxPeca]);
-		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
+		CondRet = ensinaMovimentosPecasConhecidas(*vtPecas[inxPeca]);
+		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peÃ§a conhecida." );
 	   }/* fim ativa: Testar EnsinaMovimentosPecasConhecidas */
 
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_DESCONHECIDAS) == 0)
@@ -142,8 +142,8 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 			printf("%d %d",mov[j].x,mov[j].y);
 			printf("\n");
 		}
-		CondRet = ensinaMovimentosPecasDesconhecidas(novo,mov);
-		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça desconhecida.");
+		CondRet = ensinaMovimentosPecasDesconhecidas(*vtPecas[inxPeca],mov);
+		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peÃ§a desconhecida.");
 	   }/* fim ativa: Testar EnsinaMovimentosPecasDesconhecidas */
 
 
@@ -154,16 +154,16 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		   {
 			    return TST_CondRetParm;
 		   }
-		  CondRet = liberaPeca(vtPecas[inxPeca]);
+		  CondRet = liberaPeca(*vtPecas[inxPeca]);
 		  vtPecas[inxPeca] = NULL;
-		   return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao liberar uma peça" ) ;
+		   return TST_CompararInt( CondRetEsp ,CondRet  ,"CondiÃ§Ã£o de retorno errada ao liberar uma peÃ§a" ) ;
 	   }/* fim ativa: Testar LiberaPeca */
 }
-/*****  Código das funções encapsuladas no módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes encapsuladas no mÃ³dulo  *****/
 
 /***********************************************************************
 *
-*  $FC Função: TLIS -Validar indice da peca.
+*  $FC FunÃ§Ã£o: TLIS -Validar indice da peca.
 
 *
 ***********************************************************************/
@@ -193,4 +193,4 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
          
       return TRUE ;
 
-   } /* Fim função: TLIS -Validar indice de lista */
+   } /* Fim funÃ§Ã£o: TLIS -Validar indice de lista */
