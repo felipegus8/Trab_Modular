@@ -1,18 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "peca.h"
- struct peca {
+typedef struct movimento{
+    int x;
+    int y;
+}Movimento;
+
+ typedef struct peca {
         char id;  // string identificadora da peça
         char cor; //cor da peça
 	int qtdMov; //quantidade de movimentos da peça
 	int movParaTras; // Bool para ver se a peça move para trás ou não
         Movimento *movPeca; //Vetor da struct movimento contendo todos os movimentos que a peça pode fazer
- };
+ }Peca;
 
-struct movimento{
-    int x;
-    int y;
-};
+
 
 PEC_tpCondRet criaPeca(Peca **novo,char id,char cor) {
           *novo = (Peca *) malloc(sizeof(Peca));
@@ -24,7 +26,26 @@ PEC_tpCondRet criaPeca(Peca **novo,char id,char cor) {
 		  *novo->cor = cor;
           return PEC_CondRetOK; 
    }
+PEC_tpCondRet alocaMovimento(Peca **novo,int i)
+{
+	*novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*i);
+	return PEC_CondRetOK;
+}
 
+PEC_tpCondRet recebeX(int x,Peca **novo,int i)
+{
+	*novo->movPeca[i].x = x;
+	return PEC_CondRetOK;
+}
+PEC_tpCondRet recebeY(int y,Peca **novo,int i)
+{
+	*novo->movPeca[i].y = y;
+	return PEC_CondRetOK;
+}
+PEC_tpCondRet retornaMovimento(Peca **novo)
+{
+	
+}
 PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca **novo)
 {
 	int i = 1,j = 1,k;
