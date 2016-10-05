@@ -57,25 +57,25 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Criar lista
 *  ****/
 
-   LIS_tpCondRet LIS_CriarLista(char idLista[4]
+   LIS_tpCondRet LIS_CriarLista(LIS_tpplista **lista,char idLista[4]
              void   ( * ExcluirValor ) ( void * pDado ), LIS_tppLista lista)
    {
 
-      LIS_tppLista * lista = NULL ;
+      //LIS_tppLista * lista = NULL ;
 
-      lista = ( LIS_tpLista * ) malloc( sizeof( LIS_tppLista )) ;
-      if ( lista == NULL )
+      *lista = ( LIS_tpLista * ) malloc( sizeof( LIS_tppLista )) ;
+      if ( *lista == NULL )
       {
          return LIS_CondRetFaltouMemoria ;
       } /* if */
 
-      LimparCabeca( lista );
+      LimparCabeca( *lista );
 
-      lista->ExcluirValor = ExcluirValor;
+      *lista->ExcluirValor = ExcluirValor;
       
-      lista->idLista = (char *) malloc(sizeof(char) * strlen(idLista));
+      *lista->idLista = (char *) malloc(sizeof(char) * strlen(idLista));
       
-      strcpy(lista->idLista, idLista);
+      strcpy(*lista->idLista, idLista);
 
       return LIS_CondRetOK;
 
