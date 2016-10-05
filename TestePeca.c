@@ -52,12 +52,12 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	 int inxPeca  = -1 ,
           numLidos   = -1 ,
           CondRetEsp = -1  ;
-
       int CondRet ;
 
-      char   StringDado[  DIM_VALOR ] ;
+      char   StringDado[  DIM_VALOR ],StringDado2[DIM_VALOR],NomeArquivo[DIM_VALOR],ConteudoArquivo[1000],strAux[1000] ;
+	  char idPeca,corPeca;
       char * pDado ;
-
+	  FILE *fp;
       int ValEsp = -1 ;
 
       int i ;
@@ -65,9 +65,9 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
       int numElem = -1 ;
 
        void * elemento;
-      StringDado[ 0 ] = 0,StringDado2[0] = 0 ;
+      StringDado[ 0 ] = 0,StringDado2[0] = 0;
 
-	   if ( strcmp( ComandoTeste , CRIAR_ PECA) == 0 )
+	   if ( strcmp( ComandoTeste , CRIAR_ PECA) == 0 )s
 	   {
 		   numLidos = LER_LerParametros( "issi" ,
                        &inxPeca,StringDado,StringDado2,&CondRetEsp );
@@ -80,7 +80,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	   }
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_CONHECIDAS) == 0)
 	   {
-		   numLidos = LER_LerParametros("issi", &inxPeca,StringDado,StringDado2,&CondRetEsp);
+		   numLidos = LER_LerParametros("isssi", &inxPeca,StringDado,StringDado2,&CondRetEsp);
 		  if ((numLidos != 4) (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
 		   {
 			    return TST_CondRetParm;
@@ -90,8 +90,40 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	   }
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_DESCONHECIDAS) == 0)
 	   {
-		   numLidos = LER_LerParametros("issi");
-		   //Isso eu não sei fazer
+		   numLidos = LER_LerParametros("iccsi",&inxPeca,idPeca,CorPeca,NomeArquivo,&CondRetEsp);
+		    if ((numLidos != 5) (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
+		   {
+			    return TST_CondRetParm;
+			}
+			 if ((fp=fopen("PecasNovas.txt","r"))==NULL)
+			{
+			 printf("Error! opening file");
+			return TST_CondRetErro;       
+			}
+			 while( fgets (ConteudoArquivo, 10, fp)!=NULL )
+			 {
+				 if (strcmp(ConteudoArquivo,"\n") != 0)
+				 {
+				 puts(ConteudoArquivo);
+				 if (i ==0)
+				 {
+					 strcpy(strAux,ConteudoArquivo);
+				 }
+				 else
+				 {
+				  strcat(strAux,ConteudoArquivo);
+				 }
+				 }
+				 i++;
+			 } 
+			 for(i=0;strAux[i]!='\0';i++)
+			 {
+				 if (strAux[i] == idPeca)
+				 {
+
+				 }
+			 }
+
 	   }
 
 	   else if(strcmp(ComandoTeste,LIBERA_PECA) == 0)
