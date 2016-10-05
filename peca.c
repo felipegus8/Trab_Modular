@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "peca.h"
-
  struct peca {
         char id;  // string identificadora da peça
         char cor; //cor da peça
-	int qtdMov;
-        Movimento *movPeca;
+	int qtdMov; //quantidade de movimentos da peça
+	int movParaTras; // Bool para ver se a peça move para trás ou não
+        Movimento *movPeca; //Vetor da struct movimento contendo todos os movimentos que a peça pode fazer
  };
 
 struct movimento{
@@ -25,42 +25,48 @@ PEC_tpCondRet criaPeca(Peca **novo,char id,char cor) {
           return PEC_CondRetOK; 
    }
 
-PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca *novo)
+PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca **novo)
 {
 	int i = 1,j = 1,k;
-	switch(novo->id)
+	switch(*novo->id)
 	{
 	case 'T':
-		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*14);
+		*novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*14);
+		*novo->qtdMov = 14;
+		*novo->movParaTras = 1;
 		if(novo->movPeca == NULL)
 		{
 			return PEC_CondRetFaltouMemoria;
 		}
 		for(i=1;i<8;i++)
 		{
-			novo->movPeca[i].x = i;
-			novo->movPeca[i].y = 0;
+			*novo->movPeca[i].x = i;
+			*novo->movPeca[i].y = 0;
 		}
 		for(j=1;j<8;j++)
 		{
-			novo->movPeca[i].x = 0;
-			novo->movPeca[i].y = j;
+			*novo->movPeca[i].x = 0;
+			*novo->movPeca[i].y = j;
 			i++;
 		}
 	break;
 	case 'C':
-		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
-		if(novo->movPeca == NULL)
+		*novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
+		*novo->qtdMov = 2;
+		*novo->movParaTras = 1;
+		if(*novo->movPeca == NULL)
 		{
 		return PEC_CondRetFaltouMemoria;
 		}
-		novo->movPeca[0].x = 2;
-		novo->movPeca[0].y = 1;
-		novo->movPeca[1].x = 1;
-		novo->movPeca[1].y = 2;
+		*novo->movPeca[0].x = 2;
+		*novo->movPeca[0].y = 1;
+		*novo->movPeca[1].x = 1;
+		*novo->movPeca[1].y = 2;
 		break;
 	case 'B':
-		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*7);
+		*novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*7);
+		*novo->qtdMov = 7;
+		*novo->movParaTras = 1;
 		if(novo->movPeca == NULL)
 		{
 		return PEC_CondRetFaltouMemoria;
@@ -68,57 +74,63 @@ PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca *novo)
 		i = 1;
 		for(k=1;k<8;k++)
 		{
-			novo->movPeca[k].x = i;
-			novo->movPeca[k].y = i;
+			*novo->movPeca[k].x = i;
+			*novo->movPeca[k].y = i;
 		}
 		break;
 	case 'P':
-		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
-		if(novo->movPeca == NULL)
+		*novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
+		*novo->qtdMov = 2;
+		*novo->movParaTras = 0;
+		if(*novo->movPeca == NULL)
 		{
 		return PEC_CondRetFaltouMemoria;
 		}
-		novo->movPeca[0].x = 1;
-		novo->movPeca[0].y = 0;
-		novo->movPeca[1].x = 1;
-		novo->movPeca[1].y = 1;
+		*novo->movPeca[0].x = 1;
+		*novo->movPeca[0].y = 0;
+		*novo->movPeca[1].x = 1;
+		*novo->movPeca[1].y = 1;
 		break;
 	case 'D':
-		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*21);
-		if(novo->movPeca == NULL)
+		*novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*21);
+		*novo->qtdMov = 21;
+		*novo->movParaTras = 1;
+		if(*novo->movPeca == NULL)
 		{
 		return PEC_CondRetFaltouMemoria;
 		}
 		for(i=1;i<8;i++)
 		{
-			novo->movPeca[i].x = i;
-			novo->movPeca[i].y = 0;
+			*novo->movPeca[i].x = i;
+			*novo->movPeca[i].y = 0;
 		}
 		for(j=1;j<8;j++)
 		{
-			novo->movPeca[i].x = 0;
-			novo->movPeca[i].y = j;
+			*novo->movPeca[i].x = 0;
+			*novo->movPeca[i].y = j;
 			i++;
 		}
 		j=1;
 		for(k=1;k<8;k++)
 		{
-			novo->movPeca[i].x = j;
-			novo->movPeca[i].y = j;
+			*novo->movPeca[i].x = j;
+			*novo->movPeca[i].y = j;
 		}
 		break;
 	case 'R':
-		novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*3);
-		if(novo->movPeca == NULL)
+		*novo->movPeca = (Movimento*)malloc(sizeof(Movimento)*3);
+		*novo->qtdMov = 3;
+		*novo->movParaTras = 1;	
+		if(*novo->movPeca == NULL)
 		{
 		return PEC_CondRetFaltouMemoria;
 		}
-		novo->movPeca[0].x = 1;
-		novo->movPeca[0].y = 0;
-		novo->movPeca[1].x = 1;
-		novo->movPeca[1].y = 1;
-		novo->movPeca[2].x = 0;
-		novo->movPeca[2].y = 1;
+		*novo->movPeca[0].x = 1;
+		*novo->movPeca[0].y = 0;
+		*novo->movPeca[1].x = 1;
+		*novo->movPeca[1].y = 1;
+		*novo->movPeca[2].x = 0;
+		*novo->movPeca[2].y = 1;
 		break;
 
 	default:
@@ -127,14 +139,14 @@ PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca *novo)
 	return PEC_CondRetOK;
 }
 
-PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca *novo,Movimento *movPecaNova)
+PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo,Movimento *movPecaNova)
 {
-	novo->movPeca = (Movimento*)malloc(sizeof(Movimento));
-	if(novo->movPeca == NULL)
+	*novo->movPeca = (Movimento*)malloc(sizeof(Movimento));
+	if(*novo->movPeca == NULL)
 	{
 		return PEC_CondRetFaltouMemoria;
 	}
-	novo->movPeca = movPecaNova;
+	*novo->movPeca = movPecaNova;
 	return PEC_CondRetOK;
 }
 
