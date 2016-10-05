@@ -13,7 +13,7 @@ struct movimento{
     int y;
 };
 
-PEC_tpCondRet criaPeca(Peca *novo) {
+PEC_tpCondRet criaPeca(Peca *novo,char *id,char *cor) {
           novo = (Peca *) malloc(sizeof(Peca));
           if(novo == NULL) {
             return PEC_CondRetFaltouMemoria;
