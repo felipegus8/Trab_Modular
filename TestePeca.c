@@ -55,7 +55,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
       int CondRet ;
 
       char   StringDado[  DIM_VALOR ],StringDado2[DIM_VALOR],NomeArquivo[DIM_VALOR],ConteudoArquivo[1000],strAux[1000] ;
-	  char idPeca,corPeca;
+	  char idPeca,corPeca,idLido,corLido;
       char * pDado ;
 	  FILE *fp;
       int ValEsp = -1 ;
@@ -63,7 +63,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
       int i ;
 	  Peca *novo;
       int numElem = -1 ;
-
+	  Movimento *mov;
        void * elemento;
       StringDado[ 0 ] = 0,StringDado2[0] = 0;
 
@@ -95,37 +95,54 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		   {
 			    return TST_CondRetParm;
 			}
-			 if ((fp=fopen("PecasNovas.txt","r"))==NULL)
+			if ((fp=fopen("PecasNovas.txt","r"))==NULL)
 			{
 			 printf("Error! opening file");
-			return TST_CondRetErro;       
+			exit(1);         
 			}
-			 while( fgets (ConteudoArquivo, 10, fp)!=NULL )
-			 {
-				 if (strcmp(ConteudoArquivo,"\n") != 0)
-				 {
-				 puts(ConteudoArquivo);
-				 if (i ==0)
-				 {
-					 strcpy(strAux,ConteudoArquivo);
-				 }
-				 else
-				 {
-				  strcat(strAux,ConteudoArquivo);
-				 }
-				 }
-				 i++;
-			 } 
-			 for(i=0;strAux[i]!='\0';i++)
-			 {
-				 if (strAux[i] == idPeca)
-				 {
+			i = 0;
+		while(fscanf(fp,"%c %c",&idLido,&corLido))
+		{
+			if ((idLido == idPeca) && (corLido == corPeca))
+			{
+				while (fscanf(fp,"%d %d",&x,&y))
+				{
+					i++;
+				}
+				break;
+			}
 
-				 }
-			 }
+		}
+		mov = (Movimento*)malloc(sizeof(Movimento)*i);
+		i = 0;
+		fclose(fp);
+		if ((fp=fopen("PecasNovas.txt","r"))==NULL)
+			{
+			 printf("Error! opening file");
+			exit(1);         
+			}
+		while(fscanf(fp,"%c %c",&idLido,&corLido))
+		{
+			if ((idLido == idPeca) && (corLido == corPeca))
+			{
+				while (fscanf(fp,"%d %d",&x,&y))
+				{
+					 mov[i].x = x;
+					 mov[i].y = y;
+					i++;
+				}
+				break;
+			}
 
+		}
+		for(j = 0;j<i;j++)
+		{
+			printf("%d %d",mov[j].x,mov[j].y);
+			printf("\n");
+		}
+		CondRet = ensinaMovimentosPecasDesconhecidas(novo,mov);
+		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça desconhecida.");
 	   }
-
 	   else if(strcmp(ComandoTeste,LIBERA_PECA) == 0)
 	   {
 		    numLidos = LER_LerParametros("issi", &inxPeca,StringDado,StringDado2,&CondRetEsp);
