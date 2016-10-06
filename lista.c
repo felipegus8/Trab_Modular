@@ -63,19 +63,19 @@ typedef struct LIS_tagLista {
 
       //LIS_tppLista * lista = NULL ;
 
-      lista = ( LIS_tpLista * ) malloc( sizeof( LIS_tppLista)) ;
-      if ( *lista == NULL )
+      lista = (LIS_tppLista *) malloc( sizeof( LIS_tppLista)) ;
+      if ( (*lista) == NULL )
       {
          return LIS_CondRetFaltouMemoria ;
       } /* if */
 
       LimparCabeca( *lista );
 
-      *lista->ExcluirValor = ExcluirValor;
+      (*lista)->ExcluirValor = ExcluirValor;
       
-      *lista->idLista = (char *) malloc(sizeof(char) * strlen(idLista));
+      (*lista)->idLista = (char *) malloc(sizeof(char) * strlen(idLista));
       
-      strcpy(*lista->idLista, idLista);
+      strcpy((*lista)->idLista, idLista);
 
       return LIS_CondRetOK;
 
@@ -92,7 +92,7 @@ typedef struct LIS_tagLista {
                      return LIS_tpCondRetNaoAchou;
             }
             strcpy(idLista,lista->idLista);
-            return LIS_tpCondRetOK;
+            return LIS_CondRetOK;
    } 
 
 /***************************************************************************
