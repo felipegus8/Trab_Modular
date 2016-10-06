@@ -1,7 +1,7 @@
 // Script:    TesteLista.script
 // Autor:     Arndt von Staa,Felipe Viberti,Luis Claudio,Victor Nogueira
 // Data:      04/Oct/2016
-// Propósito: Testar superficialmente o módulo lista genérica duplamente encadeada
+// Propósito: Testar o módulo lista genérica
 //
 
 == Inicializar valores
