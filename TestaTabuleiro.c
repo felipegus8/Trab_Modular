@@ -143,7 +143,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
          else if ( strcmp( ComandoTeste , RETIRAR_PECA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iiccci" , &inxTab, x, y, &CondRetEsp) ;
+            numLidos = LER_LerParametros( "iici" , &inxTab, x, y, &CondRetEsp) ;
 
             if ( ( numLidos != 4 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
@@ -162,7 +162,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
          else if ( strcmp( ComandoTeste , MOVER_PECA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iiccci" , &inxTab, x, y, xf, yf, &CondRetEsp) ;
+            numLidos = LER_LerParametros( "iicici" , &inxTab, x, y, xf, yf, &CondRetEsp) ;
 
             if ( ( numLidos != 6 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
