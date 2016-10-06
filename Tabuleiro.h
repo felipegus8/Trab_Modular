@@ -1,11 +1,32 @@
-#include "Lista.h"
 #if ! defined( Tabuleiro_ )
 #define Tabuleiro_
+#include "lista.h"
+#include "peca.h"
+/***************************************************************************
+*
+*  $MCD Módulo de definição: TAB  Tabuleiro
+*
+*  Arquivo gerado:              Tabuleiro.h
+*  Letras identificadoras:      TAB
+*
+*
+*  $ED Descrição do módulo
+*     Implementa um tabuleiro representada por uma matriz 8*8 da struct casa.
+*     Cada casa do tabuleiro contem uma lista para as peças que ameaçam aquela casa,outra para as peças que aquela casa ameaça,além do próprio elemento contido na casa.
+* 
+*
+***************************************************************************/
 
-typedef struct casa Casa;
 
-typedef struct peca Peca;
-
+/***********************************************************************
+*
+*  $TC Tipo de dados: TAB Condições de retorno
+*
+*
+*  $ED Descrição do tipo
+*     Condições de retorno das funções do Tabuleiro.
+*
+***********************************************************************/
 typedef enum {
 
          TAB_CondRetOK ,
@@ -32,6 +53,11 @@ typedef enum {
         TAB_CondRetMovimentoIrregular
 
    } TAB_tpCondRet ;
+
+
+/* Tipo referencia para uma casa */
+typedef struct casa Casa;
+
 
 
 
