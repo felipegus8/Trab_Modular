@@ -3,3 +3,47 @@
 // Data:      06/Oct/2016
 // Propósito: Testar o módulo tabuleiro
 //
+==*     criartabuleiro            inxTab                                     CondRetEsp
+==*     inserepeca                intTab      int     char     char      char     CondRetEsp
+==*     obterlistaameacantes      inxTab     char     CondRetEsp
+==*     obterlistaameacados       inxTab     char     CondRetEsp
+==*     obterpeca                 inxTab     char     char      char         CondRetEsp
+==*     retirarpeca               inxTab     char     CondRetEsp
+==*     moverpeca                 inxTab     char     int       char        CondRetEsp
+==*     destruirtabuleiro         inxTab     CondRetEsp
+
+         TAB_CondRetOK ,               /* Concluiu corretamente */
+
+         TAB_CondRetCasaVazia ,
+               /* A casa não contém peças */
+         TAB_CondRetCoordenadaNExiste ,
+               /* coordenada inserida não existe */
+
+         TAB_CondRetNaoAchouPeca ,
+               /* Não encontrou a peca procurada */
+
+         TAB_CondRetFaltouMemoria ,
+               /* Faltou memória ao tentar criar uma lista dentro da casa*/
+         
+         TAB_CondRetListaAmecadosNaoExiste ,
+               /* lista de elementos ameaçados pela peça não foi criado*/
+         
+         TAB_CondRetListaAmecantesNaoExiste ,
+               /* lista de elementos que ameaçam a peça não foi criado*/
+         
+        TAB_CondRetMovimentoIrregular
+
+=declararparm   OK                     int  0
+=declararparm   CasaVazia              int  1
+=declararparm   CoodenadaNExiste       int  2
+=declararparm   NaoAchouPeca           int  3
+=declararparm   FaltouMemoria          int  4
+=declararparm   AmecadosNaoExiste      int  5
+=declararparm   AmecantesNaoExiste     int  6
+=declararparm   MovimentoIrregular     int  7
+
+=declararparm   pNULL          int  0
+=declararparm   pNaoNULL       int  1
+
+
+==      criartabuleiro            Tab0       
