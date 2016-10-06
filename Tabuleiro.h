@@ -20,12 +20,16 @@ typedef enum {
          TAB_CondRetNaoAchouPeca ,
                /* Não encontrou a peca procurada */
 
-         TAB_CondRetFaltouMemoria,
+         TAB_CondRetFaltouMemoria ,
                /* Faltou memória ao tentar criar uma lista dentro da casa*/
-         TAB_CondRetListaAmecadosNaoExiste,
+         
+         TAB_CondRetListaAmecadosNaoExiste ,
                /* lista de elementos ameaçados pela peça não foi criado*/
-         TAB_CondRetListaAmecantesNaoExiste
+         
+         TAB_CondRetListaAmecantesNaoExiste ,
                /* lista de elementos que ameaçam a peça não foi criado*/
+         
+        TAB_CondRetMovimentoIrregular
 
    } TAB_tpCondRet ;
 
