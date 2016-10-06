@@ -26,7 +26,11 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 #define VAZIO     0
 #define NAO_VAZIO 1
 
+#define DIM_VT_TAB   10
+
 Casa tabuleiro[8][8];
+
+LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
 
 /***** Prottotipos das funções encapuladas no modulo *****/
 
@@ -79,7 +83,7 @@ Casa tabuleiro[8][8];
 	  int x, xf;
 	  char y, yf, cor, id;
 
-	  LIS_tppLista **ameacas;
+	  LIS_tppLista *ameacas;
 
       /* Criar Tabuleiro */
 
@@ -94,7 +98,7 @@ Casa tabuleiro[8][8];
 
             CondRet = criaTabuleiro(tabuleiro);
 
-            return TST_CompararPonteiroNulo( 1 , vtListas[ inxTab ] , "Erro em ponteiro de nova lista."  ) ;
+            return TST_CompararPonteiroNulo( 1 , vtTab[ inxTab ] , "Erro em ponteiro de nova lista."  ) ;
 
          } /* FIM: Criar Tabuleiro */
 
@@ -220,8 +224,8 @@ Casa tabuleiro[8][8];
                return TST_CondRetParm ;
             } /* if */
 
-            LIS_DestruirLista( vtListas[ inxTab ] ) ;
-            vtListas[ inxTab ] = NULL ;
+            LIS_DestruirLista( vtTab[ inxTab ] ) ;
+            vtTab[ inxTab ] = NULL ;
 
 			CondRet = DestruirTabuleiro(tabuleiro);
 
@@ -230,21 +234,6 @@ Casa tabuleiro[8][8];
          } /* fim ativa: Testar Destruir tabuleiro */
 
 /*****  Código das funções encapsuladas no módulo  *****/
-
-
-/***********************************************************************
-*
-*  $FC Função: TLIS -Destruir valor
-*
-***********************************************************************/
-
-   void DestruirValor( nome* pValor )
-   {
-
-      free( pValor ) ;
-
-   } /* Fim função: TLIS -Destruir valor */
-
 
 /***********************************************************************
 *
@@ -255,21 +244,21 @@ Casa tabuleiro[8][8];
    int ValidarInxLista( int inxLista , int Modo )
    {
 
-      if ( ( inxLista <  0 )
-        || ( inxLista >= DIM_VT_LISTA ))
+      if ( ( inxTab <  0 )
+        || ( inxTab >= DIM_VT_TAB ))
       {
          return FALSE ;
       } /* if */
          
       if ( Modo == VAZIO )
       {
-         if ( vtListas[ inxLista ] != 0 )
+         if ( vtTab[ inxTab ] != 0 )
          {
             return FALSE ;
          } /* if */
       } else
       {
-         if ( vtListas[ inxLista ] == 0 )
+         if ( vtTab[ inxTab ] == 0 )
          {
             return FALSE ;
          } /* if */
