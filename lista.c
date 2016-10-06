@@ -43,7 +43,7 @@ typedef struct LIS_tagLista {
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
-   static void LiberarElemento( LIS_tppLista   pLista ,
+   static void LiberarElemento( LIS_tppLista   lista ,
                                 tpElemLista  * pElem   ) ;
 
    static tpElemLista * CriarElemento( LIS_tppLista lista ,
@@ -169,10 +169,10 @@ typedef struct LIS_tagLista {
          if ( pElem->pAnt != NULL )
          {
             pElem->pAnt->pProx   = pElem->pProx ;
-            pLista->pElemCorr    = pElem->pAnt ;
+            lista->pElemCorr    = pElem->pAnt ;
          } else {
-            pLista->pElemCorr    = pElem->pProx ;
-            pLista->pOrigemLista = pLista->pElemCorr ;
+            lista->pElemCorr    = pElem->pProx ;
+            lista->pOrigemLista = lista->pElemCorr ;
          } /* if */
 
       /* Desencadeia direita */
@@ -182,10 +182,10 @@ typedef struct LIS_tagLista {
             pElem->pProx->pAnt = pElem->pAnt ;
          } else
          {
-            pLista->pFimLista = pElem->pAnt ;
+            lista->pFimLista = pElem->pAnt ;
          } /* if */
 
-      LiberarElemento( pLista , pElem ) ;
+      LiberarElemento( lista , pElem ) ;
 
       return LIS_CondRetOK;
             
