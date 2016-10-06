@@ -3,7 +3,7 @@
 #include <malloc.h>
 #include <assert.h>
 #include <string.h>
-#include "Lista.h"
+#include "lista.h"
 
 
 typedef struct tagElemLista {
