@@ -113,13 +113,19 @@ typedef struct LIS_tagLista {
                     return LIS_CondRetFaltouMemoria;
            }
            
-           novo->pValor = elemento;
+           //tpElemLista->pValor = (char *) malloc(sizeof(char) * strlen(elemento));
+           if(tpElemLista->pValor) {
+                    // printf("falta de memória para inserir novo elemento na lista\n");
+                    return LIS_CondRetFaltouMemoria;
+           }
+           //strcpy(tpElemLista->pValor, elemento);
+           tpElemLista->pValor = elem;
            aux = lista->pElemCorr->pProx;
            novo->pAnt = lista->pElemCorr;
            if(aux != NULL) {
                     novo->pProx = aux;
-                    lista->pElemCorr->prox = novo;
-                    aux->ant = novo;
+                    lista->pElemCorr->pProx = novo;
+                    aux->pAnt = novo;
            } else {
                     novo->pProx = NULL;
            }
