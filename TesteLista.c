@@ -9,7 +9,6 @@
 
 #include    "lista.h"
 
-//ESTOU EDITANDO ESSA PARADA(Victor)
 
 static const char CRIAR_LISTA             	[ ] = "=criarlista"     ;
 static const char OBTER_ID_LISTA          	[ ] = "=obterIdLista"   ;
@@ -33,7 +32,7 @@ static const char DESTROI_LISTA             [ ] = "=destroiLista"     ;
 
 LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
-/***** ProtÃ³tipos das funÃ§Ãµes encapuladas no mÃ³dulo *****/
+/***** Protótipos das funções encapuladas no módulo *****/
 
    static void DestruirValor( void * pValor ) ;
 
@@ -41,16 +40,16 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
    
    static int ValidarString(char* str);
 
-/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
+/*****  Código das funções exportadas pelo módulo  *****/
 
 /***********************************************************************
 *
-*  $FC FunÃ§Ã£o: TLIS &Testar lista
+*  $FC Função: TLIS &Testar lista
 *
-*  $ED DescriÃ§Ã£o da funÃ§Ã£o
-*     Podem ser criadas atÃ© 10 listas, identificadas pelos Ã­ndices 0 a 10
+*  $ED Descrição da função
+*     Podem ser criadas até 10 listas, identificadas pelos índices 0 a 10
 *
-*     Comandos disponÃ­veis:
+*     Comandos disponíveis:
 *
 *     =criarlista                   inxLista  idLista   CondRetEsp
 *     =obterIdLista                 inxLista  idLista
@@ -97,10 +96,9 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            
-                 LIS_CriarLista( &vtListas[ inxLista ],DestruirValor ) ;
+            CondRet = LIS_CriarLista( vtListas[inxLista],StringDado,DestruirValor ) ;
 
-            return TST_CompararPonteiroNulo( 1 , vtListas[ inxLista ] , "Erro em ponteiro de nova lista."  ) ;
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao inserir o nó." ) ;
 
          } /* fim ativa: Testar CriarLista */
 		 else if (strcmp(ComandoTeste , OBTER_ID_LISTA) == 0)
@@ -111,7 +109,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 			
-			 obterIdLista( vtListas[ inxLista ],pDado ) ;
+			 pDado = ( char * ) obterIdLista( vtListas[ inxLista ] ) ;
 
             return TST_CompararString( StringDado , pDado , "Valor do ID Lista errado." ) ;
          } /* fim ativa: Testar obter valor do idLista */
@@ -132,8 +130,9 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             } /* if */
 
             strcpy( pDado , StringDado ) ;
+			 elemento = (void*)malloc(sizeof(void*));
              
-			CondRet = inserirNo( vtListas[ inxLista ] , (void *)pDado ) ;
+			CondRet = inserirNo( vtListas[ inxLista ] , elemento ) ;
              strcpy((char)elemento,pDado);
 
             if ( CondRet != 0 )
@@ -141,8 +140,8 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                free( pDado ) ;
             } /* if */
 
-            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao inserir o nÃ³." ) ;
-		 }/*fim ativa:Testar inserir nÃ³*/
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao inserir o nó." ) ;
+		 }/*fim ativa:Testar inserir nó*/
 		 
 		 else if (strcmp(ComandoTeste,OBTER_NO) == 0)
 		 {
@@ -161,17 +160,18 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             strcpy( pDado , StringDado ) ;
             
+             elemento = (void*)malloc(sizeof(void*));
              
-			CondRet = obterNo(vtListas[inxLista],&elemento);
+			CondRet = obterNo(vtListas[inxLista],elemento);
              
-             pDado = (char *) elemento;
+             strcpy((char)elemento,pDado);
              
 			 if ( CondRet != 0 )
             {
                free( pDado ) ;
             } /* if */
 			  return TST_CompararString( StringDado , pDado ,"Valor Encontrado diferente do esperado." ) ;
-		 }/*fim ativa:Testar obter nÃ³*/
+		 }/*fim ativa:Testar obter nó*/
 		 
 		 else if (strcmp(ComandoTeste,EXCLUIR_NO_CORRENTE) == 0)
 		 {
@@ -181,8 +181,8 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 			CondRetEsp = 0;
-			return TST_CompararInt( CondRetEsp ,excluirNoCorrente( vtListas[ inxLista ] ) ,"CondiÃ§Ã£o de retorno errada ao excluir o no corrente."  ) ;
-		 }/*fim ativa:Testar excluir nÃ³ corrente*/
+			return TST_CompararInt( CondRetEsp ,excluirNoCorrente( vtListas[ inxLista ] ) ,"Condição de retorno errada ao excluir o no corrente."  ) ;
+		 }/*fim ativa:Testar excluir nó corrente*/
 		 
 		 
 		 else if (strcmp(ComandoTeste,IR_PROX) == 0)
@@ -192,9 +192,9 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             {
                return TST_CondRetParm ;
             } /* if */
-			CondRet = irProx(vtLista[inxLista]);
-			return TST_CompararInt( CondRetEsp ,CondRet,"CondiÃ§Ã£o de retorno errada ao ir para o prÃ³ximo elemento da lista"  ) ;
-		 }/*fim ativa:Testar ir prÃ³ximo*/
+			CondRet = irProx(vtListas[inxLista]);
+			return TST_CompararInt( CondRetEsp ,CondRet,"Condição de retorno errada ao ir para o próximo elemento da lista"  ) ;
+		 }/*fim ativa:Testar ir próximo*/
 		 
 		 
 		 else if (strcmp(ComandoTeste,IR_ANT) == 0)
@@ -205,15 +205,15 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             {
                return TST_CondRetParm ;
             } /* if */
-			CondRet = irAnt(vtLista[inxLista]);
-			return TST_CompararInt( CondRetEsp ,CondRet ,"CondiÃ§Ã£o de retorno errada ao ir para o elemento anterior da lista" ) ;
+			CondRet = irAnt(vtListas[inxLista]);
+			return TST_CompararInt( CondRetEsp ,CondRet ,"Condição de retorno errada ao ir para o elemento anterior da lista" ) ;
 		 }/*fim ativa:Testar ir anterior*/
 		 
 		 
 		 else if(strcmp(ComandoTeste,ALTERAR_NO_CORRENTE) == 0)
 		 {
 			 numLidos = LER_LerParametros("isi",&inxLista,StringDado,&CondRetEsp);
-			 if ( ( numLidos != 3 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+			 if ( ( numLidos != 2 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
@@ -225,12 +225,12 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             strcpy( pDado , StringDado);
              
-             //elemento = (void*)malloc(sizeof(void*));
+             elemento = (void*)malloc(sizeof(void*));
              
-			CondRet = alterarNoCorrente(vtListas[inxLista],(void *)pDado);
-             
-			return TST_CompararInt( CondRetEsp ,CondRet  ,"CondiÃ§Ã£o de retorno errada ao alterar o conteÃºdo do nÃ³ corrente" ) ;
-		 }/*fim ativa:Testar alterar nÃ³ corrente*/
+			CondRet = alterarNoCorrente(vtListas[inxLista],elemento);
+             strcpy(char(elemento),pDado);
+			return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao alterar o conteúdo do nó corrente" ) ;
+		 }/*fim ativa:Testar alterar nó corrente*/
 		 
 		 else if(strcmp(ComandoTeste,DESTROI_LISTA) == 0)
 		 {
@@ -243,20 +243,20 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             CondRet = destroiLista( vtListas[ inxLista ] ) ;
             vtListas[ inxLista ] = NULL ;
-            return TST_CompararInt( CondRetEsp ,CondRet  ,"CondiÃ§Ã£o de retorno errada ao destruir a lista" ) ;
-		 }/*fim ativa:Testar destrÃ³i lista*/	 
+            return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao destruir a lista" ) ;
+		 }/*fim ativa:Testar destrói lista*/	 
 		 
 		return TST_CondRetNaoConhec ;
-   }  /* Fim funÃ§Ã£o: TLIS &Testar lista */
+   }  /* Fim função: TLIS &Testar lista */
 	  
 	  
 	  
-/*****  CÃ³digo das funÃ§Ãµes encapsuladas no mÃ³dulo  *****/
+/*****  Código das funções encapsuladas no módulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC FunÃ§Ã£o: TLIS -Destruir valor
+*  $FC Função: TLIS -Destruir valor
 *
 ***********************************************************************/
 
@@ -265,12 +265,12 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
       free( pValor ) ;
 
-   } /* Fim funÃ§Ã£o: TLIS -Destruir valor */
+   } /* Fim função: TLIS -Destruir valor */
 
 
 /***********************************************************************
 *
-*  $FC FunÃ§Ã£o: TLIS -Validar indice de lista
+*  $FC Função: TLIS -Validar indice de lista
 *
 ***********************************************************************/
 
@@ -299,18 +299,18 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
          
       return TRUE ;
 
-   } /* Fim funÃ§Ã£o: TLIS -Validar indice de lista */
+   } /* Fim função: TLIS -Validar indice de lista */
 /***********************************************************************
 *
-*  $FC FunÃ§Ã£o: TLIS -Validar String
+*  $FC Função: TLIS -Validar String
 *
 ***********************************************************************/
 int ValidarString(char* str)
 {
 	int i;
-	for(i=0;str[i]!="\0";i++);
+	for(i=0;str[i]!='\0';i++);
 	if (i>0 && i<=4)
 	return TRUE;
 	return FALSE;
 }
-/* Fim funÃ§Ã£o: TLIS -Validar String */
+/* Fim função: TLIS -Validar String */
