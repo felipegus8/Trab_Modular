@@ -58,7 +58,7 @@ typedef struct LIS_tagLista {
 *  ****/
 
    LIS_tpCondRet LIS_CriarLista(LIS_tpplista *lista,char idLista[4]
-             void   ( * ExcluirValor ) ( void * pDado ), LIS_tppLista lista)
+             void   ( * ExcluirValor ) ( void * pDado ))
    {
 
       //LIS_tppLista * lista = NULL ;
