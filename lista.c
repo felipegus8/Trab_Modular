@@ -89,7 +89,7 @@ typedef struct LIS_tagLista {
    
    LIS_tpCondRet obterIdLista(LIS_tppLista lista, char idLista[4]) {
             if(lista == NULL) {
-                     return LIS_tpCondRetNaoAchou;
+                     return LIS_CondRetNaoAchou;
             }
             strcpy(idLista,lista->idLista);
             return LIS_CondRetOK;
@@ -159,7 +159,7 @@ typedef struct LIS_tagLista {
            assert(lista != NULL ) ;
            #endif
            
-           tppElemLista * pElem;
+           tpElemLista * pElem;
            pElem = lista->pElemCorr;
            if(lista->pElemCorr == NULL) {
                     return LIS_CondRetListaVazia;
@@ -254,15 +254,15 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Destruir lista
 *  ****/
-      LIS_tpCondRet destroiLista(LIS_tpp lista) {
+      LIS_tpCondRet destroiLista(LIS_tppLista lista) {
 
           if(lista == NULL) {
                    return LIS_CondRetFimLista;
           } 
 
-      EsvaziarLista( lista ) ;
+      EsvaziarLista( lista );
 
-      free( lista ) ;
+      free( lista );
       return LIS_CondRetOK;
    } /* Fim funÁ„o: LIS  &Destruir lista */
 
@@ -280,7 +280,7 @@ typedef struct LIS_tagLista {
 ***********************************************************************/
 
    void LiberarElemento( LIS_tppLista   lista ,
-                         tppElemLista  * pElem   )
+                         tpElemLista  * pElem   )
    {
 
       if ( ( lista->ExcluirValor != NULL )
@@ -302,13 +302,13 @@ typedef struct LIS_tagLista {
 *
 ***********************************************************************/
 
-   tppElemLista * CriarElemento( LIS_tppLista lista ,
+   tpElemLista * CriarElemento( LIS_tppLista lista ,
                                 void *       pValor  )
    {
 
-      tppElemLista * pElem ;
+      tpElemLista * pElem ;
 
-      pElem = ( tppElemLista * ) malloc( sizeof( tppElemLista )) ;
+      pElem = ( tpElemLista * ) malloc( sizeof( tpElemLista )) ;
       if ( pElem == NULL )
       {
          return NULL ;
@@ -348,8 +348,8 @@ typedef struct LIS_tagLista {
 
    void LIS_EsvaziarLista( LIS_tppLista lista ) {
 
-      tppElemLista * pElem ;
-      tppElemLista * pProx ;
+      tpElemLista * pElem ;
+      tpElemLista * pProx ;
 
       #ifdef _DEBUG
          assert( lista != NULL ) ;
@@ -363,7 +363,7 @@ typedef struct LIS_tagLista {
          pElem = pProx ;
       } /* while */
 
-      LimparCabeca( pLista ) ;
+      LimparCabeca( lista ) ;
 
    } /* Fim função: LIS  &Esvaziar lista */
 
