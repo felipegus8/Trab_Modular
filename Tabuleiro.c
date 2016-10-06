@@ -5,7 +5,6 @@
 #include <string.h>
 #include "Tabuleiro.h"
 #include "Peca.h"
-#include "Casa.h"
 
 
     
@@ -17,6 +16,7 @@ typedef struct casa {
          void *elemento;
          /*ponteiro para o elemento contido na casa */
    } Casa;
+
 char idListaPecas = "PeLi"; //identificação da lista de peças
 LIS_tpCondRet = retLis;
 PEC_tpCondRet = retPeca;
@@ -101,8 +101,13 @@ LIS_CriarLista(&listaPecas,idListaPecas,destruirValor); //criação da lista de 
             return TAB_tpCondRetFaltouMemoria;
         }
         retLis = LIS_tpCondRet inserirNo(listaPecas,tabuleiro[x][yi]->elemento); //insere peça nova na lista
-        
-        return TAB_CondRetOK:
+        retPeca = ensinaMovimentosPecasConhecidas((Peca **)&tabuleiro[x][yi]->elemento);
+        if(retPeca == PEC_CondRetOK) {
+            return TAB_CondRetOK:
+        }
+        if(retPeca == PEC_CondRetNaoAchouPeca) {
+             ensinaMovimentosPecasDesconhecidas((Peca **)&tabuleiro[x][yi]->elemento,);
+        }
    }
 
    TAB_tpCondRet ObterListaAmeacantes(Casa tabuleiro[8][8],int x, char y,LIS_tppLista **listaAmeacantes) {
