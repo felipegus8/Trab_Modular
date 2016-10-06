@@ -1,3 +1,9 @@
+/***************************************************************************
+*  $MCI Mï¿½dulo de implementaï¿½ï¿½o: TTAB Teste Tabuleiro
+*
+*  Arquivo gerado:              TestaTabuleiro.c
+*  Letras identificadoras:      TTAB
+***************************************************************************/
 #include    <string.h>
 #include    <stdio.h>
 #include    <malloc.h>
@@ -9,7 +15,6 @@
 
 #include    "Tabuleiro.h"
 
-//DestruirTabuleiro
 static const char CRIAR_TABULEIRO          	                        [ ] = "=criartabuleiro" ;
 static const char INSERE_PECA        	                            [ ] = "=inserepeca"   ;
 static const char OBTER_LISTA_AMEACANTES                            [ ] = "=obterlistaameacantes"      ;
@@ -28,23 +33,22 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 
 #define DIM_VT_TAB   10
 
-Casa tabuleiro[8][8];
 
 LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
 
-/***** Prottotipos das funções encapuladas no modulo *****/
+/***** Prottotipos das funï¿½ï¿½es encapuladas no modulo *****/
 
    static int ValidarInxTab( int inxTab , int Modo ) ;
 
-/*****  Codigo das funções exportadas pelo modulo  *****/
+/*****  Codigo das funï¿½ï¿½es exportadas pelo modulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Funcão: TLIS &Testar tabuleiro
+*  $FC Funcï¿½o: TLIS &Testar tabuleiro
 *
-*  $ED Descriçãoo da função
-*     É criado um tabuleiro e nele pode operar todas as funções abaixo
+*  $ED Descriï¿½ï¿½oo da funï¿½ï¿½o
+*     ï¿½ criado um tabuleiro e nele pode operar todas as funï¿½ï¿½es abaixo
 *
 *     Comandos disponiveis:
 *
@@ -116,7 +120,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
 
             CondRet = inserirPeca(tabuleiro, x, y, id)
 
-            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peï¿½a conhecida." );
 
          } /* fim ativa: InserePeca */
 
@@ -134,7 +138,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
 
             CondRet = inserirPeca(tabuleiro, x, y, id)
 
-            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peï¿½a conhecida." );
 
          } /* fim ativa: ObterPeca */
 
@@ -152,7 +156,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
 
             CondRet = RetirarPeca(tabuleiro, x, y);
 
-            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peï¿½a conhecida." );
 
          } /* fim ativa: RetirarPeca */
 
@@ -171,7 +175,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
 
             CondRet = MoverPeca(tabuleiro, x, y, xf, yf);
 
-            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peï¿½a conhecida." );
 
          } /* fim ativa: Move Peca */
 
@@ -187,9 +191,9 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = ObterListaAmeacantes(tabuleiro, x, y, ameaças);
+            CondRet = ObterListaAmeacantes(tabuleiro, x, y, ameaï¿½as);
 
-            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peï¿½a conhecida." );
 
          } /* fim ativa: ObterListaAmeacantes */
 
@@ -205,9 +209,9 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = ObterListaAmeacantes(tabuleiro, x, y, ameaças);
+            CondRet = ObterListaAmeacantes(tabuleiro, x, y, ameaï¿½as);
 
-            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peï¿½a conhecida." );
 
          } /* fim ativa: ObterListaAmeacados */
 
@@ -229,15 +233,15 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
 
 			CondRet = DestruirTabuleiro(tabuleiro);
 
-            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peï¿½a conhecida." );
 
          } /* fim ativa: Testar Destruir tabuleiro */
 
-/*****  Código das funções encapsuladas no módulo  *****/
+/*****  Cï¿½digo das funï¿½ï¿½es encapsuladas no mï¿½dulo  *****/
 
 /***********************************************************************
 *
-*  $FC Função: TLIS -Validar indice de lista
+*  $FC Funï¿½ï¿½o: TLIS -Validar indice de lista
 *
 ***********************************************************************/
 
@@ -266,6 +270,6 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
          
       return TRUE ;
 
-   } /* Fim função: TLIS -Validar indice de lista */
+   } /* Fim funï¿½ï¿½o: TLIS -Validar indice de lista */
 
-/********** Fim do módulo de implementação: TLIS Teste lista de símbolos **********/
+/********** Fim do mï¿½dulo de implementaï¿½ï¿½o: TLIS Teste lista de sï¿½mbolos **********/
