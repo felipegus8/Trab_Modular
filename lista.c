@@ -119,7 +119,7 @@ typedef struct LIS_tagLista {
                     return LIS_CondRetFaltouMemoria;
            }
            //strcpy(tpElemLista->pValor, elemento);
-           *elemento = tpElemLista->pValor;
+           tpElemLista->pValor = elem;
            aux = lista->pElemCorr->pProx;
            novo->pAnt = lista->pElemCorr;
            if(aux != NULL) {
