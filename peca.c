@@ -9,8 +9,8 @@ typedef struct movimento{
  typedef struct peca {
         char id;  // string identificadora da peça
         char cor; //cor da peça
-	int qtdMov; //quantidade de movimentos da peça
-	int movParaTras; // Bool para ver se a peça move para trás ou não
+	    int qtdMov; //quantidade de movimentos da peça
+	    int movParaTras; // Bool para ver se a peça move para trás ou não
         Movimento *movPeca; //Vetor da struct movimento contendo todos os movimentos que a peça pode fazer
  }Peca;
 

@@ -11,12 +11,12 @@
 
 //DestruirTabuleiro
 static const char CRIAR_TABULEIRO          	                        [ ] = "=criartabuleiro" ;
-static const char INSERE_PECA        	                              [ ] = "=inserepeca"   ;
+static const char INSERE_PECA        	                            [ ] = "=inserepeca"   ;
 static const char OBTER_LISTA_AMEACANTES                            [ ] = "=obterlistaameacantes"      ;
-static const char OBTER_LISTA_AMEACADOS               				      [ ] = "=obterlistaameacados"        ;
-static const char OBTER_PECA              				                  [ ] = "=obterpeca"        ;
-static const char RETIRAR_PECA              				                [ ] = "=retirarpeca"        ;
-static const char MOVER_PECA              				                  [ ] = "=moverpeca"        ;
+static const char OBTER_LISTA_AMEACADOS               				[ ] = "=obterlistaameacados"        ;
+static const char OBTER_PECA              				            [ ] = "=obterpeca" ;
+static const char RETIRAR_PECA              				        [ ] = "=retirarpeca"        ;
+static const char MOVER_PECA              				            [ ] = "=moverpeca"        ;
 static const char DESTRUIR_TABULEIRO                                [ ] = "=destruirtabuleiro"        ;
 
 
@@ -28,36 +28,32 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 
 Casa tabuleiro[8][8];
 
-/***** Prot√≥tipos das fun√ß√µes encapuladas no m√≥dulo *****/
+/***** Prottotipos das funÁıes encapuladas no modulo *****/
 
    static void DestruirValor( void * pValor ) ;
 
    static int ValidarInxLista( int inxLista , int Modo ) ;
 
-/*****  C√≥digo das fun√ß√µes exportadas pelo m√≥dulo  *****/
+/*****  Codigo das funÁıes exportadas pelo modulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Fun√ß√£o: TLIS &Testar lista
+*  $FC Func„o: TLIS &Testar tabuleiro
 *
-*  $ED Descri√ß√£o da fun√ß√£o
-*     Podem ser criadas at√© 10 listas, identificadas pelos √≠ndices 0 a 10
+*  $ED DescriÁ„oo da funÁ„o
+*     … criado um tabuleiro e nele pode operar todas as funÁıes abaixo
 *
-*     Comandos dispon√≠veis:
+*     Comandos disponiveis:
 *
-*     =resetteste
-*           - anula o vetor de listas. Provoca vazamento de mem√≥ria
-*     =criarlista                   inxLista
-*     =destruirlista                inxLista
-*     =esvaziarlista                inxLista
-*     =inselemantes                 inxLista  string  CondRetEsp
-*     =inselemapos                  inxLista  string  CondRetEsp
-*     =obtervalorelem               inxLista  string  CondretPonteiro
-*     =excluirelem                  inxLista  CondRetEsp
-*     =irinicio                     inxLista
-*     =irfinal                      inxLista
-*     =avancarelem                  inxLista  numElem CondRetEsp
+*     criartabuleiro            CondRetEsp
+*     inserepeca                int     char     char      char     CondRetEsp
+*     obterlistaameacantes      int     char     CondRetEsp
+*     obterlistaameacados       int     char     CondRetEsp
+*     obterpeca                 int     char     char      char     CondRetEsp
+*     retirarpeca               int     char     CondRetEsp
+*     moverpeca                 int     char     int       char     CondRetEsp
+*     destruirtabuleiro         CondRetEsp
 *
 ***********************************************************************/
 
