@@ -84,7 +84,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 /***********************************************************************/
 
 
-*/***********************************************************************
+/***********************************************************************
 *  $FC Função: LIS  &Criar lista
 *
 *  $ED Descrição da função
@@ -135,7 +135,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
 ***********************************************************************/
 
-  LIS_tpCondRet obterIdLista(LIS_tppLista *lista, char idLista[4]);
+  LIS_tpCondRet obterIdLista(LIS_tppLista lista, char idLista[4]);
 
 /************************************************************************
 

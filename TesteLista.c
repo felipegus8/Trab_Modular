@@ -96,7 +96,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = LIS_CriarLista( vtListas[inxLista],StringDado,DestruirValor ) ;
+            CondRet = LIS_CriarLista( &vtListas[inxLista],StringDado,DestruirValor ) ;
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao criar uma lista" ) ;
 
@@ -109,7 +109,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 			
-			 CondRet =  obterIdLista( vtListas[ inxLista ],idLista);
+			 CondRet =  obterIdLista(vtListas[ inxLista ],idLista);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao obter o Id da lista." ) ;
          } /* fim ativa: Testar obter valor do idLista */
@@ -130,9 +130,8 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             } /* if */
 
             strcpy( pDado , StringDado ) ;
-			 elemento = (void*)malloc(sizeof(void*));
              
-			CondRet = inserirNo( vtListas[ inxLista ] , elemento ) ;
+			CondRet = inserirNo( vtListas[ inxLista ],(void*)pDado) ;
              strcpy((char)elemento,pDado);
 
             if ( CondRet != 0 )
@@ -158,13 +157,9 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetMemoria ;
             } /* if */
 
-            strcpy( pDado , StringDado ) ;
-            
-             elemento = (void*)malloc(sizeof(void*));
+            strcpy( pDado , StringDado) ;
              
-			CondRet = obterNo(vtListas[inxLista],elemento);
-             
-             strcpy((char)elemento,pDado);
+			CondRet = obterNo(vtListas[inxLista],(void*)pDado);
              
 			 if ( CondRet != 0 )
             {
@@ -213,22 +208,12 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 		 else if(strcmp(ComandoTeste,ALTERAR_NO_CORRENTE) == 0)
 		 {
 			 numLidos = LER_LerParametros("isi",&inxLista,StringDado,&CondRetEsp);
-			 if ( ( numLidos != 2 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+			 if ( ( numLidos != 3 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
-			pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
-            if ( pDado == NULL )
-            {
-               return TST_CondRetMemoria ;
-            } /* if */
+			CondRet = alterarNoCorrente(vtListas[inxLista],(void*)StringDado);
 
-            strcpy( pDado , StringDado);
-             
-             elemento = (void*)malloc(sizeof(void*));
-             
-			CondRet = alterarNoCorrente(vtListas[inxLista],elemento);
-             strcpy((char)elemento,pDado);
 			return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao alterar o conteúdo do nó corrente" ) ;
 		 }/*fim ativa:Testar alterar nó corrente*/
 		 

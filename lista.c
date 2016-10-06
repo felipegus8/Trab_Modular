@@ -87,7 +87,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Obter Id Lista
 *  ****/
    
-   LIS_tpCondRet obterIdLista(LIS_tppLista *lista, char idLista[4]) {
+   LIS_tpCondRet obterIdLista(LIS_tppLista lista, char idLista[4]) {
             if(lista == NULL) {
                      return LIS_tpCondRetNaoAchou;
             }
