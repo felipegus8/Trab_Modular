@@ -6,7 +6,6 @@
 #include "Tabuleiro.h"
 #include "Peca.h"
 
-//ESTOU MEXENDO AGORA(Victor)
 
     
 typedef struct casa {
