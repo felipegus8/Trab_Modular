@@ -73,7 +73,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
       int CondRet ;
 
-      char   StringDado[  DIM_VALOR ] ;
+      char   StringDado[  DIM_VALOR ],idLista[4];
       char * pDado ;
 
       int ValEsp = -1 ;
@@ -98,20 +98,20 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             CondRet = LIS_CriarLista( vtListas[inxLista],StringDado,DestruirValor ) ;
 
-            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao inserir o nó." ) ;
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao criar uma lista" ) ;
 
          } /* fim ativa: Testar CriarLista */
 		 else if (strcmp(ComandoTeste , OBTER_ID_LISTA) == 0)
 		 {
-			 numLidos = LER_LerParametros("is",&inxLista,StringDado);
+			 numLidos = LER_LerParametros("is",&inxLista,idLista);
 			  if ( ( numLidos != 2 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) || !(ValidarString(StringDado)))
             {
                return TST_CondRetParm ;
             } /* if */
 			
-			 pDado = ( char * ) obterIdLista( vtListas[ inxLista ] ) ;
+			 CondRet =  obterIdLista( vtListas[ inxLista ],idLista);
 
-            return TST_CompararString( StringDado , pDado , "Valor do ID Lista errado." ) ;
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao obter o Id da lista." ) ;
          } /* fim ativa: Testar obter valor do idLista */
 		 
 		 else if (strcmp(ComandoTeste,INSERIR_NO) == 0)
@@ -228,7 +228,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
              elemento = (void*)malloc(sizeof(void*));
              
 			CondRet = alterarNoCorrente(vtListas[inxLista],elemento);
-             strcpy(char(elemento),pDado);
+             strcpy((char)elemento,pDado);
 			return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao alterar o conteúdo do nó corrente" ) ;
 		 }/*fim ativa:Testar alterar nó corrente*/
 		 

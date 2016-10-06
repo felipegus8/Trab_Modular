@@ -94,6 +94,8 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *     Há uma string de até 4 caracteres que serve como identificador da lista.
 *
 *  $EP Parâmetros
+	lista - ponteiro para a lista que será criada.
+	idLista - String contendo o id da lista que será criada.
 *     ExcluirValor  - ponteiro para a função que processa a
 *                     exclusão do valor referenciado pelo elemento
 *                     a ser excluído.
@@ -109,7 +111,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-    LIS_tpCondRet LIS_CriarLista(LIS_tpplista *lista,char idLista[4]
+    LIS_tpCondRet LIS_CriarLista(LIS_tpplista *lista,char idLista[4],
              void   ( * ExcluirValor ) ( void * pDado ));
              
              
@@ -144,7 +146,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 *  $EP Parâmetros
 *     pLista = ponteiro para a lista onde deverá ser inserido o elemento
-      elemento = string que será inserida no nó seguinte ao nó corrente
+      elemento = ponteiro para void que será inserido no nó seguinte ao nó corrente
 *
 *  $FV Valor retornado
 *     Retorna OK, caso a inserção tenha sido bem sucedida.
@@ -164,7 +166,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 *  $EP Parâmetros
 *     pLista = ponteiro para a lista de onde deverá ser obtido o elemento
-      s = string para onde será copiado o valor contido no elemento corrente
+      referencia = ponteiro  para  void onde será copiado o valor contido no elemento corrente.
 *
 *  $FV Valor retornado
 *     Retorna OK caso tenha obtido corretamente.
@@ -242,7 +244,7 @@ LIS_tpCondRet irAnt(LIS_tppLista lista);
 *
 *  $EP Parâmetros
 *     pLista = ponteiro para a lista de onde deverá ser excluido o nó corrente
-*     novo = valor o qual substituirá o valor do elemento corrente 
+*     referencia = ponteiro para void contendo o valor o qual substituirá o valor do elemento corrente 
 *
 *  $FV Valor retornado
 *     Retorna OK caso a alteração tenha sido bem sucedida
