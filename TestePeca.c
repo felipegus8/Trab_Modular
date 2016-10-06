@@ -9,10 +9,10 @@
 #include    "peca.h"
 #include    "TST_ESPC.h"
 
-static const char CRIAR_PECA             	                        [ ] = "=criarpeca" ;
+static const char CRIAR_PECA             								[ ] = "=criarpeca" ;
 static const char ENSINA_MOVIMENTOS_PECAS_CONHECIDAS          	        [ ] = "=ensinamovimentospecasconhecidas"   ;
 static const char ENSINA_MOVIMENTOS_PECAS_DESCONHECIDAS              	[ ] = "=ensinamovimentospecasdesconhecidas"      ;
-static const char LIBERA_PECA               				[ ] = "=liberapeca"        ;
+static const char LIBERA_PECA               							[ ] = "=liberapeca"        ;
 
 #define TRUE  1
 #define FALSE 0
@@ -66,7 +66,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	   if ( strcmp( ComandoTeste , CRIAR_PECA) == 0 )
 	   {
 		   numLidos = LER_LerParametros( "icci" ,
-                       &inxPeca,idPeca,corPeca,&CondRetEsp );
+                       &inxPeca,&idPeca,&corPeca,&CondRetEsp );
 		   if ((numLidos != 4) || (( ! ValidarInxPeca( inxPeca , VAZIO ))))
 		   {
 			    return TST_CondRetParm;
@@ -86,12 +86,12 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	   }/* fim ativa: Testar EnsinaMovimentosPecasConhecidas */
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_DESCONHECIDAS) == 0)
 	   {
-		   numLidos = LER_LerParametros("icci",&inxPeca,idPeca,corPeca,&CondRetEsp);
-		    if ((numLidos != 4) || (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
+		   numLidos = LER_LerParametros("ii",&inxPeca,&CondRetEsp);
+		    if ((numLidos != 2) || (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
 		   {
 			    return TST_CondRetParm;
 			}
-		CondRet = ensinaMovimentosPecasDesconhecidas(&vtPecas[inxPeca],idPeca,corPeca);
+		CondRet = ensinaMovimentosPecasDesconhecidas(&vtPecas[inxPeca]);
 		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça desconhecida.");
 	   }/* fim ativa: Testar EnsinaMovimentosPecasDesconhecidas */
 
@@ -99,7 +99,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	   else if(strcmp(ComandoTeste,LIBERA_PECA) == 0)
 	   {
 		    numLidos = LER_LerParametros("ii", &inxPeca,&CondRetEsp);
-		  if ((numLidos != 4) || (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
+		  if ((numLidos != 2) || (( ! ValidarInxPeca( inxPeca , NAO_VAZIO ))))
 		   {
 			    return TST_CondRetParm;
 		   }
@@ -107,7 +107,8 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		  vtPecas[inxPeca] = NULL;
 		   return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao liberar uma peça" ) ;
 	   }/* fim ativa: Testar LiberaPeca */
-}
+	   return TST_CondRetNaoConhec ;
+}	
 /*****  Código das funções encapsuladas no módulo  *****/
 
 /***********************************************************************

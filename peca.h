@@ -103,11 +103,12 @@ PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca **novo);
 *  $ED Descrição da função
 *  Atribui ao campo movimento da struct peça o movimento da mesma.
 *  Nessa função são tratadas apenas as peças inseridas pelo usuário,ou seja,aquelas que o movimento não é conhecido previamente.
+*  O movimento das peças novas está no arquivo PecasNovas.txt que é lido pela função;
 *
 *
 *  $EP Parâmetros
 *     pnovo  - ponteiro para a peça que terá seu movimento inserida.Esta peça já tem que estar criada e conter seu Id e sua cor.
-*	movPecaNova - é um array com todos os movimentos possiveis que aquela nova peça faz.Esse é um array da struct movimento,portanto seus elementos tem a forma (x,y).Esse array já tem que estar devidamente alocado antes de ser passado para essa função.
+*	
 *
 *  $FV Valor retornado
 *     Se executou corretamente retorna o ponteiro para a peça com o movimento da mesma dentro por referência.
@@ -117,7 +118,7 @@ PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca **novo);
 *  
 *
 ***********************************************************************/
-PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo,char idLido,char corLido);
+PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo);
 
 /***********************************************************************
 *  $FC Função: PEC  &Libera Peça

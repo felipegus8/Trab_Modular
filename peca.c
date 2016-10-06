@@ -141,9 +141,9 @@ PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca **novo)
 	return PEC_CondRetOK;
 }
 
-PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo,char idLido,char corLido)
+PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo)
 {
-	char idPeca,corPeca;
+	char idLido,corLido;
 	int x,y,i;
 	FILE *fp;
 	if ((fp=fopen("PecasNovas.txt","r"))==NULL)
@@ -154,7 +154,7 @@ PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo,char idLido,char co
 			i = 0;
 		while(fscanf(fp,"%c %c",&idLido,&corLido))
 		{
-			if ((idLido == idPeca) && (corLido == corPeca))
+			if ((idLido == (*novo)->id) && (corLido == (*novo)->cor))
 			{
 				while (fscanf(fp,"%d %d",&x,&y))
 				{
@@ -164,6 +164,7 @@ PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo,char idLido,char co
 			}
 
 		}
+		printf("%d",i);
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*i);
 		if ((*novo)->movPeca  == NULL)
 		{
@@ -178,7 +179,7 @@ PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo,char idLido,char co
 			}
 		while(fscanf(fp,"%c %c",&idLido,&corLido))
 		{
-			if ((idLido == idPeca) && (corLido == corPeca))
+			if ((idLido == (*novo)->id) && (corLido == (*novo)->cor))
 			{
 				while (fscanf(fp,"%d %d",&x,&y))
 				{
@@ -188,7 +189,6 @@ PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo,char idLido,char co
 				}
 				break;
 			}
-
 		}
 	return PEC_CondRetOK;
 }
