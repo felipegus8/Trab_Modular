@@ -132,9 +132,8 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             } /* if */
 
             strcpy( pDado , StringDado ) ;
-			 //elemento = (void*)malloc(sizeof(void*));
              
-			CondRet = inserirNo( vtListas[ inxLista ] , elemento ) ;
+			CondRet = inserirNo( vtListas[ inxLista ] , (void *)pDado ) ;
              strcpy((char)elemento,pDado);
 
             if ( CondRet != 0 )
@@ -162,11 +161,9 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             strcpy( pDado , StringDado ) ;
             
-             //elemento = (void*)malloc(sizeof(void*));
              
 			CondRet = obterNo(vtListas[inxLista],&elemento);
              
-             //strcpy((char)elemento,pDado);
              pDado = (char *) elemento;
              
 			 if ( CondRet != 0 )
@@ -216,7 +213,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 		 else if(strcmp(ComandoTeste,ALTERAR_NO_CORRENTE) == 0)
 		 {
 			 numLidos = LER_LerParametros("isi",&inxLista,StringDado,&CondRetEsp);
-			 if ( ( numLidos != 2 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+			 if ( ( numLidos != 3 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
@@ -230,8 +227,8 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
              
              //elemento = (void*)malloc(sizeof(void*));
              
-			CondRet = alterarNoCorrente(vtListas[inxLista],elemento);
-             strcpy(char(elemento),pDado);
+			CondRet = alterarNoCorrente(vtListas[inxLista],(void *)pDado);
+             
 			return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao alterar o conteúdo do nó corrente" ) ;
 		 }/*fim ativa:Testar alterar nó corrente*/
 		 
