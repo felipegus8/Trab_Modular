@@ -30,9 +30,7 @@ Casa tabuleiro[8][8];
 
 /***** Prottotipos das funções encapuladas no modulo *****/
 
-   static void DestruirValor( void * pValor ) ;
-
-   static int ValidarInxLista( int inxLista , int Modo ) ;
+   static int ValidarInxTab( int inxTab , int Modo ) ;
 
 /*****  Codigo das funções exportadas pelo modulo  *****/
 
@@ -46,28 +44,28 @@ Casa tabuleiro[8][8];
 *
 *     Comandos disponiveis:
 *
-*     criartabuleiro            CondRetEsp
-*     inserepeca                int     char     char      char     CondRetEsp
-*     obterlistaameacantes      int     char     CondRetEsp
-*     obterlistaameacados       int     char     CondRetEsp
-*     obterpeca                 int     char     char      char     CondRetEsp
-*     retirarpeca               int     char     CondRetEsp
-*     moverpeca                 int     char     int       char     CondRetEsp
-*     destruirtabuleiro         CondRetEsp
+*     criartabuleiro            inxTab                                     CondRetEsp
+*     inserepeca                intTab      int     char     char      char     CondRetEsp
+*     obterlistaameacantes      inxTab     char     CondRetEsp
+*     obterlistaameacados       inxTab     char     CondRetEsp
+*     obterpeca                 inxTab     char     char      char         CondRetEsp
+*     retirarpeca               inxTab     char     CondRetEsp
+*     moverpeca                 inxTab     char     int       char        CondRetEsp
+*     destruirtabuleiro         inxTab     CondRetEsp
 *
 ***********************************************************************/
 
-   TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
+ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
    {
 
-      int inxLista  = -1 ,
+      int inxTab  = -1 ,
           numLidos   = -1 ,
           CondRetEsp = -1  ;
 
-      TST_tpCondRet CondRet ;
+      TST_tpCondRet CondRet;
 
-      char   StringDado[  DIM_VALOR ] ;
-      char * pDado ;
+      char   StringDado[  DIM_VALOR ],StringDado2[  DIM_VALOR  ] ;
+      char * pDado,*pDado2 ;
 
       int ValEsp = -1 ;
 
@@ -76,290 +74,181 @@ Casa tabuleiro[8][8];
       int numElem = -1 ;
 
       StringDado[ 0 ] = 0 ;
+      StringDado2[ 0 ] = 0;
 
-      /* Efetuar reset de teste de lista */
+	  int x, xf;
+	  char y, yf, cor, id;
 
-         if ( strcmp( ComandoTeste , RESET_LISTA_CMD ) == 0 )
+	  LIS_tppLista **ameacas;
+
+      /* Criar Tabuleiro */
+
+         if ( strcmp( ComandoTeste , CRIAR_TABULEIRO ) == 0 )
          {
+            numLidos = LER_LerParametros( "ii" , &inxTab, &CondRetEsp ) ;
 
-            for( i = 0 ; i < DIM_VT_LISTA ; i++ )
-            {
-               vtListas[ i ] = NULL ;
-            } /* for */
-
-            return TST_CondRetOK ;
-
-         } /* fim ativa: Efetuar reset de teste de lista */
-
-      /* Testar CriarLista */
-
-         else if ( strcmp( ComandoTeste , CRIAR_LISTA_CMD ) == 0 )
-         {
-
-            numLidos = LER_LerParametros( "i" ,
-                       &inxLista ) ;
-
-            if ( ( numLidos != 1 )
-              || ( ! ValidarInxLista( inxLista , VAZIO )))
+            if ( ( numLidos != 2 ) || ( ! ValidarInxTab( inxTab , VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            vtListas[ inxLista ] =
-                 LIS_CriarLista( DestruirValor ) ;
+            CondRet = criaTabuleiro(tabuleiro);
 
-            return TST_CompararPonteiroNulo( 1 , vtListas[ inxLista ] ,
-               "Erro em ponteiro de nova lista."  ) ;
+            return TST_CompararPonteiroNulo( 1 , vtListas[ inxTab ] , "Erro em ponteiro de nova lista."  ) ;
 
-         } /* fim ativa: Testar CriarLista */
+         } /* FIM: Criar Tabuleiro */
 
-      /* Testar Esvaziar lista lista */
+      /* Insere Peca */
 
-         else if ( strcmp( ComandoTeste , ESVAZIAR_LISTA_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , INSERE_PECA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "i" ,
-                               &inxLista ) ;
+            numLidos = LER_LerParametros( "iiccci" , &inxTab, x, y, cor, id, &CondRetEsp) ;
 
-            if ( ( numLidos != 1 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+            if ( ( numLidos != 6 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            LIS_EsvaziarLista( vtListas[ inxLista ] ) ;
+            CondRet = inserirPeca(tabuleiro, x, y, id)
 
-            return TST_CondRetOK ;
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
-         } /* fim ativa: Testar Esvaziar lista lista */
+         } /* fim ativa: InserePeca */
 
-      /* Testar Destruir lista */
+		 /* ObterPeca */
 
-         else if ( strcmp( ComandoTeste , DESTRUIR_LISTA_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , OBTER_PECA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "i" ,
-                               &inxLista ) ;
+            numLidos = LER_LerParametros( "iiccci" , &inxTab, x, y, cor, id, &CondRetEsp) ;
 
-            if ( ( numLidos != 1 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+            if ( ( numLidos != 6 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            LIS_DestruirLista( vtListas[ inxLista ] ) ;
-            vtListas[ inxLista ] = NULL ;
+            CondRet = inserirPeca(tabuleiro, x, y, id)
 
-            return TST_CondRetOK ;
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
-         } /* fim ativa: Testar Destruir lista */
+         } /* fim ativa: ObterPeca */
 
-      /* Testar inserir elemento antes */
+		 /* Retirar Peca */
 
-         else if ( strcmp( ComandoTeste , INS_ELEM_ANTES_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , RETIRAR_PECA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "isi" ,
-                       &inxLista , StringDado , &CondRetEsp ) ;
+            numLidos = LER_LerParametros( "iiccci" , &inxTab, x, y, &CondRetEsp) ;
 
-            if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            if ( ( numLidos != 4 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
-            if ( pDado == NULL )
-            {
-               return TST_CondRetMemoria ;
-            } /* if */
+            CondRet = RetirarPeca(tabuleiro, x, y);
 
-            strcpy( pDado , StringDado ) ;
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
+
+         } /* fim ativa: RetirarPeca */
 
 
-            CondRet = LIS_InserirElementoAntes( vtListas[ inxLista ] , pDado ) ;
+		 /* Mover Peca */
 
-            if ( CondRet != LIS_CondRetOK )
-            {
-               free( pDado ) ;
-            } /* if */
-
-            return TST_CompararInt( CondRetEsp , CondRet ,
-                     "Condicao de retorno errada ao inserir antes."                   ) ;
-
-         } /* fim ativa: Testar inserir elemento antes */
-
-      /* Testar inserir elemento apos */
-
-         else if ( strcmp( ComandoTeste , INS_ELEM_APOS_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , MOVER_PECA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "isi" ,
-                       &inxLista , StringDado , &CondRetEsp ) ;
+            numLidos = LER_LerParametros( "iiccci" , &inxTab, x, y, xf, yf, &CondRetEsp) ;
 
-            if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            if ( ( numLidos != 6 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
-            if ( pDado == NULL )
-            {
-               return TST_CondRetMemoria ;
-            } /* if */
+            CondRet = MoverPeca(tabuleiro, x, y, xf, yf);
 
-            strcpy( pDado , StringDado ) ;
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
+         } /* fim ativa: Move Peca */
 
-            CondRet = LIS_InserirElementoApos( vtListas[ inxLista ] , pDado ) ;
+		 /* ObterListaAmeacantes */
 
-            if ( CondRet != LIS_CondRetOK )
-            {
-               free( pDado ) ;
-            } /* if */
-
-            return TST_CompararInt( CondRetEsp , CondRet ,
-                     "Condicao de retorno errada ao inserir apos."                   ) ;
-
-         } /* fim ativa: Testar inserir elemento apos */
-
-      /* Testar excluir simbolo */
-
-         else if ( strcmp( ComandoTeste , EXC_ELEM_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , OBTER_LISTA_AMEACANTES) == 0 )
          {
 
-            numLidos = LER_LerParametros( "ii" ,
-                  &inxLista , &CondRetEsp ) ;
+            numLidos = LER_LerParametros( "iici" , &inxTab, x, y, ameacas) ;
 
-            if ( ( numLidos != 2 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            if ( ( numLidos != 4 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            return TST_CompararInt( CondRetEsp ,
-                      LIS_ExcluirElemento( vtListas[ inxLista ] ) ,
-                     "CondiÃ§Ã£o de retorno errada ao excluir."   ) ;
+            CondRet = ObterListaAmeacantes(tabuleiro, x, y, ameaças);
 
-         } /* fim ativa: Testar excluir simbolo */
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
-      /* Testar obter valor do elemento corrente */
+         } /* fim ativa: ObterListaAmeacantes */
 
-         else if ( strcmp( ComandoTeste , OBTER_VALOR_CMD ) == 0 )
+		 /* ObterListaAmeacados */
+
+         else if ( strcmp( ComandoTeste , OBTER_LISTA_AMEACADOS) == 0 )
          {
 
-            numLidos = LER_LerParametros( "isi" ,
-                       &inxLista , StringDado , &ValEsp ) ;
+            numLidos = LER_LerParametros( "iici" , &inxTab, x, y, ameacas) ;
 
-            if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            if ( ( numLidos != 4 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            pDado = ( char * ) LIS_ObterValor( vtListas[ inxLista ] ) ;
+            CondRet = ObterListaAmeacantes(tabuleiro, x, y, ameaças);
 
-            if ( ValEsp == 0 )
-            {
-               return TST_CompararPonteiroNulo( 0 , pDado ,
-                         "Valor nÃ£o deveria existir." ) ;
-            } /* if */
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
-            if ( pDado == NULL )
-            {
-               return TST_CompararPonteiroNulo( 1 , pDado ,
-                         "Dado tipo um deveria existir." ) ;
-            } /* if */
+         } /* fim ativa: ObterListaAmeacados */
 
-            return TST_CompararString( StringDado , pDado ,
-                         "Valor do elemento errado." ) ;
 
-         } /* fim ativa: Testar obter valor do elemento corrente */
+      /* Testar Destruir Tabuleiro */
 
-      /* Testar ir para o elemento inicial */
-
-         else if ( strcmp( ComandoTeste , IR_INICIO_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , DESTRUIR_TABULEIRO ) == 0 )
          {
 
-            numLidos = LER_LerParametros( "i" , &inxLista ) ;
+            numLidos = LER_LerParametros( "i" , &inxTab ) ;
 
-            if ( ( numLidos != 1 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            if ( ( numLidos != 1 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            IrInicioLista( vtListas[ inxLista ] ) ;
+            LIS_DestruirLista( vtListas[ inxTab ] ) ;
+            vtListas[ inxTab ] = NULL ;
 
-            return TST_CondRetOK ;
+			CondRet = DestruirTabuleiro(tabuleiro);
 
-         } /* fim ativa: Testar ir para o elemento inicial */
+            return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
-      /* LIS  &Ir para o elemento final */
+         } /* fim ativa: Testar Destruir tabuleiro */
 
-         else if ( strcmp( ComandoTeste , IR_FIM_CMD ) == 0 )
-         {
-
-            numLidos = LER_LerParametros( "i" , &inxLista ) ;
-
-            if ( ( numLidos != 1 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            IrFinalLista( vtListas[ inxLista ] ) ;
-
-            return TST_CondRetOK ;
-
-         } /* fim ativa: LIS  &Ir para o elemento final */
-
-      /* LIS  &AvanÃ§ar elemento */
-
-         else if ( strcmp( ComandoTeste , AVANCAR_ELEM_CMD ) == 0 )
-         {
-
-            numLidos = LER_LerParametros( "iii" , &inxLista , &numElem ,
-                                &CondRetEsp ) ;
-
-            if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            return TST_CompararInt( CondRetEsp ,
-                      LIS_AvancarElementoCorrente( vtListas[ inxLista ] , numElem ) ,
-                      "Condicao de retorno errada ao avancar" ) ;
-
-         } /* fim ativa: LIS  &AvanÃ§ar elemento */
-
-      return TST_CondRetNaoConhec ;
-
-   } /* Fim funÃ§Ã£o: TLIS &Testar lista */
-
-
-/*****  CÃ³digo das funÃ§Ãµes encapsuladas no mÃ³dulo  *****/
+/*****  Código das funções encapsuladas no módulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC FunÃ§Ã£o: TLIS -Destruir valor
+*  $FC Função: TLIS -Destruir valor
 *
 ***********************************************************************/
 
-   void DestruirValor( void * pValor )
+   void DestruirValor( nome* pValor )
    {
 
       free( pValor ) ;
 
-   } /* Fim funÃ§Ã£o: TLIS -Destruir valor */
+   } /* Fim função: TLIS -Destruir valor */
 
 
 /***********************************************************************
 *
-*  $FC FunÃ§Ã£o: TLIS -Validar indice de lista
+*  $FC Função: TLIS -Validar indice de lista
 *
 ***********************************************************************/
 
@@ -388,7 +277,6 @@ Casa tabuleiro[8][8];
          
       return TRUE ;
 
-   } /* Fim funÃ§Ã£o: TLIS -Validar indice de lista */
+   } /* Fim função: TLIS -Validar indice de lista */
 
-/********** Fim do mÃ³dulo de implementaÃ§Ã£o: TLIS Teste lista de sÃ­mbolos **********/
-
+/********** Fim do módulo de implementação: TLIS Teste lista de símbolos **********/
