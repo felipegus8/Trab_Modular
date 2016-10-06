@@ -236,7 +236,7 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Alterar nó corrente
 *  ****/
-   LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, void **referencia) {
+   LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, void *referencia) {
            if(lista != NULL ) {
                     return LIS_CondRetFimLista;
            }
@@ -246,7 +246,7 @@ typedef struct LIS_tagLista {
            }  
            
            //strcpy(lista->pElemCorr->pValor, novo);
-           *referencia = lista->pElemCorr->pValor;
+           lista->pElemCorr->pValor = referencia;
            return LIS_CondRetOK;
    }/* fim função: Lis &Alterar nó corrente */
     
