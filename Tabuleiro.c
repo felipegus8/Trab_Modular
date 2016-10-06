@@ -17,11 +17,17 @@ typedef struct casa {
          void *elemento;
          /*ponteiro para o elemento contido na casa */
    } Casa;
+char idListaPecas = "PeLi"; //identificação da lista de peças
+LIS_tpCondRet = retLis;
+PEC_tpCondRet = retPeca;
+void destruirValor(void *pValor); //função de destruição de valor
 
+LIS_CriarLista(&listaPecas,idListaPecas,destruirValor); //criação da lista de peças
 
    void destruirValor(void *pValor);
 
-   void criarListaPecas();
+   LIS_tpp listaPecas;
+   //void criarListaPecas();
    
             
    return TAB_CondRetOK;
@@ -30,7 +36,7 @@ typedef struct casa {
    criaTabuleiro();
    criaListaPecas();    
 
-   
+   /*
    GER_tpCondRet criaTabuleiro(Casa tabuleiro[8][8]) {
               int i = 0;
               int y = 0;
@@ -41,6 +47,46 @@ typedef struct casa {
                   }
               }
    }
+   */
+
+   TAB_tpCondRet criaTabuleiro(Casa *tabuleiro[8][8]) {
+   
+    int i = 0,j=0;
+    char a = 'A';
+    char b = 'B';    
+    char idListaAmeacadosX = '1';//linha da casa onde reside a lista ameacados
+    char idListaAmeacadosY; //coluna da casa onde reside a lista ameacados
+    char idListaAmeacantesX = '1';//linha da casa onde reside a lista ameacantes
+    char idListaAmeacadosY;//coluna da casa onde reside a lista ameacantes
+    char idListaAmeacantes[4];
+    char idListaAmecantes[4];
+    if(tabuleiro == NULL) {
+         return TAB_CondRetFaltouMemoria;
+    }        
+    
+    while(i<8) {
+             idListaAmeacadosY = 'A';
+             idListaAmeacantesY = 'A';
+         while(j<8) {
+              strcpy(idListaAmeacados,&idListaAmeacadosX);
+              strcat(idLIstaAmeacados,&idListaAmeacadosY);
+              strcat(idListaAmeacados,&a);
+              //as 3 linhas acima fazem com que a string identificadora da lista fique da forma "linhaColunaA"
+              strcpy(idListaAmeacantes,&idListaAmeacantesX);
+              strcat(idLIstaAmeacantes,&idListaAmeacantesY);
+              strcat(idListaAmeacantes,&b);
+              //as 3 linhas acima fazem com que a string identificadora da lista fique da forma "linhaColunaB"    
+              LIS_CriarLista(idListaAmeacados,DestruirValor,&tabuleiro[i][j]->ameacados);
+              LIS_CriarLista(idListaAmeacantes,DestruirValor,&tabuleiro[i][j]->ameacantes);
+              criaPeca((Peca **)&tabuleiro[i][j]->elem,'V','V');
+              idListaAmeacadosY++;
+              idListaAmeacantesY++;
+              j++;
+         }
+         idListaAmeacadosX++;
+         idListaAmeacantesX++;
+         i++;
+    }
 
 
 
@@ -50,8 +96,12 @@ typedef struct casa {
         if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
         }
-        criaPeca((Peca *)&tabuleiro[x][yi]->elemento,id,cor);
-        //insere peça nova na lista
+        retPeca = criaPeca((Peca *)&tabuleiro[x][yi]->elemento,id,cor);//cria peça novo
+        if(retPeca == LIS_tpCondRetFaltouMemoria) {
+            return TAB_tpCondRetFaltouMemoria;
+        }
+        retLis = LIS_tpCondRet inserirNo(listaPecas,tabuleiro[x][yi]->elemento); //insere peça nova na lista
+        
         return TAB_CondRetOK:
    }
 
@@ -93,7 +143,7 @@ typedef struct casa {
 
    TAB_tpCondRet RetirarPeca(Casa tabuleiro[8][8],int x,char y) {
           Peca *peca;
-          int y = (int)(y - 'A');
+          int yi = (int)(y - 'A');
           x--;
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
@@ -101,9 +151,9 @@ typedef struct casa {
           if(peca == NULL) {
              return TAB_CondRetCasaVazia;
           }
-          free(peca->cor);
-          free(peca->id);
-          peca = NULL;
+          peca = (Peca *)tabuleiro[x][yi]->elem;
+          peca->id = 'V';
+          peca->cor = 'V';
    }
 
    TAB_tpCondRet MoverPeca(Casa tabuleiro[8][8],int xo,char yo,int xd,char yd) {
@@ -138,8 +188,14 @@ typedef struct casa {
           for(i=0;i<peca->qtdMov;i++) {
                 movX = xd - xo;
                 movY = yd - yo;
-                if(xd - xo == movPeca[i].x && yd - yo == movPeca[i].y) {
-                        //return movOk;
+                if(abs(movX) == movPeca[i].x && abs(movY) == movPeca[i].y) {
+                        if(movX<0 || movY <0) {
+                              if(peca->movParaTras == 1) {
+                                   //return movOK;
+                              } else {
+                                  //return movIrregular
+                              }
+                        }
                 }
           }
           //return movIrregular
@@ -160,60 +216,9 @@ typedef struct casa {
    
    }
 
-  /* TAB_tpCondRet criaTabuleiro() {
    
-    int i = 0,j=0;
-    char a = 'A';
-    char b = 'B';    
-    char idListaAmeacadosX = '1';//linha da casa onde reside a lista ameacados
-    char idListaAmeacadosY; //coluna da casa onde reside a lista ameacados
-    char idListaAmeacantesX = '1';//linha da casa onde reside a lista ameacantes
-    char idListaAmeacadosY;//coluna da casa onde reside a lista ameacantes
-    char idListaAmeacantes[4];
-    char idListaAmecantes[4];
-    if(tabuleiro == NULL) {
-         return TAB_CondRetFaltouMemoria;
-    }        
     
-    while(i<8) {
-             idListaAmeacadosY = 'A';
-             idListaAmeacantesY = 'A';
-         while(j<8) {
-              strcpy(idListaAmeacados,&idListaAmeacadosX);
-              strcat(idLIstaAmeacados,&idListaAmeacadosY);
-              strcat(idListaAmeacados,&a);
-              //as 3 linhas acima fazem com que a string identificadora da lista fique da forma "linhaColunaA"
-              strcpy(idListaAmeacantes,&idListaAmeacantesX);
-              strcat(idLIstaAmeacantes,&idListaAmeacantesY);
-              strcat(idListaAmeacantes,&b);
-              //as 3 linhas acima fazem com que a string identificadora da lista fique da forma "linhaColunaB"    
-              LIS_CriarLista(idListaAmeacados,DestruirValor,tabuleiro[i][j]->ameacados);
-              LIS_CriarLista(idListaAmeacantes,DestruirValor,tabuleiro[i][j]->ameacantes);
-              //criaPeca(tabuleiro[i][j]->peca);
-              idListaAmeacadosY++;
-              idListaAmeacantesY++;
-              j++;
-         }
-         idListaAmeacadosX++;
-         idListaAmeacantesX++;
-         i++;
-    }
-  */     
    
-   /*
-   TAB_tpCondRet criaPeca (char *id,int movimentoX,int movimentoY) {
-       void *elemento;
-       inserirNo(listaPecas,elemento);
-       elemento = (Peca *) malloc(sizeof(Peca));
-       if(elemento == NULL) {
-             return TAB_CondRetFaltouMemoria;
-       }
-       elemento->id = (char *) malloc(sizeof(char));
-       strcpy(elemento->id,id);
-       elemento->x = movimentoX;
-       elemento->y = movimentoY;
-   }
-   */
    void criaListaPecas() {
             LIS_CriarLista(idListaPeca,DestruirValor,listaPecas);
    }
