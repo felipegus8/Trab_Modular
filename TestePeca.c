@@ -52,13 +52,10 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
           numLidos   = -1 ,
           CondRetEsp = -1  ;
       TST_tpCondRet CondRet ;
-	  Movimento *mov;
-      char   StringDado[  DIM_VALOR ],StringDado2[DIM_VALOR],NomeArquivo[DIM_VALOR],ConteudoArquivo[1000],strAux[1000] ;
-	  char idPeca,corPeca,idLido,corLido;
+      char   StringDado[  DIM_VALOR ],StringDado2[DIM_VALOR] ;
+	  char idPeca,corPeca;
       char * pDado ;
-	  FILE *fp;
       int ValEsp = -1 ;
-	  int x,y,j;
       int i ;
 		Peca *novo;
       int numElem = -1 ;
@@ -94,51 +91,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		   {
 			    return TST_CondRetParm;
 			}
-			if ((fp=fopen("PecasNovas.txt","r"))==NULL)
-			{
-			 printf("Error! opening file");
-			exit(1);         
-			}
-			i = 0;
-		while(fscanf(fp,"%c %c",&idLido,&corLido))
-		{
-			if ((idLido == idPeca) && (corLido == corPeca))
-			{
-				while (fscanf(fp,"%d %d",&x,&y))
-				{
-					i++;
-				}
-				break;
-			}
-
-		}
-		CondRet = alocaMovimento(&vtPecas[inxPeca],i);
-		if (mov == NULL)
-		{
-			return TST_CondRetMemoria;
-		}
-		i = 0;
-		fclose(fp);
-		if ((fp=fopen("PecasNovas.txt","r"))==NULL)
-			{
-			 printf("Error! opening file");
-			exit(1);         
-			}
-		while(fscanf(fp,"%c %c",&idLido,&corLido))
-		{
-			if ((idLido == idPeca) && (corLido == corPeca))
-			{
-				while (fscanf(fp,"%d %d",&x,&y))
-				{
-					CondRet = recebeX(x,&vtPecas[inxPeca],i);
-					CondRet = recebeY(y,&vtPecas[inxPeca],i);
-					i++;
-				}
-				break;
-			}
-
-		}
-		CondRet = ensinaMovimentosPecasDesconhecidas(&vtPecas[inxPeca],&vtPecas[inxPeca]->movPeca);
+		CondRet = ensinaMovimentosPecasDesconhecidas(&vtPecas[inxPeca],idPeca,corPeca);
 		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça desconhecida.");
 	   }/* fim ativa: Testar EnsinaMovimentosPecasDesconhecidas */
 

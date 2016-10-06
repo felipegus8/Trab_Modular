@@ -48,9 +48,8 @@ typedef enum {
 typedef struct movimento Movimento;
 /* Tipo referencia para uma peça */
 typedef struct peca Peca;
-PEC_tpCondRet alocaMovimento(Peca **novo,int i);
-PEC_tpCondRet recebeX(int x,Peca **novo,int i);
-PEC_tpCondRet recebeY(int y,Peca **novo,int i);
+
+
 
 
 /***********************************************************************
@@ -118,7 +117,7 @@ PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca **novo);
 *  
 *
 ***********************************************************************/
-PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo,Movimento *movPecaNova);
+PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo,char idLido,char corLido);
 
 /***********************************************************************
 *  $FC Função: PEC  &Libera Peça
