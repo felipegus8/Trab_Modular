@@ -132,7 +132,6 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             strcpy( pDado , StringDado ) ;
              
 			CondRet = inserirNo( vtListas[ inxLista ],(void*)pDado) ;
-             strcpy((char)elemento,pDado);
 
             if ( CondRet != 0 )
             {
