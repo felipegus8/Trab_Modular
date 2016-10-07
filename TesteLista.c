@@ -1,17 +1,3 @@
-/***************************************************************************
-*  $MCI Módulo de implementação: TLIS Teste Lista
-*
-*  Arquivo gerado:              TesteLista.c
-*  Letras identificadoras:      TLIS
-*
-*  Autores: Felipe Viberti,Luis Claudio e Victor Nogueira
-*
-*  $HA Histórico de evolução:
-*     Versão  Autores                                           Data          Observações
-*     1       Felipe Viberti,Luis Claudio e Victor Nogueira   27/set/2016  início desenvolvimento
-*
-***************************************************************************/
-
 #include    <string.h>
 #include    <stdio.h>
 #include    <malloc.h>
@@ -98,6 +84,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
        void * elemento;
       StringDado[ 0 ] = 0 ;
+	  idLista[0] = 0;
 	  
 	   if ( strcmp( ComandoTeste , CRIAR_LISTA ) == 0 )
          {
@@ -109,20 +96,27 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             {
                return TST_CondRetParm ;
             } /* if */
-
+				 
             CondRet = LIS_CriarLista( &vtListas[inxLista],StringDado,DestruirValor ) ;
+			printf("%d\n",vtListas[inxLista]);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao criar uma lista" ) ;
 
          } /* fim ativa: Testar CriarLista */
 		 else if (strcmp(ComandoTeste , OBTER_ID_LISTA) == 0)
 		 {
-			 numLidos = LER_LerParametros("is",&inxLista,idLista);
-			  if ( ( numLidos != 2 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) || !(ValidarString(StringDado)))
+			 numLidos = LER_LerParametros( "isi" ,
+                       &inxLista,idLista,&CondRetEsp ) ;
+			 
+
+			  if ( ( numLidos != 3 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) ||  !(ValidarString(idLista)))
             {
+			   
                return TST_CondRetParm ;
             } /* if */
 			
+
+
 			 CondRet =  LIS_ObterIdLista(vtListas[ inxLista ],idLista);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao obter o Id da lista." ) ;
@@ -274,7 +268,6 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
    int ValidarInxLista( int inxLista , int Modo )
    {
-
       if ( ( inxLista <  0 )
         || ( inxLista >= DIM_VT_LISTA ))
       {
@@ -285,12 +278,14 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
       {
          if ( vtListas[ inxLista ] != 0 )
          {
+			printf("yes modo\n");
             return FALSE ;
          } /* if */
       } else
       {
          if ( vtListas[ inxLista ] == 0 )
          {
+			printf("yes\n");
             return FALSE ;
          } /* if */
       } /* if */
@@ -307,6 +302,7 @@ int ValidarString(char* str)
 {
 	int i;
 	for(i=0;str[i]!='\0';i++);
+	printf("i : %d\n",i);
 	if (i>0 && i<=4)
 	return TRUE;
 	return FALSE;
