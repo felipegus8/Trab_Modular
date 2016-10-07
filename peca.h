@@ -1,5 +1,4 @@
-﻿#include <stdio.h>
-/***************************************************************************
+﻿/***************************************************************************
 *
 *  $MCD Módulo de definição: PEC  Peca
 *
@@ -14,8 +13,15 @@
 		O movimento da peça é um vetor da forma (x,y) que fica armazenado na struct movimento.
 		A estrutura da peça tem um ponteiro para o movimento da mesma,além de ter o Id da Peça e sua cor.
 * 
+*      Autores: Felipe Viberti,Luis Claudio e Victor Nogueira
+*
+*  $HA Histórico de evolução:
+*     Versão  Autores                                           Data          Observações
+*     1       Felipe Viberti,Luis Claudio e Victor Nogueira   02/out/2016  início desenvolvimento
 *
 ***************************************************************************/
+
+#include <stdio.h>
 /***********************************************************************
 *
 *  $TC Tipo de dados: PEC Condições de retorno
@@ -44,9 +50,10 @@ typedef enum {
 
    } PEC_tpCondRet ;
 
-/* Tipo referencia para um movimento */
+/* Tipo  Movimento */
 typedef struct movimento Movimento;
-/* Tipo referencia para uma peça */
+
+/* Tipo Peça */
 typedef struct peca Peca;
 
 
@@ -103,7 +110,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo);
 *  $ED Descrição da função
 *  Atribui ao campo movimento da struct peça o movimento da mesma.
 *  Nessa função são tratadas apenas as peças inseridas pelo usuário,ou seja,aquelas que o movimento não é conhecido previamente.
-*  O movimento das peças novas está no arquivo PecasNovas.txt que é lido pela função;
+*  O movimento das peças novas está no arquivo PecasNovas.txt que é lido pela função.É nesse arquivo que o usuário tem que inserir as peças novas.
 *
 *
 *  $EP Parâmetros

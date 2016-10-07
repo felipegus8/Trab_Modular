@@ -1,21 +1,54 @@
+/***************************************************************************
+*  $MCI Módulo de implementação: PEC  Peca
+*
+*  Arquivo gerado:              Peca.c
+*  Letras identificadoras:      PEC
+*
+*  Autores: Felipe Viberti,Luis Claudio e Victor Nogueira
+*
+*  $HA Histórico de evolução:
+*     Versão  Autores                                           Data          Observações
+*     1       Felipe Viberti,Luis Claudio e Victor Nogueira   02/out/2016  início desenvolvimento
+*
+***************************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "peca.h"
+
+
+/***********************************************************************
+*
+*  $TC Tipo de dados: MOV Movimento da Peca
+*
+*
+***********************************************************************/
 typedef struct movimento{
     int x;
     int y;
 }Movimento;
 
+/***********************************************************************
+*
+*  $TC Tipo de dados: Peca Peca
+*
+*
+***********************************************************************/
  typedef struct peca {
         char id;  // string identificadora da peça
         char cor; //cor da peça
-	int qtdMov; //quantidade de movimentos da peça
-	int movParaTras; // Bool para ver se a peça move para trás ou não
+	    int qtdMov; //quantidade de movimentos da peça
+	    int movParaTras; // Bool para ver se a peça move para trás ou não
         Movimento *movPeca; //Vetor da struct movimento contendo todos os movimentos que a peça pode fazer
  }Peca;
 
 
+ /*****  Código das funções exportadas pelo módulo  *****/
 
+ /***************************************************************************
+*
+*  Função: PEC  &Criar peca
+*  ****/
 PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
           *novo = (Peca *) malloc(sizeof(Peca));
           if(*novo == NULL) {
@@ -25,8 +58,12 @@ PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
     
 		  (*novo)->cor = cor;
           return PEC_CondRetOK; 
-   }
+   }/* Fim função: PEC  &Criar peca */
 
+ /***************************************************************************
+*
+*  Função: PEC  &Ensina Movimentos Pecas Conhecidas
+*  ****/
 PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 {
 	int i = 1,j = 1,k;
@@ -139,8 +176,11 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 	return PEC_CondRetNaoAchouPeca;
 	}
 	return PEC_CondRetOK;
-}
-
+} /* Fim função: PEC  &Ensina Movimentos Pecas Conhecidas */
+ /***************************************************************************
+*
+*  Função: PEC  &Ensina Movimentos Pecas Desconhecidas
+*  ****/
 PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 {
 	char idLido,corLido;
@@ -205,14 +245,17 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 			printf("\n");
 		}
 	return PEC_CondRetOK;
-}
+}/* Fim função: PEC  &Ensina Movimentos Pecas Desconhecidas */
 
 
 
-
+ /***************************************************************************
+*
+*  Função: PEC  &Libera Peca
+*  ****/
 PEC_tpCondRet PEC_LiberaPeca(Peca *peca) {
          free(peca);
 		 return PEC_CondRetOK;
-   }
+   }/* Fim função: PEC  &Libera Peca */
 
 

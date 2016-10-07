@@ -1,3 +1,17 @@
+/***************************************************************************
+*  $MCI Módulo de implementação: TPEC Teste Peca
+*
+*  Arquivo gerado:              TestePeca.c
+*  Letras identificadoras:      TPEC
+*
+*  Autores: Felipe Viberti,Luis Claudio e Victor Nogueira
+*
+*  $HA Histórico de evolução:
+*     Versão  Autores                                           Data          Observações
+*     1       Felipe Viberti,Luis Claudio e Victor Nogueira   02/out/2016  início desenvolvimento
+*
+***************************************************************************/
+
 #include    <string.h>
 #include    <stdio.h>
 #include    <malloc.h>
