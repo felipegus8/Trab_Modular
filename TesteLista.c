@@ -75,14 +75,6 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
       char   StringDado[  DIM_VALOR ],idLista[4];
       char * pDado ;
-
-      int ValEsp = -1 ;
-
-      int i ;
-
-      int numElem = -1 ;
-
-       void * elemento;
       StringDado[ 0 ] = 0 ;
 	  idLista[0] = 0;
 	  

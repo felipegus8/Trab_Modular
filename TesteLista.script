@@ -33,10 +33,10 @@
 =recuperar
 
 ==ObterIdLista
-=obterIdLista  lista0   str5
+=obterIdLista  lista0   str5   OK
 
 == Verificar ObterNo relativo a lista vazia
-=obterNo  lista0   "???"     "???"  pNULL
+=obterNo  lista0   "???"      pNULL
 
 == Inserir elemento em lista vazia
 =inserirNo    lista0   str0    OK
