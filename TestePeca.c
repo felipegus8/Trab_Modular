@@ -71,7 +71,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		   {
 			    return TST_CondRetParm;
 		   }
-		   CondRet = criaPeca( &vtPecas[inxPeca],idPeca,corPeca);    
+		   CondRet = PEC_CriaPeca( &vtPecas[inxPeca],idPeca,corPeca);    
 		 return TST_CompararPonteiroNulo( 1 , vtPecas[inxPeca] , "Erro em ponteiro de nova lista."  ) ;
 	   }/* fim ativa: Testar CriarPeca */
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_CONHECIDAS) == 0)
@@ -81,7 +81,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		   {
 			    return TST_CondRetParm;
 		   }
-		CondRet = ensinaMovimentosPecasConhecidas(&vtPecas[inxPeca]);
+		CondRet = PEC_EnsinaMovimentosPecasConhecidas(&vtPecas[inxPeca]);
 		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 	   }/* fim ativa: Testar EnsinaMovimentosPecasConhecidas */
 	   else if (strcmp(ComandoTeste,ENSINA_MOVIMENTOS_PECAS_DESCONHECIDAS) == 0)
@@ -91,7 +91,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		   {
 			    return TST_CondRetParm;
 			}
-		CondRet = ensinaMovimentosPecasDesconhecidas(&vtPecas[inxPeca]);
+		CondRet = PEC_EnsinaMovimentosPecasDesconhecidas(&vtPecas[inxPeca]);
 		return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça desconhecida.");
 	   }/* fim ativa: Testar EnsinaMovimentosPecasDesconhecidas */
 
@@ -103,12 +103,11 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		   {
 			    return TST_CondRetParm;
 		   }
-		  CondRet = liberaPeca(vtPecas[inxPeca]);
+		  CondRet = PEC_LiberaPeca(vtPecas[inxPeca]);
 		  vtPecas[inxPeca] = NULL;
 		   return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao liberar uma peça" ) ;
 	   }/* fim ativa: Testar LiberaPeca */
-	   return TST_CondRetNaoConhec ;
-}	
+}
 /*****  Código das funções encapsuladas no módulo  *****/
 
 /***********************************************************************

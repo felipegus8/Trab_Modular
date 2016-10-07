@@ -9,14 +9,14 @@ typedef struct movimento{
  typedef struct peca {
         char id;  // string identificadora da peça
         char cor; //cor da peça
-	    int qtdMov; //quantidade de movimentos da peça
-	    int movParaTras; // Bool para ver se a peça move para trás ou não
+	int qtdMov; //quantidade de movimentos da peça
+	int movParaTras; // Bool para ver se a peça move para trás ou não
         Movimento *movPeca; //Vetor da struct movimento contendo todos os movimentos que a peça pode fazer
  }Peca;
 
 
 
-PEC_tpCondRet criaPeca(Peca **novo,char id,char cor) {
+PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
           *novo = (Peca *) malloc(sizeof(Peca));
           if(*novo == NULL) {
             return PEC_CondRetFaltouMemoria;
@@ -27,7 +27,7 @@ PEC_tpCondRet criaPeca(Peca **novo,char id,char cor) {
           return PEC_CondRetOK; 
    }
 
-PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca **novo)
+PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 {
 	int i = 1,j = 1,k;
 	switch((*novo)->id)
@@ -141,7 +141,7 @@ PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca **novo)
 	return PEC_CondRetOK;
 }
 
-PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo)
+PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 {
 	char idLido,corLido;
 	int x,y,i,j;
@@ -210,7 +210,7 @@ PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo)
 
 
 
-PEC_tpCondRet liberaPeca(Peca *peca) {
+PEC_tpCondRet PEC_LiberaPeca(Peca *peca) {
          free(peca);
 		 return PEC_CondRetOK;
    }

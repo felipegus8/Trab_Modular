@@ -73,7 +73,7 @@ typedef struct peca Peca;
 *  
 *
 ***********************************************************************/
-PEC_tpCondRet criaPeca(Peca **novo,char id,char cor);
+PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor);
 
 
 /***********************************************************************
@@ -95,7 +95,7 @@ PEC_tpCondRet criaPeca(Peca **novo,char id,char cor);
 *  
 *
 ***********************************************************************/
-PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca **novo);
+PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo);
 
 /***********************************************************************
 *  $FC Função: PEC  &EnsinaMovimentosPecasDesconhecidas
@@ -118,7 +118,7 @@ PEC_tpCondRet ensinaMovimentosPecasConhecidas(Peca **novo);
 *  
 *
 ***********************************************************************/
-PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo);
+PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo);
 
 /***********************************************************************
 *  $FC Função: PEC  &Libera Peça
@@ -138,7 +138,7 @@ PEC_tpCondRet ensinaMovimentosPecasDesconhecidas(Peca **novo);
 *  
 *
 ***********************************************************************/
-PEC_tpCondRet liberaPeca(Peca *peca);
+PEC_tpCondRet PEC_LiberaPeca(Peca *peca);
 
 /********** Fim do módulo de definição: PEC  Peça **********/
 
