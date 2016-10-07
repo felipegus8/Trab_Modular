@@ -36,6 +36,11 @@
 *        esta função deve promover a destruição (free) desse valor e
 *        de todos os dados nele ancorados.
 *
+*  Autores: Felipe Viberti,Luis Claudio e Victor Nogueira
+*
+*  $HA Histórico de evolução:
+*     Versão  Autores                                           Data          Observações
+*     1       Felipe Viberti,Luis Claudio e Victor Nogueira   27/set/2016  início desenvolvimento
 ***************************************************************************/
  
 #if defined( LISTA_OWN )
@@ -56,8 +61,8 @@ typedef struct LIS_tagLista *  LIS_tppLista ;
 *  $TC Tipo de dados: LIS CondiÁıes de retorno
 *
 *
-*  $ED DescriÁ„o do tipo
-*     CondiÁıes de retorno das funÁıes da lista
+*  $ED Descrição do tipo
+*     Condições de retorno das funÁıes da lista
 *
 ***********************************************************************/
 
