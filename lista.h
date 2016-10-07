@@ -32,15 +32,10 @@
 *        de uma lista.
 *        Caso não seja necess·rio desalocar o valor referenciado pelo
 *        elemento, o ponteiro para a função de liberação pode ser NULL .
-*        Caso o elemento da lista seja a ˙nica ‚ncora do valor referenciado,
+*        Caso o elemento da lista seja a ?nica ‚ncora do valor referenciado,
 *        esta função deve promover a destruição (free) desse valor e
 *        de todos os dados nele ancorados.
 *
-*  Autores: Felipe Viberti,Luis Claudio e Victor Nogueira
-*
-*  $HA Histórico de evolução:
-*     Versão  Autores                                           Data          Observações
-*     1       Felipe Viberti,Luis Claudio e Victor Nogueira   27/set/2016  início desenvolvimento
 ***************************************************************************/
  
 #if defined( LISTA_OWN )
@@ -58,11 +53,11 @@ typedef struct LIS_tagLista *  LIS_tppLista ;
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: LIS Condições de retorno
+*  $TC Tipo de dados: LIS CondiÁies de retorno
 *
 *
-*  $ED Descrição do tipo
-*     Condições de retorno das funções da lista
+*  $ED DescriÁ„o do tipo
+*     CondiÁies de retorno das funÁies da lista
 *
 ***********************************************************************/
 
