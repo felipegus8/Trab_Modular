@@ -156,4 +156,6 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
          
       return TRUE ;
 
-   } /* Fim função: TLIS -Validar indice de lista */
+   } /* Fim função: TLIS -Validar indice da Peca */
+
+ /********** Fim do módulo de implementação: TPEC  TestePeca **********/

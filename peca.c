@@ -258,4 +258,4 @@ PEC_tpCondRet PEC_LiberaPeca(Peca *peca) {
 		 return PEC_CondRetOK;
    }/* Fim função: PEC  &Libera Peca */
 
-
+ /********** Fim do módulo de implementação: PEC  Peca **********/

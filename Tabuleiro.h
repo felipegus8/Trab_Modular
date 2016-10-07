@@ -64,24 +64,165 @@ typedef enum {
 typedef struct casa Casa;
 
 
+/***********************************************************************
 
+*  $FC Função: TAB &Cria Tabuleiro
+*
+*  $ED Descrição da função
+*     
+*
+*  $EP Parâmetros
+*    tabuleiro = 
+*
+*  $FV Valor retornado
+*    
+
+***********************************************************************/
  TAB_tpCondRet TAB_CriaTabuleiro(Casa *tabuleiro[8][8]);
-   
-TAB_tpCondRet TAB_InserirPeca(Casa tabuleiro[8][8],int x, char y,char cor,char id)
 
- TAB_tpCondRet TAB_MoverPeca(Casa tabuleiro[8][8],int xo,char yo,int xd,char yd)
 
- TAB_tpCondRet TAB_RetirarPeca(Casa tabuleiro[8][8],int x,char y)
+/***********************************************************************
 
- TAB_tpCondRet TAB_ObterPeca(Casa tabuleiro[8][8],int x, char y, char cor, char id)
+*  $FC Função: TAB &Inserir Peca
+*
+*  $ED Descrição da função
+*     
+*
+*  $EP Parâmetros
+*    tabuleiro = 
+*    x = 
+*    y = 
+*    cor = cor da Peça que se quer inserir
+*    id = id da Peça que se quer inserir
+*
+*  $FV Valor retornado
+*    
 
+***********************************************************************/
+TAB_tpCondRet TAB_InserirPeca(Casa tabuleiro[8][8],int x, char y,char cor,char id);
+
+
+
+/***********************************************************************
+
+*  $FC Função: TAB &Mover Peca
+*
+*  $ED Descrição da função
+*     
+*
+*  $EP Parâmetros
+*    tabuleiro = 
+*    xo = 
+*    yo =
+*    xd =
+*    yd = 
+*
+*  $FV Valor retornado
+*    
+
+***********************************************************************/
+ TAB_tpCondRet TAB_MoverPeca(Casa tabuleiro[8][8],int xo,char yo,int xd,char yd);
+
+
+/***********************************************************************
+
+*  $FC Função: TAB &Retirar Peca
+*
+*  $ED Descrição da função
+*     
+*
+*  $EP Parâmetros
+*    tabuleiro = 
+*    x = 
+*    y=
+*
+*  $FV Valor retornado
+*    
+
+***********************************************************************/
+
+ TAB_tpCondRet TAB_RetirarPeca(Casa tabuleiro[8][8],int x,char y);
+
+
+/***********************************************************************
+
+*  $FC Função: TAB &Obter Peca
+*
+*  $ED Descrição da função
+*     
+*
+*  $EP Parâmetros
+*    tabuleiro = 
+*    x = 
+*    y =
+*    cor = cor da Peca que se quer obter
+*    id = id da Peça que se quer obter
+*
+*  $FV Valor retornado
+*    
+
+***********************************************************************/
+
+ TAB_tpCondRet TAB_ObterPeca(Casa tabuleiro[8][8],int x, char y, char cor, char id);
+
+/***********************************************************************
+
+*  $FC Função: TAB &Obter Lista Ameacantes
+*
+*  $ED Descrição da função
+*     
+*
+*  $EP Parâmetros
+*    tabuleiro = 
+*    x=
+*    y=
+*    listaAmeacantes = 
+*
+*  $FV Valor retornado
+*    
+
+***********************************************************************/
 TAB_tpCondRet TAB_ObterListaAmeacantes(Casa tabuleiro[8][8],int x, char y,LIS_tppLista *listaAmeacantes); //a ser editada
 
+
+
+/***********************************************************************
+
+*  $FC Função: TAB &Obter Lista Ameaçados
+*
+*  $ED Descrição da função
+*     
+*
+*  $EP Parâmetros
+*    tabuleiro = 
+*    x=
+*    y=
+*    listaAmeacados = 
+*
+*  $FV Valor retornado
+*    
+
+***********************************************************************/
 TAB_tpCondRet TAB_ObterListaAmeacados(Casa tabuleiro[8][8],int x, char y,LIS_tppLista *listaAmeacados); //a ser editada
 
-TAB_tpCondRet TAB_DestruirTabuleiro(Casa tabuleiro[8][8])
+
+/***********************************************************************
+
+*  $FC Função: TAB &Destruir Tabuleiro
+*
+*  $ED Descrição da função
+*     
+*
+*  $EP Parâmetros
+*    tabuleiro = 
+*
+*  $FV Valor retornado
+*    
+
+***********************************************************************/
+TAB_tpCondRet TAB_DestruirTabuleiro(Casa tabuleiro[8][8]);
 
 
 
-/********** Fim do módulo de definição: TAB  Tabuleiros **********/
+/********** Fim do módulo de definição: TAB  Tabuleiro **********/
 #endif
