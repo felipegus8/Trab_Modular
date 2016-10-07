@@ -166,7 +166,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             strcpy( pDado , StringDado) ;
              
-			CondRet = LIS_ObterNo(vtListas[inxLista],(void*)pDado);
+			CondRet = LIS_ObterNo(vtListas[inxLista],(void**)&pDado);
              
 			 if ( CondRet != 0 )
             {
