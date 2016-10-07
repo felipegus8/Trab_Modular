@@ -3,6 +3,12 @@
 *
 *  Arquivo gerado:              TestaTabuleiro.c
 *  Letras identificadoras:      TTAB
+
+*  Autores: Felipe Viberti,Luis Claudio e Victor Nogueira
+*
+*  $HA Histórico de evolução:
+*     Versão  Autores                                           Data          Observações
+*     1       Felipe Viberti,Luis Claudio e Victor Nogueira   27/set/2016  início desenvolvimento
 ***************************************************************************/
 #include    <string.h>
 #include    <stdio.h>
@@ -101,7 +107,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = criaTabuleiro(tabuleiro);
+            CondRet = TAB_CriaTabuleiro(tabuleiro);
 
             return TST_CompararPonteiroNulo( 1 , vtTab[ inxTab ] , "Erro em ponteiro de nova lista."  ) ;
 
@@ -119,7 +125,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = inserirPeca(tabuleiro, x, y, id)
+            CondRet = TAB_InserirPeca(tabuleiro, x, y, id)
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -137,7 +143,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = inserirPeca(tabuleiro, x, y, id)
+            CondRet = TAB_ObterPeca(tabuleiro, x, y, id)
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -155,7 +161,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = RetirarPeca(tabuleiro, x, y);
+            CondRet = TAB_RetirarPeca(tabuleiro, x, y);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -174,7 +180,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = MoverPeca(tabuleiro, x, y, xf, yf);
+            CondRet = TAB_MoverPeca(tabuleiro, x, y, xf, yf);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -192,7 +198,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = ObterListaAmeacantes(tabuleiro, x, y, ameaças);
+            CondRet = TAB_ObterListaAmeacantes(tabuleiro, x, y, ameaças);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -210,7 +216,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = ObterListaAmeacantes(tabuleiro, x, y, ameaças);
+            CondRet = TAB_ObterListaAmeacantes(tabuleiro, x, y, ameaças);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -232,7 +238,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
             LIS_DestruirLista( vtTab[ inxTab ] ) ;
             vtTab[ inxTab ] = NULL ;
 
-			CondRet = DestruirTabuleiro(tabuleiro);
+			CondRet = TAB_DestruirTabuleiro(tabuleiro);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -246,7 +252,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
 *
 ***********************************************************************/
 
-   int ValidarInxLista( int inxLista , int Modo )
+   int ValidarInxTab( int inxTab , int Modo )
    {
 
       if ( ( inxTab <  0 )
@@ -273,4 +279,4 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
 
    } /* Fim função: TLIS -Validar indice de lista */
 
-/********** Fim do módulo de implementação: TLIS Teste lista de símbolos **********/
+/********** Fim do módulo de implementação: TTAB  Tabuleiro **********/

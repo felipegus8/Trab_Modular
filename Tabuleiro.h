@@ -1,7 +1,6 @@
 #if ! defined( Tabuleiro_ )
 #define Tabuleiro_
-#include "lista.h"
-#include "peca.h"
+
 /***************************************************************************
 *
 *  $MCD Módulo de definição: TAB  Tabuleiro
@@ -14,10 +13,16 @@
 *     Implementa um tabuleiro representada por uma matriz 8*8 da struct casa.
 *     Cada casa do tabuleiro contem uma lista para as peças que ameaçam aquela casa,outra para as peças que aquela casa ameaça,além do próprio elemento contido na casa.
 * 
+*  Autores: Felipe Viberti,Luis Claudio e Victor Nogueira
+*
+*  $HA Histórico de evolução:
+*     Versão  Autores                                           Data          Observações
+*     1       Felipe Viberti,Luis Claudio e Victor Nogueira   27/set/2016  início desenvolvimento
 *
 ***************************************************************************/
 
-
+#include "lista.h"
+#include "peca.h"
 /***********************************************************************
 *
 *  $TC Tipo de dados: TAB Condições de retorno
@@ -55,28 +60,28 @@ typedef enum {
    } TAB_tpCondRet ;
 
 
-/* Tipo referencia para uma casa */
+/* Tipo Casa */
 typedef struct casa Casa;
 
 
 
-
+ TAB_tpCondRet TAB_CriaTabuleiro(Casa *tabuleiro[8][8]);
    
-TAB_tpCondRet InserirPeca(int x,char y,char *cor);
+TAB_tpCondRet TAB_InserirPeca(Casa tabuleiro[8][8],int x, char y,char cor,char id)
 
-TAB_tpCondRet MoverPeca(int xo,char yo,int xd,char yd);
+ TAB_tpCondRet TAB_MoverPeca(Casa tabuleiro[8][8],int xo,char yo,int xd,char yd)
 
-TAB_tpCondRet RetirarPeca(int x, char y);
+ TAB_tpCondRet TAB_RetirarPeca(Casa tabuleiro[8][8],int x,char y)
 
-TAB_tpCondRet ObterPeca(int x, char y,char *nome,char *cor);
+ TAB_tpCondRet TAB_ObterPeca(Casa tabuleiro[8][8],int x, char y, char cor, char id)
 
-TAB_tpCondRet ObterListaAmeacantes(int x,char y,LIS_tppLista listaAmeacados); //a ser editada
+TAB_tpCondRet TAB_ObterListaAmeacantes(Casa tabuleiro[8][8],int x, char y,LIS_tppLista *listaAmeacantes); //a ser editada
 
-TAB_tpCondRet ObterListaAmeacados(int x,char y,LIS_tppLista listaAmeacantes); //a ser editada
+TAB_tpCondRet TAB_ObterListaAmeacados(Casa tabuleiro[8][8],int x, char y,LIS_tppLista *listaAmeacados); //a ser editada
 
-TAB_tpCondRet DestruirTabuleiro();
-
-
+TAB_tpCondRet TAB_DestruirTabuleiro(Casa tabuleiro[8][8])
 
 
+
+/********** Fim do módulo de definição: TAB  Tabuleiros **********/
 #endif

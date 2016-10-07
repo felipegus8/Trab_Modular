@@ -58,11 +58,11 @@ typedef struct LIS_tagLista *  LIS_tppLista ;
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: LIS CondiÁıes de retorno
+*  $TC Tipo de dados: LIS Condições de retorno
 *
 *
 *  $ED Descrição do tipo
-*     Condições de retorno das funÁıes da lista
+*     Condições de retorno das funções da lista
 *
 ***********************************************************************/
 
