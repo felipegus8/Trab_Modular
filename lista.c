@@ -1,17 +1,3 @@
-/***************************************************************************
-*  $MCI Módulo de implementação: LIS  Lista genérica duplamente encadeada.
-*
-*  Arquivo gerado:              Lista.c
-*  Letras identificadoras:      LIS
-*
-*  Autores: Felipe Viberti,Luis Claudio e Victor Nogueira
-*
-*  $HA Histórico de evolução:
-*     Versão  Autores                                           Data          Observações
-*     1       Felipe Viberti,Luis Claudio e Victor Nogueira   27/set/2016  início desenvolvimento
-*
-***************************************************************************/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
@@ -19,12 +5,7 @@
 #include <string.h>
 #include "lista.h"
 
-/***********************************************************************
-*
-*  $TC Tipo de dados: LIS Elemento da lista
-*
-*
-***********************************************************************/
+
 typedef struct tagElemLista {
 
          void * pValor ;
@@ -38,12 +19,7 @@ typedef struct tagElemLista {
 
    } tpElemLista ;
 
-/***********************************************************************
-*
-*  $TC Tipo de dados: LIS Descritor da cabeça de lista
-*
-*
-***********************************************************************/
+
 typedef struct LIS_tagLista {
 
          tpElemLista * pOrigemLista ;
@@ -89,21 +65,27 @@ typedef struct LIS_tagLista {
 
       //LIS_tppLista * lista = NULL ;
 
-      lista = (LIS_tppLista *) malloc( sizeof( LIS_tppLista)) ;
-      if ( (*lista) == NULL )
+	   LIS_tppLista listaCopia = NULL;
+
+	   listaCopia = (LIS_tpLista *) malloc(sizeof(LIS_tpLista));
+	   
+	  
+      if ( listaCopia == NULL )
       {
          return LIS_CondRetFaltouMemoria ;
       } /* if */
+	  
+      LimparCabeca(listaCopia );
 
-      LimparCabeca( *lista );
-
-      (*lista)->ExcluirValor = ExcluirValor;
+      listaCopia->ExcluirValor = ExcluirValor;
       
       
-      strcpy((*lista)->idLista, idLista);
+      strcpy(listaCopia->idLista, idLista);
+
+	  *lista = listaCopia;
 
       return LIS_CondRetOK;
-
+	  
    } /* Fim função: LIS  &Criar lista */
    
    
@@ -113,12 +95,13 @@ typedef struct LIS_tagLista {
 *  ****/
    
    LIS_tpCondRet LIS_ObterIdLista(LIS_tppLista lista, char idLista[4]) {
+	   printf("%d\n",lista->idLista);
             if(lista == NULL) {
                      return LIS_CondRetNaoAchou;
             }
             strcpy(idLista,lista->idLista);
             return LIS_CondRetOK;
-   } /* Fim função: LIS  &Obter Id Lista */
+   } 
 
 /***************************************************************************
 *
@@ -148,7 +131,7 @@ typedef struct LIS_tagLista {
                     novo->pProx = NULL;
            }
            return LIS_CondRetOK;
-  }  /* Fim função: LIS  &Inserir nó na lista */
+  } 
 
   /***************************************************************************
 *
@@ -165,7 +148,7 @@ typedef struct LIS_tagLista {
            //strcpy(s, (char *)lista->pElemCorr->pValor);
            *referencia = lista->pElemCorr->pValor;
            return LIS_CondRetOK;
-   }  /* Fim função: LIS  &Obter Nó na lista */
+   } 
 
    /***************************************************************************
 *
@@ -207,7 +190,7 @@ typedef struct LIS_tagLista {
 
       return LIS_CondRetOK;
             
-   }/* fim função: LIS &Excluir nó corrente */
+   }/* fim função: Lis &Excluir nó  */
 
    /***************************************************************************
 *
@@ -228,7 +211,7 @@ typedef struct LIS_tagLista {
            }
            lista->pElemCorr = lista->pElemCorr->pProx;
            return LIS_CondRetOK;
-  }/* fim função: LIS &Ir para o próximo nó
+  }/* fim função: Lis &Ir para o próximo nó
 
    /***************************************************************************
 *
@@ -248,7 +231,7 @@ typedef struct LIS_tagLista {
            }
            lista->pElemCorr = lista->pElemCorr->pAnt;
            return LIS_CondRetOK;
-  }/* fim função: LIS &Ir para o nó anterior */
+  }/* fim função: Lis &Ir para o nó anterior */
    
      /***************************************************************************
 *
@@ -266,7 +249,7 @@ typedef struct LIS_tagLista {
            //strcpy(lista->pElemCorr->pValor, novo);
            lista->pElemCorr->pValor = referencia;
            return LIS_CondRetOK;
-   }/* fim função: LIS &Alterar nó corrente */
+   }/* fim função: Lis &Alterar nó corrente */
     
         /***************************************************************************
 *
@@ -282,7 +265,7 @@ typedef struct LIS_tagLista {
 
       free( lista );
       return LIS_CondRetOK;
-   } /* Fim função: LIS  &Destruir lista */
+   } /* Fim funÁ„o: LIS  &Destruir lista */
 
 /***************************************************************************
 
