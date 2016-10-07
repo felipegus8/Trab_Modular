@@ -108,30 +108,49 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Inserir nó na lista
 *  ****/
 
-  LIS_tpCondRet LIS_InserirNo(LIS_tppLista lista, void *elemento) {
-           tpElemLista *novo;
-           tpElemLista *aux;
-           #ifdef _DEBUG
-           assert( lista != NULL ) ;
-           #endif
-           
-           novo =  (tpElemLista *) malloc(sizeof(tpElemLista));
-           if(novo == NULL) {
-                   // printf("falta de memória para inserir novo elemento na lista\n");
-                    return LIS_CondRetFaltouMemoria;
-           }
-           novo->pValor = elemento;
-           aux = lista->pElemCorr->pProx;
-           novo->pAnt = lista->pElemCorr;
-           if(aux != NULL) {
-                    novo->pProx = aux;
-                    lista->pElemCorr->pProx = novo;
-                    aux->pAnt = novo;
-           } else {
-                    novo->pProx = NULL;
-           }
-           return LIS_CondRetOK;
-  } 
+  LIS_tpCondRet LIS_InserirNo(LIS_tppLista pLista, void *pValor) {
+            tpElemLista * pElem ;
+
+      #ifdef _DEBUG
+         assert( pLista != NULL ) ;
+      #endif
+
+      /* Criar elemento a inerir após */
+
+         pElem = CriarElemento( pLista , pValor ) ;
+         if ( pElem == NULL )
+         {
+            return LIS_CondRetFaltouMemoria ;
+         } /* if */
+
+      /* Encadear o elemento após o elemento */
+
+         if ( pLista->pElemCorr == NULL )
+         {
+            pLista->pOrigemLista = pElem ;
+            pLista->pFimLista = pElem ;
+         } else
+         {
+            if ( pLista->pElemCorr->pProx != NULL )
+            {
+               pElem->pProx  = pLista->pElemCorr->pProx ;
+               pLista->pElemCorr->pProx->pAnt = pElem ;
+            } else
+            {
+               pLista->pFimLista = pElem ;
+            } /* if */
+
+            pElem->pAnt = pLista->pElemCorr ;
+            pLista->pElemCorr->pProx = pElem ;
+
+         } /* if */
+                  
+         pLista->pElemCorr = pElem ;
+                  
+         return LIS_CondRetOK ;
+
+   } /* Fim função: LIS  &Inserir elemento após */
+
 
   /***************************************************************************
 *
