@@ -30,7 +30,7 @@ static const char DESTROI_LISTA             [ ] = "=destroiLista"     ;
 #define DIM_VT_LISTA   10
 #define DIM_VALOR     100
 
-LIS_tppLista *  vtListas[ DIM_VT_LISTA ] ;
+LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
@@ -96,7 +96,7 @@ LIS_tppLista *  vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = LIS_CriarLista( vtListas[inxLista],StringDado,DestruirValor ) ;
+            CondRet = LIS_CriarLista( &vtListas[inxLista],StringDado,DestruirValor ) ;
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao criar uma lista" ) ;
 
@@ -109,7 +109,7 @@ LIS_tppLista *  vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 			
-			 CondRet =  obterIdLista(*vtListas[ inxLista ],idLista);
+			 CondRet =  LIS_ObterIdLista(vtListas[ inxLista ],idLista);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao obter o Id da lista." ) ;
          } /* fim ativa: Testar obter valor do idLista */
@@ -131,7 +131,7 @@ LIS_tppLista *  vtListas[ DIM_VT_LISTA ] ;
 
             strcpy( pDado , StringDado ) ;
              
-			CondRet = inserirNo( *vtListas[ inxLista ],(void*)pDado);
+			CondRet = LIS_InserirNo( vtListas[ inxLista ],(void*)pDado);
 
             if ( CondRet != 0 )
             {
@@ -158,7 +158,7 @@ LIS_tppLista *  vtListas[ DIM_VT_LISTA ] ;
 
             strcpy( pDado , StringDado) ;
              
-			CondRet = obterNo(*vtListas[inxLista],(void*)pDado);
+			CondRet = LIS_ObterNo(vtListas[inxLista],(void*)pDado);
              
 			 if ( CondRet != 0 )
             {
@@ -175,7 +175,7 @@ LIS_tppLista *  vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 			CondRetEsp = 0;
-			return TST_CompararInt( CondRetEsp ,excluirNoCorrente( *vtListas[ inxLista ] ) ,"Condição de retorno errada ao excluir o no corrente."  ) ;
+			return TST_CompararInt( CondRetEsp ,LIS_ExcluirNoCorrente( vtListas[ inxLista ] ) ,"Condição de retorno errada ao excluir o no corrente."  ) ;
 		 }/*fim ativa:Testar excluir nó corrente*/
 		 
 		 
@@ -186,7 +186,7 @@ LIS_tppLista *  vtListas[ DIM_VT_LISTA ] ;
             {
                return TST_CondRetParm ;
             } /* if */
-			CondRet = irProx(*vtListas[inxLista]);
+			CondRet = LIS_IrProx(vtListas[inxLista]);
 			return TST_CompararInt( CondRetEsp ,CondRet,"Condição de retorno errada ao ir para o próximo elemento da lista"  ) ;
 		 }/*fim ativa:Testar ir próximo*/
 		 
@@ -199,7 +199,7 @@ LIS_tppLista *  vtListas[ DIM_VT_LISTA ] ;
             {
                return TST_CondRetParm ;
             } /* if */
-			CondRet = irAnt(*vtListas[inxLista]);
+			CondRet = LIS_IrAnt(vtListas[inxLista]);
 			return TST_CompararInt( CondRetEsp ,CondRet ,"Condição de retorno errada ao ir para o elemento anterior da lista" ) ;
 		 }/*fim ativa:Testar ir anterior*/
 		 
@@ -211,7 +211,7 @@ LIS_tppLista *  vtListas[ DIM_VT_LISTA ] ;
             {
                return TST_CondRetParm ;
             } /* if */
-			CondRet = alterarNoCorrente(*vtListas[inxLista],(void*)StringDado);
+			CondRet = LIS_AlterarNoCorrente(vtListas[inxLista],(void*)StringDado);
 
 			return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao alterar o conteúdo do nó corrente" ) ;
 		 }/*fim ativa:Testar alterar nó corrente*/
@@ -225,7 +225,7 @@ LIS_tppLista *  vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = destroiLista( *vtListas[ inxLista ] ) ;
+            CondRet = LIS_DestroiLista( vtListas[ inxLista ] ) ;
             vtListas[ inxLista ] = NULL ;
             return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao destruir a lista" ) ;
 		 }/*fim ativa:Testar destrói lista*/	 

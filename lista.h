@@ -48,7 +48,7 @@
 
 /* Tipo referencia para uma lista */
 
-typedef struct LIS_tagLista  LIS_tppLista ;
+typedef struct LIS_tagLista *  LIS_tppLista ;
 
 
 /***********************************************************************
@@ -134,7 +134,7 @@ typedef struct LIS_tagLista  LIS_tppLista ;
 
 ***********************************************************************/
 
-  LIS_tpCondRet obterIdLista(LIS_tppLista lista, char idLista[4]);
+  LIS_tpCondRet LIS_ObterIdLista(LIS_tppLista lista, char idLista[4]);
 
 /************************************************************************
 
@@ -154,7 +154,7 @@ typedef struct LIS_tagLista  LIS_tppLista ;
 ***********************************************************************/
 
 
-   LIS_tpCondRet inserirNo(LIS_tppLista lista, void *elemento);
+   LIS_tpCondRet LIS_InserirNo(LIS_tppLista lista, void *elemento);
    
 /************************************************************************
 
@@ -173,7 +173,7 @@ typedef struct LIS_tagLista  LIS_tppLista ;
    
 ************************************************************************/   
    
-  LIS_tpCondRet obterNo(LIS_tppLista lista, void **referencia);
+  LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia);
 
 /************************************************************************
 
@@ -192,7 +192,7 @@ typedef struct LIS_tagLista  LIS_tppLista ;
    
 ************************************************************************/   
 
-LIS_tpCondRet excluirNoCorrente(LIS_tppLista lista);
+LIS_tpCondRet LIS_ExcluirNoCorrente(LIS_tppLista lista);
 
 /************************************************************************
 
@@ -212,7 +212,7 @@ LIS_tpCondRet excluirNoCorrente(LIS_tppLista lista);
    
 ************************************************************************/   
 
-LIS_tpCondRet irProx(LIS_tppLista lista);
+LIS_tpCondRet LIS_IrProx(LIS_tppLista lista);
 
 /************************************************************************
 
@@ -232,7 +232,7 @@ LIS_tpCondRet irProx(LIS_tppLista lista);
    
 ************************************************************************/   
 
-LIS_tpCondRet irAnt(LIS_tppLista lista);
+LIS_tpCondRet LIS_IrAnt(LIS_tppLista lista);
 
 /************************************************************************
 
@@ -252,7 +252,7 @@ LIS_tpCondRet irAnt(LIS_tppLista lista);
    
 ************************************************************************/  
 
-LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, void *referencia);
+LIS_tpCondRet LIS_AlterarNoCorrente(LIS_tppLista lista, void *referencia);
 
 /************************************************************************
 
@@ -270,7 +270,7 @@ LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, void *referencia);
 
 ************************************************************************/ 
 
-   LIS_tpCondRet destroiLista(LIS_tppLista lista);
+   LIS_tpCondRet LIS_DestroiLista(LIS_tppLista lista);
 
 /********** Fim do módulo de definição: LIS  Lista duplamente encadeada **********/
 

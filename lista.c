@@ -39,7 +39,7 @@ typedef struct LIS_tagLista {
          void ( * ExcluirValor ) ( void * pValor ) ;
                /* Ponteiro para a função de destruição do valor contido em um elemento */
 
-   } LIS_tppLista ;
+   } LIS_tpLista ;
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
@@ -52,6 +52,8 @@ typedef struct LIS_tagLista {
    static void LimparCabeca( LIS_tppLista lista );
 
    static void EsvaziarLista(LIS_tppLista lista);
+
+   /*****  Código das funções exportadas pelo módulo  *****/
 /***************************************************************************
 *
 *  Função: LIS  &Criar lista
@@ -73,7 +75,6 @@ typedef struct LIS_tagLista {
 
       (*lista)->ExcluirValor = ExcluirValor;
       
-      (*lista)->idLista = (char *) malloc(sizeof(char) * strlen(idLista));
       
       strcpy((*lista)->idLista, idLista);
 
@@ -87,7 +88,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Obter Id Lista
 *  ****/
    
-   LIS_tpCondRet obterIdLista(LIS_tppLista lista, char idLista[4]) {
+   LIS_tpCondRet LIS_ObterIdLista(LIS_tppLista lista, char idLista[4]) {
             if(lista == NULL) {
                      return LIS_CondRetNaoAchou;
             }
@@ -100,7 +101,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Inserir nó na lista
 *  ****/
 
-  LIS_tpCondRet inserirNo(LIS_tppLista lista, void *elemento) {
+  LIS_tpCondRet LIS_InserirNo(LIS_tppLista lista, void *elemento) {
            tpElemLista *novo;
            tpElemLista *aux;
            #ifdef _DEBUG
@@ -112,7 +113,7 @@ typedef struct LIS_tagLista {
                    // printf("falta de memória para inserir novo elemento na lista\n");
                     return LIS_CondRetFaltouMemoria;
            }
-           tpElemLista->pValor = elemento;
+           novo->pValor = elemento;
            aux = lista->pElemCorr->pProx;
            novo->pAnt = lista->pElemCorr;
            if(aux != NULL) {
@@ -130,7 +131,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Obter nó na Lista
 *  ****/
    
-   LIS_tpCondRet obterNo(LIS_tppLista lista, void **referencia) {
+   LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
            #ifdef _DEBUG
            assert( lista != NULL ) ;
            #endif
@@ -147,7 +148,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Excluir nó corrente
 *  ****/
    
-   LIS_tpCondRet excluirNoCorrente(LIS_tppLista lista) {
+   LIS_tpCondRet LIS_ExcluirNoCorrente(LIS_tppLista lista) {
            #ifdef _DEBUG
            assert(lista != NULL ) ;
            #endif
@@ -189,7 +190,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Ir para o próximo nó
 *  ****/
   
-  LIS_tpCondRet irProx(LIS_tppLista lista) {
+  LIS_tpCondRet LIS_IrProx(LIS_tppLista lista) {
            #ifdef _DEBUG
            assert(lista != NULL ) ;
            #endif
@@ -209,7 +210,7 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Ir para o nó anterior
 *  ****/
-   LIS_tpCondRet irAnt(LIS_tppLista lista) {
+   LIS_tpCondRet LIS_IrAnt(LIS_tppLista lista) {
            #ifdef _DEBUG
            assert(lista != NULL ) ;
            #endif
@@ -229,7 +230,7 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Alterar nó corrente
 *  ****/
-   LIS_tpCondRet alterarNoCorrente(LIS_tppLista lista, void *referencia) {
+   LIS_tpCondRet LIS_AlterarNoCorrente(LIS_tppLista lista, void *referencia) {
            if(lista != NULL ) {
                     return LIS_CondRetFimLista;
            }
@@ -247,7 +248,7 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Destruir lista
 *  ****/
-      LIS_tpCondRet destroiLista(LIS_tppLista lista) {
+      LIS_tpCondRet LIS_DestroiLista(LIS_tppLista lista) {
 
           if(lista == NULL) {
                    return LIS_CondRetFimLista;
@@ -262,6 +263,7 @@ typedef struct LIS_tagLista {
 /***************************************************************************
 
 
+/*****  Código das funções encapsuladas no módulo  *****/
 /***********************************************************************
 *
 *  $FC Função: LIS  -Liberar elemento da lista
@@ -339,7 +341,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Esvaziar lista
 *  ****/
 
-   void LIS_EsvaziarLista( LIS_tppLista lista ) {
+   void EsvaziarLista( LIS_tppLista lista ) {
 
       tpElemLista * pElem ;
       tpElemLista * pProx ;
