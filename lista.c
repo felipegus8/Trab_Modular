@@ -257,10 +257,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Alterar nó corrente
 *  ****/
    LIS_tpCondRet LIS_AlterarNoCorrente(LIS_tppLista lista, void *referencia) {
-           if(lista != NULL ) {
-                    return LIS_CondRetFimLista;
-           }
-           
+          
            if(lista->pElemCorr == NULL) {
                     return LIS_CondRetListaVazia;
            }  
