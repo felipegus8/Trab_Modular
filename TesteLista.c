@@ -137,8 +137,6 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             {
                free( pDado ) ;
             } /* if */
-		
-			 vtListas[inxLista]->excluirValor(pDado);
             
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao inserir o nó." ) ;
