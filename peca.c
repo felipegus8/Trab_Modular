@@ -319,5 +319,15 @@ PEC_tpCondRet PEC_RetornaYMovimento(Peca *peca,int i,int *y)
 	return PEC_CondRetOK;
 }/* Fim função: PEC  &Retorna Y Movimento */
 
+/***************************************************************************
+*
+*  Função: PEC  &Eliminar Peca
+*  ****/
+PEC_tpCondRet PEC_EliminarPeca(Peca *peca)
+{
+	peca->id = 'V';
+	peca->cor = 'V';
+	return PEC_CondRetOK;
+}/* Fim função: PEC  &Eliminar Peca */
 
  /********** Fim do módulo de implementação: PEC  Peca **********/

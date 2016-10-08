@@ -31,7 +31,7 @@ typedef struct casa {
          /*ponteiro para o elemento contido na casa */
    } Casa;
 
-char idListaPecas = "PeLi"; //identificação da lista de peças
+char *  idListaPecas = "PeLi"; //identificação da lista de peças
 LIS_tppLista listaPecas;
 LIS_tpCondRet  retLis = LIS_CondRetOK;
 LIS_tpCondRet retLis2 = LIS_CondRetOK;
@@ -196,8 +196,7 @@ void destruirValor(void *pValor); //função de destruição de valor
              return TAB_CondRetCasaVazia;
           }
           
-          peca->id = 'V';
-          peca->cor = 'V';
+			PEC_EliminarPeca(peca);
           return TAB_CondRetOK;
    }/* Fim função: TAB  &Retirar Peca */
    /***************************************************************************

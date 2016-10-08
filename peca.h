@@ -275,5 +275,24 @@ PEC_tpCondRet PEC_RetornaXMovimento(Peca *peca,int i,int *x);
 ***********************************************************************/
 PEC_tpCondRet PEC_RetornaYMovimento(Peca *peca,int i,int *y);
 
+/***********************************************************************
+*  $FC Função: PEC  &Eliminar Peca
+*
+*  $ED Descrição da função
+*  Preenche os campos id e cor da Peca recebida como V indicando que ela está vazia.
+*
+*
+*  $EP Parâmetros
+*     peca-peca que se "eliminar"
+* 
+*  $FV Valor retornado
+*     Se executou corretamente retorna OK.
+*    
+*
+*  
+*
+***********************************************************************/
+PEC_tpCondRet PEC_EliminarPeca(Peca *peca);
+
 /********** Fim do módulo de definição: PEC  Peça **********/
 
