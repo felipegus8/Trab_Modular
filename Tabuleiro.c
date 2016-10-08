@@ -207,11 +207,11 @@ void destruirValor(void *pValor); //função de destruição de valor
           char cor;
           int i;
           char id;
-		  char *idPec;
+		  char idPec;
           void *elemento;
-          int movX,movY,*xRet,*yRet,*moveParaTras;
+          int movX,movY,xRet,yRet,moveParaTras;
           Peca *peca;
-		  int *qtdMov;
+		  int qtdMov;
 		  Movimento *movGeral;
 		  LIS_tppLista lista;
 		  int yi = (int)(yo - 'A');
@@ -229,7 +229,7 @@ void destruirValor(void *pValor); //função de destruição de valor
            if(xd>7 || xd<0 || yi2>7 || yi2<0) {
               return TAB_CondRetCoordenadaNExiste; 
            }
-		    PEC_RetornaId(peca,idPec);
+		    PEC_RetornaId(peca,&idPec);
           //procura na lista pelo id da peça e checa se o movimento está ok
           while(strcmp(*idPec,id) != 0) {
                 if(obterno(lista,peca) == LIS_CondRetFimLista) {
@@ -238,16 +238,16 @@ void destruirValor(void *pValor); //função de destruição de valor
                 
               irProx(listaPecas);
           }
-		  PEC_RetornaQtd_Mov(peca,qtdMov);
-		  PEC_RetornaMoveParaTras(peca,moveParaTras);
-          for(i=0;i<*qtdMov;i++) {
+		  PEC_RetornaQtd_Mov(peca,&qtdMov);
+		  PEC_RetornaMoveParaTras(peca,&moveParaTras);
+          for(i=0;i<qtdMov;i++) {
                 movX = xd - xo;
                 movY = yd - yo;
-				PEC_RetornaXMovimento(peca,i,xRet);
-				PEC_RetornaXMovimento(peca,i,yRet);
-                if(abs(movX) == *xRet && abs(movY) == *yRet) {
+				PEC_RetornaXMovimento(peca,i,&xRet);
+				PEC_RetornaXMovimento(peca,i,&yRet);
+                if(abs(movX) == xRet && abs(movY) == yRet) {
                         if(movX<0 || movY <0) {
-                              if(*moveParaTras == 1) {
+                              if(moveParaTras == 1) {
                                    return TAB_CondRetOK;
                               } else {
                                    return TAB_CondRetMovimentoIrregular;
