@@ -153,7 +153,10 @@ typedef struct LIS_tagLista {
                   
          pLista->pElemCorr = pElem ;
 	  
-	 printf("parada que n pode da zero: %d\n",pLista->ExcluirValor);
+	  printf("ve se imprime algo dps disso\n");
+	  
+	 plista->ExcluirValor(pElem->pValor);
+	 printf("ALGO!!\n");
                   
          return LIS_CondRetOK ;
 
