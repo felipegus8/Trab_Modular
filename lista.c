@@ -153,10 +153,7 @@ typedef struct LIS_tagLista {
                   
          pLista->pElemCorr = pElem ;
 	  
-	  printf("ve se imprime algo dps disso\n");
-	  
-	 pLista->ExcluirValor(pElem->pValor);
-	 printf("ALGO!!\n");
+	    
                   
          return LIS_CondRetOK ;
 
@@ -175,7 +172,6 @@ typedef struct LIS_tagLista {
            if(lista->pElemCorr == NULL) {
                     return LIS_CondRetListaVazia;
            }
-           //strcpy(s, (char *)lista->pElemCorr->pValor);
            *referencia = lista->pElemCorr->pValor;
            return LIS_CondRetOK;
    } 
@@ -227,19 +223,38 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Ir para o próximo nó
 *  ****/
   
-  LIS_tpCondRet LIS_IrProx(LIS_tppLista lista) {
+  LIS_tpCondRet LIS_IrProx(LIS_tppLista pLista) {
            #ifdef _DEBUG
            assert(lista != NULL ) ;
            #endif
+           tpElemLista * pElem ;
+
+           if ( pLista->pElemCorr == NULL )
+         {
+
+            return LIS_CondRetListaVazia ;
+
+         } /* fim ativa: Tratar lista vazia */
+
+      /* Tratar avançar para frente */
+
+        
+
+            pElem = pLista->pElemCorr ;
            
-           if(lista->pElemCorr == NULL) {
-                    return LIS_CondRetListaVazia;
-           } 
-           
-           if(lista->pElemCorr->pProx = NULL) {
-                    return LIS_CondRetFimLista;
-           }
-           lista->pElemCorr = lista->pElemCorr->pProx;
+            pElem    = pElem->pProx ;
+
+            if ( pElem != NULL )
+            {
+               pLista->pElemCorr = pElem ;
+               return LIS_CondRetOK ;
+            } /* if */
+
+            pLista->pElemCorr = pLista->pFimLista ;
+            return LIS_CondRetFimLista ;
+
+
+      /* Tratar avançar para trás */
            return LIS_CondRetOK;
   }/* fim função: Lis &Ir para o próximo nó
 
@@ -247,20 +262,22 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Ir para o nó anterior
 *  ****/
-   LIS_tpCondRet LIS_IrAnt(LIS_tppLista lista) {
+   LIS_tpCondRet LIS_IrAnt(LIS_tppLista pLista) {
            #ifdef _DEBUG
            assert(lista != NULL ) ;
            #endif
-           
-           if(lista->pElemCorr == NULL) {
-                    return LIS_CondRetListaVazia;
-           } 
-           
-           if(lista->pElemCorr->pAnt = NULL) {
-                    return LIS_CondRetFimLista;
-           }
-           lista->pElemCorr = lista->pElemCorr->pAnt;
-           return LIS_CondRetOK;
+		   tpElemLista * pElem ;
+            pElem = pLista->pElemCorr ;
+               pElem = pElem->pAnt ;
+
+            if ( pElem != NULL )
+            {
+               pLista->pElemCorr = pElem ;
+               return LIS_CondRetOK ;
+            } /* if */
+
+            pLista->pElemCorr = pLista->pOrigemLista ;
+            return LIS_CondRetFimLista ;
   }/* fim função: Lis &Ir para o nó anterior */
    
      /***************************************************************************
