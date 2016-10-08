@@ -214,7 +214,15 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             {
                return TST_CondRetParm ;
             } /* if */
-			CondRet = LIS_AlterarNoCorrente(vtListas[inxLista],(void*)StringDado);
+
+			pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
+            if ( pDado == NULL )
+            {
+               return TST_CondRetMemoria ;
+            } /* if */
+
+            strcpy( pDado , StringDado ) ;
+			CondRet = LIS_AlterarNoCorrente(vtListas[inxLista],(void*)pDado);
 			printf("Alterar No Corrente: %d\n",CondRet);
 			return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao alterar o conteúdo do nó corrente" ) ;
 		 }/*fim ativa:Testar alterar nó corrente*/
