@@ -49,10 +49,10 @@ typedef enum {
          TAB_CondRetFaltouMemoria ,
                /* Faltou memória ao tentar criar uma lista dentro da casa*/
          
-         TAB_CondRetListaAmecadosNaoExiste ,
+         TAB_CondRetListaAmeacadosNaoExiste ,
                /* lista de elementos ameaçados pela peça não foi criado*/
          
-         TAB_CondRetListaAmecantesNaoExiste ,
+         TAB_CondRetListaAmeacantesNaoExiste ,
                /* lista de elementos que ameaçam a peça não foi criado*/
          
         TAB_CondRetMovimentoIrregular

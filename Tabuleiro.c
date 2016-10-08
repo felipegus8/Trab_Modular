@@ -104,13 +104,13 @@ void destruirValor(void *pValor); //função de destruição de valor
         if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
         }
-        retPeca = criaPeca((Peca *)&tabuleiro[x][yi]->elemento,id,cor);//cria peça novo
+        retPeca = criaPeca((Peca *)&tabuleiro[x][yi].elemento,id,cor);//cria peça novo
         if(retPeca == LIS_CondRetFaltouMemoria) {
             return TAB_CondRetFaltouMemoria;
         }
-        retLis = inserirNo(listaPecas,tabuleiro[x][yi]->elemento); //insere peça nova na lista
-        retPeca = ensinaMovimentosPecasConhecidas((Peca **)&tabuleiro[x][yi]->elemento); //obtem o movimento da peça caso esta for "conhecida"
-        if(retPeca == PEC_CondFaltouMemoria) {
+        retLis = inserirNo(listaPecas,tabuleiro[x][yi].elemento); //insere peça nova na lista
+        retPeca = ensinaMovimentosPecasConhecidas((Peca **)&tabuleiro[x][yi].elemento); //obtem o movimento da peça caso esta for "conhecida"
+        if(retPeca == PEC_CondRetFaltouMemoria) {
             return TAB_CondRetOK;
         }
         if(retPeca == PEC_CondRetNaoAchouPeca) { //caso insere o movimento
@@ -256,7 +256,7 @@ void destruirValor(void *pValor); //função de destruição de valor
                    if(tabuleiro[i][j].elemento != NULL) {
                      LIS_DestroiLista(tabuleiro[i][j].ameacados);
                      LIS_DestroiLista(tabuleiro[i][j].ameacantes);
-                     PEC_LiberaPeca(tabuleiro[i][j]->peca);
+                     PEC_LiberaPeca((Peca)tabuleiro[i][j].elemento);
                    }
                }
           }
