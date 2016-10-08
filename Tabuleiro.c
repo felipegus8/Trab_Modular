@@ -73,15 +73,15 @@ void destruirValor(void *pValor); //função de destruição de valor
               strcat(idListaAmeacantes,&idListaAmeacantesY);
               strcat(idListaAmeacantes,&b);
               //as 3 linhas acima fazem com que a string identificadora da lista ameacantes fique da forma "linhaColunaB"    
-              retLis = LIS_CriarLista(idListaAmeacados,DestruirValor,&tabuleiro[i][j]->ameacados);
+              retLis = LIS_CriarLista(&tabuleiro[i][j]->ameacados,idListaAmeacados,destruirValor);
               if(retLis == LIS_CondRetFaltouMemoria) {
                     return TAB_CondRetFaltouMemoria;
               }
-              retLis2 = LIS_CriarLista(idListaAmeacantes,DestruirValor,&tabuleiro[i][j]->ameacantes);
+              retLis2 = LIS_CriarLista(&tabuleiro[i][j]->ameacantes,idListaAmeacantes,destruirValor);
               if(retLis2 == LIS_CondRetFaltouMemoria) {
                     return TAB_CondRetFaltouMemoria;
               }
-              criaPeca((Peca **)&tabuleiro[i][j]->elemento,'V','V');
+              PEC_CriaPeca((Peca **)&tabuleiro[i][j]->elemento,'V','V');
               idListaAmeacadosY++;
               idListaAmeacantesY++;
               j++;
@@ -108,13 +108,13 @@ void destruirValor(void *pValor); //função de destruição de valor
         if(retPeca == LIS_CondRetFaltouMemoria) {
             return TAB_CondRetFaltouMemoria;
         }
-        retLis = inserirNo(listaPecas,tabuleiro[x][yi].elemento); //insere peça nova na lista
-        retPeca = ensinaMovimentosPecasConhecidas((Peca **)&tabuleiro[x][yi].elemento); //obtem o movimento da peça caso esta for "conhecida"
+        retLis = LIS_InserirNo(listaPecas,tabuleiro[x][yi].elemento); //insere peça nova na lista
+        retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)&tabuleiro[x][yi].elemento); //obtem o movimento da peça caso esta for "conhecida"
         if(retPeca == PEC_CondRetFaltouMemoria) {
             return TAB_CondRetOK;
         }
         if(retPeca == PEC_CondRetNaoAchouPeca) { //caso insere o movimento
-             retPeca = ensinaMovimentosPecasDesconhecidas((Peca **)&tabuleiro[x][yi].elemento);
+             retPeca = PEC_EnsinaMovimentosPecasDesconhecidas((Peca **)&tabuleiro[x][yi].elemento);
              if(retPeca == PEC_CondRetFaltouMemoria) {
                 return TAB_CondRetFaltouMemoria;
              }
@@ -131,7 +131,7 @@ void destruirValor(void *pValor); //função de destruição de valor
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          listaAmeacantes = tabuleiro[x,yi]->ameacantes;
+          listaAmeacantes = tabuleiro[x][yi].ameacantes;
           if(listaAmeacantes == NULL) {
               return TAB_CondRetListaAmeacantesNaoExiste;
           }
@@ -148,7 +148,7 @@ void destruirValor(void *pValor); //função de destruição de valor
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          listaAmeacados = tabuleiro[x,yi]->ameacados;
+          listaAmeacados = tabuleiro[x][yi].ameacados;
           if(listaAmeacados == NULL) {
               return TAB_CondRetListaAmeacadosNaoExiste;
           }
@@ -160,18 +160,21 @@ void destruirValor(void *pValor); //função de destruição de valor
 *  ****/
    TAB_tpCondRet TAB_ObterPeca(Casa tabuleiro[8][8],int x, char y, char cor, char id) {
           Peca *peca;
+		  char *corPec,*idPec;
           int yi = (int)(y - 'A');
           x--;
           if(x>7 || x<0 || yi>7 || yi < 0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
           peca = (Peca *)tabuleiro[x][yi].elemento;
-          if(peca->cor == 'V' && peca->id == 'V') {
+		  PEC_RetornaCor(peca,corPec);
+		  PEC_RetornaId(peca,idPec);
+          if(*corPec== 'V' &&  *idPec== 'V') {
              return TAB_CondRetCasaVazia;
           }
           //strcpy(cor,peca->cor); 
-          cor = peca->cor;
-          id = peca->id;
+          cor = *corPec;
+          id = *idPec;
           return TAB_CondRetOK;
    }/* Fim função: TAB  &Obter Peca */
 /***************************************************************************
@@ -180,15 +183,19 @@ void destruirValor(void *pValor); //função de destruição de valor
 *  ****/
    TAB_tpCondRet TAB_RetirarPeca(Casa tabuleiro[8][8],int x,char y) {
           Peca *peca;
+		  char *corPec,*idPec;
           int yi = (int)(y - 'A');
           x--;
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          if(peca->cor == 'V' && peca->id == 'V') {
+		  peca = (Peca *)tabuleiro[x][yi].elemento;
+          PEC_RetornaCor(peca,corPec);
+		  PEC_RetornaId(peca,idPec);
+          if(*corPec== 'V' &&  *idPec== 'V') {
              return TAB_CondRetCasaVazia;
           }
-          peca = (Peca *)tabuleiro[x][yi].elemento;
+          
           peca->id = 'V';
           peca->cor = 'V';
           return TAB_CondRetOK;
@@ -201,15 +208,18 @@ void destruirValor(void *pValor); //função de destruição de valor
           char cor;
           int i;
           char id;
+		  char *idPec;
           void *elemento;
-          int movX,movY;
+          int movX,movY,*xRet,*yRet,*moveParaTras;
           Peca *peca;
+		  int *qtdMov;
+		  Movimento *movGeral;
 		  LIS_tppLista lista;
 		  int yi = (int)(yo - 'A');
           int yi2 = (int)(yd - 'A');
           LIS_tpCondRet ret;
-          obterpeca(xo,yo,&cor,&id);
-          obterno(lista,elemento);
+         // obterpeca(xo,yo,&cor,&id);  O que é isso.............................
+          LIS_ObterNo(lista,elemento);
           peca = (Peca *)elemento;
            xo--;
            if(xo>7 || xo<0 || yi>7 || yi<0) {
@@ -220,20 +230,25 @@ void destruirValor(void *pValor); //função de destruição de valor
            if(xd>7 || xd<0 || yi2>7 || yi2<0) {
               return TAB_CondRetCoordenadaNExiste; 
            }
+		    PEC_RetornaId(peca,idPec);
           //procura na lista pelo id da peça e checa se o movimento está ok
-          while(strcmp(peca->id,id) != 0) {
+          while(strcmp(*idPec,id) != 0) {
                 if(obterno(lista,peca) == LIS_CondRetFimLista) {
                      return TAB_CondRetNaoAchouPeca;
                 }
                 
               irProx(listaPecas);
           }
-          for(i=0;i<peca->qtdMov;i++) {
+		  PEC_RetornaQtd_Mov(peca,qtdMov);
+		  PEC_RetornaMoveParaTras(peca,moveParaTras);
+          for(i=0;i<*qtdMov;i++) {
                 movX = xd - xo;
                 movY = yd - yo;
-                if(abs(movX) == peca->movPeca[i].x && abs(movY) == peca->movPeca[i].y) {
+				PEC_RetornaXMovimento(peca,i,xRet);
+				PEC_RetornaXMovimento(peca,i,yRet);
+                if(abs(movX) == *xRet && abs(movY) == *yRet) {
                         if(movX<0 || movY <0) {
-                              if(peca->movParaTras == 1) {
+                              if(*moveParaTras == 1) {
                                    return TAB_CondRetOK;
                               } else {
                                    return TAB_CondRetMovimentoIrregular;

@@ -186,7 +186,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 	char idLido,corLido;
 	int x,y,i,j;
 	FILE *fp;
-	int qtdMov;
 	if ((fp=fopen("PecasNovas.txt","r"))==NULL)
 			{
 			 printf("Error! opening file");
@@ -257,5 +256,68 @@ PEC_tpCondRet PEC_LiberaPeca(Peca *peca) {
          free(peca);
 		 return PEC_CondRetOK;
    }/* Fim função: PEC  &Libera Peca */
+
+/***************************************************************************
+*
+*  Função: PEC  &Retorna Id
+*  ****/
+PEC_tpCondRet PEC_RetornaId(Peca *peca,char *id)
+{
+	*id = peca->id;
+	return PEC_CondRetOK;
+}/* Fim função: PEC  &Retorna Id */
+
+/***************************************************************************
+*
+*  Função: PEC  &Retorna Cor
+*  ****/
+PEC_tpCondRet PEC_RetornaCor(Peca *peca,char *cor)
+{
+	*cor = peca->cor;
+	return PEC_CondRetOK;
+}/* Fim função: PEC  &Retorna Cor */
+
+/***************************************************************************
+*
+*  Função: PEC  &Retorna Qtd_Mov
+*  ****/
+PEC_tpCondRet PEC_RetornaQtd_Mov(Peca *peca,int *qtdMov)
+{
+	*qtdMov = peca->qtdMov;
+	return PEC_CondRetOK;
+}/* Fim função: PEC  &Retorna Qtd_Mov */
+
+/***************************************************************************
+*
+*  Função: PEC  &Retorna Move Para Tras
+*  ****/
+PEC_tpCondRet PEC_RetornaMoveParaTras(Peca *peca,int *moveParaTras)
+{
+	*moveParaTras = peca->movParaTras;
+	//Move Para Tras sempre será 0 ou 1.
+	return PEC_CondRetOK;
+}/* Fim função: PEC  &Retorna Move Para Tras */
+
+
+/***************************************************************************
+*
+*  Função: PEC  &Retorna X Movimento
+*  ****/
+PEC_tpCondRet PEC_RetornaXMovimento(Peca *peca,int i,int *x)
+{
+	*x = peca->movPeca[i].x;
+	return PEC_CondRetOK;
+}/* Fim função: PEC  &Retorna X Movimento */
+
+/***************************************************************************
+*
+*  Função: PEC  &Retorna Y Movimento
+*  ****/
+PEC_tpCondRet PEC_RetornaYMovimento(Peca *peca,int i,int *y)
+{
+	*y = peca->movPeca[i].y;
+	return PEC_CondRetOK;
+}/* Fim função: PEC  &Retorna Y Movimento */
+
 
  /********** Fim do módulo de implementação: PEC  Peca **********/
