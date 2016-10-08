@@ -97,5 +97,5 @@
 =obterNo      lista0   str2    ListaVazia
 
 == Destruir a lista
-=destroiLista   lista0
+=destroiLista   lista0 OK
 // fim
