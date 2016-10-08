@@ -83,7 +83,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             numLidos = LER_LerParametros( "isi" ,
                        &inxLista,StringDado,&CondRetEsp ) ;
-
+			
             if ( ( numLidos != 3 ) || ( ! ValidarInxLista( inxLista , VAZIO )) || !(ValidarString(StringDado)))
             {
                return TST_CondRetParm ;
@@ -119,7 +119,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 			  numLidos = LER_LerParametros( "isi" ,
                        &inxLista , StringDado , &CondRetEsp ) ;
 
-            if ( ( numLidos != 3 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) || !(ValidarString(StringDado)) )
+            if ( ( numLidos != 3 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
@@ -145,8 +145,8 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 		 {
 			  numLidos = LER_LerParametros( "isi" ,
                        &inxLista , StringDado , &CondRetEsp ) ;
-
-            if ( ( numLidos != 3 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) || !(ValidarString(StringDado)) )
+			  printf("Obter No:Esp %d\n",CondRetEsp);
+            if ( ( numLidos != 3 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
             {
                return TST_CondRetParm ;
             } /* if */
@@ -159,7 +159,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             strcpy( pDado , StringDado) ;
              
 			CondRet = LIS_ObterNo(vtListas[inxLista],(void**)&pDado);
-             
+             printf("Obter No Recebido: %d\n",CondRet);
 			 if ( CondRet != 0 )
             {
                free( pDado ) ;
@@ -175,7 +175,9 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 			CondRetEsp = 0;
-			return TST_CompararInt( CondRetEsp ,LIS_ExcluirNoCorrente( vtListas[ inxLista ] ) ,"Condição de retorno errada ao excluir o no corrente."  ) ;
+			CondRet = LIS_ExcluirNoCorrente( vtListas[ inxLista ]);
+			printf("Voltou");
+			return TST_CompararInt( CondRetEsp ,CondRet ,"Condição de retorno errada ao excluir o no corrente."  ) ;
 		 }/*fim ativa:Testar excluir nó corrente*/
 		 
 		 
@@ -212,7 +214,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 			CondRet = LIS_AlterarNoCorrente(vtListas[inxLista],(void*)StringDado);
-
+			printf("Alterar No Corrente: %d\n",CondRet);
 			return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao alterar o conteúdo do nó corrente" ) ;
 		 }/*fim ativa:Testar alterar nó corrente*/
 		 
