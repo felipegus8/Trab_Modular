@@ -147,7 +147,7 @@ typedef struct LIS_tagLista {
                   
          pLista->pElemCorr = pElem ;
 	  
-	 printf("%d\n",pLista->ExcluirValor);
+	 printf("parada que n pode da zero: %d\n",pLista->ExcluirValor);
                   
          return LIS_CondRetOK ;
 
