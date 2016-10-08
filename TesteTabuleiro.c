@@ -38,8 +38,9 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 #define NAO_VAZIO 1
 
 #define DIM_VT_TAB   10
+#define DIM_VALOR     100
 
-Casa  tabuleiro[8][8];
+Casa * tabuleiro[8][8];
 
 LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
 
@@ -80,21 +81,14 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
       TST_tpCondRet CondRet;
 
       char   StringDado[  DIM_VALOR ],StringDado2[  DIM_VALOR  ] ;
-      char * pDado,*pDado2 ;
-
-      int ValEsp = -1 ;
-
-      int i ;
-
-      int numElem = -1 ;
-
-      StringDado[ 0 ] = 0 ;
-      StringDado2[ 0 ] = 0;
 
 	  int x, xf;
 	  char y, yf, cor, id;
 
 	  LIS_tppLista *ameacas;
+
+      StringDado[ 0 ] = 0 ;
+      StringDado2[ 0 ] = 0;
 
       /* Criar Tabuleiro */
 
@@ -118,14 +112,14 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
          else if ( strcmp( ComandoTeste , INSERE_PECA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iiccci" , &inxTab, x, y, cor, id, &CondRetEsp) ;
+            numLidos = LER_LerParametros( "iiccci" , &inxTab, &x, &y, &cor, &id, &CondRetEsp) ;
 
             if ( ( numLidos != 6 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_InserirPeca(tabuleiro, x, y, id)
+            CondRet = TAB_InserirPeca(*tabuleiro, x, y, cor,id);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -136,14 +130,14 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
          else if ( strcmp( ComandoTeste , OBTER_PECA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iiccci" , &inxTab, x, y, cor, id, &CondRetEsp) ;
+            numLidos = LER_LerParametros( "iiccci" , &inxTab, &x, &y, &cor, &id, &CondRetEsp) ;
 
             if ( ( numLidos != 6 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_ObterPeca(tabuleiro, x, y, id)
+            CondRet = TAB_ObterPeca(*tabuleiro, x, y, cor,id);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -154,14 +148,14 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
          else if ( strcmp( ComandoTeste , RETIRAR_PECA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iici" , &inxTab, x, y, &CondRetEsp) ;
+            numLidos = LER_LerParametros( "iici" , &inxTab, &x, &y, &CondRetEsp) ;
 
             if ( ( numLidos != 4 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_RetirarPeca(tabuleiro, x, y);
+            CondRet = TAB_RetirarPeca(*tabuleiro, x, y);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -173,14 +167,14 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
          else if ( strcmp( ComandoTeste , MOVER_PECA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iicici" , &inxTab, x, y, xf, yf, &CondRetEsp) ;
+            numLidos = LER_LerParametros( "iicici" , &inxTab, &x, &y, &xf, &yf, &CondRetEsp) ;
 
             if ( ( numLidos != 6 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_MoverPeca(tabuleiro, x, y, xf, yf);
+            CondRet = TAB_MoverPeca(*tabuleiro, x, y, xf, yf);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -191,14 +185,14 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
          else if ( strcmp( ComandoTeste , OBTER_LISTA_AMEACANTES) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iici" , &inxTab, x, y, ameacas) ;
+            numLidos = LER_LerParametros( "iici" , &inxTab, &x, &y, ameacas) ;
 
             if ( ( numLidos != 4 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_ObterListaAmeacantes(tabuleiro, x, y, ameaças);
+            CondRet = TAB_ObterListaAmeacantes(*tabuleiro, x, y, ameacas);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -209,14 +203,14 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
          else if ( strcmp( ComandoTeste , OBTER_LISTA_AMEACADOS) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iici" , &inxTab, x, y, ameacas) ;
+            numLidos = LER_LerParametros( "iici" , &inxTab, &x,&y, ameacas) ;
 
             if ( ( numLidos != 4 )|| ( ! ValidarInxTab( inxTab , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_ObterListaAmeacantes(tabuleiro, x, y, ameaças);
+            CondRet = TAB_ObterListaAmeacantes(*tabuleiro, x, y, ameacas);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -238,12 +232,13 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
             LIS_DestruirLista( vtTab[ inxTab ] ) ;
             vtTab[ inxTab ] = NULL ;
 
-			CondRet = TAB_DestruirTabuleiro(tabuleiro);
+			CondRet = TAB_DestruirTabuleiro(*tabuleiro);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
          } /* fim ativa: Testar Destruir tabuleiro */
-
+		 return TST_CondRetNaoConhec ;
+}
 /*****  Código das funções encapsuladas no módulo  *****/
 
 /***********************************************************************
