@@ -271,7 +271,7 @@ void destruirValor(void *pValor); //função de destruição de valor
                    if(tabuleiro[i][j].elemento != NULL) {
                      LIS_DestroiLista(tabuleiro[i][j].ameacados);
                      LIS_DestroiLista(tabuleiro[i][j].ameacantes);
-                     PEC_LiberaPeca((Peca)tabuleiro[i][j].elemento);
+                     PEC_LiberaPeca((Peca*)tabuleiro[i][j].elemento);
                    }
                }
           }
