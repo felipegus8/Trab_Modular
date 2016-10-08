@@ -146,6 +146,8 @@ typedef struct LIS_tagLista {
          } /* if */
                   
          pLista->pElemCorr = pElem ;
+	  
+	 pLista->ExcluirValor(pElem->pValor)
                   
          return LIS_CondRetOK ;
 
