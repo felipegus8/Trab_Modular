@@ -77,7 +77,7 @@ typedef struct LIS_tagLista {
 	  
       LimparCabeca(listaCopia );
 
-      listaCopia->ExcluirValor = ExcluirValor;
+      listaCopia.ExcluirValor = ExcluirValor;
       
       
       strcpy(listaCopia->idLista, idLista);
