@@ -34,7 +34,7 @@ typedef struct LIS_tagLista {
          int numElem ;
                /* Número de elementos da lista */
                
-         char idLista[4];
+         char *idLista;
               /*  String que identifica a lista */
          void ( * ExcluirValor ) ( void * pValor ) ;
                /* Ponteiro para a função de destruição do valor contido em um elemento */
@@ -59,7 +59,7 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Criar lista
 *  ****/
 
-   LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char idLista[4],
+   LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,
              void   ( * ExcluirValor ) ( void * pDado ))
    {
 
@@ -76,11 +76,14 @@ typedef struct LIS_tagLista {
       } /* if */
 	  
       LimparCabeca(listaCopia );
-
-      listaCopia.ExcluirValor = ExcluirValor;
       
+      listaCopia->idLista = (char *) malloc(strlen(idLista) + 1);
+	   
+      strcpy(listaCopia->idLista,idLista);
+	   
+      listaCopia->ExcluirValor = ExcluirValor;
       
-      strcpy(listaCopia->idLista, idLista);
+     
 
 	  *lista = listaCopia;
 	   printf("Endereço passado: %d\n",ExcluirValor);
