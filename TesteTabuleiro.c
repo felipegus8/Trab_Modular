@@ -229,9 +229,6 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            LIS_DestruirLista( vtTab[ inxTab ] ) ;
-            vtTab[ inxTab ] = NULL ;
-
 			CondRet = TAB_DestruirTabuleiro(*tabuleiro);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
