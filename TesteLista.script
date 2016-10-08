@@ -50,15 +50,6 @@
 =inserirNo    lista0   str2    OK
 =obterNo      lista0   str2    pNaoNULL
 
-==Ir para o proximo nó corrente
-=irProx  lista0   OK
-
-==Ir para o proximo nó corrente
-=irProx  lista0   OK
-
-==Ir para o proximo nó corrente
-=irProx  lista0   FimLista
-
 ==Ir para o anterior nó corrente
 =irAnt   lista0   OK
 
@@ -67,6 +58,15 @@
 
 ==Ir para o anterior nó corrente
 =irAnt   lista0   FimLista   
+
+==Ir para o proximo nó corrente
+=irProx  lista0   OK
+
+==Ir para o proximo nó corrente
+=irProx  lista0   OK
+
+==Ir para o proximo nó corrente
+=irProx  lista0   FimLista
 
 ==Excluo o no que corrente esta apontando
 =excluirNoCorrente   lista0
