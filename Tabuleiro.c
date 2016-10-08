@@ -211,6 +211,7 @@ void destruirValor(void *pValor); //função de destruição de valor
           void *elemento;
           int movX,movY,xRet,yRet,moveParaTras;
           Peca *peca;
+	  Peca *naLista;
 		  int qtdMov;
 		  Movimento *movGeral;
 		  LIS_tppLista lista;
@@ -230,13 +231,18 @@ void destruirValor(void *pValor); //função de destruição de valor
               return TAB_CondRetCoordenadaNExiste; 
            }
 		    PEC_RetornaId(peca,&idPec);
+
           //procura na lista pelo id da peça e checa se o movimento está ok
-          while(strcmp(*idPec,id) != 0) {
-                if(obterno(lista,peca) == LIS_CondRetFimLista) {
+          while(1) {
+                if(LIS_ObterNo(lista,elemento) == LIS_CondRetFimLista) {
                      return TAB_CondRetNaoAchouPeca;
                 }
-                
-              irProx(listaPecas);
+                naLista = (Peca *) elemento;
+		PEC_retornaId(naLista, &id);
+		if(strcmp(idPec,id) != 0) {
+		      break;
+		}
+              LIS_IrProx(listaPecas);
           }
 		  PEC_RetornaQtd_Mov(peca,&qtdMov);
 		  PEC_RetornaMoveParaTras(peca,&moveParaTras);
