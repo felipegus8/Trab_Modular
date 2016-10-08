@@ -84,7 +84,7 @@ typedef struct LIS_tagLista {
 
 	  *lista = listaCopia;
 	   printf("Endereço passado: %d\n",ExcluirValor);
-	   printf("outro endereço recebido: %d\n",lista->ExcluirValor);
+	   printf("outro endereço recebido: %d\n",(*listaCopia).ExcluirValor);
 	   printf("Endereço recebido: %d\n",(*lista)->ExcluirValor);
 
       return LIS_CondRetOK;
