@@ -235,7 +235,8 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             {
                return TST_CondRetParm ;
             } /* if */
-
+             
+	    CondRetEsp = 0;
             CondRet = LIS_DestroiLista( vtListas[ inxLista ] ) ;
             vtListas[ inxLista ] = NULL ;
             return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao destruir a lista" ) ;
