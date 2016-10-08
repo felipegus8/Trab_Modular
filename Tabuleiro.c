@@ -104,7 +104,7 @@ void destruirValor(void *pValor); //função de destruição de valor
         if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
         }
-        retPeca = criaPeca((Peca *)&tabuleiro[x][yi].elemento,id,cor);//cria peça novo
+        retPeca = PEC_CriaPeca((Peca *)&tabuleiro[x][yi].elemento,id,cor);//cria peça novo
         if(retPeca == LIS_CondRetFaltouMemoria) {
             return TAB_CondRetFaltouMemoria;
         }
