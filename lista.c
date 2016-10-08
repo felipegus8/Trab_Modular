@@ -155,7 +155,7 @@ typedef struct LIS_tagLista {
 	  
 	  printf("ve se imprime algo dps disso\n");
 	  
-	 plista->ExcluirValor(pElem->pValor);
+	 pLista->ExcluirValor(pElem->pValor);
 	 printf("ALGO!!\n");
                   
          return LIS_CondRetOK ;
