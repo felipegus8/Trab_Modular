@@ -90,7 +90,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             } /* if */
 				 
             CondRet = LIS_CriarLista( &vtListas[inxLista],StringDado,DestruirValor ) ;
-			printf("%d\n",vtListas[inxLista]);
+			printf("Valor que tem que ser igual a parada que n pode ser zero: %d\n",DestruirValor);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao criar uma lista" ) ;
 
