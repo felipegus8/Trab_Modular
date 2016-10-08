@@ -238,7 +238,7 @@ void destruirValor(void *pValor); //função de destruição de valor
                      return TAB_CondRetNaoAchouPeca;
                 }
                 naLista = (Peca *) elemento;
-		PEC_retornaId(naLista, &id);
+		PEC_RetornaId(naLista, &id);
 		if(strcmp(idPec,id) != 0) {
 		      break;
 		}
