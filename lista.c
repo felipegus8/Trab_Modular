@@ -147,7 +147,7 @@ typedef struct LIS_tagLista {
                   
          pLista->pElemCorr = pElem ;
 	  
-	 pLista->ExcluirValor(pElem->pValor)
+	 printf("%d\n",pLista->ExcluirValor);
                   
          return LIS_CondRetOK ;
 
