@@ -164,14 +164,17 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Obter nó na Lista
 *  ****/
+
    
-   LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
-           #ifdef _DEBUG
+LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
+	       #ifdef _DEBUG
            assert( lista != NULL ) ;
            #endif
            if(lista->pElemCorr == NULL) {
-                    return LIS_CondRetListaVazia;
+			   *referencia = NULL;
+               return LIS_CondRetListaVazia;
            }
+		   
            *referencia = lista->pElemCorr->pValor;
            return LIS_CondRetOK;
    } 
@@ -185,8 +188,8 @@ typedef struct LIS_tagLista {
            #ifdef _DEBUG
            assert(lista != NULL ) ;
            #endif
-           
            tpElemLista * pElem;
+		   
            pElem = lista->pElemCorr;
            if(lista->pElemCorr == NULL) {
                     return LIS_CondRetListaVazia;
@@ -201,7 +204,6 @@ typedef struct LIS_tagLista {
             lista->pElemCorr    = pElem->pProx ;
             lista->pOrigemLista = lista->pElemCorr ;
          } /* if */
-
       /* Desencadeia direita */
 
          if ( pElem->pProx != NULL )
@@ -252,10 +254,7 @@ typedef struct LIS_tagLista {
 
             pLista->pElemCorr = pLista->pFimLista ;
             return LIS_CondRetFimLista ;
-
-
-      /* Tratar avançar para trás */
-           return LIS_CondRetOK;
+           
   }/* fim função: Lis &Ir para o próximo nó
 
    /***************************************************************************
@@ -263,10 +262,12 @@ typedef struct LIS_tagLista {
 *  Função: LIS  &Ir para o nó anterior
 *  ****/
    LIS_tpCondRet LIS_IrAnt(LIS_tppLista pLista) {
+
+	      tpElemLista * pElem ;
            #ifdef _DEBUG
            assert(lista != NULL ) ;
            #endif
-		   tpElemLista * pElem ;
+
             pElem = pLista->pElemCorr ;
                pElem = pElem->pAnt ;
 
