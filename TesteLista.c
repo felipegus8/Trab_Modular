@@ -159,11 +159,26 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             strcpy( pDado , StringDado) ;
              
-			CondRet = LIS_ObterNo(vtListas[inxLista],(void**)&pDado);
+			CondRet = LIS_ObterNo(vtListas[inxLista],(void **)&pDado);
              printf("Obter No Recebido: %d\n",CondRet);
 			 if ( CondRet != 0 )
             {
-               free( pDado ) ;
+				if(pDado != NULL) {
+				   free( pDado ) ;
+				}
+               
+            } /* if */
+			 printf("pDado obtido: %d\n",pDado);
+			 if ( CondRetEsp == 0 )
+            {
+               return TST_CompararPonteiroNulo( 0 , pDado ,
+                         "Valor não deveria existir." ) ;
+            } /* if */
+
+            if ( pDado == NULL )
+            {
+               return TST_CompararPonteiroNulo( 1 , pDado ,
+                         "Dado tipo um deveria existir." ) ;
             } /* if */
 			  return TST_CompararString( StringDado , pDado ,"Valor Encontrado diferente do esperado." ) ;
 		 }/*fim ativa:Testar obter nó*/
@@ -235,8 +250,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             {
                return TST_CondRetParm ;
             } /* if */
-             
-	    CondRetEsp = 0;
+
             CondRet = LIS_DestroiLista( vtListas[ inxLista ] ) ;
             vtListas[ inxLista ] = NULL ;
             return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao destruir a lista" ) ;
