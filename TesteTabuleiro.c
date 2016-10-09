@@ -137,7 +137,7 @@ LIS_tppLista   vtTab[ DIM_VT_TAB ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_ObterPeca(*tabuleiro, x, y, cor,id);
+            CondRet = TAB_ObterPeca(*tabuleiro, x, y, &cor,&id);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 

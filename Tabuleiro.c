@@ -39,7 +39,7 @@ PEC_tpCondRet retPeca = PEC_CondRetOK;
 
 /***** Protótipos das funções encapuladas no módulo *****/
 void destruirValor(void *pValor); //função de destruição de valor
-void criarListaPecas();
+TAB_tpCondRet criarListaPecas();
 
 /*****  Código das funções exportadas pelo módulo  *****/  
 
@@ -106,7 +106,7 @@ void criarListaPecas();
         if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
         }
-        retPeca = PEC_CriaPeca((Peca *)&tabuleiro[x][yi].elemento,id,cor);//cria peça novo
+        retPeca = PEC_CriaPeca((Peca **)&tabuleiro[x][yi].elemento,id,cor);//cria peça novo
         if(retPeca == LIS_CondRetFaltouMemoria) {
             return TAB_CondRetFaltouMemoria;
         }
@@ -133,7 +133,7 @@ void criarListaPecas();
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          listaAmeacantes = tabuleiro[x][yi].ameacantes;
+          *listaAmeacantes = tabuleiro[x][yi].ameacantes;
           if(listaAmeacantes == NULL) {
               return TAB_CondRetListaAmeacantesNaoExiste;
           }
@@ -150,7 +150,7 @@ void criarListaPecas();
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          listaAmeacados = tabuleiro[x][yi].ameacados;
+          *listaAmeacados = tabuleiro[x][yi].ameacados;
           if(listaAmeacados == NULL) {
               return TAB_CondRetListaAmeacadosNaoExiste;
           }
@@ -160,7 +160,7 @@ void criarListaPecas();
 *
 *  Função: TAB  &Obter Peca
 *  ****/
-   TAB_tpCondRet TAB_ObterPeca(Casa tabuleiro[8][8],int x, char y, char cor, char id) {
+   TAB_tpCondRet TAB_ObterPeca(Casa tabuleiro[8][8],int x, int y, char *cor, char *id) {
           Peca *peca;
 		  char corPec,idPec;
           int yi = (int)(y - 'A');
@@ -175,8 +175,8 @@ void criarListaPecas();
              return TAB_CondRetCasaVazia;
           }
        
-          cor = corPec;
-          id = idPec;
+          *cor = corPec;
+          *id = idPec;
           return TAB_CondRetOK;
    }/* Fim função: TAB  &Obter Peca */
 /***************************************************************************
@@ -231,13 +231,11 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa tabuleiro[8][8],int posicaoX, int posicaoY
           void *elemento;
           int movX,movY,xRet,yRet,moveParaTras;
           Peca *peca;
-	  Peca *naLista;
+	      Peca *naLista;
 		  int qtdMov;
-		  Movimento *movGeral;
 		  LIS_tppLista lista;
 		  int yi = (int)(yo - 'A');
           int yi2 = (int)(yd - 'A');
-          LIS_tpCondRet ret;
           TAB_ObterPeca(tabuleiro,xo,yo,&cor,&id);
           LIS_ObterNo(lista,elemento);
           peca = (Peca *)elemento;
@@ -312,7 +310,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa tabuleiro[8][8],int posicaoX, int posicaoY
 
 /*****  Código das funções encapsuladas no módulo  *****/
 
-void criarListaPecas() {
+TAB_tpCondRet criarListaPecas() {
     retLis = LIS_CriarLista(&listaPecas,idListaPecas,destruirValor);
     if(retLis = LIS_CondRetOK) {
         return TAB_CondRetOK;
