@@ -44,6 +44,8 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 
 /***** Prottotipos das funções encapuladas no modulo *****/
 
+int converteCoordenadaCharParaInt(char coordYChar);
+
 
 /*****  Codigo das funções exportadas pelo modulo  *****/
 
@@ -80,7 +82,7 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 
       char   StringDado[  DIM_VALOR ],StringDado2[  DIM_VALOR  ] ;
 
-	  int x, xf;
+	  int x, xf,coordYInt,coordYInt2;
 	  char y, yf, cor, id;
 
 	  LIS_tppLista ameacas;
@@ -112,12 +114,14 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 
             numLidos = LER_LerParametros( "iccci" , &x, &y, &cor, &id, &CondRetEsp) ;
 
-            if (  numLidos != 6 )
+            if (  numLidos != 5 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_InserirPeca(tabuleiro, x, y, cor,id);
+			coordYInt = converteCoordenadaCharParaInt(y);
+
+            CondRet = TAB_InserirPeca(tabuleiro, x, coordYInt, cor,id);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -130,12 +134,16 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 
             numLidos = LER_LerParametros( "iccci" , &x, &y, &cor, &id, &CondRetEsp) ;
 
-            if ( numLidos != 6 )
+
+            if ( numLidos != 5 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_ObterPeca(tabuleiro, x, y, &cor,&id);
+
+			coordYInt = converteCoordenadaCharParaInt(y);
+
+            CondRet = TAB_ObterPeca(tabuleiro, x, coordYInt, &cor,&id);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -148,12 +156,14 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 
             numLidos = LER_LerParametros( "ici" , &x, &y, &CondRetEsp) ;
 
-            if ( numLidos != 4 )
+            if ( numLidos != 3 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_RetirarPeca(tabuleiro, x, y);
+			coordYInt = converteCoordenadaCharParaInt(y);
+
+            CondRet = TAB_RetirarPeca(tabuleiro, x, coordYInt);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -167,12 +177,15 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 
             numLidos = LER_LerParametros( "icici" , &x, &y, &xf, &yf, &CondRetEsp) ;
 
-            if ( numLidos != 6 )
+            if ( numLidos != 5 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_MoverPeca(tabuleiro, x, y, xf, yf);
+			coordYInt = converteCoordenadaCharParaInt(y);
+			coordYInt2 = converteCoordenadaCharParaInt(yf);
+
+            CondRet = TAB_MoverPeca(tabuleiro, x, coordYInt, xf, coordYInt2);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -185,12 +198,14 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 
             numLidos = LER_LerParametros( "ici" , &x, &y, ameacas) ;
 
-            if ( numLidos != 4 )
+            if ( numLidos != 3 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_ObterListaAmeacantes(tabuleiro, x, y, ameacas);
+			coordYInt = converteCoordenadaCharParaInt(y);
+
+            CondRet = TAB_ObterListaAmeacantes(tabuleiro, x, coordYInt, ameacas);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -203,12 +218,14 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 
             numLidos = LER_LerParametros( "ici" , &x,&y, ameacas) ;
 
-            if (numLidos != 4)
+            if (numLidos != 3)
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_ObterListaAmeacantes(tabuleiro, x, y, ameacas);
+			coordYInt = converteCoordenadaCharParaInt(y);
+
+            CondRet = TAB_ObterListaAmeacantes(tabuleiro, x, coordYInt, ameacas);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -236,4 +253,10 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 
          } /* fim ativa: Testar Destruir tabuleiro */
 		 return TST_CondRetNaoConhec ;
+}
+
+int converteCoordenadaCharParaInt(char coordYChar) {
+	int coordYInt;
+	coordYInt = coordYChar - 'A';  //converte para int
+	return corrdYInt;
 }
