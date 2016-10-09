@@ -89,13 +89,7 @@
 =excluirNoCorrente            lista0
 
 == Ver se a lista ficou vazia
-=obterNo      lista0   str0    ListaVazia
-
-== Ver se a lista ficou vazia
-=obterNo      lista0   str1    ListaVazia
-
-== Ver se a lista ficou vazia
-=obterNo      lista0   str2    ListaVazia
+=obterNo      lista0   "????"   pNULL
 
 == Destruir a lista
 =destroiLista   lista0   OK
