@@ -23,9 +23,9 @@
 *
 ***********************************************************************/
 typedef struct casa {
-         LIS_tppLista *ameacados;
+         LIS_tppLista ameacados;
          /* ponteiro para a cabeça da lista que contém as peças ameaçadas pela peça da casa */
-         LIS_tppLista *ameacantes;
+         LIS_tppLista ameacantes;
          /* ponteiro para a cabeça da lista que contém as peças que ameaçam a peça da casa */
          void *elemento;
          /*ponteiro para o elemento contido na casa */
