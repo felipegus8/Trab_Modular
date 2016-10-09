@@ -207,7 +207,7 @@ void criarListaPecas();
 *  Função: TAB  &Verifica Se Come Peca
 *  ****/
 
-TAB_tpCondRet TAB_VerifaSeCome(Casa tabuleiro[8][8],int posicaoX, int posicaoY, char corRecebida) {
+TAB_tpCondRet TAB_VerificaSeCome(Casa tabuleiro[8][8],int posicaoX, int posicaoY, char corRecebida) {
     char cor,id;
     TAB_ObterPeca(tabuleiro,posicaoX,posicaoY,&cor,&id);
     if(cor != corRecebida) {
