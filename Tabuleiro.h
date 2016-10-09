@@ -76,13 +76,16 @@ typedef struct casa Casa;
 *  $FC Função: TAB &Cria Tabuleiro
 *
 *  $ED Descrição da função
-*     
+*     Aloca dinamicamente um tabuleiro.O tamanho da matriz tabuleiro dependerá dos outros parâmetros passados para a função.
 *
 *  $EP Parâmetros
-*    tabuleiro = 
+*    tabuleiro = Ponteiro para onde se quer alocar a matriz.
+*    TamLinhas - Quantidade de linhas que a matriz tabuleiro vai ter.
+*    TamColunas - Quantidade de colunas que a matriz tabuleiro vai ter.
 *
 *  $FV Valor retornado
-*    
+*    Se executou corretamente retona Ok.
+*    Se houve algum problema por falta de memória retorna Faltou Memória.
 
 ***********************************************************************/
  TAB_tpCondRet TAB_CriaTabuleiro(Casa **tabuleiro,int TamLinhas, int TamColunas);
@@ -93,17 +96,22 @@ typedef struct casa Casa;
 *  $FC Função: TAB &Inserir Peca
 *
 *  $ED Descrição da função
-*     
+*     Insere uma Peça no Tabuleiro.
+*     A função cria essa peça chamando a função do módulo Peça de criarPeca.
+*     Além disso ela também atribui a essa peça seu movimento,novamente chamando funções do módulo peça.
+*     Tem que receber um tabuleiro já alocado dinamicamente,além de um x e y indicando a posição que a peça será inserida nesse tabuleiro.
 *
 *  $EP Parâmetros
-*    tabuleiro = 
-*    x = 
-*    y = 
+*    tabuleiro = Ponteiro para o tabuleiro que se quer inserir a peça.
+*    x = Coordenada x de onde a peça será inserida no Tabuleiro.
+*    yi = Coordenada y de onde a peça será inserida no Tabuleiro.
 *    cor = cor da Peça que se quer inserir
 *    id = id da Peça que se quer inserir
 *
 *  $FV Valor retornado
-*    
+*     Se executou corretamente retona Ok.
+*     Se houve algum problema por falta de memória retorna Faltou Memória.
+*     Se alguma das coordenadas passadas como parâmetro estiver fora do intervalo de tamanho do tabuleiro retorna CoordenadaNExiste.
 
 ***********************************************************************/
 TAB_tpCondRet TAB_InserirPeca(Casa **tabuleiro,int x, int yi,char cor,char id);
@@ -115,17 +123,23 @@ TAB_tpCondRet TAB_InserirPeca(Casa **tabuleiro,int x, int yi,char cor,char id);
 *  $FC Função: TAB &Mover Peca
 *
 *  $ED Descrição da função
-*     
+*     Move uma peça dentro do tabuleiro.A função recebe um tabuleiro já alocado dinamicamente.
+*     Além disso recebe as coordenadas x e y de onde a peça está no tabuleiro para poder localizá-la.
+*     Essa função também verifica se o Movimento da Peça em questão é válido.
 *
 *  $EP Parâmetros
-*    tabuleiro = 
-*    xo = 
-*    yo =
-*    xd =
-*    yd = 
+*    tabuleiro = Ponteiro para o tabuleiro que se quer mover a peça.
+*    xo = Coordenada x da posição atual da peça no tabuleiro.
+*    yo = Coordenada y da posição atual da peça no tabuleiro.
+*    xd = Coordenada x para onde se quer mover a peça no tabuleiro..
+*    yd = Coordenada y para onde se quer mover a peça no tabuleiro.
 *
 *  $FV Valor retornado
-*    
+*    Se executou corretamente retona Ok.
+*    Se houve algum problema por falta de memória retorna Faltou Memória.
+*    Se alguma das coordenadas passadas como parâmetro estiver fora do intervalo de tamanho do tabuleiro retorna CoordenadaNExiste.
+*    Se a peça em questão não está no tabuleiro retorna Não Achou Peça.
+*    Se a peça em questão não pode realizar aquele movimento retorna Movimento Irregular.
 
 ***********************************************************************/
  TAB_tpCondRet TAB_MoverPeca(Casa **tabuleiro,int xo,int yi,int xd,int yi2);
@@ -136,15 +150,19 @@ TAB_tpCondRet TAB_InserirPeca(Casa **tabuleiro,int x, int yi,char cor,char id);
 *  $FC Função: TAB &Retirar Peca
 *
 *  $ED Descrição da função
-*     
+*     Retira do tabuleiro uma peça.
+*     A peça a ser retirada é conhecida pelas coordenadas x e y passadas para a função.
+*     A função recebe um tabuleiro já alocado dinamicamente e que já deveria conter pelo menos uma peça.
 *
 *  $EP Parâmetros
-*    tabuleiro = 
-*    x = 
-*    y=
+*    tabuleiro = Ponteiro para o tabuleiro que se quer mover a peça.
+*    x =  Coordenada x da posição atual da peça  que se quer retirar no tabuleiro.
+*    y =   Coordenada y da posição atual da peça que se quer retirar no tabuleiro.
 *
 *  $FV Valor retornado
-*    
+*     Se executou corretamente retona Ok.
+*     Se alguma das coordenadas passadas como parâmetro estiver fora do intervalo de tamanho do tabuleiro retorna CoordenadaNExiste.
+*     Se a casa do tabuleiro não contiver nenhuma peça retorna Casa Vazia. 
 
 ***********************************************************************/
 
