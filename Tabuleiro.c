@@ -31,7 +31,7 @@ typedef struct casa {
          /*ponteiro para o elemento contido na casa */
    } Casa;
 
-char idListaPecas[4] = "PeLi"; //identificação da lista de peças
+char idListaPecas[5] = "PeLi"; //identificação da lista de peças
 LIS_tppLista listaPecas;
 LIS_tpCondRet  retLis = LIS_CondRetOK;
 LIS_tpCondRet retLis2 = LIS_CondRetOK;
@@ -314,10 +314,10 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa tabuleiro[8][8],int posicaoX, int posicaoY
 
 void criarListaPecas() {
     retLis = LIS_CriarLista(&listaPecas,idListaPecas,destruirValor);
-    if(retLis = LIS_tpCondRetOK) {
-        return TAB_tpCondRetOK;
+    if(retLis = LIS_CondRetOK) {
+        return TAB_CondRetOK;
     }
-    return TAB_tpCondRetFaltouMemoria;
+    return TAB_CondRetFaltouMemoria;
 }
 
 
