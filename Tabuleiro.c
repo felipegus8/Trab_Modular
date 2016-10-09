@@ -31,7 +31,7 @@ typedef struct casa {
          /*ponteiro para o elemento contido na casa */
    } Casa;
 
-char *  idListaPecas = "PeLi"; //identificação da lista de peças
+char idListaPecas[4] = "PeLi"; //identificação da lista de peças
 LIS_tppLista listaPecas;
 LIS_tpCondRet  retLis = LIS_CondRetOK;
 LIS_tpCondRet retLis2 = LIS_CondRetOK;
@@ -39,6 +39,7 @@ PEC_tpCondRet retPeca = PEC_CondRetOK;
 
 /***** Protótipos das funções encapuladas no módulo *****/
 void destruirValor(void *pValor); //função de destruição de valor
+void criarListaPecas();
 
 /*****  Código das funções exportadas pelo módulo  *****/  
 
@@ -101,6 +102,7 @@ void destruirValor(void *pValor); //função de destruição de valor
    TAB_tpCondRet TAB_InserirPeca(Casa tabuleiro[8][8],int x, char y,char cor,char id) {
         int yi = (int)(y - 'A');
         x--;
+        criarListaPecas();
         if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
         }
@@ -160,21 +162,21 @@ void destruirValor(void *pValor); //função de destruição de valor
 *  ****/
    TAB_tpCondRet TAB_ObterPeca(Casa tabuleiro[8][8],int x, char y, char cor, char id) {
           Peca *peca;
-		  char *corPec,*idPec;
+		  char corPec,idPec;
           int yi = (int)(y - 'A');
           x--;
           if(x>7 || x<0 || yi>7 || yi < 0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
           peca = (Peca *)tabuleiro[x][yi].elemento;
-		  PEC_RetornaCor(peca,corPec);
-		  PEC_RetornaId(peca,idPec);
-          if(*corPec== 'V' &&  *idPec== 'V') {
+		  PEC_RetornaCor(peca,&corPec);
+		  PEC_RetornaId(peca,&idPec);
+          if(corPec== 'V' &&  idPec== 'V') {
              return TAB_CondRetCasaVazia;
           }
-          //strcpy(cor,peca->cor); 
-          cor = *corPec;
-          id = *idPec;
+       
+          cor = corPec;
+          id = idPec;
           return TAB_CondRetOK;
    }/* Fim função: TAB  &Obter Peca */
 /***************************************************************************
@@ -309,6 +311,15 @@ TAB_tpCondRet TAB_VerifaSeCome(Casa tabuleiro[8][8],int posicaoX, int posicaoY, 
 
 
 /*****  Código das funções encapsuladas no módulo  *****/
+
+void criarListaPecas() {
+    retLis = LIS_CriarLista(&listaPecas,idListaPecas,destruirValor);
+    if(retLis = LIS_tpCondRetOK) {
+        return TAB_tpCondRetOK;
+    }
+    return TAB_tpCondRetFaltouMemoria;
+}
+
 
 /***************************************************************************
 *
