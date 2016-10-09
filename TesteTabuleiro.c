@@ -258,5 +258,5 @@ int converteCoordenadaCharParaInt(char coordYChar);
 int converteCoordenadaCharParaInt(char coordYChar) {
 	int coordYInt;
 	coordYInt = coordYChar - 'A';  //converte para int
-	return corrdYInt;
+	return coordYInt;
 }
