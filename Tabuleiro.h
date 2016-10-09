@@ -66,6 +66,7 @@ typedef enum {
    } TAB_tpCondRet ;
 
 
+
 /* Tipo Casa */
 typedef struct casa Casa;
 
@@ -84,7 +85,7 @@ typedef struct casa Casa;
 *    
 
 ***********************************************************************/
- TAB_tpCondRet TAB_CriaTabuleiro(Casa *tabuleiro[8][8]);
+ TAB_tpCondRet TAB_CriaTabuleiro(Casa **tabuleiro,int TamLinhas, int TamColunas);
 
 
 /***********************************************************************
@@ -105,7 +106,7 @@ typedef struct casa Casa;
 *    
 
 ***********************************************************************/
-TAB_tpCondRet TAB_InserirPeca(Casa tabuleiro[8][8],int x, char y,char cor,char id);
+TAB_tpCondRet TAB_InserirPeca(Casa **tabuleiro,int x, int yi,char cor,char id);
 
 
 
@@ -127,7 +128,7 @@ TAB_tpCondRet TAB_InserirPeca(Casa tabuleiro[8][8],int x, char y,char cor,char i
 *    
 
 ***********************************************************************/
- TAB_tpCondRet TAB_MoverPeca(Casa tabuleiro[8][8],int xo,char yo,int xd,char yd);
+ TAB_tpCondRet TAB_MoverPeca(Casa **tabuleiro,int xo,int yi,int xd,int yi2);
 
 
 /***********************************************************************
@@ -147,7 +148,7 @@ TAB_tpCondRet TAB_InserirPeca(Casa tabuleiro[8][8],int x, char y,char cor,char i
 
 ***********************************************************************/
 
- TAB_tpCondRet TAB_RetirarPeca(Casa tabuleiro[8][8],int x,char y);
+ TAB_tpCondRet TAB_RetirarPeca(Casa **tabuleiro,int x,int yi);
 
 
 /***********************************************************************
@@ -169,7 +170,7 @@ TAB_tpCondRet TAB_InserirPeca(Casa tabuleiro[8][8],int x, char y,char cor,char i
 
 ***********************************************************************/
 
- TAB_tpCondRet TAB_ObterPeca(Casa tabuleiro[8][8],int x, int y, char *cor, char *id);
+ TAB_tpCondRet TAB_ObterPeca(Casa **tabuleiro,int x, int y, char *cor, char *id);
 
 /***********************************************************************
 
@@ -188,7 +189,7 @@ TAB_tpCondRet TAB_InserirPeca(Casa tabuleiro[8][8],int x, char y,char cor,char i
 *    
 
 ***********************************************************************/
-TAB_tpCondRet TAB_ObterListaAmeacantes(Casa tabuleiro[8][8],int x, char y,LIS_tppLista *listaAmeacantes); //a ser editada
+TAB_tpCondRet TAB_ObterListaAmeacantes(Casa **tabuleiro,int x, int yi,LIS_tppLista listaAmeacantes); //a ser editada
 
 
 
@@ -209,7 +210,7 @@ TAB_tpCondRet TAB_ObterListaAmeacantes(Casa tabuleiro[8][8],int x, char y,LIS_tp
 *    
 
 ***********************************************************************/
-TAB_tpCondRet TAB_ObterListaAmeacados(Casa tabuleiro[8][8],int x, char y,LIS_tppLista *listaAmeacados); //a ser editada
+TAB_tpCondRet TAB_ObterListaAmeacados(Casa **tabuleiro,int x, int yi,LIS_tppLista listaAmeacados); //a ser editada
 
 
 /***********************************************************************
@@ -226,7 +227,7 @@ TAB_tpCondRet TAB_ObterListaAmeacados(Casa tabuleiro[8][8],int x, char y,LIS_tpp
 *    
 
 ***********************************************************************/
-TAB_tpCondRet TAB_DestruirTabuleiro(Casa tabuleiro[8][8]);
+TAB_tpCondRet TAB_DestruirTabuleiro(Casa **tabuleiro);
 
 
 
