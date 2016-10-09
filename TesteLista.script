@@ -68,6 +68,7 @@
 ==Ir para o proximo nó corrente
 =irProx  lista0   FimLista
 
+
 ==Excluo o no que corrente esta apontando
 =excluirNoCorrente   lista0
 
@@ -79,7 +80,7 @@
 =alterarNoCorrente   lista0  str3   OK
 
 == Excluir elemento corrente
-=excluirNoCorrente            lista0
+=excluirNoCorrente     lista0
 
 == Excluir elemento corrente
 =excluirNoCorrente            lista0
@@ -97,5 +98,5 @@
 =obterNo      lista0   str2    ListaVazia
 
 == Destruir a lista
-=destroiLista   lista0 OK
+=destroiLista   lista0   OK
 // fim

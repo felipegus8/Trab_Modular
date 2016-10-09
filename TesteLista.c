@@ -244,13 +244,12 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 		 
 		 else if(strcmp(ComandoTeste,DESTROI_LISTA) == 0)
 		 {
-			  numLidos = LER_LerParametros( "i" ,&inxLista,&CondRetEsp ) ;
+			  numLidos = LER_LerParametros( "ii" ,&inxLista,&CondRetEsp ) ;
 
             if ( ( numLidos != 2 ) || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
             {
                return TST_CondRetParm ;
             } /* if */
-
             CondRet = LIS_DestroiLista( vtListas[ inxLista ] ) ;
             vtListas[ inxLista ] = NULL ;
             return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao destruir a lista" ) ;
