@@ -183,23 +183,41 @@ void destruirValor(void *pValor); //função de destruição de valor
 *  ****/
    TAB_tpCondRet TAB_RetirarPeca(Casa tabuleiro[8][8],int x,char y) {
           Peca *peca;
-		  char *corPec,*idPec;
+		  char corPec,idPec;
           int yi = (int)(y - 'A');
           x--;
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
 		  peca = (Peca *)tabuleiro[x][yi].elemento;
-          PEC_RetornaCor(peca,corPec);
-		  PEC_RetornaId(peca,idPec);
-          if(*corPec== 'V' &&  *idPec== 'V') {
+          PEC_RetornaCor(peca,&corPec);
+		  PEC_RetornaId(peca,&idPec);
+          if(corPec== 'V' &&  idPec== 'V') {
              return TAB_CondRetCasaVazia;
           }
           
 			PEC_EliminarPeca(peca);
           return TAB_CondRetOK;
    }/* Fim função: TAB  &Retirar Peca */
-   /***************************************************************************
+    
+/***************************************************************************
+ *
+*  Função: TAB  &Verifica Se Come Peca
+*  ****/
+
+TAB_tpCondRet TAB_VerifaSeCome(Casa tabuleiro[8][8],int posicaoX, int posicaoY, char corRecebida) {
+    char cor,id;
+    TAB_ObterPeca(tabuleiro,posicaoX,posicaoY,&cor,&id);
+    if(cor != corRecebida) {
+        return TAB_CondRetComeu;
+    }
+    return TAB_CondRetCasaTemDono;
+}
+
+
+
+/***************************************************************************
+    
 *
 *  Função: TAB  &Mover Peça
 *  ****/
@@ -218,7 +236,7 @@ void destruirValor(void *pValor); //função de destruição de valor
 		  int yi = (int)(yo - 'A');
           int yi2 = (int)(yd - 'A');
           LIS_tpCondRet ret;
-         // obterpeca(xo,yo,&cor,&id);  O que é isso.............................
+          TAB_ObterPeca(tabuleiro,xo,yo,&cor,&id);
           LIS_ObterNo(lista,elemento);
           peca = (Peca *)elemento;
            xo--;
@@ -254,8 +272,10 @@ void destruirValor(void *pValor); //função de destruição de valor
                 if(abs(movX) == xRet && abs(movY) == yRet) {
                         if(movX<0 || movY <0) {
                               if(moveParaTras == 1) {
+                                  TAB_VerificaSeCome(tabuleiro,xd, yd,cor);
                                    return TAB_CondRetOK;
                               } else {
+                                   TAB_VerificaSeCome(tabuleiro,xd, yd,cor);
                                    return TAB_CondRetMovimentoIrregular;
                               }
                         }

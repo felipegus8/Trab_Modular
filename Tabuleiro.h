@@ -56,6 +56,11 @@ typedef enum {
                /* lista de elementos que ameaçam a peça não foi criado*/
          
         TAB_CondRetMovimentoIrregular
+              /* o movimento que foi tentando é irregular */
+        TAB_CondRetComeu
+              /* um movimento válido fez com que uma peça fosse comida */
+        TAB_CondRetCasaTemDono
+              /* um movimento válido fez com que uma peça fosse para um posição onde há um peça de sua cor */
 
    } TAB_tpCondRet ;
 
