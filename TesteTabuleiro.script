@@ -22,14 +22,6 @@
 =declararparm    char6    char    'G'
 =declararparm    char7    char    'H'
 
-==*     criartabuleiro            inxTab                                     CondRetEsp
-==*     inserepeca                intTab      int     char     char      char     CondRetEsp
-==*     obterlistaameacantes      inxTab     char     CondRetEsp
-==*     obterlistaameacados       inxTab     char     CondRetEsp
-==*     obterpeca                 inxTab     char     char      char         CondRetEsp
-==*     retirarpeca               inxTab     char     CondRetEsp
-==*     moverpeca                 inxTab     char     int       char        CondRetEsp
-==*     destruirtabuleiro         inxTab     CondRetEsp
 
 =declararparm   OK                     int  0
 =declararparm   CasaVazia              int  1
@@ -41,9 +33,5 @@
 =declararparm   MovimentoIrregular     int  7
 
 ==Parte que cria um tabuleiro
-=criartabuleiro            Tab0       OK
-
-inserepeca   Tab0    int1    char6   
-
-==Inserir um elemento peca no tabuleiro
-=inserepeca                Tab0    
+=criartabuleiro           OK
+               
