@@ -83,6 +83,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		{
 			return PEC_CondRetFaltouMemoria;
 		}
+		//Movimento na vertical da torre
 		(*novo)->movPeca[i].x = 1;
 		(*novo)->movPeca[i].y = 0;
 		for(i=1;i<7;i++)
@@ -90,6 +91,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 			(*novo)->movPeca[i].x = i+1;
 			(*novo)->movPeca[i].y = 0;
 		}
+		//Movimento na horizontal da torre
 		for(j=1;j<8;j++)
 		{
 			(*novo)->movPeca[i].x = 0;
@@ -106,6 +108,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		{
 		return PEC_CondRetFaltouMemoria;
 		}
+		//Movimento do cavalo
 		(*novo)->movPeca[0].x = 2;
 		(*novo)->movPeca[0].y = 1;
 		(*novo)->movPeca[1].x = 1;
@@ -121,6 +124,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		return PEC_CondRetFaltouMemoria;
 		}
 		i = 2;
+		//Movimento do bispo(diagonais)
 		(*novo)->movPeca[0].x = 1;
 		(*novo)->movPeca[0].y = 1;
 		for(k=1;k<8;k++)
@@ -139,6 +143,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		{
 		return PEC_CondRetFaltouMemoria;
 		}
+		//Movimento do peão.Aqui não se considera o fato dele poder se mover duas casas para frente na primeira jogada.
 		(*novo)->movPeca[0].x = 1;
 		(*novo)->movPeca[0].y = 0;
 		(*novo)->movPeca[1].x = 1;
@@ -153,6 +158,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		{
 		return PEC_CondRetFaltouMemoria;
 		}
+		//Movimento na vertical da rainha
 		(*novo)->movPeca[i].x = 1;
 		(*novo)->movPeca[i].y = 0;
 		for(i=1;i<7;i++)
@@ -160,6 +166,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 			(*novo)->movPeca[i].x = i + 1;
 			(*novo)->movPeca[i].y = 0;
 		}
+		//Movimento na horizontal da rainha
 		for(j=1;j<8;j++)
 		{
 			(*novo)->movPeca[i].x = 0;
@@ -167,6 +174,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 			i++;
 		}
 		j=1;
+		//Movimento na diagonal da rainha
 		for(k=1;k<8;k++)
 		{
 			(*novo)->movPeca[i].x = j;
@@ -182,6 +190,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		{
 		return PEC_CondRetFaltouMemoria;
 		}
+		//Movimento do rei
 		(*novo)->movPeca[0].x = 1;
 		(*novo)->movPeca[0].y = 0;
 		(*novo)->movPeca[1].x = 1;
@@ -204,6 +213,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 	char idLido,corLido;
 	int x,y,i,j;
 	FILE *fp;
+	//O arquivo PecasNovas.txt contem todas as peças novas que podem ser usadas no jogo.Para criar uma nova peça,o usuário deve escrever nesse arquivo,seguindo o formato lá apresentado.
 	if ((fp=fopen("PecasNovas.txt","r"))==NULL)
 			{
 			 printf("Error! opening file");
