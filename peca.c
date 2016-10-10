@@ -66,7 +66,7 @@ PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
 *  ****/
 PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 {
-	int i = 0,j = 0,k;
+	int i = 0,j = 0,k = 0 ;
 	//Em todos os casos do switch a variável moveParaTras será preenchida como 1(Verdadeiro) exceto no peão,que será 0.
 	switch((*novo)->id)
 	{
@@ -118,6 +118,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 	case 'B':
 		printf("\nEntrou no bispo\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*7);
+		printf("Passou");
 		(*novo)->qtdMov = 7;
 		(*novo)->movParaTras = 1;
 		if((*novo)->movPeca == NULL)
@@ -125,10 +126,11 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		return PEC_CondRetFaltouMemoria;
 		}
 		i = 2;
+		printf("Chegou aqui");
 		//Movimento do bispo(diagonais)
 		(*novo)->movPeca[0].x = 1;
 		(*novo)->movPeca[0].y = 1;
-		for(k=1;k<8;k++)
+		for(k=1;k<7;k++)
 		{
 			(*novo)->movPeca[k].x = i;
 			(*novo)->movPeca[k].y = i;
