@@ -41,6 +41,8 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 #define DIM_VALOR     100
 
 
+Casa  *tabuleiro[8][8];
+
 
 /***** Prottotipos das funções encapuladas no modulo *****/
 
@@ -94,15 +96,15 @@ int converteCoordenadaCharParaInt(char coordYChar);
 
          if ( strcmp( ComandoTeste , CRIAR_TABULEIRO ) == 0 )
          {
-            numLidos = LER_LerParametros( "iii", &CondRetEsp,&TamLinhas,&TamColunas) ;
+            numLidos = LER_LerParametros( "i", &CondRetEsp) ;
 
-            if ( numLidos != 3 )
+            if ( numLidos != 1 )
             {
                return TST_CondRetParm ;
             } /* if */
 
 
-            CondRet = TAB_CriaTabuleiro(&tabuleiro,TamLinhas,TamColunas);
+            CondRet = TAB_CriaTabuleiro((Casa *)tabuleiro,8,8);
 
             return TST_CompararPonteiroNulo( 1 , tabuleiro , "Erro em ponteiro de nova lista."  ) ;
 

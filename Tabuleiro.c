@@ -47,7 +47,7 @@ TAB_tpCondRet criarListaPecas();
 *
 *  Função: TAB  &Criar Tabuleiro
 *  ****/
-   TAB_tpCondRet TAB_CriaTabuleiro(Casa ***tabuleiro,int TamLinhas, int TamColunas) {
+   TAB_tpCondRet TAB_CriaTabuleiro(Casa *tabuleiro,int TamLinhas, int TamColunas) {
     int i = 0,j=0;
 	LIS_tppLista listaAmeacados;
 	LIS_tppLista listaAmeacantes;
@@ -57,34 +57,19 @@ TAB_tpCondRet criarListaPecas();
     char idListaAmeacadosY; //coluna da casa onde reside a lista ameacados
     char idListaAmeacantesX = '1';//linha da casa onde reside a lista ameacantes
     char idListaAmeacantesY;//coluna da casa onde reside a lista ameacantes
-    char *idListaAmeacados;
-    char *idListaAmeacantes;
+    char *idListaAmeacados = "Amd";
+    char *idListaAmeacantes = "Amn";
 
-	*tabuleiro = (Casa *) malloc(sizeof(Casa) * TamLinhas * TamColunas);
-
-
-    if(*tabuleiro == NULL) {
-         return TAB_CondRetFaltouMemoria;
-    }        
-
-	idListaAmeacantes = (char *) malloc(sizeof(char) * 4);
-	idListaAmeacados = (char *) malloc(sizeof(char) * 4);
+          
 
     while(i<TamLinhas) {
              idListaAmeacadosY = 'A';
              idListaAmeacantesY = 'A';
          while(j<TamColunas) {
-              strcpy(idListaAmeacados,&idListaAmeacadosX);
-              strcat(idListaAmeacados,&idListaAmeacadosY);
-              strcat(idListaAmeacados,&a);
-              //as 3 linhas acima fazem com que a string identificadora da lista ameacados fique da forma "linhaColunaA"
-              strcpy(idListaAmeacantes,&idListaAmeacantesX);
-              strcat(idListaAmeacantes,&idListaAmeacantesY);
-              strcat(idListaAmeacantes,&b);
               //as 3 linhas acima fazem com que a string identificadora da lista ameacantes fique da forma "linhaColunaB"
 			  printf("declarei aqui a casa\n");
-			  listaAmeacados = (*tabuleiro[i][j]).ameacados;
-			  listaAmeacantes = (*tabuleiro[i][j]).ameacantes;
+			  listaAmeacados = tabuleiro[i * TamLinhas + j].ameacados;
+			  listaAmeacantes = tabuleiro[i * TamLinhas + j].ameacantes;
               retLis = LIS_CriarLista(&listaAmeacados,idListaAmeacados,destruirValor);
               if(retLis == LIS_CondRetFaltouMemoria) {
                     return TAB_CondRetFaltouMemoria;
@@ -93,7 +78,7 @@ TAB_tpCondRet criarListaPecas();
               if(retLis2 == LIS_CondRetFaltouMemoria) {
                     return TAB_CondRetFaltouMemoria;
               }
-              PEC_CriaPeca((Peca **)&((*tabuleiro[i][j]).elemento),'V','V');
+              PEC_CriaPeca((Peca **)&(tabuleiro[i * TamLinhas + j].elemento),'V','V');
               idListaAmeacadosY++;
               idListaAmeacantesY++;
               j++;

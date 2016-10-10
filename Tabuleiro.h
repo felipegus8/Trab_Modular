@@ -88,7 +88,7 @@ typedef struct casa Casa;
 *    Se houve algum problema por falta de memória retorna Faltou Memória.
 
 ***********************************************************************/
- TAB_tpCondRet TAB_CriaTabuleiro(Casa ***tabuleiro,int TamLinhas, int TamColunas);
+ TAB_tpCondRet TAB_CriaTabuleiro(Casa *tabuleiro);
 
 
 /***********************************************************************
