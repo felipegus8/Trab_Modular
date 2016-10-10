@@ -50,9 +50,7 @@ TAB_tpCondRet criarListaPecas();
    TAB_tpCondRet TAB_CriaTabuleiro(Casa *tabuleiro,int TamLinhas, int TamColunas) {
     int i = 0,j=0;
 	LIS_tppLista listaAmeacados;
-	LIS_tppLista listaAmeacantes;
-    char a = 'A';
-    char b = 'B';    
+	LIS_tppLista listaAmeacantes;   
     char idListaAmeacadosX = '1';//linha da casa onde reside a lista ameacados
     char idListaAmeacadosY; //coluna da casa onde reside a lista ameacados
     char idListaAmeacantesX = '1';//linha da casa onde reside a lista ameacantes
@@ -99,7 +97,6 @@ TAB_tpCondRet criarListaPecas();
    TAB_tpCondRet TAB_InserirPeca(Casa *tabuleiro,int x, int yi,char cor,char id) {
         //int yi = (int)(y - 'A');
        x--;
-		printf("Chegou aqui\n");
         criarListaPecas();
 		printf("Criou a lista\n");
         if(x>7 || x<0 || yi>7 || yi<0) {
@@ -111,9 +108,7 @@ TAB_tpCondRet criarListaPecas();
         if(retPeca == PEC_CondRetFaltouMemoria) {
             return TAB_CondRetFaltouMemoria;
         }
-		printf("Chegou aqui");
         retLis = LIS_InserirNo(listaPecas,tabuleiro[x * 8 + yi].elemento); //insere peça nova na lista
-		printf("Criou nó");
         retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)&tabuleiro[x * 8 + yi].elemento); //obtem o movimento da peça caso esta for "conhecida"
 		printf("Chegou aqui");
         if(retPeca == PEC_CondRetFaltouMemoria) {

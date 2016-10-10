@@ -88,7 +88,7 @@ typedef struct casa Casa;
 *    Se houve algum problema por falta de memória retorna Faltou Memória.
 
 ***********************************************************************/
- TAB_tpCondRet TAB_CriaTabuleiro(Casa *tabuleiro);
+TAB_tpCondRet TAB_CriaTabuleiro(Casa *tabuleiro,int TamLinhas, int TamColunas);
 
 
 /***********************************************************************
@@ -114,7 +114,7 @@ typedef struct casa Casa;
 *     Se alguma das coordenadas passadas como parâmetro estiver fora do intervalo de tamanho do tabuleiro retorna CoordenadaNExiste.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_InserirPeca(Casa **tabuleiro,int x, int yi,char cor,char id);
+TAB_tpCondRet TAB_InserirPeca(Casa *tabuleiro,int x, int yi,char cor,char id);
 
 
 
