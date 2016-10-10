@@ -235,7 +235,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 		  LIS_tppLista lista;
 		  //int yi = (int)(yo - 'A');
           //int yi2 = (int)(yd - 'A');
-          TAB_ObterPeca(tabuleiro,xo,yi,&cor,&id);
+          TAB_ObterPeca((Casa *)tabuleiro,xo,yi,&cor,&id);
 	  printf("Passei da obter\n");
           LIS_ObterNo(lista,elemento);
           peca = (Peca *)elemento;
