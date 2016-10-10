@@ -191,7 +191,7 @@ TAB_tpCondRet TAB_InserirPeca(Casa *tabuleiro,int x, int yi,char cor,char id);
 
 ***********************************************************************/
 
- TAB_tpCondRet TAB_ObterPeca(Casa **tabuleiro,int x, int y, char *cor, char *id);
+ TAB_tpCondRet TAB_ObterPeca(Casa *tabuleiro,int x, int y, char *cor, char *id);
 
 /***********************************************************************
 
