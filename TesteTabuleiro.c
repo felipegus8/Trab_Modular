@@ -105,6 +105,7 @@ int converteCoordenadaCharParaInt(char coordYChar);
 
 
             CondRet = TAB_CriaTabuleiro((Casa *)tabuleiro,8,8);
+			printf("%d\n",CondRet);
 
             return TST_CompararPonteiroNulo( 1 , tabuleiro , "Erro em ponteiro de nova lista."  ) ;
 
@@ -124,7 +125,8 @@ int converteCoordenadaCharParaInt(char coordYChar);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-            CondRet = TAB_InserirPeca(tabuleiro, x, coordYInt, cor,id);
+            CondRet = TAB_InserirPeca((Casa *)tabuleiro, x, coordYInt, cor,id);
+
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
