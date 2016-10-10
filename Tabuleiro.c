@@ -189,7 +189,7 @@ TAB_tpCondRet criarListaPecas();
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-		  peca = (Peca *)tabuleiro[x * 8 + yi].elemento;
+		  peca = (Peca *)tabuleiro[x * 8 + y].elemento;
           PEC_RetornaCor(peca,&corPec);
 		  PEC_RetornaId(peca,&idPec);
           if(corPec== 'V' &&  idPec== 'V') {
@@ -292,7 +292,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           int i=0,j=0;
           while(i<8) {
                while(i<8) {
-                   if(tabuleiro[i][j].elemento != NULL) {
+                   if(tabuleiro[i*8 + j].elemento != NULL) {
                      LIS_DestroiLista(tabuleiro[i * 8 + j].ameacados);
                      LIS_DestroiLista(tabuleiro[i * 8 + j].ameacantes);
                      PEC_LiberaPeca((Peca*)tabuleiro[i * 8 + j].elemento);

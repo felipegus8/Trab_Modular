@@ -142,7 +142,7 @@ TAB_tpCondRet TAB_InserirPeca(Casa *tabuleiro,int x, int yi,char cor,char id);
 *    Se a peça em questão não pode realizar aquele movimento retorna Movimento Irregular.
 
 ***********************************************************************/
- TAB_tpCondRet TAB_MoverPeca(Casa **tabuleiro,int xo,int yi,int xd,int yi2);
+ TAB_tpCondRet TAB_MoverPeca(Casa *tabuleiro,int xo,int yi,int xd,int yi2);
 
 
 /***********************************************************************
@@ -166,7 +166,7 @@ TAB_tpCondRet TAB_InserirPeca(Casa *tabuleiro,int x, int yi,char cor,char id);
 
 ***********************************************************************/
 
- TAB_tpCondRet TAB_RetirarPeca(Casa **tabuleiro,int x,int yi);
+ TAB_tpCondRet TAB_RetirarPeca(Casa *tabuleiro,int x,int yi);
 
 
 /***********************************************************************
@@ -214,7 +214,7 @@ TAB_tpCondRet TAB_InserirPeca(Casa *tabuleiro,int x, int yi,char cor,char id);
 *     Se a lista não existir retorna ListaAmeacantesNaoExiste.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_ObterListaAmeacantes(Casa **tabuleiro,int x, int yi,LIS_tppLista *listaAmeacantes); //a ser editada
+TAB_tpCondRet TAB_ObterListaAmeacantes(Casa *tabuleiro,int x, int yi,LIS_tppLista *listaAmeacantes); //a ser editada
 
 
 
@@ -239,7 +239,7 @@ TAB_tpCondRet TAB_ObterListaAmeacantes(Casa **tabuleiro,int x, int yi,LIS_tppLis
 *     Se a lista não existir retorna ListaAmeacadosNaoExiste.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_ObterListaAmeacados(Casa **tabuleiro,int x, int yi,LIS_tppLista *listaAmeacados); //a ser editada
+TAB_tpCondRet TAB_ObterListaAmeacados(Casa *tabuleiro,int x, int yi,LIS_tppLista *listaAmeacados); //a ser editada
 
 
 /***********************************************************************
@@ -256,7 +256,7 @@ TAB_tpCondRet TAB_ObterListaAmeacados(Casa **tabuleiro,int x, int yi,LIS_tppList
 *     Se executou corretamente retona Ok.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_DestruirTabuleiro(Casa **tabuleiro);
+TAB_tpCondRet TAB_DestruirTabuleiro(Casa *tabuleiro);
 
 
 

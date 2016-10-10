@@ -97,3 +97,6 @@
 
 ==Obter Peca(nova peca)
 =obterpeca int3 charF  charB  charH OK
+
+==Retirar Peca(nova peca)
+=retirarpeca int3 charF OK

@@ -168,7 +168,7 @@ int converteCoordenadaCharParaInt(char coordYChar);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-            CondRet = TAB_RetirarPeca(tabuleiro, x, coordYInt);
+            CondRet = TAB_RetirarPeca((Casa*)tabuleiro, x, coordYInt);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -190,7 +190,7 @@ int converteCoordenadaCharParaInt(char coordYChar);
 			coordYInt = converteCoordenadaCharParaInt(y);
 			coordYInt2 = converteCoordenadaCharParaInt(yf);
 
-            CondRet = TAB_MoverPeca(tabuleiro, x, coordYInt, xf, coordYInt2);
+            CondRet = TAB_MoverPeca((Casa*)tabuleiro, x, coordYInt, xf, coordYInt2);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -210,7 +210,7 @@ int converteCoordenadaCharParaInt(char coordYChar);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-            CondRet = TAB_ObterListaAmeacantes(tabuleiro, x, coordYInt, ameacas);
+            CondRet = TAB_ObterListaAmeacantes((Casa*)tabuleiro, x, coordYInt, ameacas);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -230,7 +230,7 @@ int converteCoordenadaCharParaInt(char coordYChar);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-            CondRet = TAB_ObterListaAmeacantes(tabuleiro, x, coordYInt, ameacas);
+            CondRet = TAB_ObterListaAmeacantes((Casa*)tabuleiro, x, coordYInt, ameacas);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
@@ -249,7 +249,7 @@ int converteCoordenadaCharParaInt(char coordYChar);
             } /* if */
 			 
             //LIS_DestruirLista( tabuleiro ) ;
-			CondRet = TAB_DestruirTabuleiro(tabuleiro);
+			CondRet = TAB_DestruirTabuleiro((Casa*)tabuleiro);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
 
