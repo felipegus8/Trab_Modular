@@ -142,13 +142,13 @@ TAB_tpCondRet criarListaPecas();
 *
 *  Função: TAB  &Obter Lista Ameaçantes
 *  ****/
-   TAB_tpCondRet TAB_ObterListaAmeacantes(Casa **tabuleiro,int x, int yi,LIS_tppLista listaAmeacantes) {
+   TAB_tpCondRet TAB_ObterListaAmeacantes(Casa **tabuleiro,int x, int yi,LIS_tppLista *listaAmeacantes) {
           //int yi = (int)(y - 'A');
            x--;
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          listaAmeacantes = tabuleiro[x][yi].ameacantes;
+          *listaAmeacantes = tabuleiro[x][yi].ameacantes;
           if(listaAmeacantes == NULL) {
               return TAB_CondRetListaAmeacantesNaoExiste;
           }
@@ -159,13 +159,13 @@ TAB_tpCondRet criarListaPecas();
 *
 *  Função: TAB  &Obter Lista Ameaçados
 *  ****/
-   TAB_tpCondRet TAB_ObterListaAmeacados(Casa **tabuleiro,int x, int yi,LIS_tppLista listaAmeacados) {
+   TAB_tpCondRet TAB_ObterListaAmeacados(Casa **tabuleiro,int x, int yi,LIS_tppLista *listaAmeacados) {
           //int yi = (int)(y - 'A');
            x--;
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          listaAmeacados = tabuleiro[x][yi].ameacados;
+          *listaAmeacados = tabuleiro[x][yi].ameacados;
           if(listaAmeacados == NULL) {
               return TAB_CondRetListaAmeacadosNaoExiste;
           }

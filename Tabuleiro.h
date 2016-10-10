@@ -155,7 +155,7 @@ TAB_tpCondRet TAB_InserirPeca(Casa **tabuleiro,int x, int yi,char cor,char id);
 *     A função recebe um tabuleiro já alocado dinamicamente e que já deveria conter pelo menos uma peça.
 *
 *  $EP Parâmetros
-*    tabuleiro = Ponteiro para o tabuleiro que se quer mover a peça.
+*    tabuleiro = Ponteiro para o tabuleiro que se quer retirar a peça.
 *    x =  Coordenada x da posição atual da peça  que se quer retirar no tabuleiro.
 *    y =   Coordenada y da posição atual da peça que se quer retirar no tabuleiro.
 *
@@ -173,18 +173,21 @@ TAB_tpCondRet TAB_InserirPeca(Casa **tabuleiro,int x, int yi,char cor,char id);
 
 *  $FC Função: TAB &Obter Peca
 *
+*  
 *  $ED Descrição da função
-*     
+*     Retorna por referencia a cor e o id da peça que está na posição(x e y) do tabuleiro,passada como parâmetro.
 *
 *  $EP Parâmetros
-*    tabuleiro = 
-*    x = 
-*    y =
+*    tabuleiro = Ponteiro para o tabuleiro que se quer obter a peça.
+*    x = Coordenada x da posição atual da peça no tabuleiro.
+*    y = Coordenada y da posição atual da peça no tabuleiro.
 *    cor = cor da Peca que se quer obter
 *    id = id da Peça que se quer obter
 *
 *  $FV Valor retornado
-*    
+*     Se executou corretamente retona Ok.
+*     Se alguma das coordenadas passadas como parâmetro estiver fora do intervalo de tamanho do tabuleiro retorna CoordenadaNExiste.
+*     Se a casa do tabuleiro não contiver nenhuma peça retorna Casa Vazia. 
 
 ***********************************************************************/
 
@@ -195,19 +198,23 @@ TAB_tpCondRet TAB_InserirPeca(Casa **tabuleiro,int x, int yi,char cor,char id);
 *  $FC Função: TAB &Obter Lista Ameacantes
 *
 *  $ED Descrição da função
-*     
+*     Retorna por referencia a lista de peças que estão ameaçando uma determinada casa do Tabuleiro.
+*      No momento estas listas estão vazias.
+*      Essa função será alterada para o Trabalho 3.
 *
 *  $EP Parâmetros
-*    tabuleiro = 
-*    x=
-*    y=
-*    listaAmeacantes = 
+*    tabuleiro = Ponteiro para o tabuleiro que se quer obter a lista de ameacantes da peça.
+*    x= Coordenada x da posição da peça no tabuleiro.
+*    y= Coordenada y da posição  da peça no tabuleiro.
+*    listaAmeacantes = Ponteiro para  a lista de Ameacantes que será preenchida na função.
 *
 *  $FV Valor retornado
-*    
+*     Se executou corretamente retona Ok.
+*     Se alguma das coordenadas passadas como parâmetro estiver fora do intervalo de tamanho do tabuleiro retorna CoordenadaNExiste.
+*     Se a lista não existir retorna ListaAmeacantesNaoExiste.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_ObterListaAmeacantes(Casa **tabuleiro,int x, int yi,LIS_tppLista listaAmeacantes); //a ser editada
+TAB_tpCondRet TAB_ObterListaAmeacantes(Casa **tabuleiro,int x, int yi,LIS_tppLista *listaAmeacantes); //a ser editada
 
 
 
@@ -216,19 +223,23 @@ TAB_tpCondRet TAB_ObterListaAmeacantes(Casa **tabuleiro,int x, int yi,LIS_tppLis
 *  $FC Função: TAB &Obter Lista Ameaçados
 *
 *  $ED Descrição da função
-*     
+*      Retorna por referencia a lista de peças que estão sendo ameaçadas pela peça em uma determinada casa do Tabuleiro.
+*      No momento estas listas estão vazias.
+*      Essa função será alterada para o Trabalho 3.
 *
 *  $EP Parâmetros
-*    tabuleiro = 
-*    x=
-*    y=
-*    listaAmeacados = 
+*    tabuleiro = Ponteiro para o tabuleiro que se quer obter a lista de ameacados da peca.
+*    x= Coordenada x da posição da peça no tabuleiro.
+*    y= Coordenada y da posição  da peça no tabuleiro.
+*    listaAmeacados = Ponteiro para  a lista de Ameacados que será preenchida na função.
 *
 *  $FV Valor retornado
-*    
+*     Se executou corretamente retona Ok.
+*     Se alguma das coordenadas passadas como parâmetro estiver fora do intervalo de tamanho do tabuleiro retorna CoordenadaNExiste.
+*     Se a lista não existir retorna ListaAmeacadosNaoExiste.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_ObterListaAmeacados(Casa **tabuleiro,int x, int yi,LIS_tppLista listaAmeacados); //a ser editada
+TAB_tpCondRet TAB_ObterListaAmeacados(Casa **tabuleiro,int x, int yi,LIS_tppLista *listaAmeacados); //a ser editada
 
 
 /***********************************************************************
@@ -236,13 +247,13 @@ TAB_tpCondRet TAB_ObterListaAmeacados(Casa **tabuleiro,int x, int yi,LIS_tppList
 *  $FC Função: TAB &Destruir Tabuleiro
 *
 *  $ED Descrição da função
-*     
+*     Destroi um tabuleiro passado como parâmetro.
 *
 *  $EP Parâmetros
-*    tabuleiro = 
+*    tabuleiro = Ponteiro para o tabuleiro que se quer destruir.
 *
 *  $FV Valor retornado
-*    
+*     Se executou corretamente retona Ok.
 
 ***********************************************************************/
 TAB_tpCondRet TAB_DestruirTabuleiro(Casa **tabuleiro);

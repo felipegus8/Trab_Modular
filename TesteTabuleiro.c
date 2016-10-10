@@ -85,7 +85,7 @@ int converteCoordenadaCharParaInt(char coordYChar);
 	  int x, xf,coordYInt,coordYInt2,TamColunas,TamLinhas;
 	  char y, yf, cor, id;
 
-	  LIS_tppLista ameacas;
+	  LIS_tppLista *ameacas;
 
       StringDado[ 0 ] = 0 ;
       StringDado2[ 0 ] = 0;
