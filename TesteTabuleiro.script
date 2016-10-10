@@ -2,11 +2,13 @@
 // Autor:     Arndt von Staa,Felipe Viberti,Luis Claudio,Victor Nogueira
 // Data:      06/Oct/2016
 // Propósito: Testar o módulo tabuleiro
+// Esse script inicializa um tabuleiro tradicional de xadrez com todas as peças exceto os peões
 
  ==Inicializar valores  
 =declararparm    int0      int    0
 =declararparm    int1      int    1
 =declararparm    int2      int    2
+=declararparm    int3      int    3
 =declararparm    int4      int    4
 =declararparm    int5      int    5
 =declararparm    int6      int    6
@@ -15,16 +17,16 @@
 
 =declararparm    charP    char    'P'
 =declararparm    charB    char    'B'
-=declararparm    char0    char    'A'
-=declararparm    char1    char    'B'
-=declararparm    char2    char    'C'
-=declararparm    char3    char    'D'
-=declararparm    char4    char    'E'
-=declararparm    char5    char    'F'
-=declararparm    char6    char    'G'
-=declararparm    char7    char    'H'
-=declararparm    char8    char    'T'
-
+=declararparm    charA    char    'A'
+=declararparm    charC    char    'C'
+=declararparm    charD    char    'D'
+=declararparm    charE    char    'E'
+=declararparm    charF    char    'F'
+=declararparm    charG    char    'G'
+=declararparm    charH    char    'H'
+=declararparm    torre    char    'T'
+=declararparm    rainha   char    'D'
+=declararparm    rei      char    'R'
 
 =declararparm   OK                     int  0
 =declararparm   CasaVazia              int  1
@@ -38,6 +40,72 @@
 ==Parte que cria um tabuleiro
 =criartabuleiro         int8   int8  OK
 
-==Insere Peca
-=inserepeca int1 char0   charB   char8  OK
-               
+==Insere Peca(torres brancas e pretas)
+=inserepeca int1 charA  charB   torre  OK
+=inserepeca int1 charH  charB   torre  OK
+=inserepeca int8 charA  charP   torre  OK
+=inserepeca int8 charH  charP   torre  OK
+
+==Insere Peca(rainhas branca e preta)
+=inserepeca int1  charD  charB  rainha  OK
+=inserepeca int8  charD  charP  rainha  OK
+
+==Insere Peca(bispos brancos e pretos)
+=inserepeca int1 charC charB  charB OK
+=inserepeca int1 charF charB  charB OK
+=inserepeca int8 charC charP  charB OK
+=inserepeca int8 charF charP  charB OK
+
+==Insere Peca(cavalos brancos e pretos)
+=inserepeca int1 charB charB  charC  OK
+=inserepeca int1 charG charB  charC  OK
+=inserepeca int8 charB charP  charC  OK
+=inserepeca int8 charG charP  charC  OK
+
+==Insere Peca(reis branco e preto)
+=inserepeca int1 charE charB rei  OK
+=inserepeca int8 charE charP rei  OK
+
+==Insere Peca(nova peca)
+=inserepeca int3 charF  charB  charH OK
+
+==Obter Peca(torres)
+=obterpeca int1 charA  charB   torre  OK
+=obterpeca int1 charH  charB   torre  OK
+=obterpeca int8 charA  charP   torre  OK
+=obterpeca int8 charH  charP   torre  OK 
+
+==Obter Peca(rainhas)
+=obterpeca  int1  charD  charB  rainha  OK
+=obterpeca  int8  charD  charP  rainha  OK
+
+==Obter Peca(bispos)
+=obterpeca int1 charC charB  charB OK
+=obterpeca int1 charF charB  charB OK
+=obterpeca int8 charC charP  charB OK
+=obterpeca int8 charF charP  charB OK
+
+==Obter Peca(cavalos)
+=obterpeca int1 charB charB  charC  OK
+=obterpeca int1 charG charB  charC  OK
+=obterpeca int8 charB charP  charC  OK
+=obterpeca int8 charG charP  charC  OK
+
+==Obter Peca(reis)
+=obterpeca int1 charE charB rei  OK
+=obterpeca int8 charE charP rei  OK
+
+=Obter Peca(nova peca)
+=obterpeca int3 charF  charB  charH OK
+
+=Retirar Peca(nova peca)
+=retirarpeca int3 charF OK
+
+==MoverPeca(mover a torre)
+=moverPeca int1 charA int4 charA OK
+
+==MoverPeca(mover a rainha)
+==moverPeca int1  charD int4 charG OK
+
+==Destruir Tabuleiro
+=destruirtabuleiro OK

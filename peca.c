@@ -70,7 +70,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 	switch((*novo)->id)
 	{
 	case 'T':
-		printf("Entrou na torre");
+		printf("\nEntrou na torre\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*14);
 		if((*novo)->movPeca == NULL)
 		{
@@ -98,6 +98,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		}
 	break;
 	case 'C':
+		printf("\nEntrou no cavalo\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
 		(*novo)->qtdMov = 2;
 		(*novo)->movParaTras = 1;
@@ -111,6 +112,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		(*novo)->movPeca[1].y = 2;
 		break;
 	case 'B':
+		printf("\nEntrou no bispo\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*7);
 		(*novo)->qtdMov = 7;
 		(*novo)->movParaTras = 1;
@@ -129,6 +131,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		}
 		break;
 	case 'P':
+		printf("\nEntrou no peao\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
 		(*novo)->qtdMov = 2;
 		(*novo)->movParaTras = 0;
@@ -142,6 +145,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		(*novo)->movPeca[1].y = 1;
 		break;
 	case 'D':
+		printf("\nEntrou na rainha\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*21);
 		(*novo)->qtdMov = 21;
 		(*novo)->movParaTras = 1;
@@ -170,6 +174,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		}
 		break;
 	case 'R':
+		printf("\nEntrou no rei\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*3);
 		(*novo)->qtdMov = 3;
 		(*novo)->movParaTras = 1;	

@@ -241,10 +241,7 @@ int converteCoordenadaCharParaInt(char coordYChar);
 
          else if ( strcmp( ComandoTeste , DESTRUIR_TABULEIRO ) == 0 )
          {
-
-			 /*
-
-            numLidos = LER_LerParametros( "i" , &inxTab ) ;
+            numLidos = LER_LerParametros( "i" , &CondRetEsp) ;
 
             if ( numLidos != 1 )
             {
