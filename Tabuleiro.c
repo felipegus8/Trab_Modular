@@ -121,6 +121,7 @@ TAB_tpCondRet criarListaPecas();
              }
         }
         return TAB_CondRetOK;
+   }/* Fim função: TAB  &Inserir Peca*/
 /***************************************************************************
 *
 *  Função: TAB  &Obter Lista Ameaçantes
