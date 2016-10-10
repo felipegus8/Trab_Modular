@@ -8,14 +8,24 @@
 =declararparm   peca0  int 0
 =declararparm   peca1  int 1
 =declararparm   peca2  int 2
+=declararparm   peca3  int 3
+=declararparm   peca4  int 4
+=declararparm   peca5  int 5
+=declararparm   peca6  int 6
 
 
 =declararparm   idPeca0    char  'T'
 =declararparm   corPeca0  char  'B'
 =declararparm   idPeca1   char  'R'
 =declararparm   corPeca1   char  'P'
-=declararparm   idPeca2    char  'H'
-=declararparm   corPeca2   char  'B'
+=declararparm   idPeca2    char  'X'
+=declararparm   corPeca2   char  'P'
+=declararparm   idPeca3    char  'D'
+=declararparm   corPeca3  char  'B'
+=declararparm   idPeca4    char  'P'
+=declararparm   corPeca4  char  'B'
+=declararparm   idPeca5   char  'B'
+=declararparm   corPeca5  char  'B'
 
 =declararparm   OK             int  0
 =declararparm   NaoAchou       int  3
@@ -31,6 +41,18 @@
 == Ensina Movimentos Peca Conhecida
 =criarpeca peca1 idPeca1 corPeca1 OK
 =ensinamovimentospecasconhecidas peca1 OK
+
+== Ensina Movimentos Peca Conhecida
+=criarpeca peca3 idPeca3 corPeca3 OK
+=ensinamovimentospecasconhecidas peca3 OK
+
+== Ensina Movimentos Peca Conhecida
+=criarpeca peca4 idPeca4 corPeca4 OK
+=ensinamovimentospecasconhecidas peca4 OK
+
+== Ensina Movimentos Peca Conhecida
+=criarpeca peca5 idPeca5 corPeca5 OK
+=ensinamovimentospecasconhecidas peca5 OK
  
 == Ensina Movimentos Peca Desconhecida
 =criarpeca peca2 idPeca2 corPeca2 OK

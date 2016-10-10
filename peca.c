@@ -66,20 +66,28 @@ PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
 *  ****/
 PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 {
-	int i = 1,j = 1,k;
+	int i = 0,j = 0,k;
 	switch((*novo)->id)
 	{
 	case 'T':
+		printf("Entrou na torre");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*14);
+		if((*novo)->movPeca == NULL)
+		{
+			return PEC_CondRetFaltouMemoria;
+		}
+		printf("Passou daqui");
 		(*novo)->qtdMov = 14;
 		(*novo)->movParaTras = 1;
 		if((*novo)->movPeca == NULL)
 		{
 			return PEC_CondRetFaltouMemoria;
 		}
-		for(i=1;i<8;i++)
+		(*novo)->movPeca[i].x = 1;
+		(*novo)->movPeca[i].y = 0;
+		for(i=1;i<7;i++)
 		{
-			(*novo)->movPeca[i].x = i;
+			(*novo)->movPeca[i].x = i+1;
 			(*novo)->movPeca[i].y = 0;
 		}
 		for(j=1;j<8;j++)
@@ -110,11 +118,14 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		{
 		return PEC_CondRetFaltouMemoria;
 		}
-		i = 1;
+		i = 2;
+		(*novo)->movPeca[0].x = 1;
+		(*novo)->movPeca[0].y = 1;
 		for(k=1;k<8;k++)
 		{
 			(*novo)->movPeca[k].x = i;
 			(*novo)->movPeca[k].y = i;
+			i++;
 		}
 		break;
 	case 'P':
@@ -138,9 +149,11 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		{
 		return PEC_CondRetFaltouMemoria;
 		}
-		for(i=1;i<8;i++)
+		(*novo)->movPeca[i].x = 1;
+		(*novo)->movPeca[i].y = 0;
+		for(i=1;i<7;i++)
 		{
-			(*novo)->movPeca[i].x = i;
+			(*novo)->movPeca[i].x = i + 1;
 			(*novo)->movPeca[i].y = 0;
 		}
 		for(j=1;j<8;j++)

@@ -125,8 +125,11 @@ TAB_tpCondRet criarListaPecas();
         if(retPeca == LIS_CondRetFaltouMemoria) {
             return TAB_CondRetFaltouMemoria;
         }
+		printf("Chegou aqui");
         retLis = LIS_InserirNo(listaPecas,tabuleiro[x][yi].elemento); //insere peça nova na lista
+		printf("Criou nó");
         retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)&tabuleiro[x][yi].elemento); //obtem o movimento da peça caso esta for "conhecida"
+		printf("Chegou aqui");
         if(retPeca == PEC_CondRetFaltouMemoria) {
             return TAB_CondRetOK;
         }
