@@ -162,7 +162,6 @@ TAB_tpCondRet criarListaPecas();
    TAB_tpCondRet TAB_ObterPeca(Casa *tabuleiro,int x, int y, char *cor, char *id) {
           Peca *peca;
 		  char corPec,idPec;
-          //int yi = (int)(y - 'A');
           x--;
           if(x>7 || x<0 || yi>7 || yi < 0) {
              return TAB_CondRetCoordenadaNExiste; 
