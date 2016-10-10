@@ -82,7 +82,7 @@ int converteCoordenadaCharParaInt(char coordYChar);
 
       char   StringDado[  DIM_VALOR ],StringDado2[  DIM_VALOR  ] ;
 
-	  int x, xf,coordYInt,coordYInt2;
+	  int x, xf,coordYInt,coordYInt2,TamColunas,TamLinhas;
 	  char y, yf, cor, id;
 
 	  LIS_tppLista ameacas;
@@ -94,14 +94,15 @@ int converteCoordenadaCharParaInt(char coordYChar);
 
          if ( strcmp( ComandoTeste , CRIAR_TABULEIRO ) == 0 )
          {
-            numLidos = LER_LerParametros( "i", &CondRetEsp ) ;
+            numLidos = LER_LerParametros( "iii", &CondRetEsp,&TamLinhas,&TamColunas) ;
 
-            if ( numLidos != 2 )
+            if ( numLidos != 3 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = TAB_CriaTabuleiro(tabuleiro,8,8);
+
+            CondRet = TAB_CriaTabuleiro(&tabuleiro,TamLinhas,TamColunas);
 
             return TST_CompararPonteiroNulo( 1 , tabuleiro , "Erro em ponteiro de nova lista."  ) ;
 

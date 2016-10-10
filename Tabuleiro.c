@@ -47,8 +47,7 @@ TAB_tpCondRet criarListaPecas();
 *
 *  Função: TAB  &Criar Tabuleiro
 *  ****/
-   TAB_tpCondRet TAB_CriaTabuleiro(Casa **tabuleiro,int TamLinhas, int TamColunas) {
-   
+   TAB_tpCondRet TAB_CriaTabuleiro(Casa ***tabuleiro,int TamLinhas, int TamColunas) {
     int i = 0,j=0;
 	LIS_tppLista listaAmeacados;
 	LIS_tppLista listaAmeacantes;
@@ -60,7 +59,11 @@ TAB_tpCondRet criarListaPecas();
     char idListaAmeacantesY;//coluna da casa onde reside a lista ameacantes
     char *idListaAmeacados;
     char *idListaAmeacantes;
-    if(tabuleiro == NULL) {
+
+	*tabuleiro = (Casa *) malloc(sizeof(Casa) * TamLinhas * TamColunas);
+
+
+    if(*tabuleiro == NULL) {
          return TAB_CondRetFaltouMemoria;
     }        
 
@@ -79,8 +82,9 @@ TAB_tpCondRet criarListaPecas();
               strcat(idListaAmeacantes,&idListaAmeacantesY);
               strcat(idListaAmeacantes,&b);
               //as 3 linhas acima fazem com que a string identificadora da lista ameacantes fique da forma "linhaColunaB"
-			  listaAmeacados = tabuleiro[i][j].ameacados;
-			  listaAmeacantes = tabuleiro[i][j].ameacantes;
+			  printf("declarei aqui a casa\n");
+			  listaAmeacados = (*tabuleiro[i][j]).ameacados;
+			  listaAmeacantes = (*tabuleiro[i][j]).ameacantes;
               retLis = LIS_CriarLista(&listaAmeacados,idListaAmeacados,destruirValor);
               if(retLis == LIS_CondRetFaltouMemoria) {
                     return TAB_CondRetFaltouMemoria;
@@ -89,7 +93,7 @@ TAB_tpCondRet criarListaPecas();
               if(retLis2 == LIS_CondRetFaltouMemoria) {
                     return TAB_CondRetFaltouMemoria;
               }
-              PEC_CriaPeca((Peca **)&tabuleiro[i][j].elemento,'V','V');
+              PEC_CriaPeca((Peca **)&((*tabuleiro[i][j]).elemento),'V','V');
               idListaAmeacadosY++;
               idListaAmeacantesY++;
               j++;
@@ -102,6 +106,7 @@ TAB_tpCondRet criarListaPecas();
    }
 
 
+
  /***************************************************************************
 *
 *  Função: TAB  &Criar Tabuleiro
@@ -109,11 +114,14 @@ TAB_tpCondRet criarListaPecas();
    TAB_tpCondRet TAB_InserirPeca(Casa **tabuleiro,int x, int yi,char cor,char id) {
         //int yi = (int)(y - 'A');
         x--;
+		printf("Chegou aqui\n");
         criarListaPecas();
+		printf("Criou a lista\n");
         if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
         }
         retPeca = PEC_CriaPeca((Peca **)&tabuleiro[x][yi].elemento,id,cor);//cria peça novo
+		printf("criou peça\n");
         if(retPeca == LIS_CondRetFaltouMemoria) {
             return TAB_CondRetFaltouMemoria;
         }
