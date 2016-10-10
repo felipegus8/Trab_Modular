@@ -11,6 +11,7 @@
 =declararparm    int5      int    5
 =declararparm    int6      int    6
 =declararparm    int7      int    7
+=declararparm    int8      int    8
 
 =declararparm    charP    char    'P'
 =declararparm    charB    char    'B'
@@ -22,6 +23,7 @@
 =declararparm    char5    char    'F'
 =declararparm    char6    char    'G'
 =declararparm    char7    char    'H'
+=declararparm    char8    char    'T'
 
 
 =declararparm   OK                     int  0
@@ -34,8 +36,8 @@
 =declararparm   MovimentoIrregular     int  7
 
 ==Parte que cria um tabuleiro
-=criartabuleiro         8   8  OK
+=criartabuleiro         int8   int8  OK
 
 ==Insere Peca
-=inserepeca 2 char0   charB   char8 OK
+=inserepeca int1 char0   charB   char8  OK
                
