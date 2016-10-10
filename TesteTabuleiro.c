@@ -190,6 +190,8 @@ int converteCoordenadaCharParaInt(char coordYChar);
 			coordYInt = converteCoordenadaCharParaInt(y);
 			coordYInt2 = converteCoordenadaCharParaInt(yf);
 
+		 
+           printf("Estou na mover peça no testelista.c\n");
             CondRet = TAB_MoverPeca((Casa*)tabuleiro, x, coordYInt, xf, coordYInt2);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao ensinar o movimento a uma peça conhecida." );
