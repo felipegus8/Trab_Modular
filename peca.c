@@ -49,6 +49,7 @@ typedef struct movimento{
 *
 *  Função: PEC  &Criar peca
 *  ****/
+
 PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
           *novo = (Peca *) malloc(sizeof(Peca));
           if(*novo == NULL) {

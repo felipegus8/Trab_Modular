@@ -58,7 +58,7 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Criar lista
 *  ****/
-
+   //AE:A lista não possui nenhum elemento e deve receber ponteiro LIS_tppLista e um ponteiro com a id
    LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,
              void   ( * ExcluirValor ) ( void * pDado ))
    {
@@ -93,7 +93,7 @@ typedef struct LIS_tagLista {
       return LIS_CondRetOK;
 	  
    } /* Fim função: LIS  &Criar lista */
-   
+   //AS: Uma lista foi criada com id e cabeça
    
 /***************************************************************************
 *
@@ -113,7 +113,7 @@ typedef struct LIS_tagLista {
 *
 *  Função: LIS  &Inserir nó na lista
 *  ****/
-
+//AE: Recebe uma LIS_tppLista lista já criada e um ponteiro para um valor generico
   LIS_tpCondRet LIS_InserirNo(LIS_tppLista pLista, void *pValor) {
             tpElemLista * pElem ;
 
@@ -158,14 +158,14 @@ typedef struct LIS_tagLista {
          return LIS_CondRetOK ;
 
    } /* Fim função: LIS  &Inserir elemento após */
-
+  //AS:Um elemento foi inserido na lista que é apontado pelo ponteiro corrente
 
   /***************************************************************************
 *
 *  Função: LIS  &Obter nó na Lista
 *  ****/
 
-   
+//AE: Recebe uma LIS_tppLista lista já criada e ponteiro que aponta para o ponteiro void de um valor
 LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
 	       #ifdef _DEBUG
            assert( lista != NULL ) ;
@@ -178,12 +178,13 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
            *referencia = lista->pElemCorr->pValor;
            return LIS_CondRetOK;
    } 
-
+//AS: A função fara que um ponteiro referencia aponte para um valor da lista
    /***************************************************************************
 *
 *  Função: LIS  &Excluir nó corrente
 *  ****/
    
+//AE:Recebe uma LIS_tppLista lista já criada
    LIS_tpCondRet LIS_ExcluirNoCorrente(LIS_tppLista lista) {
            #ifdef _DEBUG
            assert(lista != NULL ) ;
@@ -219,12 +220,12 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
       return LIS_CondRetOK;
             
    }/* fim função: Lis &Excluir nó  */
-
+   //AS: O elemento apontado pelo nó corrente foi excluido e o corrente passa a ser o anterior ao excluido
    /***************************************************************************
 *
 *  Função: LIS  &Ir para o próximo nó
 *  ****/
-  
+  //AE:Recebe uma LIS_tppLista lista já criada
   LIS_tpCondRet LIS_IrProx(LIS_tppLista pLista) {
            #ifdef _DEBUG
            assert(lista != NULL ) ;
@@ -256,11 +257,12 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
             return LIS_CondRetFimLista ;
            
   }/* fim função: Lis &Ir para o próximo nó
-
+   //AS: O corrente deve apontar agora para o o nó logo ao da frente recibido inicialmente na função
    /***************************************************************************
 *
 *  Função: LIS  &Ir para o nó anterior
 *  ****/
+  //AE:Recebe uma LIS_tppLista lista já criada
    LIS_tpCondRet LIS_IrAnt(LIS_tppLista pLista) {
 
 	      tpElemLista * pElem ;
@@ -280,11 +282,12 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
             pLista->pElemCorr = pLista->pOrigemLista ;
             return LIS_CondRetFimLista ;
   }/* fim função: Lis &Ir para o nó anterior */
-   
+   //AS: O corrente deve apontar agora para o o nó na posição anterior ao do recibido inicialmente na função
      /***************************************************************************
 *
 *  Função: LIS  &Alterar nó corrente
 *  ****/
+   //AE: Recebe uma LIS_tppLista lista já criada e ponteiro void
    LIS_tpCondRet LIS_AlterarNoCorrente(LIS_tppLista lista, void *referencia) {
           
            if(lista->pElemCorr == NULL) {
@@ -295,9 +298,10 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
            lista->pElemCorr->pValor = referencia;
            return LIS_CondRetOK;
    }/* fim função: Lis &Alterar nó corrente */
-    
+   //AS: O nó corrente passara a apontar para o ponteiro recebido como paramentro
         /***************************************************************************
 *
+//AE:Recebe uma LIS_tppLista lista já criada
 *  Função: LIS  &Destruir lista
 *  ****/
       LIS_tpCondRet LIS_DestroiLista(LIS_tppLista lista) {
@@ -311,7 +315,7 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
       free( lista );
       return LIS_CondRetOK;
    } /* Fim funÁ„o: LIS  &Destruir lista */
-
+//AS: A lista criada deverá excluir todos os nós delas e ainda libera da memória a propria lista recebida como parametro
 /***************************************************************************
 
 
@@ -321,11 +325,11 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
 *  $FC Função: LIS  -Liberar elemento da lista
 *
 *  $ED Descrição da função
-*     Elimina os espaÁos apontados pelo valor do elemento e o
+*     Elimina os espaços apontados pelo valor do elemento e o
 *     próprio elemento.
 *
 ***********************************************************************/
-
+//AE:Recebe uma LIS_tppLista lista já criada
    void LiberarElemento( LIS_tppLista   lista ,
                          tpElemLista  * pElem   )
    {
@@ -341,14 +345,14 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
       lista->numElem-- ;
 
    } /* Fim função: LIS  -Liberar elemento da lista */
-
+//AS: Elimina da lista o conteudo apontado pelo elemento recebido e o proprio elemento
 
 /***********************************************************************
 *
 *  $FC Função: LIS  -Criar o elemento
 *
 ***********************************************************************/
-
+   //AE:AE:Recebe uma LIS_tppLista lista já criada e ponteiro apontando para um valor
    tpElemLista * CriarElemento( LIS_tppLista lista ,
                                 void *       pValor  )
    {
@@ -370,14 +374,14 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
       return pElem ;
 
    } /* Fim função: LIS  -Criar o elemento */
-
+   //AS: Na lista recebida foi adiciona um ponteiro para o valor
 
 /***********************************************************************
 *
 *  $FC Função: LIS  -Limpar a cabeça da lista
 *
 ***********************************************************************/
-
+//AE:Recebe uma LIS_tppLista lista já criada
    void LimparCabeca( LIS_tppLista lista )
    {
 
@@ -387,12 +391,12 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
       lista->numElem   = 0 ;
 
    } /* Fim função: LIS  -Limpar a cabeça da lista */
-
+//AS: A cabeça da lista será limpada de seus valores originais
 /***************************************************************************
 *
 *  Função: LIS  &Esvaziar lista
 *  ****/
-
+   //AE:Recebe uma LIS_tppLista lista já criada
    void EsvaziarLista( LIS_tppLista lista ) {
 
       tpElemLista * pElem ;
@@ -413,5 +417,6 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
       LimparCabeca( lista ) ;
 
    } /* Fim função: LIS  &Esvaziar lista */
+//AS: A lista recebida foi desvinculada de todos seus nó e cabeça
 
 /********** Fim do módulo de implementação: LIS  Lista duplamente encadeada **********/
