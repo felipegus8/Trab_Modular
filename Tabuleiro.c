@@ -113,7 +113,7 @@ TAB_tpCondRet criarListaPecas();
 *  ****/
    TAB_tpCondRet TAB_InserirPeca(Casa **tabuleiro,int x, int yi,char cor,char id) {
         //int yi = (int)(y - 'A');
-        x--;
+       x--;
 		printf("Chegou aqui\n");
         criarListaPecas();
 		printf("Criou a lista\n");
@@ -122,7 +122,7 @@ TAB_tpCondRet criarListaPecas();
         }
         retPeca = PEC_CriaPeca((Peca **)&tabuleiro[x][yi].elemento,id,cor);//cria peça novo
 		printf("criou peça\n");
-        if(retPeca == LIS_CondRetFaltouMemoria) {
+        if(retPeca == PEC_CondRetFaltouMemoria) {
             return TAB_CondRetFaltouMemoria;
         }
 		printf("Chegou aqui");
