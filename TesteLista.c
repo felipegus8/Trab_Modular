@@ -63,7 +63,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 ***********************************************************************/
 
 
-
+//AE: Recebe um comando defido pelo modulo
  TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
    {
 
@@ -257,7 +257,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 		 
 		return TST_CondRetNaoConhec ;
    }  /* Fim função: TLIS &Testar lista */
-	  
+//AS: Todas as funções do modo lista foram testadas e retornaram o que deveriam
 	  
 	  
 /*****  Código das funções encapsuladas no módulo  *****/
@@ -268,21 +268,21 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 *  $FC Função: TLIS -Destruir valor
 *
 ***********************************************************************/
-
+   //AE: Recebe um ponteiro para um valor
    void DestruirValor( void * pValor )
    {
 
       free( pValor ) ;
 
    } /* Fim função: TLIS -Destruir valor */
-
+   //AS: O ponteiro foi liberado da memória
 
 /***********************************************************************
 *
 *  $FC Função: TLIS -Validar indice de lista
 *
 ***********************************************************************/
-
+//AE: Recebe index da lista e seu modo
    int ValidarInxLista( int inxLista , int Modo )
    {
       if ( ( inxLista <  0 )
@@ -310,12 +310,14 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
       return TRUE ;
 
    } /* Fim função: TLIS -Validar indice de lista */
+	//AS: Todos os indices da lista foram conferidos e validados
 /***********************************************************************
 *
 *  $FC Função: TLIS -Validar String
 *
 ***********************************************************************/
-int ValidarString(char* str)
+   //AE: Recebe uma string
+   int ValidarString(char* str)
 {
 	int i;
 	for(i=0;str[i]!='\0';i++);
@@ -325,3 +327,4 @@ int ValidarString(char* str)
 	return FALSE;
 }
 /* Fim função: TLIS -Validar String */
+   //AS: Validou as string dentro das determinações do modulo
