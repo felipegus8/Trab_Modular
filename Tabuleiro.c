@@ -238,6 +238,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           TAB_ObterPeca((Casa *)tabuleiro,xo,yi,&cor,&id);
 	  printf("Passei da obter\n");
           LIS_ObterNo(lista,elemento);
+	  printf("Obteve o nó\n");
           peca = (Peca *)elemento;
            xo--;
            if(xo>7 || xo<0 || yi>7 || yi<0) {
