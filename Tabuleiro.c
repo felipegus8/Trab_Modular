@@ -58,7 +58,7 @@ TAB_tpCondRet criarListaPecas();
     char *idListaAmeacados = "Amd";
     char *idListaAmeacantes = "Amn";
 
-          
+    criarListaPecas();
 
     while(i<TamLinhas) {
              idListaAmeacadosY = 'A';
@@ -97,7 +97,6 @@ TAB_tpCondRet criarListaPecas();
    TAB_tpCondRet TAB_InserirPeca(Casa *tabuleiro,int x, int yi,char cor,char id) {
         //int yi = (int)(y - 'A');
        x--;
-        criarListaPecas();
 		printf("Criou a lista\n");
         if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
