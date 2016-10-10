@@ -59,7 +59,7 @@ Peca* vtPecas[DIM_VT_PECA];
 *     =ensinamovimentospecasdesconhecidas            inxPeca   idPeca  corPeca(string)    NomeArquivo(Onde as peças novas ficam guardadas) CondRetEsp
 *     =liberapeca                                    inxPeca   CondRetEsp
 ***********************************************************************/
-
+ //AE: Recebe um comando defido pelo modulo
 TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 {
 	 int inxPeca  = -1 ,
@@ -124,13 +124,14 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 }
 /*****  Código das funções encapsuladas no módulo  *****/
 
+//AS: Todas as funções do modo lista foram testadas e retornaram o que deveriam
 /***********************************************************************
 *
 *  $FC Função: TLIS -Validar indice da peca.
 
 *
 ***********************************************************************/
-
+//AE: Recebe index da lista e seu modo
    int ValidarInxPeca( int inxPeca , int Modo)
    {
 
@@ -157,5 +158,5 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
       return TRUE ;
 
    } /* Fim função: TLIS -Validar indice da Peca */
-
+   	//AS: Todos os indices da lista foram conferidos e validados
  /********** Fim do módulo de implementação: TPEC  TestePeca **********/
