@@ -95,17 +95,5 @@
 =obterpeca int1 charE charB rei  OK
 =obterpeca int8 charE charP rei  OK
 
-=Obter Peca(nova peca)
+==Obter Peca(nova peca)
 =obterpeca int3 charF  charB  charH OK
-
-=Retirar Peca(nova peca)
-=retirarpeca int3 charF OK
-
-==MoverPeca(mover a torre)
-=moverPeca int1 charA int4 charA OK
-
-==MoverPeca(mover a rainha)
-==moverPeca int1  charD int4 charG OK
-
-==Destruir Tabuleiro
-=destruirtabuleiro OK

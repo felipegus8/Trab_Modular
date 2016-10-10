@@ -162,11 +162,12 @@ TAB_tpCondRet criarListaPecas();
    TAB_tpCondRet TAB_ObterPeca(Casa *tabuleiro,int x, int y, char *cor, char *id) {
           Peca *peca;
 		  char corPec,idPec;
+		  printf("Chegou aqui");
           x--;
-          if(x>7 || x<0 || yi>7 || yi < 0) {
+          if(x>7 || x<0 || y>7 || y < 0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          peca = (Peca *)tabuleiro[x * 8 + yi].elemento;
+          peca = (Peca *)tabuleiro[x * 8 + y].elemento;
 		  PEC_RetornaCor(peca,&corPec);
 		  PEC_RetornaId(peca,&idPec);
           if(corPec== 'V' &&  idPec== 'V') {
@@ -184,6 +185,7 @@ TAB_tpCondRet criarListaPecas();
    TAB_tpCondRet TAB_RetirarPeca(Casa **tabuleiro,int x,int y) {
           Peca *peca;
 		  char corPec,idPec;
+		  printf("\nRetirar");
           //int yi = (int)(y - 'A');
           x--;
           if(x>7 || x<0 || y>7 || y<0) {
