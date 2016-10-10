@@ -40,7 +40,7 @@ PEC_tpCondRet retPeca = PEC_CondRetOK;
 /***** Protótipos das funções encapuladas no módulo *****/
 void destruirValor(void *pValor); //função de destruição de valor
 TAB_tpCondRet criarListaPecas();
-
+TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, char corRecebida);
 /*****  Código das funções exportadas pelo módulo  *****/  
 
 /***************************************************************************
@@ -199,20 +199,6 @@ TAB_tpCondRet criarListaPecas();
           return TAB_CondRetOK;
    }/* Fim função: TAB  &Retirar Peca */
     
-/***************************************************************************
- *
-*  Função: TAB  &Verifica Se Come Peca
-*  ****/
-
-TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, char corRecebida) {
-    char cor,id;
-    TAB_ObterPeca(tabuleiro,posicaoX,posicaoY,&cor,&id);
-    if(cor != corRecebida) {
-	TAB_RetirarPeca(tabuleiro,posicaoX,posicaoY);
-        return TAB_CondRetComeu;
-    }
-    return TAB_CondRetCasaTemDono;
-}
 
 
 
@@ -231,13 +217,12 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           Peca *peca;
 	      Peca *naLista;
 		  int qtdMov;
-		  LIS_tppLista lista;
 		  //int yi = (int)(yo - 'A');
           //int yi2 = (int)(yd - 'A');
 	  printf("Entrei no movimento\n");
           TAB_ObterPeca((Casa *)tabuleiro,xo,yi,&cor,&id);
 	  printf("Passei da obter\n");
-          LIS_ObterNo(lista,(void **)&elemento);
+          LIS_ObterNo(listaPecas,(void **)&elemento);
 	  printf("Obteve o nó\n");
           peca = (Peca *)elemento;
            xo--;
@@ -253,7 +238,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 
           //procura na lista pelo id da peça e checa se o movimento está ok
           while(1) {
-                if(LIS_ObterNo(lista,elemento) == LIS_CondRetFimLista) {
+                if(LIS_ObterNo(listaPecas,(void **)&elemento) == LIS_CondRetFimLista) {
                      return TAB_CondRetNaoAchouPeca;
                 }
                 naLista = (Peca *) elemento;
@@ -269,14 +254,14 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
                 movX = xd - xo;
                 movY = yi2 - yi;
 				PEC_RetornaXMovimento(peca,i,&xRet);
-				PEC_RetornaXMovimento(peca,i,&yRet);
+				PEC_RetornaYMovimento(peca,i,&yRet);
                 if(abs(movX) == xRet && abs(movY) == yRet) {
                         if(movX<0 || movY <0) {
                               if(moveParaTras == 1) {
-                                  TAB_VerificaSeCome(tabuleiro,xd, yi2,cor);
+                                  TAB_VerificaSeCome((Casa*)tabuleiro,xd, yi2,cor);
                                    return TAB_CondRetOK;
                               } else {
-                                   TAB_VerificaSeCome(tabuleiro,xd, yi2,cor);
+                                   TAB_VerificaSeCome((Casa*)tabuleiro,xd, yi2,cor);
                                    return TAB_CondRetMovimentoIrregular;
                               }
                         }
@@ -319,6 +304,20 @@ TAB_tpCondRet criarListaPecas() {
     return TAB_CondRetFaltouMemoria;
 }
 
+/***************************************************************************
+ *
+*  Função: TAB  &Verifica Se Come Peca
+*  ****/
+
+TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, char corRecebida) {
+    char cor,id;
+    TAB_ObterPeca(tabuleiro,posicaoX,posicaoY,&cor,&id);
+    if(cor != corRecebida) {
+	TAB_RetirarPeca(tabuleiro,posicaoX,posicaoY);
+        return TAB_CondRetComeu;
+    }
+    return TAB_CondRetCasaTemDono;
+}
 
 /***************************************************************************
 *
