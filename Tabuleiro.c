@@ -159,15 +159,15 @@ TAB_tpCondRet criarListaPecas();
 *
 *  Função: TAB  &Obter Peca
 *  ****/
-   TAB_tpCondRet TAB_ObterPeca(Casa **tabuleiro,int x, int y, char *cor, char *id) {
+   TAB_tpCondRet TAB_ObterPeca(Casa *tabuleiro,int x, int y, char *cor, char *id) {
           Peca *peca;
 		  char corPec,idPec;
-          int yi = (int)(y - 'A');
+          //int yi = (int)(y - 'A');
           x--;
           if(x>7 || x<0 || yi>7 || yi < 0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          peca = (Peca *)tabuleiro[x][yi].elemento;
+          peca = (Peca *)tabuleiro[x * 8 + yi].elemento;
 		  PEC_RetornaCor(peca,&corPec);
 		  PEC_RetornaId(peca,&idPec);
           if(corPec== 'V' &&  idPec== 'V') {
