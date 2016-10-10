@@ -38,7 +38,7 @@ typedef struct movimento{
         char id;  // string identificadora da peça
         char cor; //cor da peça
 	    int qtdMov; //quantidade de movimentos da peça
-	    int movParaTras; // Bool para ver se a peça move para trás ou não
+	    int movParaTras; // Bool para ver se a peça move para trás ou não(0 ou 1).
         Movimento *movPeca; //Vetor da struct movimento contendo todos os movimentos que a peça pode fazer
  }Peca;
 
@@ -67,6 +67,7 @@ PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
 PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 {
 	int i = 0,j = 0,k;
+	//Em todos os casos do switch a variável moveParaTras será preenchida como 1(Verdadeiro) exceto no peão,que será 0.
 	switch((*novo)->id)
 	{
 	case 'T':
