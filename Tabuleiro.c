@@ -92,7 +92,7 @@ TAB_tpCondRet criarListaPecas();
 
  /***************************************************************************
 *
-*  Função: TAB  &Criar Tabuleiro
+*  Função: TAB  &Inserir Peca
 *  ****/
    TAB_tpCondRet TAB_InserirPeca(Casa *tabuleiro,int x, int yi,char cor,char id) {
         //int yi = (int)(y - 'A');
@@ -121,7 +121,6 @@ TAB_tpCondRet criarListaPecas();
              }
         }
         return TAB_CondRetOK;
-   }/* Fim função: TAB  &Criar Tabuleiro */
 /***************************************************************************
 *
 *  Função: TAB  &Obter Lista Ameaçantes
