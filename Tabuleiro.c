@@ -226,7 +226,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           int i;
           char id;
 		  char idPec;
-          void *elemento;
+          Peca *elemento;
           int movX,movY,xRet,yRet,moveParaTras;
           Peca *peca;
 	      Peca *naLista;
@@ -237,7 +237,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 	  printf("Entrei no movimento\n");
           TAB_ObterPeca((Casa *)tabuleiro,xo,yi,&cor,&id);
 	  printf("Passei da obter\n");
-          LIS_ObterNo(lista,elemento);
+          LIS_ObterNo(lista,(void **)&elemento);
 	  printf("Obteve o nó\n");
           peca = (Peca *)elemento;
            xo--;
