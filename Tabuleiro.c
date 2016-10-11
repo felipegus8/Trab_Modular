@@ -133,7 +133,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 *
 *  Função: TAB  &Inserir Peca
 *  ****/
-   TAB_tpCondRet TAB_insereTabuleiro(ptTabuleiro pTabuleiro,int x, int y,char cor,char id) {
+   TAB_tpCondRet TAB_InserirPeca(ptTabuleiro pTabuleiro,int x, int y,char cor,char id) {
     x--;
     if(x>7 || x<0 || y>7 || y<0) {
         return TAB_CondRetCoordenadaNExiste;
