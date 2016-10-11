@@ -73,7 +73,7 @@ typedef enum {
 
 /* Tipo Casa */
 typedef struct casa Casa;
-/* Tipo Ponteiro Para Tabuleiro */
+
 typedef struct tabuleiro * ptTabuleiro;
 
 /***********************************************************************
@@ -147,7 +147,7 @@ TAB_tpCondRet TAB_InserirPeca(ptTabuleiro pTabuleiro,int x, int y,char cor,char 
 *    Se a peça em questão não pode realizar aquele movimento retorna Movimento Irregular.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabuleiro,int xo,int yi,int xd,int yi2)
+TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabuleiro,int xo,int yi,int xd,int yi2);
 
 
 /***********************************************************************
@@ -261,7 +261,7 @@ TAB_tpCondRet TAB_ObterListaAmeacados(ptTabuleiro tabuleiro,int x, int yi,LIS_tp
 *     Se executou corretamente retona Ok.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabuleiro)
+TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabuleiro);
 
 
 
