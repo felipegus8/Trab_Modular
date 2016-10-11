@@ -69,9 +69,9 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 	{
 		for(j=0;j<8;j++)
 		{
-			PEC_CriaPeca((Peca**)(tabuleiro[i][j].elemento),'V','V');
-			  listaAmeacados = tabuleiro[i][j].ameacados;
-	          listaAmeacantes = tabuleiro[i][j].ameacantes;
+			PEC_CriaPeca((Peca**)(tabuleiro->tabuleiro[i][j].elemento),'V','V');
+			  listaAmeacados = tabuleiro->tabuleiro[i][j].ameacados;
+	          listaAmeacantes = tabuleiro->tabuleiro[i][j].ameacantes;
 	          retLis = LIS_CriarLista(&listaAmeacados,"Amd",destruirValor);
 	          if(retLis == LIS_CondRetFaltouMemoria) {
                     return TAB_CondRetFaltouMemoria;
@@ -173,7 +173,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          *listaAmeacantes = tabuleiro[x][yi].ameacantes;
+          *listaAmeacantes = tabuleiro->tabuleiro[x][yi].ameacantes;
           if(listaAmeacantes == NULL) {
               return TAB_CondRetListaAmeacantesNaoExiste;
           }
@@ -190,7 +190,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          *listaAmeacados = tabuleiro[x][yi].ameacados;
+          *listaAmeacados = tabuleiro->tabuleiro[x][yi].ameacados;
           if(listaAmeacados == NULL) {
               return TAB_CondRetListaAmeacadosNaoExiste;
           }
@@ -208,7 +208,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           if(x>7 || x<0 || y>7 || y < 0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          peca = (Peca *)tabuleiro[x][y].elemento;
+          peca = (Peca *)(tabuleiro->tabuleiro[x][y].elemento);
 		  PEC_RetornaCor(peca,&corPec);
 		  PEC_RetornaId(peca,&idPec);
           if(corPec== 'V' &&  idPec== 'V') {
@@ -231,7 +231,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-		  peca = (Peca *)tabuleiro[x][yi].elemento;
+		  peca = (Peca *)(tabuleiro->tabuleiro[x][yi].elemento);
           PEC_RetornaCor(peca,&corPec);
 		  PEC_RetornaId(peca,&idPec);
           if(corPec== 'V' &&  idPec== 'V') {
@@ -328,10 +328,10 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           while(i<8) {
                while(j<8) {
                    if(tabuleiro[i][j].elemento != NULL) {
-                     LIS_DestroiLista(tabuleiro[i][j].ameacados);
+                     LIS_DestroiLista(tabuleiro->tabuleiro[i][j].ameacados);
 					 printf("Cheguei aqui\n");
-                     LIS_DestroiLista(tabuleiro[i][j].ameacantes);
-                     PEC_LiberaPeca((Peca*)tabuleiro[i][j].elemento);
+                     LIS_DestroiLista(tabuleiro->tabuleiro[i][j].ameacantes);
+                     PEC_LiberaPeca((Peca*)(tabuleiro->tabuleiro[i][j].elemento));
 					 j++;
                    }
 				   i++;
