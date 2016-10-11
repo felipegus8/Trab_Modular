@@ -71,9 +71,9 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 	{
 		for(j=0;j<8;j++)
 		{
-			PEC_CriaPeca((Peca**)(tabuleiro->*tabuleiro[i][j].elemento),'V','V');
-			  listaAmeacados = tabuleiro->*tabuleiro[i][j].ameacados;
-	          listaAmeacantes = tabuleiro->*tabuleiro[i][j].ameacantes;
+			PEC_CriaPeca((Peca**)(tabuleiro->tabuleiro[i][j]->elemento),'V','V');
+			  listaAmeacados = tabuleiro->tabuleiro[i][j]->ameacados;
+	          listaAmeacantes = tabuleiro->tabuleiro[i][j]->ameacantes;
 	          retLis = LIS_CriarLista(&listaAmeacados,"Amd",destruirValor);
 	          if(retLis == LIS_CondRetFaltouMemoria) {
                     return TAB_CondRetFaltouMemoria;
@@ -138,18 +138,18 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
     if(x>7 || x<0 || y>7 || y<0) {
         return TAB_CondRetCoordenadaNExiste;
     }
-    retPeca = PEC_CriarPeca((Peca **)&(pTabuleiro->*tabuleiro[x][y]).elemento),id,cor);
+    retPeca = PEC_CriaPeca((Peca **)(pTabuleiro->tabuleiro[x][y])->elemento,id,cor);
     if(retPeca = PEC_CondRetFaltouMemoria) {
         return TAB_CondRetFaltouMemoria;
     }
-    retLis = LIS_InserirNo(listaPecas,(Peca **)pTabuleiro->*tabuleiro.elemento);
-    retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)pTabuleiro->*tabuleiro.elemento); //obtem o movimento da peça caso esta for "conhecida"
+    retLis = LIS_InserirNo(listaPecas,pTabuleiro->tabuleiro[x][y]->elemento);
+    retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)pTabuleiro->tabuleiro[x][y]->elemento); //obtem o movimento da peça caso esta for "conhecida"
     printf("Chegou aqui");
     if(retPeca == PEC_CondRetFaltouMemoria) {
         return TAB_CondRetOK;
     }
     if(retPeca == PEC_CondRetNaoAchouPeca) { //caso insere o movimento
-        retPeca = PEC_EnsinaMovimentosPecasDesconhecidas((Peca **)pTabuleiro->*tabuleiro[x][y].elemento);
+        retPeca = PEC_EnsinaMovimentosPecasDesconhecidas((Peca **)pTabuleiro->tabuleiro[x][y]->elemento);
         if(retPeca == PEC_CondRetFaltouMemoria) {
             return TAB_CondRetFaltouMemoria;
         }
@@ -184,7 +184,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
         }
         return TAB_CondRetOK;
 	*/
-   }/* Fim função: TAB  &Inserir Peca*/
+  // }/* Fim função: TAB  &Inserir Peca*/
 /***************************************************************************
 *
 *  Função: TAB  &Obter Lista Ameaçantes
@@ -194,7 +194,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          *listaAmeacantes = tabuleiro->tabuleiro[x][yi].ameacantes;
+          *listaAmeacantes = tabuleiro->tabuleiro[x][yi]->ameacantes;
           if(listaAmeacantes == NULL) {
               return TAB_CondRetListaAmeacantesNaoExiste;
           }
@@ -211,7 +211,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          *listaAmeacados = tabuleiro->tabuleiro[x][yi].ameacados;
+          *listaAmeacados = tabuleiro->tabuleiro[x][yi]->ameacados;
           if(listaAmeacados == NULL) {
               return TAB_CondRetListaAmeacadosNaoExiste;
           }
@@ -229,7 +229,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           if(x>7 || x<0 || y>7 || y < 0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          peca = (Peca *)(tabuleiro->tabuleiro[x][y].elemento);
+          peca = (Peca *)(tabuleiro->tabuleiro[x][y]->elemento);
 		  PEC_RetornaCor(peca,&corPec);
 		  PEC_RetornaId(peca,&idPec);
           if(corPec== 'V' &&  idPec== 'V') {
@@ -252,7 +252,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-		  peca = (Peca *)(tabuleiro->*tabuleiro[x][yi].elemento);
+		  peca = (Peca *)(tabuleiro->tabuleiro[x][y]->elemento);
           PEC_RetornaCor(peca,&corPec);
 		  PEC_RetornaId(peca,&idPec);
           if(corPec== 'V' &&  idPec== 'V') {
@@ -283,7 +283,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 		  //int yi = (int)(yo - 'A');
           //int yi2 = (int)(yd - 'A');
 	  printf("Entrei no movimento\n");
-          TAB_ObterPeca((Casa *)tabuleiro->*tabuleiro[xo][yi],xo,yi,&cor,&id);
+          TAB_ObterPeca((Casa *)tabuleiro->tabuleiro[xo][yi],xo,yi,&cor,&id);
 	  printf("Passei da obter\n");
           LIS_ObterNo(listaPecas,(void **)&elemento);
 	  printf("Obteve o nó\n");
@@ -326,11 +326,11 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
                         if(movX<0 || movY <0) {
                               if(moveParaTras == 1) {
 								  printf(" chegou movPraTras\n");
-                                  TAB_VerificaSeCome((Casa*)tabuleiro->*tabuleiro[xd][yi2],xd, yi2,cor);
+                                  TAB_VerificaSeCome((Casa*)tabuleiro->tabuleiro[xd][yi2],xd, yi2,cor);
                                    return TAB_CondRetOK;
                               } else {
 								  printf("else do chegou mov\n");
-                                   TAB_VerificaSeCome((Casa*)tabuleiro->*tabuleiro[xd][yi2],xd, yi2,cor);
+                                   TAB_VerificaSeCome((Casa*)tabuleiro->tabuleiro[xd][yi2],xd, yi2,cor);
                                    return TAB_CondRetMovimentoIrregular;
                               }
                         }
@@ -349,10 +349,10 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           while(i<8) {
                while(j<8) {
                    if(tabuleiro[i][j].elemento != NULL) {
-                     LIS_DestroiLista(tabuleiro->tabuleiro[i][j].ameacados);
+                     LIS_DestroiLista(tabuleiro->tabuleiro[i][j]->ameacados);
 					 printf("Cheguei aqui\n");
-                     LIS_DestroiLista(tabuleiro->tabuleiro[i][j].ameacantes);
-                     PEC_LiberaPeca((Peca*)(tabuleiro->tabuleiro[i][j].elemento));
+                     LIS_DestroiLista(tabuleiro->tabuleiro[i][j]->ameacantes);
+                     PEC_LiberaPeca((Peca*)(tabuleiro->tabuleiro[i][j]->elemento));
 					 j++;
                    }
 				   i++;
