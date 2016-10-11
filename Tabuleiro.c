@@ -32,9 +32,11 @@ typedef struct casa {
    } Casa;
 
 typedef struct tabuleiro {
-   Casa tabuleiro[8][8];
+   Casa *tabuleiro[8][8];
    
 }Tabuleiro;
+
+//LUIS É VIADO!!!
 
 
 char idListaPecas[5] = "PeLi"; //identificação da lista de peças
@@ -250,7 +252,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-		  peca = (Peca *)(tabuleiro->tabuleiro[x][yi].elemento);
+		  peca = (Peca *)(tabuleiro->*tabuleiro[x][yi].elemento);
           PEC_RetornaCor(peca,&corPec);
 		  PEC_RetornaId(peca,&idPec);
           if(corPec== 'V' &&  idPec== 'V') {
@@ -268,7 +270,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 *
 *  Função: TAB  &Mover Peça
 *  ****/
-   TAB_tpCondRet TAB_MoverPeca(Casa *tabuleiro,int xo,int yi,int xd,int yi2) {
+   TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabuleiro,int xo,int yi,int xd,int yi2) {
           char cor;
           int i;
           char id;
@@ -281,7 +283,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 		  //int yi = (int)(yo - 'A');
           //int yi2 = (int)(yd - 'A');
 	  printf("Entrei no movimento\n");
-          TAB_ObterPeca((Casa *)tabuleiro,xo,yi,&cor,&id);
+          TAB_ObterPeca((Casa *)tabuleiro->*tabuleiro[xo][yi],xo,yi,&cor,&id);
 	  printf("Passei da obter\n");
           LIS_ObterNo(listaPecas,(void **)&elemento);
 	  printf("Obteve o nó\n");
@@ -324,11 +326,11 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
                         if(movX<0 || movY <0) {
                               if(moveParaTras == 1) {
 								  printf(" chegou movPraTras\n");
-                                  TAB_VerificaSeCome((Casa*)tabuleiro,xd, yi2,cor);
+                                  TAB_VerificaSeCome((Casa*)tabuleiro->*tabuleiro[xd][yi2],xd, yi2,cor);
                                    return TAB_CondRetOK;
                               } else {
 								  printf("else do chegou mov\n");
-                                   TAB_VerificaSeCome((Casa*)tabuleiro,xd, yi2,cor);
+                                   TAB_VerificaSeCome((Casa*)tabuleiro->*tabuleiro[xd][yi2],xd, yi2,cor);
                                    return TAB_CondRetMovimentoIrregular;
                               }
                         }
