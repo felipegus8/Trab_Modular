@@ -54,14 +54,34 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 *  Função: TAB  &Criar Tabuleiro
 *  ****/
    TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro tabuleiro) {
-	   
-        tabuleiro = NULL;
-	   
-	tabuleiro = (Tabuleiro *) malloc(sizeof(Tabuleiro));
+	   int i=0,j=0;
+	   LIS_tppLista listaAmeacados;
+	   LIS_tppLista listaAmeacantes; 
+       
+	  tabuleiro = NULL;
+	  tabuleiro = (Tabuleiro *) malloc(sizeof(Tabuleiro));
 
 	if(tabuleiro == NULL) {
 	     return TAB_CondRetFaltouMemoria;
 	} /*if */
+	criarListaPecas();
+	for(i=0;i<8;i++)
+	{
+		for(j=0;j<8;j++)
+		{
+			PEC_CriaPeca((Peca**)(tabuleiro[i][j].elemento),'V','V');
+			  listaAmeacados = tabuleiro[i][j].ameacados;
+	          listaAmeacantes = tabuleiro[i][j].ameacantes;
+	          retLis = LIS_CriarLista(&listaAmeacados,"Amd",destruirValor);
+	          if(retLis == LIS_CondRetFaltouMemoria) {
+                    return TAB_CondRetFaltouMemoria;
+         }
+              retLis2 = LIS_CriarLista(&listaAmeacantes,"Amn",destruirValor);
+              if(retLis2 == LIS_CondRetFaltouMemoria) {
+                    return TAB_CondRetFaltouMemoria;
+            }
+		}
+	}
     /*
     int i = 0,j=0;
 	LIS_tppLista listaAmeacados;
@@ -304,20 +324,21 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 *
 *  Função: TAB  &Destruir Tabuleiro
 *  ****/
-   TAB_tpCondRet TAB_DestruirTabuleiro(Casa *tabuleiro) {
+   TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabuleiro) {
           int i=0,j=0;
           while(i<8) {
                while(j<8) {
-                   if(tabuleiro[i*8 + j].elemento != NULL) {
-                     LIS_DestroiLista(tabuleiro[i * 8 + j].ameacados);
+                   if(tabuleiro[i][j].elemento != NULL) {
+                     LIS_DestroiLista(tabuleiro[i][j].ameacados);
 					 printf("Cheguei aqui\n");
-                     LIS_DestroiLista(tabuleiro[i * 8 + j].ameacantes);
-                     PEC_LiberaPeca((Peca*)tabuleiro[i * 8 + j].elemento);
+                     LIS_DestroiLista(tabuleiro[i][j].ameacantes);
+                     PEC_LiberaPeca((Peca*)tabuleiro[i][j].elemento);
 					 j++;
                    }
 				   i++;
                }
           }
+		  free(tabuleiro);
         return TAB_CondRetOK;
    }/* Fim função: TAB  &Destruir Tabuleiro*/
 
