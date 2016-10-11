@@ -168,12 +168,12 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 *
 *  Função: TAB  &Obter Lista Ameaçantes
 *  ****/
-   TAB_tpCondRet TAB_ObterListaAmeacantes(Casa *tabuleiro,int x, int yi,LIS_tppLista *listaAmeacantes) {
+   TAB_tpCondRet TAB_ObterListaAmeacantes(ptTabuleiro tabuleiro,int x, int yi,LIS_tppLista *listaAmeacantes) {
            x--;
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          *listaAmeacantes = tabuleiro[x * 8 + yi].ameacantes;
+          *listaAmeacantes = tabuleiro[x][yi].ameacantes;
           if(listaAmeacantes == NULL) {
               return TAB_CondRetListaAmeacantesNaoExiste;
           }
@@ -184,13 +184,13 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 *
 *  Função: TAB  &Obter Lista Ameaçados
 *  ****/
-   TAB_tpCondRet TAB_ObterListaAmeacados(Casa *tabuleiro,int x, int yi,LIS_tppLista *listaAmeacados) {
+   TAB_tpCondRet TAB_ObterListaAmeacados(ptTabuleiro tabuleiro,int x, int yi,LIS_tppLista *listaAmeacados) {
           //int yi = (int)(y - 'A');
            x--;
           if(x>7 || x<0 || yi>7 || yi<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          *listaAmeacados = tabuleiro[x * 8 + yi].ameacados;
+          *listaAmeacados = tabuleiro[x][yi].ameacados;
           if(listaAmeacados == NULL) {
               return TAB_CondRetListaAmeacadosNaoExiste;
           }
@@ -200,7 +200,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 *
 *  Função: TAB  &Obter Peca
 *  ****/
-   TAB_tpCondRet TAB_ObterPeca(Casa *tabuleiro,int x, int y, char *cor, char *id) {
+   TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabuleiro,int x, int y, char *cor, char *id) {
           Peca *peca;
 		  char corPec,idPec;
 		  printf("Chegou aqui");
@@ -208,7 +208,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           if(x>7 || x<0 || y>7 || y < 0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          peca = (Peca *)tabuleiro[x * 8 + y].elemento;
+          peca = (Peca *)tabuleiro[x][y].elemento;
 		  PEC_RetornaCor(peca,&corPec);
 		  PEC_RetornaId(peca,&idPec);
           if(corPec== 'V' &&  idPec== 'V') {
@@ -223,7 +223,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 *
 *  Função: TAB  &Retirar Peca
 *  ****/
-   TAB_tpCondRet TAB_RetirarPeca(Casa *tabuleiro,int x,int y) {
+   TAB_tpCondRet TAB_RetirarPeca(ptTabuleiro tabuleiro,int x,int y) {
           Peca *peca;
 		  char corPec,idPec;
 		  printf("\nRetirar");
@@ -231,14 +231,13 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-		  peca = (Peca *)tabuleiro[x * 8 + y].elemento;
+		  peca = (Peca *)tabuleiro[x][yi].elemento;
           PEC_RetornaCor(peca,&corPec);
 		  PEC_RetornaId(peca,&idPec);
           if(corPec== 'V' &&  idPec== 'V') {
              return TAB_CondRetCasaVazia;
           }
-          
-			PEC_EliminarPeca(peca);
+		 PEC_EliminarPeca(peca);
           return TAB_CondRetOK;
    }/* Fim função: TAB  &Retirar Peca */
     
