@@ -48,7 +48,7 @@ ptTabuleiro  tabuleiro;
 
 int converteCoordenadaCharParaInt(char coordYChar);
 int diminui1DeX(int coordX);
-void destruirValor(void *pDado);
+void destruirValor2(void *pDado);
 
 /*****  Codigo das funções exportadas pelo modulo  *****/
 
@@ -213,7 +213,7 @@ void destruirValor(void *pDado);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-			CondRet = LIS_CriarLista(&ameacas,"ameacantes",destruirValor);
+			CondRet = LIS_CriarLista(&ameacas,"ameacantes",destruirValor2);
 
             CondRet = TAB_ObterListaAmeacantes(tabuleiro, x, coordYInt, ameacas);
 
@@ -235,7 +235,7 @@ void destruirValor(void *pDado);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-			CondRet = LIS_CriarLista(&ameacas,"ameacados",destruirValor);
+			CondRet = LIS_CriarLista(&ameacas,"ameacados",destruirValor2);
 
             CondRet = TAB_ObterListaAmeacantes(tabuleiro, x, coordYInt, ameacas);
 
@@ -272,7 +272,7 @@ int diminui1DeX(int coordX) {
     return coordX - 1;
 }
 
-void destruirValor(void *pDado)
+void destruirValor2(void *pDado)
 {
 	free(pDado);
 }
