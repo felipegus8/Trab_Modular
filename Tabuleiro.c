@@ -48,7 +48,7 @@ PEC_tpCondRet retPeca = PEC_CondRetOK;
 /***** Protótipos das funções encapuladas no módulo *****/
 void destruirValor(void *pValor); //função de destruição de valor
 TAB_tpCondRet criarListaPecas();
-TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, char corRecebida);
+TAB_tpCondRet TAB_VerificaSeCome(ptTabuleiro tabuleiro,int posicaoX, int posicaoY, char corRecebida);
 /*****  Código das funções exportadas pelo módulo  *****/  
 
 /***************************************************************************
@@ -283,7 +283,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 		  //int yi = (int)(yo - 'A');
           //int yi2 = (int)(yd - 'A');
 	  printf("Entrei no movimento\n");
-          TAB_ObterPeca(tabuleiro->tabuleiro[xo][yi],xo,yi,&cor,&id);
+          TAB_ObterPeca(tabuleiro,xo,yi,&cor,&id);
 	  printf("Passei da obter\n");
           LIS_ObterNo(listaPecas,(void **)&elemento);
 	  printf("Obteve o nó\n");
