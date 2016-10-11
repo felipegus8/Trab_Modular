@@ -31,6 +31,12 @@ typedef struct casa {
          /*ponteiro para o elemento contido na casa */
    } Casa;
 
+typedef struct tabuleiro {
+   Casa tabuleiro[8][8];
+   
+}Tabuleiro;
+
+
 char idListaPecas[5] = "PeLi"; //identificação da lista de peças
 LIS_tppLista listaPecas;
 LIS_tpCondRet  retLis = LIS_CondRetOK;
@@ -47,7 +53,16 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 *
 *  Função: TAB  &Criar Tabuleiro
 *  ****/
-   TAB_tpCondRet TAB_CriaTabuleiro(Casa *tabuleiro,int TamLinhas, int TamColunas) {
+   TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro tabuleiro) {
+	   
+        tabuleiro = NULL;
+	   
+	tabuleiro = (Tabuleiro *) malloc(sizeof(Tabuleiro));
+
+	if(tabuleiro == NULL) {
+	     return TAB_CondRetFaltouMemoria;
+	} /*if */
+    /*
     int i = 0,j=0;
 	LIS_tppLista listaAmeacados;
 	LIS_tppLista listaAmeacantes;   
@@ -64,7 +79,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
              idListaAmeacadosY = 'A';
              idListaAmeacantesY = 'A';
          while(j<TamColunas) {
-              //as 3 linhas acima fazem com que a string identificadora da lista ameacantes fique da forma "linhaColunaB"
+              //as 3 linhas acima fazem com que a string identificadora da lista ameacantes fique da forma "linhaColunaB
 			  printf("declarei aqui a casa\n");
 			  listaAmeacados = tabuleiro[i * TamLinhas + j].ameacados;
 			  listaAmeacantes = tabuleiro[i * TamLinhas + j].ameacantes;
@@ -85,8 +100,10 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
          idListaAmeacantesX++;
          i++;
     }
+    */
        return TAB_CondRetOK;
    }
+
 
 
 
@@ -94,9 +111,14 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 *
 *  Função: TAB  &Inserir Peca
 *  ****/
-   TAB_tpCondRet TAB_InserirPeca(Casa *tabuleiro,int x, int yi,char cor,char id) {
+   TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id) {
         //int yi = (int)(y - 'A');
        x--;
+	   
+	   
+	TAB_
+	   
+	/*
 		printf("Criou a lista\n");
         if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
@@ -119,6 +141,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
                 return TAB_CondRetFaltouMemoria;
              }
         }
+	*/
         return TAB_CondRetOK;
    }/* Fim função: TAB  &Inserir Peca*/
 /***************************************************************************
