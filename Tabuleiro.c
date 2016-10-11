@@ -326,7 +326,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
                         if(movX<0 || movY <0) {
                               if(moveParaTras == 1) {
 								  printf(" chegou movPraTras\n");
-                                  TAB_VerificaSeCome((Casa*)tabuleiro->tabuleiro[xd][yi2],xd, yi2,cor);
+                                  TAB_VerificaSeCome(tabuleiro,xd, yi2,cor);
                                    return TAB_CondRetOK;
                               } else {
 								  printf("else do chegou mov\n");
@@ -382,7 +382,7 @@ TAB_tpCondRet criarListaPecas() {
 *  Função: TAB  &Verifica Se Come Peca
 *  ****/
 
-TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, char corRecebida) {
+TAB_tpCondRet TAB_VerificaSeCome(ptTabuleiro tabuleiro,int posicaoX, int posicaoY, char corRecebida) {
     char cor,id;
 	posicaoX++;
     TAB_ObterPeca(tabuleiro,posicaoX,posicaoY,&cor,&id);
