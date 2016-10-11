@@ -59,10 +59,14 @@ typedef enum {
               /* o movimento que foi tentando é irregular */
          TAB_CondRetComeu, 
                /* um movimento válido fez com que uma peça fosse comida */
-         TAB_CondRetCasaTemDono
+         TAB_CondRetCasaTemDono,
 
               /* um movimento válido fez com que uma peça fosse para um posição onde há um peça de sua cor */
 
+		 TAB_CondRetCorErrada,
+		     /* cor obtida está errado */
+		 TAB_CondRetIdErrado
+		    /* id obtido está errado */
    } TAB_tpCondRet ;
 
 

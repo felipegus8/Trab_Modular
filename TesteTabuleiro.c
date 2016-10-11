@@ -47,7 +47,7 @@ Casa  *tabuleiro[8][8];
 /***** Prottotipos das funções encapuladas no modulo *****/
 
 int converteCoordenadaCharParaInt(char coordYChar);
-
+int diminui1DeX(int coordX);
 
 /*****  Codigo das funções exportadas pelo modulo  *****/
 
@@ -80,11 +80,11 @@ int converteCoordenadaCharParaInt(char coordYChar);
 
       TST_tpCondRet CondRet;
 
-	  Casa  **tabuleiro;
+	  Casa  *tabuleiro[8];
 
-      char   StringDado[  DIM_VALOR ],StringDado2[  DIM_VALOR  ] ;
+      char   StringDado[  100 ],StringDado2[  100  ] ;
 
-	  int x, xf,coordYInt,coordYInt2,TamColunas,TamLinhas;
+	  int x,xf,coordYInt,coordYInt2,TamColunas,TamLinhas;
 	  char y, yf, cor, id;
 
 	  LIS_tppLista *ameacas;
@@ -263,4 +263,7 @@ int converteCoordenadaCharParaInt(char coordYChar) {
 	int coordYInt;
 	coordYInt = coordYChar - 'A';  //converte para int
 	return coordYInt;
+}
+int diminui1DeX(int coordX) {
+    return coordX - 1;
 }

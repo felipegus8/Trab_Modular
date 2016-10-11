@@ -111,7 +111,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
         retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)&tabuleiro[x * 8 + yi].elemento); //obtem o movimento da peça caso esta for "conhecida"
 		printf("Chegou aqui");
         if(retPeca == PEC_CondRetFaltouMemoria) {
-            return TAB_CondRetOK;
+            return TAB_CondRetFaltouMemoria;
         }
         if(retPeca == PEC_CondRetNaoAchouPeca) { //caso insere o movimento
              retPeca = PEC_EnsinaMovimentosPecasDesconhecidas((Peca **)&tabuleiro[x * 8 + yi].elemento);
@@ -253,14 +253,20 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           for(i=0;i<qtdMov;i++) {
                 movX = xd - xo;
                 movY = yi2 - yi;
+				printf("antes do to aqui\n");
 				PEC_RetornaXMovimento(peca,i,&xRet);
 				PEC_RetornaYMovimento(peca,i,&yRet);
+				printf("ta aqui porra\n");
+				printf("x: %d e y: %d\n",xRet,yRet);
                 if(abs(movX) == xRet && abs(movY) == yRet) {
+					printf("passei do abs\n");
                         if(movX<0 || movY <0) {
                               if(moveParaTras == 1) {
+								  printf(" chegou movPraTras\n");
                                   TAB_VerificaSeCome((Casa*)tabuleiro,xd, yi2,cor);
                                    return TAB_CondRetOK;
                               } else {
+								  printf("else do chegou mov\n");
                                    TAB_VerificaSeCome((Casa*)tabuleiro,xd, yi2,cor);
                                    return TAB_CondRetMovimentoIrregular;
                               }
@@ -278,12 +284,15 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
    TAB_tpCondRet TAB_DestruirTabuleiro(Casa *tabuleiro) {
           int i=0,j=0;
           while(i<8) {
-               while(i<8) {
+               while(j<8) {
                    if(tabuleiro[i*8 + j].elemento != NULL) {
                      LIS_DestroiLista(tabuleiro[i * 8 + j].ameacados);
+					 printf("Cheguei aqui\n");
                      LIS_DestroiLista(tabuleiro[i * 8 + j].ameacantes);
                      PEC_LiberaPeca((Peca*)tabuleiro[i * 8 + j].elemento);
+					 j++;
                    }
+				   i++;
                }
           }
         return TAB_CondRetOK;
@@ -311,7 +320,9 @@ TAB_tpCondRet criarListaPecas() {
 
 TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, char corRecebida) {
     char cor,id;
+	posicaoX++;
     TAB_ObterPeca(tabuleiro,posicaoX,posicaoY,&cor,&id);
+	printf("passei pelo obter");
     if(cor != corRecebida) {
 	TAB_RetirarPeca(tabuleiro,posicaoX,posicaoY);
         return TAB_CondRetComeu;
