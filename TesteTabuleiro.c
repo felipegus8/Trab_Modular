@@ -123,9 +123,9 @@ int diminui1DeX(int coordX);
             } /* if */
 
 			coordYInt = converteCoordenadaCharParaInt(y);
-			coordX = diminui1DeX(x);
+			//coordX = diminui1DeX(x);
 
-            CondRet = TAB_InserirPeca((Casa *)tabuleiro, coordX, coordYInt, cor,id);
+            CondRet = TAB_InserirPeca((Casa *)tabuleiro, x, coordYInt, cor,id);
 
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao inserir uma peca." );
@@ -147,9 +147,10 @@ int diminui1DeX(int coordX);
 
 
 			coordYInt = converteCoordenadaCharParaInt(y);
-			coordX = diminui1DeX(x);
+			//coordX = diminui1DeX(x);
 
-            CondRet = TAB_ObterPeca((Casa *)tabuleiro, coordX, coordYInt, &cor,&id);
+            CondRet = TAB_ObterPeca((Casa *)tabuleiro, x, coordYInt, &cor,&id);
+			printf("\nIDRESULT:%c \nCORRESULT:%c\n",id,cor);
 			if(corLida != cor)
 			{
 				printf("Cor errada");
@@ -175,11 +176,11 @@ int diminui1DeX(int coordX);
                return TST_CondRetParm ;
             } /* if */
 
-			coordX = diminui1DeX(x);
+			//coordX = diminui1DeX(x);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-            CondRet = TAB_RetirarPeca((Casa *)tabuleiro, coordX, coordYInt);
+            CondRet = TAB_RetirarPeca((Casa *)tabuleiro, x, coordYInt);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao retirar uma peca" );
 
@@ -198,15 +199,15 @@ int diminui1DeX(int coordX);
                return TST_CondRetParm ;
             } /* if */
 
-			coordX = diminui1DeX(x);
-			coordX2 = diminui1DeX(xf);
+			//coordX = diminui1DeX(x);
+			//coordX2 = diminui1DeX(xf);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 			coordYInt2 = converteCoordenadaCharParaInt(yf);
 
 		 
            printf("Estou na mover peça no testelista.c\n");
-            CondRet = TAB_MoverPeca((Casa *)tabuleiro, coordX, coordYInt, coordX2, coordYInt2);
+            CondRet = TAB_MoverPeca((Casa *)tabuleiro, x, coordYInt, xf, coordYInt2);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao mover uma peca" );
 
@@ -224,11 +225,11 @@ int diminui1DeX(int coordX);
                return TST_CondRetParm ;
             } /* if */
 
-			coordX = diminui1DeX(x);
+			//coordX = diminui1DeX(x);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-            CondRet = TAB_ObterListaAmeacantes((Casa *)tabuleiro, coordX, coordYInt, ameacas);
+            CondRet = TAB_ObterListaAmeacantes((Casa *)tabuleiro, x, coordYInt, ameacas);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao obter a lista de ameacantes da peca." );
 
@@ -246,11 +247,11 @@ int diminui1DeX(int coordX);
                return TST_CondRetParm ;
             } /* if */
 
-			coordX = diminui1DeX(x);
+			//coordX = diminui1DeX(x);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-            CondRet = TAB_ObterListaAmeacantes((Casa *)tabuleiro, coordX, coordYInt, ameacas);
+            CondRet = TAB_ObterListaAmeacantes((Casa *)tabuleiro, x, coordYInt, ameacas);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao obter a lista de ameacados da peca." );
 

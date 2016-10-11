@@ -41,71 +41,71 @@
 =criartabuleiro         int8   int8  OK
 
 ==Insere Peca(torres brancas e pretas)
-=inserepeca int1 charA  charB   torre  OK
-=inserepeca int1 charH  charB   torre  OK
-=inserepeca int8 charA  charP   torre  OK
-=inserepeca int8 charH  charP   torre  OK
+=inserepeca int0 charA  charB   torre  OK
+=inserepeca int0 charH  charB   torre  OK
+=inserepeca int7 charA  charP   torre  OK
+=inserepeca int7 charH  charP   torre  OK
 
 ==Insere Peca(rainhas branca e preta)
-=inserepeca int1  charD  charB  rainha  OK
-=inserepeca int8  charD  charP  rainha  OK
+=inserepeca int0  charD  charB  rainha  OK
+=inserepeca int7  charD  charP  rainha  OK
 
 ==Insere Peca(bispos brancos e pretos)
-=inserepeca int1 charC charB  charB OK
-=inserepeca int1 charF charB  charB OK
-=inserepeca int8 charC charP  charB OK
-=inserepeca int8 charF charP  charB OK
+=inserepeca int0 charC charB  charB OK
+=inserepeca int0 charF charB  charB OK
+=inserepeca int7 charC charP  charB OK
+=inserepeca int7 charF charP  charB OK
 
 ==Insere Peca(cavalos brancos e pretos)
-=inserepeca int1 charB charB  charC  OK
-=inserepeca int1 charG charB  charC  OK
-=inserepeca int8 charB charP  charC  OK
-=inserepeca int8 charG charP  charC  OK
+=inserepeca int0 charB charB  charC  OK
+=inserepeca int0 charG charB  charC  OK
+=inserepeca int7 charB charP  charC  OK
+=inserepeca int7 charG charP  charC  OK
 
 ==Insere Peca(reis branco e preto)
-=inserepeca int1 charE charB rei  OK
-=inserepeca int8 charE charP rei  OK
+=inserepeca int0 charE charB rei  OK
+=inserepeca int7 charE charP rei  OK
 
 ==Insere Peca(nova peca)
-=inserepeca int3 charF  charB  charH OK
+=inserepeca int2 charF  charB  charH OK
 
 ==Obter Peca(torres)
-=obterpeca int1 charA  charB   torre  OK
-=obterpeca int1 charH  charB   torre  OK
-=obterpeca int8 charA  charP   torre  OK
-=obterpeca int8 charH  charP   torre  OK 
+=obterpeca int0 charA  charB   torre  OK
+=obterpeca int0 charH  charB   torre  OK
+=obterpeca int7 charA  charP   torre  OK
+=obterpeca int7 charH  charP   torre  OK 
 
 ==Obter Peca(rainhas)
-=obterpeca  int1  charD  charB  rainha  OK
-=obterpeca  int8  charD  charP  rainha  OK
+=obterpeca  int0  charD  charB  rainha  OK
+=obterpeca  int7  charD  charP  rainha  OK
 
 ==Obter Peca(bispos)
-=obterpeca int1 charC charB  charB OK
-=obterpeca int1 charF charB  charB OK
-=obterpeca int8 charC charP  charB OK
-=obterpeca int8 charF charP  charB OK
+=obterpeca int0 charC charB  charB OK
+=obterpeca int0 charF charB  charB OK
+=obterpeca int7 charC charP  charB OK
+=obterpeca int7 charF charP  charB OK
 
 ==Obter Peca(cavalos)
-=obterpeca int1 charB charB  charC  OK
-=obterpeca int1 charG charB  charC  OK
-=obterpeca int8 charB charP  charC  OK
-=obterpeca int8 charG charP  charC  OK
+=obterpeca int0 charB charB  charC  OK
+=obterpeca int0 charG charB  charC  OK
+=obterpeca int7 charB charP  charC  OK
+=obterpeca int7 charG charP  charC  OK
 
 ==Obter Peca(reis)
-=obterpeca int1 charE charB rei  OK
-=obterpeca int8 charE charP rei  OK
+=obterpeca int0 charE charB rei  OK
+=obterpeca int7 charE charP rei  OK
 
 ==Obter Peca(nova peca)
-=obterpeca int3 charF  charB  charH OK
+=obterpeca int2 charF  charB  charH OK
 
 ==Retirar Peca(nova peca)
-=retirarpeca int3 charF OK
+==retirarpeca int3 charF OK
 
 ==MoverPeca(mover a torre)
-=moverpeca int1 charA int3 charA OK
+==moverpeca int1 charA int3 charA OK
 
 ==MoverPeca(mover a rainha)
-=moverpeca int1  charD int4 charG OK
+==moverpeca int1  charD int4 charG OK
 
 ==Destruir Tabuleiro
 ==destruirtabuleiro OK
