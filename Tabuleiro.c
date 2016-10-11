@@ -283,7 +283,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 		  //int yi = (int)(yo - 'A');
           //int yi2 = (int)(yd - 'A');
 	  printf("Entrei no movimento\n");
-          TAB_ObterPeca((Casa *)tabuleiro->tabuleiro[xo][yi],xo,yi,&cor,&id);
+          TAB_ObterPeca(tabuleiro->tabuleiro[xo][yi],xo,yi,&cor,&id);
 	  printf("Passei da obter\n");
           LIS_ObterNo(listaPecas,(void **)&elemento);
 	  printf("Obteve o nó\n");
@@ -348,7 +348,7 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
           int i=0,j=0;
           while(i<8) {
                while(j<8) {
-                   if(tabuleiro[i][j].elemento != NULL) {
+                   if(tabuleiro->tabuleiro[i][j]->elemento != NULL) {
                      LIS_DestroiLista(tabuleiro->tabuleiro[i][j]->ameacados);
 					 printf("Cheguei aqui\n");
                      LIS_DestroiLista(tabuleiro->tabuleiro[i][j]->ameacantes);
