@@ -69,9 +69,9 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 	{
 		for(j=0;j<8;j++)
 		{
-			PEC_CriaPeca((Peca**)(tabuleiro->tabuleiro[i][j].elemento),'V','V');
-			  listaAmeacados = tabuleiro->tabuleiro[i][j].ameacados;
-	          listaAmeacantes = tabuleiro->tabuleiro[i][j].ameacantes;
+			PEC_CriaPeca((Peca**)(tabuleiro->*tabuleiro[i][j].elemento),'V','V');
+			  listaAmeacados = tabuleiro->*tabuleiro[i][j].ameacados;
+	          listaAmeacantes = tabuleiro->*tabuleiro[i][j].ameacantes;
 	          retLis = LIS_CriarLista(&listaAmeacados,"Amd",destruirValor);
 	          if(retLis == LIS_CondRetFaltouMemoria) {
                     return TAB_CondRetFaltouMemoria;
@@ -131,12 +131,31 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
 *
 *  Função: TAB  &Inserir Peca
 *  ****/
-   TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id) {
-        //int yi = (int)(y - 'A');
-       x--;
-	   
-	   
-	TAB_
+   TAB_tpCondRet TAB_insereTabuleiro insere(ptTabuleiro pTabuleiro,int x, int y,char cor,char id) {
+    x--;
+    if(x>7 || x<0 || y>7 || y<0) {
+        return TAB_CondRetCoordenadaNExiste;
+    }
+    retPeca = PEC_CriarPeca((Peca **)&(pTabuleiro->*tabuleiro[x][y]).elemento),id,cor);
+    if(retPeca = PEC_CondRetFaltouMemoria) {
+        return TAB_CondRetFaltouMemoria;
+    }
+    retLis = LIS_InserirNo(listaPecas,(Peca **)pTabuleiro->*tabuleiro.elemento);
+    retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)pTabuleiro->*tabuleiro.elemento); //obtem o movimento da peça caso esta for "conhecida"
+    printf("Chegou aqui");
+    if(retPeca == PEC_CondRetFaltouMemoria) {
+        return TAB_CondRetOK;
+    }
+    if(retPeca == PEC_CondRetNaoAchouPeca) { //caso insere o movimento
+        retPeca = PEC_EnsinaMovimentosPecasDesconhecidas((Peca **)pTabuleiro->*tabuleiro[x][y].elemento);
+        if(retPeca == PEC_CondRetFaltouMemoria) {
+            return TAB_CondRetFaltouMemoria;
+        }
+    }
+    return TAB_CondRetOK;
+
+}
+
 	   
 	/*
 		printf("Criou a lista\n");
@@ -161,8 +180,8 @@ TAB_tpCondRet TAB_VerificaSeCome(Casa *tabuleiro,int posicaoX, int posicaoY, cha
                 return TAB_CondRetFaltouMemoria;
              }
         }
-	*/
         return TAB_CondRetOK;
+	*/
    }/* Fim função: TAB  &Inserir Peca*/
 /***************************************************************************
 *
