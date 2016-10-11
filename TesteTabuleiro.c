@@ -81,7 +81,7 @@ void destruirValor(void *pDado);
 
       TST_tpCondRet CondRet;
 
-	  Casa  *tabuleiro[8];
+	  //Casa  *tabuleiro[8];
 
     //  char   StringDado[  100 ],StringDado2[  100  ] ;
 
