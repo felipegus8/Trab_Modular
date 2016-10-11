@@ -74,7 +74,7 @@ typedef enum {
 /* Tipo Casa */
 typedef struct casa Casa;
 
-typedef struct tabuleiro ptTabuleiro;
+typedef struct *tabuleiro ptTabuleiro;
 
 /***********************************************************************
 
