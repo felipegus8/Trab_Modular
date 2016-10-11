@@ -84,7 +84,7 @@ int diminui1DeX(int coordX);
       char   StringDado[  DIM_VALOR ],StringDado2[  DIM_VALOR  ] ;
 
 	  int x, xf,coordX,coordX2,coordYInt,coordYInt2,TamColunas,TamLinhas;
-	  char y, yf, cor, id;
+	  char y, yf, cor, id,corLida,idLido;
 
 	  LIS_tppLista *ameacas;
 
@@ -137,7 +137,7 @@ int diminui1DeX(int coordX);
          else if ( strcmp( ComandoTeste , OBTER_PECA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iccci" , &x, &y, &cor, &id, &CondRetEsp) ;
+            numLidos = LER_LerParametros( "iccci" , &x, &y, &corLida, &idLido, &CondRetEsp) ;
 
 
             if ( numLidos != 5 )
@@ -150,6 +150,14 @@ int diminui1DeX(int coordX);
 			coordX = diminui1DeX(x);
 
             CondRet = TAB_ObterPeca((Casa *)tabuleiro, coordX, coordYInt, &cor,&id);
+			if(corLida != cor)
+			{
+				printf("Cor errada");
+			}
+			if(idLido != id)
+			{
+				printf("Id errado");
+			}
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao obter uma peca" );
 
