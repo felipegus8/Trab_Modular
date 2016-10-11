@@ -330,7 +330,7 @@ TAB_tpCondRet TAB_VerificaSeCome(ptTabuleiro tabuleiro,int posicaoX, int posicao
                                    return TAB_CondRetOK;
                               } else {
 								  printf("else do chegou mov\n");
-                                   TAB_VerificaSeCome((Casa*)tabuleiro->tabuleiro[xd][yi2],xd, yi2,cor);
+                                   TAB_VerificaSeCome(tabuleiro,xd, yi2,cor);
                                    return TAB_CondRetMovimentoIrregular;
                               }
                         }
