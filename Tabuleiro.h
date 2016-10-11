@@ -119,7 +119,7 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro tabuleiro);
 *     Se alguma das coordenadas passadas como parâmetro estiver fora do intervalo de tamanho do tabuleiro retorna CoordenadaNExiste.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_insereTabuleiro insere(ptTabuleiro pTabuleiro,int x, int y,char cor,char id);
+TAB_tpCondRet TAB_insereTabuleiro(ptTabuleiro pTabuleiro,int x, int y,char cor,char id);
 
 
 
