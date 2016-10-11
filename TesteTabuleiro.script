@@ -102,10 +102,10 @@
 =retirarpeca int3 charF OK
 
 ==MoverPeca(mover a torre)
-=moverPeca int1 charA int4 charA OK
+=moverpeca int1 charA int3 charA OK
 
 ==MoverPeca(mover a rainha)
-==moverPeca int1  charD int4 charG OK
+=moverpeca int1  charD int4 charG OK
 
 ==Destruir Tabuleiro
-=destruirtabuleiro OK
+==destruirtabuleiro OK
