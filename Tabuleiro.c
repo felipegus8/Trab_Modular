@@ -216,6 +216,26 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
           return TAB_CondRetMovimentoIrregular;
    }/* Fim função: TAB  &Mover Peca */
 
+	/***************************************************************************
+*
+*  Função: TAB  &Destruir Tabuleiro
+*  ****/
+   TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu) {
+          int i=0,j=0;
+          while(i<8) {
+               while(j<8) {
+                   if(tabu->tab[i][j].elemento != NULL) {
+                     LIS_DestroiLista(tabu->tab[i][j].ameacados);
+                     LIS_DestroiLista(tabu->tab[i][j].ameacantes);
+                     PEC_LiberaPeca((Peca*)tabu->tab[i][j].elemento);
+                   }
+				   j++;
+               }
+			   i++;
+          }
+        return TAB_CondRetOK;
+   }/* Fim função: TAB  &Destruir Tabuleiro*/
+
 /***************************************************************************
 
 

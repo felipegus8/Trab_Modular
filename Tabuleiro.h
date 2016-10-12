@@ -73,7 +73,7 @@ typedef enum {
 
 /* Tipo Casa */
 typedef struct casa Casa;
-
+/*Tipo ponteiro para tabuleiro*/
 typedef struct TAG_tabuleiro * ptTabuleiro;
 
 /***********************************************************************
@@ -259,7 +259,7 @@ TAB_tpCondRet TAB_ObterListaAmeacados(Casa *tabuleiro,int x, int yi,LIS_tppLista
 *     Se executou corretamente retona Ok.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_DestruirTabuleiro(Casa *tabuleiro);
+TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu);
 
 
 
