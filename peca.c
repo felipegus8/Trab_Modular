@@ -43,32 +43,32 @@ typedef struct movimento{
  }Peca;
 
 
+
  /*****  Código das funções exportadas pelo módulo  *****/
 
  /***************************************************************************
 *
 *  Função: PEC  &Criar peca
 *  ****/
-//AE: Recebe um ponteiro de ponteiro da struct peca, uma identificação e uma cor
 PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
-	  Peca *novoCopia = NULL;
-	
-          novoCopia = (Peca *) malloc(sizeof(Peca));
+	      Peca *novoCopia;
+	      printf("Entrou na criar peca");
+          novoCopia = (Peca *)malloc(sizeof(Peca));
+		  printf("Passou malloc");
           if(novoCopia == NULL) {
             return PEC_CondRetFaltouMemoria;
           }
 		  novoCopia->id = id;
     
 		  novoCopia->cor = cor;
-	*novo = novoCopia;
+		  *novo = novoCopia;
           return PEC_CondRetOK; 
    }/* Fim função: PEC  &Criar peca */
-//AS: Uma peça foi criada e iniciada com a identidade e cor recebida
+
  /***************************************************************************
 *
 *  Função: PEC  &Ensina Movimentos Pecas Conhecidas
 *  ****/
-//AE: Recebe uma peça já criada
 PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 {
 	int i = 0,j = 0,k = 0 ;
@@ -214,24 +214,25 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 } /* Fim função: PEC  &Ensina Movimentos Pecas Conhecidas */
  /***************************************************************************
 *
-//AS: A peça recebida aprende o movimento respectivo a sua identidade
 *  Função: PEC  &Ensina Movimentos Pecas Desconhecidas
 *  ****/
-//AE: Recebe uma peça já criada
 PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 {
 	char idLido,corLido;
 	int x,y,i,j;
 	FILE *fp;
+	fp = fopen("PecasNovas.txt","r");
 	//O arquivo PecasNovas.txt contem todas as peças novas que podem ser usadas no jogo.Para criar uma nova peça,o usuário deve escrever nesse arquivo,seguindo o formato lá apresentado.
-	if ((fp=fopen("PecasNovas.txt","r"))==NULL)
+	if (fp==NULL)
 			{
-			 printf("Error! opening file");
+			 printf("Error! opening file1");
 			exit(1);         
 			}
+	printf("Passou");
 			i = 0;
 		while(fscanf(fp,"%c %c",&idLido,&corLido) == 2)
 		{
+			
 			if ((idLido == (*novo)->id) && (corLido == (*novo)->cor))
 			{
 				while(fscanf(fp,"%d  %d",&x,&y) == 2)
@@ -252,7 +253,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 		fclose(fp);
 		if ((fp=fopen("PecasNovas.txt","r"))==NULL)
 			{
-			 printf("Error! opening file");
+			 printf("Error! opening file2");
 			exit(1);         
 			}
 		while(fscanf(fp,"%c %c",&idLido,&corLido) == 2)
@@ -283,103 +284,89 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 		}
 	return PEC_CondRetOK;
 }/* Fim função: PEC  &Ensina Movimentos Pecas Desconhecidas */
-//AS: A peca aprendeu o movimeno de acordo com suas especificações no documento txt
+
 
 
  /***************************************************************************
 *
 *  Função: PEC  &Libera Peca
 *  ****/
-//AE: Recebe uma peça já criada
 PEC_tpCondRet PEC_LiberaPeca(Peca *peca) {
-	if(peca == NULL) {
-	    printf("peça vazia na hora de liberar\n");
-	    exit(-1);
-	}
          free(peca);
 		 return PEC_CondRetOK;
    }/* Fim função: PEC  &Libera Peca */
-//AS: A peca recebida foi liberada
+
 /***************************************************************************
 *
 *  Função: PEC  &Retorna Id
 *  ****/
-//AE: Recebe uma peça já criada e um ponteiro para a identificação requisitada
 PEC_tpCondRet PEC_RetornaId(Peca *peca,char *id)
 {
 	*id = peca->id;
 	return PEC_CondRetOK;
 }/* Fim função: PEC  &Retorna Id */
-//AS: O ponterio recebido foi apontado para identificação da peça
+
 /***************************************************************************
 *
 *  Função: PEC  &Retorna Cor
 *  ****/
-//AE: Recebe uma peça já criada e um ponteiro para a cor da peca
 PEC_tpCondRet PEC_RetornaCor(Peca *peca,char *cor)
 {
 	*cor = peca->cor;
 	return PEC_CondRetOK;
 }/* Fim função: PEC  &Retorna Cor */
-//AS: O ponterio recebido foi apontado para a cor da peça
+
 /***************************************************************************
 *
 *  Função: PEC  &Retorna Qtd_Mov
 *  ****/
-//AE: Recebe uma peça já criada e um ponteiro para a quantidade de movimentos da peca
 PEC_tpCondRet PEC_RetornaQtd_Mov(Peca *peca,int *qtdMov)
 {
 	*qtdMov = peca->qtdMov;
 	return PEC_CondRetOK;
 }/* Fim função: PEC  &Retorna Qtd_Mov */
-//AS: O ponterio recebido foi apontado para a quantidade de movimento da peça
+
 /***************************************************************************
 *
 *  Função: PEC  &Retorna Move Para Tras
 *  ****/
-//AE: Recebe uma peça já criada e um ponteiro para os de movimentos para tras da peca
 PEC_tpCondRet PEC_RetornaMoveParaTras(Peca *peca,int *moveParaTras)
 {
 	*moveParaTras = peca->movParaTras;
 	//Move Para Tras sempre será 0 ou 1.
 	return PEC_CondRetOK;
 }/* Fim função: PEC  &Retorna Move Para Tras */
-//AS: O ponterio recebido foi apontado para os de movimentos para tras da peça
+
 
 /***************************************************************************
 *
 *  Função: PEC  &Retorna X Movimento
 *  ****/
-//AE: Recebe uma peça já criada, a posição do vetor movPeca e ponteiro que pegará o contudo da posição do vetor movPeca
 PEC_tpCondRet PEC_RetornaXMovimento(Peca *peca,int i,int *x)
 {
 	*x = peca->movPeca[i].x;
 	return PEC_CondRetOK;
 }/* Fim função: PEC  &Retorna X Movimento */
-//AS: O ponteiro aponta agora para a posicão desejado do vetor movPeça
+
 /***************************************************************************
 *
 *  Função: PEC  &Retorna Y Movimento
 *  ****/
-//AE: Recebe uma peça já criada, a posição do vetor movPeca e ponteiro que pegará o contudo da posição do vetor movPeca
 PEC_tpCondRet PEC_RetornaYMovimento(Peca *peca,int i,int *y)
 {
 	*y = peca->movPeca[i].y;
 	return PEC_CondRetOK;
 }/* Fim função: PEC  &Retorna Y Movimento */
-//AS: O ponteiro aponta agora para a posicão desejado do vetor movPeça
 
 /***************************************************************************
 *
 *  Função: PEC  &Eliminar Peca
 *  ****/
-//AE: Recebe uma peça já criada
 PEC_tpCondRet PEC_EliminarPeca(Peca *peca)
 {
 	peca->id = 'V';
 	peca->cor = 'V';
 	return PEC_CondRetOK;
 }/* Fim função: PEC  &Eliminar Peca */
-//AS: A peça recebida foi eliminada do programa
 
  /********** Fim do módulo de implementação: PEC  Peca **********/
