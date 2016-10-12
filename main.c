@@ -249,7 +249,7 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
 	  
         TAB_ObterPeca(tabu,xd,yi2,&corObtida,&idObtido);
 	  
-	 if(corRecebida != corPecaObitda) {
+	 if(corRecebida != corObtida) {
 	      return TAB_CondRetComeu;
 	 } 
 	 if(idObtido == 'V' && corObtida == 'V') {
@@ -283,7 +283,7 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
 	        if(idPecaTabuleiro == idPecaLista) {  //caso a peça esteja na lista sai do loop
 		      break;
 		}
-		LIS_ObterNo(listaPecas,(void **)&pecaLista)
+		LIS_ObterNo(listaPecas,(void **)&pecaLista);
 			
 		if(LIS_IrProx(listaPecas) == LIS_CondRetFimLista) { //obtem a peça do nó corrente da lista
 		       return TAB_CondRetNaoAchouPeca;
@@ -398,7 +398,16 @@ int main()
 	TAB_InserirPeca(tabu,3,2,'P','H');
 	
 	printf("\n");
-for(i=0;i<8;i++) {
+    for(i=0;i<8;i++) {
+        for(j=0;j<8;j++) {
+			PEC_RetornaCor((Peca *)(tabu->tab[i][j].elemento),&cor);
+			PEC_RetornaId((Peca *)(tabu->tab[i][j].elemento),&id);
+			printf("linha: %d e coluna: %d\n",i,j);
+			printf("cor: %c e id: %c\n",cor,id);
+        }
+    }
+	TAB_MoverPeca(tabu,0,1,0,5);
+	 for(i=0;i<8;i++) {
         for(j=0;j<8;j++) {
 			PEC_RetornaCor((Peca *)(tabu->tab[i][j].elemento),&cor);
 			PEC_RetornaId((Peca *)(tabu->tab[i][j].elemento),&id);
