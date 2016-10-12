@@ -51,13 +51,16 @@ typedef struct movimento{
 *  ****/
 //AE: Recebe um ponteiro de ponteiro da struct peca, uma identificação e uma cor
 PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
-          *novo = (Peca *) malloc(sizeof(Peca));
-          if(*novo == NULL) {
+	  Peca *novoCopia = NULL;
+	
+          *novoCopia = (Peca *) malloc(sizeof(Peca));
+          if(*novoCopia == NULL) {
             return PEC_CondRetFaltouMemoria;
           }
-		  (*novo)->id = id;
+		  *novoCopia->id = id;
     
-		  (*novo)->cor = cor;
+		  *novoCopia->cor = cor;
+	*novo = novoCopia;
           return PEC_CondRetOK; 
    }/* Fim função: PEC  &Criar peca */
 //AS: Uma peça foi criada e iniciada com a identidade e cor recebida
