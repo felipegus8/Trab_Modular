@@ -145,7 +145,7 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
  TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id) {
         //int yi = (int)(y - 'A');
 
-	    
+	    LIS_InserirNo(listaPecas, (void **)&(tabuleiro->tab[x][yi].elemento));
 
 	    char corObtida,idObtida;
        
@@ -245,6 +245,74 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
 			
 		  */
    }/* Fim função: TAB  &Retirar Peca */
+
+
+   /*
+   TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
+          char cor;
+          int i;
+          char id;
+		  char idPec;
+          Peca *elemento;
+          int movX,movY,xRet,yRet,moveParaTras;
+          Peca *peca;
+	      Peca *naLista;
+		  int qtdMov;
+		  //int yi = (int)(yo - 'A');
+          //int yi2 = (int)(yd - 'A');
+	  printf("Entrei no movimento\n");
+          TAB_ObterPeca(tabu,xo,yi,&cor,&id);
+	  printf("Passei da obter\n");
+          LIS_ObterNo(listaPecas,(void **)&(tabu->tab[xo][yi].elemento));
+	  printf("Obteve o nó\n");
+          peca = (Peca *)elemento;
+           xo--;
+           if(xo>7 || xo<0 || yi>7 || yi<0) {
+              return TAB_CondRetCoordenadaNExiste; 
+           }
+         
+           xd--;
+           if(xd>7 || xd<0 || yi2>7 || yi2<0) {
+              return TAB_CondRetCoordenadaNExiste; 
+           }
+		    PEC_RetornaId(peca,&idPec);
+
+          //procura na lista pelo id da peça e checa se o movimento está ok
+          while(1) {
+                if(LIS_ObterNo(listaPecas,(void **)(tabu->tab[xo][yi].elemento)) == LIS_CondRetFimLista) {
+                     return TAB_CondRetNaoAchouPeca;
+                }
+                naLista = (Peca *) elemento;
+		PEC_RetornaId(naLista, &id);
+		if(idPec == id) {
+		      break;
+		}
+              LIS_IrProx(listaPecas);
+          }
+		  PEC_RetornaQtd_Mov(peca,&qtdMov);
+		  PEC_RetornaMoveParaTras(peca,&moveParaTras);
+          for(i=0;i<qtdMov;i++) {
+                movX = xd - xo;
+                movY = yi2 - yi;
+				PEC_RetornaXMovimento(peca,i,&xRet);
+				PEC_RetornaYMovimento(peca,i,&yRet);
+                if(abs(movX) == xRet && abs(movY) == yRet) {
+                        if(movX<0 || movY <0) {
+                              if(moveParaTras == 1) {
+                                  TAB_VerificaSeCome((Casa*)tabuleiro,xd, yi2,cor);
+                                   return TAB_CondRetOK;
+                              } else {
+                                   TAB_VerificaSeCome((Casa*)tabuleiro,xd, yi2,cor);
+                                   return TAB_CondRetMovimentoIrregular;
+                              }
+                        }
+                       return TAB_CondRetOK;
+              }
+          }
+          return TAB_CondRetMovimentoIrregular;
+   }/* Fim função: TAB  &Mover Peca*/
+
+   
 int main()
 {
 	int i,j;
