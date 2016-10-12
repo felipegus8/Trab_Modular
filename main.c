@@ -144,21 +144,19 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
    }
  TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id) {
         //int yi = (int)(y - 'A');
-	    char corObtida,idObtida;
-       LIS_InserirNo(listaPecas, (void *)&(tabuleiro->tab[x][yi].elemento));
 		printf("Criou a lista\n");
         if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
         }
 		
-        retPeca = PEC_CriaPeca((Peca **)&(tabuleiro->tab[x][yi].elemento),id,cor);//cria peça novo
+        retPeca = PEC_CriaPeca((Peca **)&(tabuleiro->tab[x][yi].elemento),id,cor);//cria peça nova
 		printf("criou peça\n");
         if(retPeca == PEC_CondRetFaltouMemoria) {
             return TAB_CondRetFaltouMemoria;
         }
 		printf("%d e %d\n",x,yi);
 		//printf("cor obtida: %c e id obtida: %c\n",corObtida,idObtida);
-		retLis = LIS_InserirNo(listaPecas,(LIS_tppLista )(tabuleiro->tab[x][yi].elemento)); //insere peça nova na lista
+		retLis = LIS_InserirNo(listaPecas,(void *)(tabuleiro->tab[x][yi].elemento)); //insere peça nova na lista
         retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)&(tabuleiro->tab[x][yi].elemento)); //obtem o movimento da peça caso esta for "conhecida"
 		printf("Chegou aqui");
         if(retPeca == PEC_CondRetFaltouMemoria) {
