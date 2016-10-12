@@ -40,7 +40,7 @@
 =declararparm   FaltouMemoria          int  4
 =declararparm   AmecadosNaoExiste      int  5
 =declararparm   AmecantesNaoExiste     int  6
-=declararparm   MovimentoIrregular     int  7
+=declararparm   MovimentoIrregular     int  7 
 
 ==Parte que cria um tabuleiro
 =criartabuleiro         int8   int8  OK
@@ -135,8 +135,10 @@
 ==MoverPeca(mover a outra torre branca para capturar a torre preta)
 =moverpeca int0  charH  int7 charH OK
 
-==Verificar se casa onde a rainha se encontrava está vazia
+==Verificar se a torre branca capturou a preta
 =obterpeca int7 charH charB torre OK
 
+==Verificar se a casa onde a torre branca estava ficou vazia
+=obterpeca int0 charH charV  charV  OK
 ==Destruir Tabuleiro
 =destruirtabuleiro OK
