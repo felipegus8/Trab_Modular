@@ -53,13 +53,13 @@ typedef struct movimento{
 PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
 	  Peca *novoCopia = NULL;
 	
-          *novoCopia = (Peca *) malloc(sizeof(Peca));
-          if(*novoCopia == NULL) {
+          novoCopia = (Peca *) malloc(sizeof(Peca));
+          if(novoCopia == NULL) {
             return PEC_CondRetFaltouMemoria;
           }
-		  *novoCopia->id = id;
+		  novoCopia->id = id;
     
-		  *novoCopia->cor = cor;
+		  novoCopia->cor = cor;
 	*novo = novoCopia;
           return PEC_CondRetOK; 
    }/* Fim função: PEC  &Criar peca */
