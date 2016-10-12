@@ -244,15 +244,20 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
    }/* Fim função: TAB  &Retirar Peca */
 
 
- TAB_tpCondRet TAB_VerificaSeCome(ptTabuleiro tabu,int xd,int yi2,char corRecebida) {
+ TAB_tpCondRet TAB_VerificaSeCome(ptTabuleiro tabu,int xo,int yo,int xd,int yd,char corRecebida,char idRecebido) {
 	char corObtida,idObtido;
 	  
-        TAB_ObterPeca(tabu,xd,yi2,&corObtida,&idObtido);
+        TAB_ObterPeca(tabu,xd,yd,&corObtida,&idObtido);
 	  
 	 if(corRecebida != corObtida) {
+	      TAB_RetirarPeca(tabu,xd,yd);
+	      TAB_RetirarPeca(tabu,xo,yo);
+	      TAB_InserirPeca(tabu,xd,yd,corRecebida,idRecebido);
 	      return TAB_CondRetComeu;
 	 } 
 	 if(idObtido == 'V' && corObtida == 'V') {
+              TAB_RetirarPeca(tabu,xo,yo);
+	      TAB_InserirPeca(tabu,xd,yd,corRecebida,idRecebido);
 	      return TAB_CondRetOK;
 	 }
          return TAB_CondRetCasaTemDono;
@@ -305,11 +310,11 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
                 if(abs(movX) == xRet && abs(movY) == yRet) {
                         if(movX<0 || movY <0) {
                               if(moveParaTras == 1) {
-                                  TAB_VerificaSeCome(tabu,xd, yi2,corPecaTabuleiro);
+                                  TAB_VerificaSeCome(tabu,xd, yi2,corPecaTabuleiro,idPecaTabuleiro);
                               }
 			      return TAB_CondRetMovimentoIrregular;
                         } else {
-			       TAB_VerificaSeCome(tabu,xd, yi2,corPecaTabuleiro); 
+			       TAB_VerificaSeCome(tabu,xd, yi2,corPecaTabuleiro,idPecaTabuleiro); 
 			}
                        return TAB_CondRetOK;
               }
