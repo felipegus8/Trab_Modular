@@ -192,14 +192,17 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 		LIS_IrProx(listaPecas); //anda na lista
 	   }
 	   
-	          PEC_RetornaQtd_Mov(pecaLista,&qtdMov); //obtem o movimento da peça
+	       PEC_RetornaQtd_Mov(pecaLista,&qtdMov); //obtem o movimento da peça
 		  PEC_RetornaMoveParaTras(pecaLista,&moveParaTras); //descobre se a peça pode andar para trás
-	   
 	    for(i=0;i<qtdMov;i++) {
                 movX = xd - xo; //quantidade de passos que a peça tentará se mover na horizontal
+				printf("MOVX:%d",movX);
                 movY = yi2 - yi; //quantidade de passos que a peça tentará se mover na vertical
+				printf("MOVY:%d",movY);
 				PEC_RetornaXMovimento(pecaLista,i,&xRet);//recebe a quantidade de peças na horizontal que a peça realiza
+				printf("\nX:%d\n",xRet);
 				PEC_RetornaYMovimento(pecaLista,i,&yRet);//recebe a quantidade de peças na vertical que a peça realiza
+				printf("\nY:%d\n",yRet);
                 if(abs(movX) == xRet && abs(movY) == yRet) {
                         if(movX<0 || movY <0) {
                               if(moveParaTras == 1) {

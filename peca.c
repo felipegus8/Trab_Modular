@@ -174,6 +174,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 			(*novo)->movPeca[i].x = i + 1;
 			(*novo)->movPeca[i].y = 0;
 		}
+		printf("\nESSSS E O i:%d\n",i);
 		//Movimento na horizontal da rainha
 		for(j=1;j<8;j++)
 		{
@@ -182,11 +183,13 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 			i++;
 		}
 		j=1;
+		printf("\nESSSS E O i:%d\n",i);
 		//Movimento na diagonal da rainha
 		for(k=1;k<8;k++)
 		{
-			(*novo)->movPeca[i].x = j;
-			(*novo)->movPeca[i].y = j;
+			(*novo)->movPeca[i].x = k;
+			(*novo)->movPeca[i].y = k;
+			i++;
 		}
 		break;
 	case 'R':
