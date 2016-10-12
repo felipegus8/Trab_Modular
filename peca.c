@@ -292,6 +292,10 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 *  ****/
 //AE: Recebe uma peça já criada
 PEC_tpCondRet PEC_LiberaPeca(Peca *peca) {
+	if(peca == NULL) {
+	    printf("peça vazia na hora de liberar\n");
+	    exit(-1);
+	}
          free(peca);
 		 return PEC_CondRetOK;
    }/* Fim função: PEC  &Libera Peca */
