@@ -102,10 +102,10 @@ int diminui1DeX(int coordX);
             } /* if */
 
 
-            CondRet = TAB_CriaTabuleiro(tabu,8,8);
+            CondRet = TAB_CriaTabuleiro(&tabu,8,8);
 			printf("%d\n",CondRet);
 
-            return TST_CompararPonteiroNulo( 1 , tabuleiro , "Erro em ponteiro de nova lista."  ) ;
+            return TST_CompararPonteiroNulo( 1 , tabu , "Erro em ponteiro de nova lista."  ) ;
 
          } /* FIM: Criar Tabuleiro */
 
