@@ -144,11 +144,8 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
    }
  TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id) {
         //int yi = (int)(y - 'A');
-
-	    LIS_InserirNo(listaPecas, (void **)&(tabuleiro->tab[x][yi].elemento));
-
 	    char corObtida,idObtida;
-       
+       LIS_InserirNo(listaPecas, (void *)&(tabuleiro->tab[x][yi].elemento));
 		printf("Criou a lista\n");
         if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
