@@ -1,4 +1,4 @@
-/***************************************************************************
+﻿/***************************************************************************
 *  $MCI Módulo de implementação: TTAB Teste Tabuleiro
 *
 *  Arquivo gerado:              TestaTabuleiro.c
@@ -72,6 +72,9 @@ int diminui1DeX(int coordX);
 *
 ***********************************************************************/
 
+
+
+
  TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
    {
 
@@ -85,10 +88,12 @@ int diminui1DeX(int coordX);
 	  int x, xf,coordX,coordX2,coordYInt,coordYInt2;
 	  char y, yf, cor, id,corLida,idLido;
 
-	  LIS_tppLista *ameacas;
+	  LIS_tppLista ameacas;
+
 
       StringDado[ 0 ] = 0 ;
       StringDado2[ 0 ] = 0;
+
 
       /* Criar Tabuleiro */
 
@@ -228,7 +233,7 @@ int diminui1DeX(int coordX);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-            CondRet = TAB_ObterListaAmeacantes(tabu, x, coordYInt, ameacas);
+            CondRet = TAB_ObterListaAmeacantes(tabu, x, coordYInt, &ameacas);
 
            
             return TST_CompararPonteiroNulo( CondRetEsp , ameacas,
@@ -252,7 +257,7 @@ int diminui1DeX(int coordX);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-           CondRet = TAB_ObterListaAmeacantes(tabu, x, coordYInt, ameacas);
+           CondRet = TAB_ObterListaAmeacantes(tabu, x, coordYInt, &ameacas);
 
             return TST_CompararPonteiroNulo( CondRetEsp , ameacas,
                "Erro em ponteiro de lista de ameacados."  ) ;

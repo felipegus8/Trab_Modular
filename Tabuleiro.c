@@ -164,14 +164,21 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 
           LIS_tppLista listaAmeacantesCopia = NULL;
           LIS_CriarLista(&listaAmeacantesCopia,a,destruirValor);
+          printf("to na obter ameaçantes\n");
           if(listaAmeacantesCopia == NULL) {
               return TAB_CondRetListaAmeacantesNaoExiste;
           }
+          printf("%d\n",listaAmeacantesCopia);
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
+          printf("tabu :%d\n",tabu->tab[x][y].ameacantes);
           listaAmeacantesCopia = tabu->tab[x][y].ameacantes;
+          printf("atribuiu\n");
           *listaAmeacantes = listaAmeacantesCopia;
+          printf("atribui2\n");
+          printf("Copia: %d\n",listaAmeacantesCopia);
+          
 
           return TAB_CondRetOK;
  }
