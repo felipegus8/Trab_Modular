@@ -244,8 +244,8 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
    }/* Fim função: TAB  &Retirar Peca */
 
 
-  TAB_VerificaSeCome(ptTabuleiro tabu,int xd,int yi2,char corRecebida) {
-	char corObtida,idObtido
+ TAB_tpCondRet TAB_VerificaSeCome(ptTabuleiro tabu,int xd,int yi2,char corRecebida) {
+	char corObtida,idObtido;
 	  
         TAB_ObterPeca(tabu,xd,yi2,&corObtida,&idObtido);
 	  
@@ -261,12 +261,12 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
    
    TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
           char corPecaLista,corPecaTabuleiro,idPecaLista,idPecaTabuleiro;
-          int i,qtdMov,movX,movY;
+          int i,qtdMov,movX,movY,moveParaTras,xRet,yRet;
           char id;
 	  Peca *pecaLista = NULL;
 	  
 	   
-	   pecaLista = PEC_CriaPeca((Peca **)&pecaLista,'V','V');
+	   PEC_CriaPeca((Peca **)&pecaLista,'V','V');
 	   
 	   LIS_ObterNo(listaPecas,(void **)&pecaLista); //obtem cor e id de peça do tabuleiro
 	   
@@ -283,7 +283,9 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
 	        if(idPecaTabuleiro == idPecaLista) {  //caso a peça esteja na lista sai do loop
 		      break;
 		}
-		if(LIS_ObterNo(listaPecas,(void **)&pecaLista) == LIS_CondRetFimLista) { //obtem a peça do nó corrente da lista
+		LIS_ObterNo(listaPecas,(void **)&pecaLista)
+			
+		if(LIS_IrProx(listaPecas) == LIS_CondRetFimLista) { //obtem a peça do nó corrente da lista
 		       return TAB_CondRetNaoAchouPeca;
 		}
 		/* obtem a cor e o id da peça corrente */
@@ -303,11 +305,11 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
                 if(abs(movX) == xRet && abs(movY) == yRet) {
                         if(movX<0 || movY <0) {
                               if(moveParaTras == 1) {
-                                  TAB_VerificaSeCome(tabu,xd, yi2);
+                                  TAB_VerificaSeCome(tabu,xd, yi2,corPecaTabuleiro);
                               }
 			      return TAB_CondRetMovimentoIrregular;
                         } else {
-			       TAB_VerificaSeCome(tabu,xd, yi2); 
+			       TAB_VerificaSeCome(tabu,xd, yi2,corPecaTabuleiro); 
 			}
                        return TAB_CondRetOK;
               }
@@ -380,6 +382,7 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
           }
           return TAB_CondRetMovimentoIrregular;
    }/* Fim função: TAB  &Mover Peca*/
+   }
 
    
 int main()
