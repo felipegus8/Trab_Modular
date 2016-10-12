@@ -228,7 +228,7 @@ int diminui1DeX(int coordX);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-           // CondRet = TAB_ObterListaAmeacantes((Casa *)tabuleiro, x, coordYInt, ameacas);
+            CondRet = TAB_ObterListaAmeacantes(tabu, x, coordYInt, ameacas);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao obter a lista de ameacantes da peca." );
 
@@ -250,7 +250,7 @@ int diminui1DeX(int coordX);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-         //   CondRet = TAB_ObterListaAmeacantes((Casa *)tabuleiro, x, coordYInt, ameacas);
+           CondRet = TAB_ObterListaAmeacantes(tabu, x, coordYInt, ameacas);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao obter a lista de ameacados da peca." );
 
