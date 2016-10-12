@@ -40,8 +40,7 @@ static const char DESTRUIR_TABULEIRO                                [ ] = "=dest
 #define DIM_VT_TAB   10
 #define DIM_VALOR     100
 
-
-Casa  *tabuleiro[8][8];
+ptTabuleiro tabu;
 
 
 /***** Prottotipos das funções encapuladas no modulo *****/
@@ -103,7 +102,7 @@ int diminui1DeX(int coordX);
             } /* if */
 
 
-            CondRet = TAB_CriaTabuleiro((Casa *)tabuleiro,8,8);
+            CondRet = TAB_CriaTabuleiro(tabu,8,8);
 			printf("%d\n",CondRet);
 
             return TST_CompararPonteiroNulo( 1 , tabuleiro , "Erro em ponteiro de nova lista."  ) ;
@@ -125,7 +124,7 @@ int diminui1DeX(int coordX);
 			coordYInt = converteCoordenadaCharParaInt(y);
 			//coordX = diminui1DeX(x);
 
-            CondRet = TAB_InserirPeca((Casa *)tabuleiro, x, coordYInt, cor,id);
+            CondRet = TAB_InserirPeca(tabu, x, coordYInt, cor,id);
 
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao inserir uma peca." );
@@ -149,7 +148,7 @@ int diminui1DeX(int coordX);
 			coordYInt = converteCoordenadaCharParaInt(y);
 			//coordX = diminui1DeX(x);
 
-            CondRet = TAB_ObterPeca((Casa *)tabuleiro, x, coordYInt, &cor,&id);
+            CondRet = TAB_ObterPeca(tabu, x, coordYInt, &cor,&id);
 			printf("\nIDRESULT:%c \nCORRESULT:%c\n",id,cor);
 			if(corLida != cor)
 			{
@@ -180,7 +179,7 @@ int diminui1DeX(int coordX);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-            CondRet = TAB_RetirarPeca((Casa *)tabuleiro, x, coordYInt);
+            CondRet = TAB_RetirarPeca(tabu, x, coordYInt);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao retirar uma peca" );
 
@@ -207,7 +206,7 @@ int diminui1DeX(int coordX);
 
 		 
            printf("Estou na mover peça no testelista.c\n");
-            CondRet = TAB_MoverPeca((Casa *)tabuleiro, x, coordYInt, xf, coordYInt2);
+          //  CondRet = TAB_MoverPeca((Casa *)tabuleiro, x, coordYInt, xf, coordYInt2);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao mover uma peca" );
 
@@ -229,7 +228,7 @@ int diminui1DeX(int coordX);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-            CondRet = TAB_ObterListaAmeacantes((Casa *)tabuleiro, x, coordYInt, ameacas);
+           // CondRet = TAB_ObterListaAmeacantes((Casa *)tabuleiro, x, coordYInt, ameacas);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao obter a lista de ameacantes da peca." );
 
@@ -251,7 +250,7 @@ int diminui1DeX(int coordX);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 
-            CondRet = TAB_ObterListaAmeacantes((Casa *)tabuleiro, x, coordYInt, ameacas);
+         //   CondRet = TAB_ObterListaAmeacantes((Casa *)tabuleiro, x, coordYInt, ameacas);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao obter a lista de ameacados da peca." );
 
@@ -270,7 +269,7 @@ int diminui1DeX(int coordX);
             } /* if */
 			 
             //LIS_DestruirLista( tabuleiro ) ;
-			CondRet = TAB_DestruirTabuleiro((Casa *)tabuleiro);
+			// CondRet = TAB_DestruirTabuleiro((Casa *)tabuleiro);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao destruir um tabuleiro" );
 

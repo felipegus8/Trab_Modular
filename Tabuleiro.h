@@ -74,7 +74,7 @@ typedef enum {
 /* Tipo Casa */
 typedef struct casa Casa;
 
-typedef struct tabuleiro * ptTabuleiro;
+typedef Tabuleiro * ptTabuleiro;
 
 /***********************************************************************
 
@@ -93,7 +93,7 @@ typedef struct tabuleiro * ptTabuleiro;
 *    Se houve algum problema por falta de memória retorna Faltou Memória.
 
 ***********************************************************************/
- TAB_tpCondRet TAB_CriaTabuleiro(Casa *tabuleiro,int TamLinhas, int TamColunas);
+TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas);
 
 
 /***********************************************************************
@@ -119,7 +119,7 @@ typedef struct tabuleiro * ptTabuleiro;
 *     Se alguma das coordenadas passadas como parâmetro estiver fora do intervalo de tamanho do tabuleiro retorna CoordenadaNExiste.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_InserirPeca(Casa *tabuleiro,int x, int yi,char cor,char id);
+ TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id);
 
 
 
@@ -171,7 +171,7 @@ TAB_tpCondRet TAB_MoverPeca(Casa *tabuleiro,int xo,int yi,int xd,int yi2);
 
 ***********************************************************************/
 
-TAB_tpCondRet TAB_RetirarPeca(Casa *tabuleiro,int x,int y);
+ TAB_tpCondRet TAB_RetirarPeca(ptTabuleiro tabu,int x,int y);
 
 
 /***********************************************************************
@@ -196,7 +196,7 @@ TAB_tpCondRet TAB_RetirarPeca(Casa *tabuleiro,int x,int y);
 
 ***********************************************************************/
 
-TAB_tpCondRet TAB_ObterPeca(Casa *tabuleiro,int x, int y, char *cor, char *id);
+TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id);
 
 /***********************************************************************
 
