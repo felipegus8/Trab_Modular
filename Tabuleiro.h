@@ -73,8 +73,8 @@ typedef enum {
 
 /* Tipo Casa */
 typedef struct casa Casa;
-
-typedef struct tabuleiro * ptTabuleiro;
+/*Tipo ponteiro para tabuleiro*/
+typedef struct TAG_tabuleiro * ptTabuleiro;
 
 /***********************************************************************
 
@@ -85,15 +85,13 @@ typedef struct tabuleiro * ptTabuleiro;
 *
 *  $EP Parâmetros
 *    tabuleiro = Ponteiro para onde se quer alocar a matriz.
-*    TamLinhas - Quantidade de linhas que a matriz tabuleiro vai ter.
-*    TamColunas - Quantidade de colunas que a matriz tabuleiro vai ter.
 *
 *  $FV Valor retornado
 *    Se executou corretamente retona Ok.
 *    Se houve algum problema por falta de memória retorna Faltou Memória.
 
 ***********************************************************************/
- TAB_tpCondRet TAB_CriaTabuleiro(Casa *tabuleiro,int TamLinhas, int TamColunas);
+TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu);
 
 
 /***********************************************************************
@@ -119,7 +117,7 @@ typedef struct tabuleiro * ptTabuleiro;
 *     Se alguma das coordenadas passadas como parâmetro estiver fora do intervalo de tamanho do tabuleiro retorna CoordenadaNExiste.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_InserirPeca(Casa *tabuleiro,int x, int yi,char cor,char id);
+ TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id);
 
 
 
@@ -147,7 +145,7 @@ TAB_tpCondRet TAB_InserirPeca(Casa *tabuleiro,int x, int yi,char cor,char id);
 *    Se a peça em questão não pode realizar aquele movimento retorna Movimento Irregular.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_MoverPeca(Casa *tabuleiro,int xo,int yi,int xd,int yi2);
+TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2);
 
 
 /***********************************************************************
@@ -171,7 +169,7 @@ TAB_tpCondRet TAB_MoverPeca(Casa *tabuleiro,int xo,int yi,int xd,int yi2);
 
 ***********************************************************************/
 
-TAB_tpCondRet TAB_RetirarPeca(Casa *tabuleiro,int x,int y);
+ TAB_tpCondRet TAB_RetirarPeca(ptTabuleiro tabu,int x,int y);
 
 
 /***********************************************************************
@@ -196,7 +194,7 @@ TAB_tpCondRet TAB_RetirarPeca(Casa *tabuleiro,int x,int y);
 
 ***********************************************************************/
 
-TAB_tpCondRet TAB_ObterPeca(Casa *tabuleiro,int x, int y, char *cor, char *id);
+TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id);
 
 /***********************************************************************
 
@@ -219,7 +217,7 @@ TAB_tpCondRet TAB_ObterPeca(Casa *tabuleiro,int x, int y, char *cor, char *id);
 *     Se a lista não existir retorna ListaAmeacantesNaoExiste.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_ObterListaAmeacantes(Casa *tabuleiro,int x, int yi,LIS_tppLista *listaAmeacantes); //a ser editada
+ TAB_tpCondRet TAB_ObterListaAmeacantes(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacantes); //a ser editada
 
 
 
@@ -244,7 +242,7 @@ TAB_tpCondRet TAB_ObterListaAmeacantes(Casa *tabuleiro,int x, int yi,LIS_tppList
 *     Se a lista não existir retorna ListaAmeacadosNaoExiste.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_ObterListaAmeacados(Casa *tabuleiro,int x, int yi,LIS_tppLista *listaAmeacados); //a ser editada
+ TAB_tpCondRet TAB_ObterListaAmeacados(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacados);  //a ser editada
 
 
 /***********************************************************************
@@ -261,7 +259,7 @@ TAB_tpCondRet TAB_ObterListaAmeacados(Casa *tabuleiro,int x, int yi,LIS_tppLista
 *     Se executou corretamente retona Ok.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_DestruirTabuleiro(Casa *tabuleiro);
+TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu);
 
 
 

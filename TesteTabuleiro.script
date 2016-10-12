@@ -1,8 +1,8 @@
 // Script:    TesteLista.script
 // Autor:     Arndt von Staa,Felipe Viberti,Luis Claudio,Victor Nogueira
 // Data:      06/Oct/2016
-// PropÛsito: Testar o mÛdulo tabuleiro
-// Esse script inicializa um tabuleiro tradicional de xadrez com todas as peÁas exceto os peıes
+// Prop√≥sito: Testar o m√≥dulo tabuleiro
+// Esse script inicializa um tabuleiro tradicional de xadrez com todas as pe√ßas exceto os pe√µes
 
  ==Inicializar valores  
 =declararparm    int0      int    0
@@ -27,6 +27,11 @@
 =declararparm    torre    char    'T'
 =declararparm    rainha   char    'D'
 =declararparm    rei      char    'R'
+=declararparm    charV    char    'V'
+
+=declararparm    pNull    int      1
+=declararparm    pNaoNull int      0
+
 
 =declararparm   OK                     int  0
 =declararparm   CasaVazia              int  1
@@ -99,13 +104,25 @@
 =obterpeca int2 charF  charB  charH OK
 
 ==Retirar Peca(nova peca)
-==retirarpeca int3 charF OK
+=retirarpeca int7 charA OK
 
 ==MoverPeca(mover a torre)
-==moverpeca int1 charA int3 charA OK
+=moverpeca int0 charA int5 charA OK
+
+==Obter lista ameacados
+=obterListaameacados  int0 charA  pNaoNull
+
+==Obter lista ameacantes
+=obterListaameacantes  int0 charA  pNaoNull
+
+==Verificar se casa onde a torre se encontrava est√° vazia
+=obterpeca int0 charA charV charV OK
 
 ==MoverPeca(mover a rainha)
-==moverpeca int1  charD int4 charG OK
+=moverpeca int0  charD int3 charG OK
+
+==Verificar se casa onde a rainha se encontrava est√° vazia
+=obterpeca int0 charD charV charV OK
 
 ==Destruir Tabuleiro
-==destruirtabuleiro OK
+=destruirtabuleiro OK

@@ -180,6 +180,24 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
    } 
 //AS: A função fara que um ponteiro referencia aponte para um valor da lista
    /***************************************************************************
+   
+*
+*  Função: LIS  &Ir para o elemento inicial
+*  ****/
+
+   void IrInicioLista( LIS_tppLista pLista )
+   {
+
+      #ifdef _DEBUG
+         assert( pLista != NULL ) ;
+      #endif
+
+      pLista->pElemCorr = pLista->pOrigemLista ;
+
+   } /* Fim função: LIS  &Ir para o elemento inicial */
+
+/***************************************************************************
+   
 *
 *  Função: LIS  &Excluir nó corrente
 *  ****/

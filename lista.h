@@ -189,10 +189,25 @@ typedef struct LIS_tagLista *  LIS_tppLista ;
 *  $FV Valor retornado
 *     Retorna OK caso tenha excluido corretamente.
 *     Já,se a lista estiver vazia, não faz nada e retorna ListaVazia
+
+/************************************************************************/
+
+LIS_tpCondRet LIS_ExcluirNoCorrente(LIS_tppLista lista);
+ 
+/************************************************************************
+*  $FC FunÁ„o: LIS  &Ir para o elemento inicial
+*
+*  $ED DescriÁ„o da funÁ„o
+*     Torna corrente o primeiro elemento da lista.
+*     Faz nada se a lista est· vazia.
+*
+*  $EP Par‚metros
+*     pLista - ponteiro para a lista a manipular
+*
    
 ************************************************************************/   
 
-LIS_tpCondRet LIS_ExcluirNoCorrente(LIS_tppLista lista);
+void IrInicioLista( LIS_tppLista pLista ) ;  
 
 /************************************************************************
 
