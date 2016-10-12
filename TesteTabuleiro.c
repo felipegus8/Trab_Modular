@@ -123,7 +123,7 @@ int diminui1DeX(int coordX);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 			//coordX = diminui1DeX(x);
-
+			printf("\nTá na insere!!! X:%d E Y:%d",x,coordYInt);
             CondRet = TAB_InserirPeca(tabu, x, coordYInt, cor,id);
 
 
