@@ -217,7 +217,7 @@ TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id);
 *     Se a lista não existir retorna ListaAmeacantesNaoExiste.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_ObterListaAmeacantes(Casa *tabuleiro,int x, int yi,LIS_tppLista *listaAmeacantes); //a ser editada
+ TAB_tpCondRet TAB_ObterListaAmeacantes(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacantes); //a ser editada
 
 
 
@@ -242,7 +242,7 @@ TAB_tpCondRet TAB_ObterListaAmeacantes(Casa *tabuleiro,int x, int yi,LIS_tppList
 *     Se a lista não existir retorna ListaAmeacadosNaoExiste.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_ObterListaAmeacados(Casa *tabuleiro,int x, int yi,LIS_tppLista *listaAmeacados); //a ser editada
+ TAB_tpCondRet TAB_ObterListaAmeacados(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacados);  //a ser editada
 
 
 /***********************************************************************

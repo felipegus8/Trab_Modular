@@ -153,6 +153,42 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 		 PEC_EliminarPeca((Peca *)(tabu->tab[x][y].elemento));
           return TAB_CondRetOK;
    }/* Fim função: TAB  &Retirar Peca */
+
+/***************************************************************************
+*
+*  Função: TAB  &Obter Lista Ameacantes
+*  ****/
+ TAB_tpCondRet TAB_ObterListaAmeacantes(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacantes) 
+ {
+          if(x>7 || x<0 || y>7 || y<0) {
+             return TAB_CondRetCoordenadaNExiste; 
+          }
+          *listaAmeacantes = tabu->tab[x][y].ameacantes;
+          if(listaAmeacantes == NULL) {
+              return TAB_CondRetListaAmeacantesNaoExiste;
+          }
+
+		  return TAB_CondRetOK;
+ }
+ /* Fim função: TAB  &Obter Lista Ameacantes*/
+ /***************************************************************************
+*
+*  Função: TAB  &Obter Lista Ameacados
+*  ****/
+ TAB_tpCondRet TAB_ObterListaAmeacados(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacados) 
+ {
+          if(x>7 || x<0 || y>7 || y<0) {
+             return TAB_CondRetCoordenadaNExiste; 
+          }
+          *listaAmeacados = tabu->tab[x][y].ameacados;
+          if(listaAmeacados == NULL) {
+              return TAB_CondRetListaAmeacadosNaoExiste;
+          }
+
+		  return TAB_CondRetOK;
+ }
+ /* Fim função: TAB  &Obter Lista Ameacados Peca */
+
 /***************************************************************************
 *
 *  Função: TAB  &Mover Peca
