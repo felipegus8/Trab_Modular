@@ -99,13 +99,13 @@
 =obterpeca int2 charF  charB  charH OK
 
 ==Retirar Peca(nova peca)
-==retirarpeca int3 charF OK
+=retirarpeca int7 charA OK
 
 ==MoverPeca(mover a torre)
-==moverpeca int1 charA int3 charA OK
+=moverpeca int1 charA int3 charA OK
 
 ==MoverPeca(mover a rainha)
-==moverpeca int1  charD int4 charG OK
+=moverpeca int1  charD int4 charG OK
 
-==Destruir Tabuleiro
-==destruirtabuleiro OK
+// ==Destruir Tabuleiro
+// ==destruirtabuleiro OK
