@@ -1,0 +1,47 @@
+Xadrez
+Jogo de xadrez desenvolvido em 2016.2 para a disciplina Programação Modular da PUC-RIO.
+Desenvolvido por:
+•	Felipe Viberti
+•	Luis Claudio Cantanhêde Martins
+•	Victor Nogueira
+Prof. Flavio, e-mail:  bevilac@inf.puc-rio.br
+
+Apresentação
+Foi disponibilizado o arquivo INF1301-Trab2-FVLCVB.zip. Nele há arquivos do modulo lista, peça e tabuleiro para o jogo de Xadrez.
+
+Instalação
+Separe uma pasta vazia para instalar o jogo e extraia os arquivos do .zip para ela.
+Nesse diretório haverá todos os arquivos necessário para rodar o programa.
+
+Estrutura de diretórios
+
+-Lista
+Código Fonte: lista.c, lista.h, testeLista.c
+Script De Teste: TesteLista.script
+Executáveis: TesteLista.exe
+Batches: Final.bat
+
+-Peça
+Código Fonte: peca.c, peca.h e testePeca.c
+Script De Teste: testaPeca.script
+Executaveis: TestePeca.exe
+Batches: Final.bat
+
+-Tabuleiro
+Código Fonte: tabuleiro.c, tabuleiro.h e testeTabuleiro.c
+Script De Teste: testeTabuleiro.script
+Executáveis: TesteTabuleiro.exe
+Batches: Final.bat
+
+Documentação
+ModeloFisico.pdf: É um arquivo que ilustra o modelo físico do jogo
+Assertivas Estruturais: É um arquivo que define algumas assertivas da arquitetura do programa.
+Leia-Me.txt: É um arquivo que possui a explicação de como utilizar o programa  em questão
+Execução dos Testes
+Os testes dos arquivos desse programa são executados no CMD do Windows.
+Testando os arquivos do código fonte:
+ 	Abrir o CMD
+	Digite cd C:/.../nomeDaPastaEmQuestão
+	Digite Final.bat
+	OBS: Cada diretório testará apenas os códigos fonte dentro dela 
+
