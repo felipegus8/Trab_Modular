@@ -39,17 +39,15 @@ typedef struct TAG_tabuleiro {
 
 typedef Tabuleiro * ptTabuleiro;
 
+/***** Protótipos das funções encapuladas no módulo *****/
+   void destruirValor(void *pValor);
+   TAB_tpCondRet criarListaPecas();
+ /*****  Código das funções exportadas pelo módulo  *****/
+/***************************************************************************
+*
+*  Função: TAB  &Criar Tabuleiro
+*  ****/
 
-   void destruirValor(void *pValor) {
-        free(pValor);
-   }/* Fim função: TAB  -Destruir Valor*/
-TAB_tpCondRet criarListaPecas() {
-    retLis = LIS_CriarLista(&listaPecas,idListaPecas,destruirValor);
-    if(retLis == LIS_CondRetOK) {
-        return TAB_CondRetOK;
-    }
-    return TAB_CondRetFaltouMemoria;
-}
 
 TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas) {
 	int i,j;
@@ -63,8 +61,6 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
         printf("bayblade\n");
         exit(-1);
     }
-
-
     for(i=0;i<8;i++) {
         for(j=0;j<8;j++) {
             PEC_CriaPeca((Peca **)&(novo->tab[i][j].elemento),'V','V');
@@ -76,50 +72,12 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
         }
     }
     *tabu = novo;
-
-
-	/*
-    int i = 0,j=0;
-	LIS_tppLista listaAmeacados;
-	LIS_tppLista listaAmeacantes;   
-    char idListaAmeacadosX = '1';//linha da casa onde reside a lista ameacados
-    char idListaAmeacadosY; //coluna da casa onde reside a lista ameacados
-    char idListaAmeacantesX = '1';//linha da casa onde reside a lista ameacantes
-    char idListaAmeacantesY;//coluna da casa onde reside a lista ameacantes
-    char idListaAmeacados[4] = "Amd";
-    char idListaAmeacantes[4] = "Amn";
-
-    criarListaPecas();
-
-    while(i<TamLinhas) {
-             idListaAmeacadosY = 'A';
-             idListaAmeacantesY = 'A';
-         while(j<TamColunas) {
-              //as 3 linhas acima fazem com que a string identificadora da lista ameacantes fique da forma "linhaColunaB"
-			  printf("declarei aqui a casa\n");
-			  listaAmeacados = tabuleiro[i * TamLinhas + j].ameacados;
-			  listaAmeacantes = tabuleiro[i * TamLinhas + j].ameacantes;
-              retLis = LIS_CriarLista(&listaAmeacados,idListaAmeacados,destruirValor);
-              if(retLis == LIS_CondRetFaltouMemoria) {
-                    return TAB_CondRetFaltouMemoria;
-              }
-              retLis2 = LIS_CriarLista(&listaAmeacantes,idListaAmeacantes,destruirValor);
-              if(retLis2 == LIS_CondRetFaltouMemoria) {
-                    return TAB_CondRetFaltouMemoria;
-              }
-              PEC_CriaPeca((Peca **)&(tabuleiro[i * TamLinhas + j].elemento),'V','V');
-              idListaAmeacadosY++;
-              idListaAmeacantesY++;
-              j++;
-         }
-         idListaAmeacadosX++;
-         idListaAmeacantesX++;
-         i++;
-    }
-	*/
-	
-       return TAB_CondRetOK;
-   }
+     return TAB_CondRetOK;
+   }/* Fim função: TAB  &Criar Tabuleiro*/
+/***************************************************************************
+*
+*  Função: TAB  &Inserir Peca
+*  ****/
  TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id) {
         //int yi = (int)(y - 'A');
 	    char corObtida,idObtida;
@@ -152,10 +110,12 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
 	
    }/* Fim função: TAB  &Inserir Peca*/
 
+ /***************************************************************************
+*
+*  Função: TAB  &Obter Peca
+*  ****/
  TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id) {
 	 char corObtida,idObtido;
-
-
       printf("Chegou aqui peca\n");
           if(x>7 || x<0 || y>7 || y < 0) {
 			  printf("deu blade aqui\n");
@@ -169,26 +129,13 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
 
 	 *cor = corObtida;
 	 *id = idObtido;
-
-	 /*
-          Peca *peca;
-		  char corPec,idPec;
-		  
-          peca = (Peca *)(tabuleiro[x * 8 + y].elemento);
-		  printf("cheguei aqui\n");
-		  PEC_RetornaCor(peca,&corPec);
-		  PEC_RetornaId(peca,&idPec);
-          if(corPec== 'V' &&  idPec== 'V') {
-			  printf("Ta vazio porra""\n");
-             return TAB_CondRetCasaVazia;
-          }
-          printf("Cor: %c e id: %c\n",corPec,idPec);
-          *cor = corPec;
-          *id = idPec;
-          return TAB_CondRetOK;
-		  */
+	 return TAB_CondRetOK;
    }/* Fim função: TAB  &Obter Peca */
 
+  /***************************************************************************
+*
+*  Função: TAB  &Retirar Peca
+*  ****/
     TAB_tpCondRet TAB_RetirarPeca(ptTabuleiro tabu,int x,int y) {
 		char corObtida,idObtido;
 		
@@ -205,44 +152,12 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
           }
 		 PEC_EliminarPeca((Peca *)(tabu->tab[x][y].elemento));
           return TAB_CondRetOK;
-
-		/*
-          Peca *peca;
-		  char corPec,idPec;
-		  printf("\nRetirar");
-          
-          
-		  peca = (Peca *)tabuleiro[x * 8 + y].elemento;
-          PEC_RetornaCor(peca,&corPec);
-		  PEC_RetornaId(peca,&idPec);
-          
-          
-			
-		  */
    }/* Fim função: TAB  &Retirar Peca */
-
-
- TAB_tpCondRet TAB_VerificaSeCome(ptTabuleiro tabu,int xo,int yo,int xd,int yd,char corRecebida,char idRecebido) {
-	char corObtida,idObtido;
-	  
-        TAB_ObterPeca(tabu,xd,yd,&corObtida,&idObtido);
-	  
-	 if(corRecebida != corObtida) {
-	      TAB_RetirarPeca(tabu,xd,yd);
-	      TAB_RetirarPeca(tabu,xo,yo);
-	      TAB_InserirPeca(tabu,xd,yd,corRecebida,idRecebido);
-	      return TAB_CondRetComeu;
-	 } 
-	 if(idObtido == 'V' && corObtida == 'V') {
-              TAB_RetirarPeca(tabu,xo,yo);
-	      TAB_InserirPeca(tabu,xd,yd,corRecebida,idRecebido);
-	      return TAB_CondRetOK;
-	 }
-         return TAB_CondRetCasaTemDono;
-  }
-
-   
-   TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
+/***************************************************************************
+*
+*  Função: TAB  &Mover Peca
+*  ****/
+	TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
           char corPecaLista,corPecaTabuleiro,idPecaLista,idPecaTabuleiro;
           int i,qtdMov,movX,movY,moveParaTras,xRet,yRet;
           char id;
@@ -298,73 +213,54 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
               }
           }
           return TAB_CondRetMovimentoIrregular;
-	   
-	   
-	   
-		 // char idPec;
-          //Peca *elemento;
-          //int movX,movY,xRet,yRet,moveParaTras;
-          //Peca *peca;
-	     // Peca *naLista;
-		  //int qtdMov;
-		  //int yi = (int)(yo - 'A');
-          //int yi2 = (int)(yd - 'A');
-	   
-	   
-	   
-	   
-	   /*
-	  printf("Entrei no movimento\n");
-          TAB_ObterPeca(tabu,xo,yi,&cor,&id);
-	  printf("Passei da obter\n");
-          LIS_ObterNo(listaPecas,(void **)&(tabu->tab[xo][yi].elemento));
-	  printf("Obteve o nó\n");
-          peca = (Peca *)elemento;
-           xo--;
-           if(xo>7 || xo<0 || yi>7 || yi<0) {
-              return TAB_CondRetCoordenadaNExiste; 
-           }
-         
-           xd--;
-           if(xd>7 || xd<0 || yi2>7 || yi2<0) {
-              return TAB_CondRetCoordenadaNExiste; 
-           }
-		    PEC_RetornaId(peca,&idPec);
+   }/* Fim função: TAB  &Mover Peca */
 
-          //procura na lista pelo id da peça e checa se o movimento está ok
-          while(1) {
-                if(LIS_ObterNo(listaPecas,(void **)(tabu->tab[xo][yi].elemento)) == LIS_CondRetFimLista) {
-                     return TAB_CondRetNaoAchouPeca;
-                }
-                naLista = (Peca *) elemento;
-		PEC_RetornaId(naLista, &id);
-		if(idPec == id) {
-		      break;
-		}
-              LIS_IrProx(listaPecas);
-          }
-		  PEC_RetornaQtd_Mov(peca,&qtdMov);
-		  PEC_RetornaMoveParaTras(peca,&moveParaTras);
-          for(i=0;i<qtdMov;i++) {
-                movX = xd - xo;
-                movY = yi2 - yi;
-				PEC_RetornaXMovimento(peca,i,&xRet);
-				PEC_RetornaYMovimento(peca,i,&yRet);
-                if(abs(movX) == xRet && abs(movY) == yRet) {
-                        if(movX<0 || movY <0) {
-                              if(moveParaTras == 1) {
-                                  TAB_VerificaSeCome((Casa*)tabuleiro,xd, yi2,cor);
-                                   return TAB_CondRetOK;
-                              } else {
-                                   TAB_VerificaSeCome((Casa*)tabuleiro,xd, yi2,cor);
-                                   return TAB_CondRetMovimentoIrregular;
-                              }
-                        }
-                       return TAB_CondRetOK;
-              }
-          }
-          return TAB_CondRetMovimentoIrregular;
-   }/* Fim função: TAB  &Mover Peca*/
-   }
+/***************************************************************************
 
+
+/*****  Código das funções encapsuladas no módulo  *****/
+
+/***************************************************************************
+*
+*  Função: TAB  -Verifica Se Come
+*  ****/
+ TAB_tpCondRet TAB_VerificaSeCome(ptTabuleiro tabu,int xo,int yo,int xd,int yd,char corRecebida,char idRecebido) {
+	char corObtida,idObtido;
+	  
+        TAB_ObterPeca(tabu,xd,yd,&corObtida,&idObtido);
+	  
+	 if(corRecebida != corObtida) {
+	      TAB_RetirarPeca(tabu,xd,yd);
+	      TAB_RetirarPeca(tabu,xo,yo);
+	      TAB_InserirPeca(tabu,xd,yd,corRecebida,idRecebido);
+	      return TAB_CondRetComeu;
+	 } 
+	 if(idObtido == 'V' && corObtida == 'V') {
+              TAB_RetirarPeca(tabu,xo,yo);
+	      TAB_InserirPeca(tabu,xd,yd,corRecebida,idRecebido);
+	      return TAB_CondRetOK;
+	 }
+         return TAB_CondRetCasaTemDono;
+  }/* Fim função: TAB  -Verifica Se Come*/
+
+   
+  
+ /***************************************************************************
+*
+*  Função: TAB  &Destruir Valor
+*  ****/
+   void destruirValor(void *pValor); {
+        free(pValor);
+   }/* Fim função: TAB  -Destruir Valor*/
+   /***************************************************************************
+*
+*  Função: TAB  &Criar Lista Pecas
+*  ****/
+   TAB_tpCondRet criarListaPecas() {
+    retLis = LIS_CriarLista(&listaPecas,idListaPecas,destruirValor);
+    if(retLis == LIS_CondRetOK) {
+        return TAB_CondRetOK;
+    }
+    return TAB_CondRetFaltouMemoria;
+}/* Fim função: TAB  -Criar Lista Pecas*/
  /********** Fim do módulo de implementação: TAB  Tabuleiro **********/
