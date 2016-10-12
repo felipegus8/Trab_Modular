@@ -161,16 +161,19 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 *  ****/
  TAB_tpCondRet TAB_ObterListaAmeacantes(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacantes) 
  {
-          LIS_CriarLista(listaAmeacantes,a,destruirValor);
-          if(listaAmeacantes == NULL) {
+
+          LIS_tppLista listaAmeacantesCopia = NULL;
+          LIS_CriarLista(&listaAmeacantesCopia,a,destruirValor);
+          if(listaAmeacantesCopia == NULL) {
               return TAB_CondRetListaAmeacantesNaoExiste;
           }
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          *listaAmeacantes = tabu->tab[x][y].ameacantes;
+          listaAmeacantesCopia = tabu->tab[x][y].ameacantes;
+          *listaAmeacantes = listaAmeacantesCopia;
 
-		  return TAB_CondRetOK;
+          return TAB_CondRetOK;
  }
  /* Fim função: TAB  &Obter Lista Ameacantes*/
  /***************************************************************************
@@ -179,16 +182,18 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 *  ****/
  TAB_tpCondRet TAB_ObterListaAmeacados(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacados) 
  {
-          LIS_CriarLista(listaAmeacados,b,destruirValor);
-          if(listaAmeacados == NULL) {
+          LIS_tppLista listaAmeacadosCopia = NULL;
+          LIS_CriarLista(&listaAmeacadosCopia,a,destruirValor);
+          if(listaAmeacadosCopia == NULL) {
               return TAB_CondRetListaAmeacantesNaoExiste;
           }
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          *listaAmeacados = tabu->tab[x][y].ameacados;
+          listaAmeacadosCopia = tabu->tab[x][y].ameacados;
+          *listaAmeacados = listaAmeacadosCopia;
 
-		  return TAB_CondRetOK;
+          return TAB_CondRetOK;
  }
  /* Fim função: TAB  &Obter Lista Ameacados Peca */
 
