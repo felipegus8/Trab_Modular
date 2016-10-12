@@ -22,6 +22,8 @@ LIS_tppLista listaPecas;
 LIS_tpCondRet  retLis = LIS_CondRetOK;
 LIS_tpCondRet retLis2 = LIS_CondRetOK;
 PEC_tpCondRet retPeca = PEC_CondRetOK;
+char a[] = "amd";
+char b[] = "amn";
 
 
 typedef struct casa {
@@ -53,8 +55,7 @@ typedef struct TAG_tabuleiro {
 TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 	int i,j;
     ptTabuleiro novo = (Tabuleiro *) malloc(sizeof(Tabuleiro));
-    char a[] = "amd";
-    char b[] = "amn";
+    
     char cor,id;
 	criarListaPecas();
 	
@@ -160,17 +161,14 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 *  ****/
  TAB_tpCondRet TAB_ObterListaAmeacantes(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacantes) 
  {
-          LIS_tppLista listaAmeacantesCopia = NULL;
-          listaAmeacantesCopia = (LIS_tpLista *) malloc(sizeof(LIS_tpLista));
-          if(listaAmeacantesCopia == NULL) {
+          LIS_CriarLista(listaAmeacantes,a,destruirValor);
+          if(listaAmeacantes == NULL) {
               return TAB_CondRetListaAmeacantesNaoExiste;
           }
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          listaAmeacantesCopia = tabu->tab[x][y].ameacantes;
-          
-          *listaAmeacantes = listaAmeacantesCopia;
+          *listaAmeacantes = tabu->tab[x][y].ameacantes;
 
 		  return TAB_CondRetOK;
  }
@@ -181,17 +179,14 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 *  ****/
  TAB_tpCondRet TAB_ObterListaAmeacados(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacados) 
  {
-          LIS_tppLista listaAmeacadosCopia = NULL;
-          listaAmeacadosCopia = (LIS_tpLista *) malloc(sizeof(LIS_tpLista));
-          if(listaAmeacadosCopia == NULL) {
+          LIS_CriarLista(listaAmeacados,b,destruirValor);
+          if(listaAmeacados == NULL) {
               return TAB_CondRetListaAmeacantesNaoExiste;
           }
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          listaAmeacadosCopia = tabu->tab[x][y].ameacados;
-          
-          *listaAmeacados = listaAmeacandosCopia;
+          *listaAmeacados = tabu->tab[x][y].ameacados;
 
 		  return TAB_CondRetOK;
  }
