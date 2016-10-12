@@ -1,5 +1,5 @@
-// Script:    TesteLista.script
-// Autor:     Arndt von Staa,Felipe Viberti,Luis Claudio,Victor Nogueira
+// Script:    TesteTabuleiro.script
+// Autor:     Felipe Viberti,Luis Claudio,Victor Nogueira
 // Data:      06/Oct/2016
 // Propósito: Testar o módulo tabuleiro
 // Esse script inicializa um tabuleiro tradicional de xadrez com todas as peças exceto os peões
@@ -140,5 +140,6 @@
 
 ==Verificar se a casa onde a torre branca estava ficou vazia
 =obterpeca int0 charH charV  charV  OK
+
 ==Destruir Tabuleiro
 =destruirtabuleiro OK
