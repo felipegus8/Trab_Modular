@@ -80,6 +80,7 @@
 =obterpeca int7 charA  charP   torre  OK
 =obterpeca int7 charH  charP   torre  OK 
 
+
 ==Obter Peca(rainhas)
 =obterpeca  int0  charD  charB  rainha  OK
 =obterpeca  int7  charD  charP  rainha  OK
@@ -106,23 +107,33 @@
 ==Retirar Peca(nova peca)
 =retirarpeca int7 charA OK
 
-==MoverPeca(mover a torre)
+==MoverPeca(mover a torre branca)
 =moverpeca int0 charA int5 charA OK
 
+==MoverPeca(mover a torre de forma errada)
+=moverpeca int7 charA  int3  charH  MovimentoIrregular
+
+
 ==Obter lista ameacados
-=obterListaameacados  int0 charA  pNaoNull
+=obterlistaameacados  int0 charA  pNaoNull
 
 ==Obter lista ameacantes
-=obterListaameacantes  int0 charA  pNaoNull
+=obterlistaameacantes  int0 charA  pNaoNull
 
 ==Verificar se casa onde a torre se encontrava está vazia
 =obterpeca int0 charA charV charV OK
 
-==MoverPeca(mover a rainha)
+==MoverPeca(mover a rainha branca)
 =moverpeca int0  charD int3 charG OK
 
 ==Verificar se casa onde a rainha se encontrava está vazia
 =obterpeca int0 charD charV charV OK
+
+==MoverPeca(mover a outra torre branca para capturar a torre preta)
+=moverpeca int0  charH  int7 charH OK
+
+==Verificar se casa onde a rainha se encontrava está vazia
+=obterpeca int7 charH charB torre OK
 
 ==Destruir Tabuleiro
 =destruirtabuleiro OK
