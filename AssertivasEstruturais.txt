@@ -28,9 +28,6 @@ if lista->numElem == 1
 lista->pElemCorr == lista->pOrigemLista;
  lista->pOrigemLista == lista->pFimLista;
 }
-
-
-
 Tabuleiro
 Tabuleio é um vetor de ponteiros
 If tabuleiro != NULL
@@ -39,8 +36,6 @@ Tabuleiro->x[0]->[y0] ... Tabuleiro->x[0]->y[f]
 .
 .
 Tabuleiro->x[f]->[y0] ... Tabuleiro->x[f]->y[f]
-
-
 
 Peça
 Peça é uma struct que possui
@@ -51,3 +46,26 @@ Peça é uma struct que possui
 	-Verificados se ela pode ir pra trás ou naão
 	OBS: 
 		Struct movimento te as coordenadas x e y
+
+Seja k uma peça:
+	if k.cor 
+		k.cor = (char*)val;
+	if k.id
+		k.id = (char*)val;
+	if k.qtdMov
+
+		k.qtdMov = (int*)val;
+
+	if k.movPraTras
+
+		k.movPraTras = 0 || k.movPraTras = 1 ;
+
+	if k->movPeca->x
+		k->movPeca->x = (int*) val; 
+			0 < val < 7
+
+
+if k->movPeca->y
+		k->movPeca->y = (int*) val 
+			0 < val < 7
+
