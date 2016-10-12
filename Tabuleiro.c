@@ -37,7 +37,7 @@ typedef struct TAG_tabuleiro {
 	Casa tab[8][8];
 }Tabuleiro;
 
-typedef Tabuleiro * ptTabuleiro;
+//typedef Tabuleiro * ptTabuleiro;
 
 /***** Protótipos das funções encapuladas no módulo *****/
    void destruirValor(void *pValor);
@@ -245,14 +245,14 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
 
    
   
- /***************************************************************************
+/***************************************************************************
 *
 *  Função: TAB  &Destruir Valor
 *  ****/
-   void destruirValor(void *pValor); {
+   void destruirValor(void *pValor) {
         free(pValor);
    }/* Fim função: TAB  -Destruir Valor*/
-   /***************************************************************************
+/***************************************************************************
 *
 *  Função: TAB  &Criar Lista Pecas
 *  ****/
