@@ -42,6 +42,7 @@ typedef struct TAG_tabuleiro {
 /***** Protótipos das funções encapuladas no módulo *****/
    void destruirValor(void *pValor);
    TAB_tpCondRet criarListaPecas();
+   TAB_tpCondRet TAB_VerificaSeCome(ptTabuleiro tabu,int xo,int yo,int xd,int yd,char corRecebida,char idRecebido);
  /*****  Código das funções exportadas pelo módulo  *****/
 /***************************************************************************
 *
