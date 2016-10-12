@@ -217,7 +217,7 @@ int diminui1DeX(int coordX);
          else if ( strcmp( ComandoTeste , OBTER_LISTA_AMEACANTES) == 0 )
          {
 
-            numLidos = LER_LerParametros( "ici" , &x, &y, ameacas) ;
+            numLidos = LER_LerParametros( "ici" , &x, &y,&CondRetEsp) ;
 
             if ( numLidos != 3 )
             {
@@ -239,7 +239,7 @@ int diminui1DeX(int coordX);
          else if ( strcmp( ComandoTeste , OBTER_LISTA_AMEACADOS) == 0 )
          {
 
-            numLidos = LER_LerParametros( "ici" , &x,&y, ameacas) ;
+            numLidos = LER_LerParametros( "ici" , &x,&y, &CondRetEsp) ;
 
             if (numLidos != 3)
             {
