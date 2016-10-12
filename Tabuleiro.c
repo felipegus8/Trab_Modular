@@ -1,4 +1,4 @@
-/***************************************************************************
+﻿/***************************************************************************
 *  $MCI Módulo de implementação: TAB  Tabuleiro
 *  Arquivo gerado:              Tabuleiro.c
 *  Letras identificadoras:      TAB
@@ -160,13 +160,17 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 *  ****/
  TAB_tpCondRet TAB_ObterListaAmeacantes(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacantes) 
  {
+          LIS_tppLista listaAmeacantesCopia = NULL;
+          listaAmeacantesCopia = (LIS_tpLista *) malloc(sizeof(LIS_tpLista));
+          if(listaAmeacantesCopia == NULL) {
+              return TAB_CondRetListaAmeacantesNaoExiste;
+          }
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          *listaAmeacantes = tabu->tab[x][y].ameacantes;
-          if(listaAmeacantes == NULL) {
-              return TAB_CondRetListaAmeacantesNaoExiste;
-          }
+          listaAmeacantesCopia = tabu->tab[x][y].ameacantes;
+          
+          *listaAmeacantes = listaAmeacantesCopia;
 
 		  return TAB_CondRetOK;
  }
@@ -177,13 +181,17 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 *  ****/
  TAB_tpCondRet TAB_ObterListaAmeacados(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacados) 
  {
+          LIS_tppLista listaAmeacadosCopia = NULL;
+          listaAmeacadosCopia = (LIS_tpLista *) malloc(sizeof(LIS_tpLista));
+          if(listaAmeacadosCopia == NULL) {
+              return TAB_CondRetListaAmeacantesNaoExiste;
+          }
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          *listaAmeacados = tabu->tab[x][y].ameacados;
-          if(listaAmeacados == NULL) {
-              return TAB_CondRetListaAmeacadosNaoExiste;
-          }
+          listaAmeacadosCopia = tabu->tab[x][y].ameacados;
+          
+          *listaAmeacados = listaAmeacandosCopia;
 
 		  return TAB_CondRetOK;
  }
