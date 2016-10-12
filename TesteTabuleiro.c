@@ -82,7 +82,7 @@ int diminui1DeX(int coordX);
 
       char   StringDado[  DIM_VALOR ],StringDado2[  DIM_VALOR  ] ;
 
-	  int x, xf,coordX,coordX2,coordYInt,coordYInt2,TamColunas,TamLinhas;
+	  int x, xf,coordX,coordX2,coordYInt,coordYInt2;
 	  char y, yf, cor, id,corLida,idLido;
 
 	  LIS_tppLista *ameacas;
@@ -102,7 +102,7 @@ int diminui1DeX(int coordX);
             } /* if */
 
 
-            CondRet = TAB_CriaTabuleiro(&tabu,8,8);
+            CondRet = TAB_CriaTabuleiro(&tabu);
 			printf("%d\n",CondRet);
 
             return TST_CompararPonteiroNulo( 1 , tabu , "Erro em ponteiro de nova lista."  ) ;
@@ -206,7 +206,7 @@ int diminui1DeX(int coordX);
 
 		 
            printf("Estou na mover peça no testelista.c\n");
-          //  CondRet = TAB_MoverPeca((Casa *)tabuleiro, x, coordYInt, xf, coordYInt2);
+           CondRet = TAB_MoverPeca(tabu, x, coordYInt, xf, coordYInt2);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao mover uma peca" );
 

@@ -50,7 +50,7 @@ typedef struct TAG_tabuleiro {
 *  ****/
 
 
-TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas) {
+TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 	int i,j;
     ptTabuleiro novo = (Tabuleiro *) malloc(sizeof(Tabuleiro));
     char a[] = "amd";
@@ -66,7 +66,7 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
         for(j=0;j<8;j++) {
             PEC_CriaPeca((Peca **)&(novo->tab[i][j].elemento),'V','V');
 			LIS_CriarLista((LIS_tppLista *)&(novo->tab[i][j].ameacados),a,destruirValor);
-			LIS_CriarLista((LIS_tppLista *)&(novo->tab[i][j].ameacados),a,destruirValor);
+			LIS_CriarLista((LIS_tppLista *)&(novo->tab[i][j].ameacantes),b,destruirValor);
 			PEC_RetornaCor((Peca *)(novo->tab[i][j].elemento),&cor);
 			PEC_RetornaId((Peca *)(novo->tab[i][j].elemento),&id);
 			printf("cor: %c e id: %c",cor,id);

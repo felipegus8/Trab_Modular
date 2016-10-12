@@ -85,15 +85,13 @@ typedef struct TAG_tabuleiro * ptTabuleiro;
 *
 *  $EP Parâmetros
 *    tabuleiro = Ponteiro para onde se quer alocar a matriz.
-*    TamLinhas - Quantidade de linhas que a matriz tabuleiro vai ter.
-*    TamColunas - Quantidade de colunas que a matriz tabuleiro vai ter.
 *
 *  $FV Valor retornado
 *    Se executou corretamente retona Ok.
 *    Se houve algum problema por falta de memória retorna Faltou Memória.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas);
+TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu);
 
 
 /***********************************************************************
@@ -147,7 +145,7 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
 *    Se a peça em questão não pode realizar aquele movimento retorna Movimento Irregular.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_MoverPeca(Casa *tabuleiro,int xo,int yi,int xd,int yi2);
+TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2);
 
 
 /***********************************************************************
