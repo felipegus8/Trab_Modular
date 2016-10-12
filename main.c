@@ -310,11 +310,11 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
                 if(abs(movX) == xRet && abs(movY) == yRet) {
                         if(movX<0 || movY <0) {
                               if(moveParaTras == 1) {
-                                  TAB_VerificaSeCome(tabu,xd, yi2,corPecaTabuleiro,idPecaTabuleiro);
+                                  TAB_VerificaSeCome(tabu,xo,yi,xd, yi2,corPecaTabuleiro,idPecaTabuleiro);
                               }
 			      return TAB_CondRetMovimentoIrregular;
                         } else {
-			       TAB_VerificaSeCome(tabu,xd, yi2,corPecaTabuleiro,idPecaTabuleiro); 
+			       TAB_VerificaSeCome(tabu,xo,yi,xd, yi2,corPecaTabuleiro,idPecaTabuleiro); 
 			}
                        return TAB_CondRetOK;
               }
