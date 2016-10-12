@@ -276,6 +276,7 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
 	   PEC_RetornaCor((Peca *)pecaLista,&corPecaLista);   
 	   PEC_RetornaId((Peca *)pecaLista,&idPecaLista);
 	   
+	   IrInicioLista(listaPecas);
 	   
 	   while(1) {   
 		   
