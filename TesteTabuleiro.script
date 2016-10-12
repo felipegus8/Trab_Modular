@@ -113,6 +113,9 @@
 ==MoverPeca(mover a torre de forma errada)
 =moverpeca int7 charA  int3  charH  MovimentoIrregular
 
+==MoverPeca(mover o bispo de forma errada)
+=moverpeca int0 charC  int0 charH  MovimentoIrregular
+
 
 ==Obter lista ameacados
 =obterlistaameacados  int0 charA  pNaoNull
