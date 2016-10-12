@@ -244,19 +244,90 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu,int TamLinhas, int TamColunas)
    }/* Fim função: TAB  &Retirar Peca */
 
 
-   /*
+  TAB_VerificaSeCome(ptTabuleiro tabu,int xd,int yi2,char corRecebida) {
+	char corObtida,idObtido
+	  
+        TAB_ObterPeca(tabu,xd,yi2,&corObtida,&idObtido);
+	  
+	 if(corRecebida != corPecaObitda) {
+	      return TAB_CondRetComeu;
+	 } 
+	 if(idObtido == 'V' && corObtida == 'V') {
+	      return TAB_CondRetOK;
+	 }
+         return TAB_CondRetCasaTemDono;
+  }
+
+   
    TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
-          char cor;
-          int i;
+          char corPecaLista,corPecaTabuleiro,idPecaLista,idPecaTabuleiro;
+          int i,qtdMov,movX,movY;
           char id;
-		  char idPec;
-          Peca *elemento;
-          int movX,movY,xRet,yRet,moveParaTras;
-          Peca *peca;
-	      Peca *naLista;
-		  int qtdMov;
+	  Peca *pecaLista = NULL;
+	  
+	   
+	   pecaLista = PEC_CriaPeca((Peca **)&pecaLista,'V','V');
+	   
+	   LIS_ObterNo(listaPecas,(void **)&pecaLista); //obtem cor e id de peça do tabuleiro
+	   
+	   TAB_ObterPeca(tabu,xo,yi,&corPecaTabuleiro,&idPecaTabuleiro);
+	   
+	   /*  obtem cor e id de peça da lista */
+	   PEC_RetornaCor((Peca *)pecaLista,&corPecaLista);   
+	   PEC_RetornaId((Peca *)pecaLista,&idPecaLista);
+	   
+	   
+	   while(1) {   
+		   
+	        if(idPecaTabuleiro == idPecaLista) {  //caso a peça esteja na lista sai do loop
+		      break;
+		}
+		if(LIS_ObterNo(listaPecas,(void **)&pecaLista) == LIS_CondRetFimLista) { //obtem a peça do nó corrente da lista
+		       return TAB_CondRetNaoAchouPeca;
+		}
+		/* obtem a cor e o id da peça corrente */
+		PEC_RetornaCor((Peca *)pecaLista,&corPecaLista);   
+	        PEC_RetornaId((Peca *)pecaLista,&idPecaLista);
+		LIS_IrProx(listaPecas); //anda na lista
+	   }
+	   
+	          PEC_RetornaQtd_Mov(pecaLista,&qtdMov); //obtem o movimento da peça
+		  PEC_RetornaMoveParaTras(pecaLista,&moveParaTras); //descobre se a peça pode andar para trás
+	   
+	    for(i=0;i<qtdMov;i++) {
+                movX = xd - xo; //quantidade de passos que a peça tentará se mover na horizontal
+                movY = yi2 - yi; //quantidade de passos que a peça tentará se mover na vertical
+				PEC_RetornaXMovimento(pecaLista,i,&xRet);//recebe a quantidade de peças na horizontal que a peça realiza
+				PEC_RetornaYMovimento(pecaLista,i,&yRet);//recebe a quantidade de peças na vertical que a peça realiza
+                if(abs(movX) == xRet && abs(movY) == yRet) {
+                        if(movX<0 || movY <0) {
+                              if(moveParaTras == 1) {
+                                  TAB_VerificaSeCome(tabu,xd, yi2);
+                              }
+			      return TAB_CondRetMovimentoIrregular;
+                        } else {
+			       TAB_VerificaSeCome(tabu,xd, yi2); 
+			}
+                       return TAB_CondRetOK;
+              }
+          }
+          return TAB_CondRetMovimentoIrregular;
+	   
+	   
+	   
+		 // char idPec;
+          //Peca *elemento;
+          //int movX,movY,xRet,yRet,moveParaTras;
+          //Peca *peca;
+	     // Peca *naLista;
+		  //int qtdMov;
 		  //int yi = (int)(yo - 'A');
           //int yi2 = (int)(yd - 'A');
+	   
+	   
+	   
+	   
+	   /*
 	  printf("Entrei no movimento\n");
           TAB_ObterPeca(tabu,xo,yi,&cor,&id);
 	  printf("Passei da obter\n");
