@@ -107,5 +107,5 @@
 ==MoverPeca(mover a rainha)
 =moverpeca int0  charD int3 charG OK
 
-// ==Destruir Tabuleiro
-// ==destruirtabuleiro OK
+==Destruir Tabuleiro
+=destruirtabuleiro OK

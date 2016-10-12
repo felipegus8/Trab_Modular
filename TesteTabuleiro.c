@@ -123,7 +123,7 @@ int diminui1DeX(int coordX);
 
 			coordYInt = converteCoordenadaCharParaInt(y);
 			//coordX = diminui1DeX(x);
-			printf("\nTá na insere!!! X:%d E Y:%d",x,coordYInt);
+
             CondRet = TAB_InserirPeca(tabu, x, coordYInt, cor,id);
 
 
@@ -268,8 +268,7 @@ int diminui1DeX(int coordX);
                return TST_CondRetParm ;
             } /* if */
 			 
-            //LIS_DestruirLista( tabuleiro ) ;
-			// CondRet = TAB_DestruirTabuleiro((Casa *)tabuleiro);
+			 CondRet = TAB_DestruirTabuleiro(tabu);
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao destruir um tabuleiro" );
 
