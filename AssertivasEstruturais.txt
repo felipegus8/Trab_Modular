@@ -3,39 +3,51 @@ A lista é um ponteiro para cabeça da lista
 Nó é um ponteiro para outro nó da lista
 A lista possui na cabeça:
 	-Origem
--Fim
--Corrente
--Id
-No da lista possui:
+	-Fim
+	-Corrente
+	-Id
+O no da lista possui:
 	-Valor
 	-Anterior
 	-Posterior
 
 If no->pProx != NULL
- no->pProx->pAnt == no;
+	 no->pProx->pAnt == no;
+
 if no->pAnt != NULL
- no->pAnt->pProx == no;
+	 no->pAnt->pProx == no;
+
 if lista->numElem == 0
 {
-lista->pElemCorr == NULL;
-e lista->pOrigemLista == NULL;
-e pFimLista == NULL.;
+	lista->pElemCorr == NULL;
+	lista->pOrigemLista == NULL;
+	pFimLista == NULL.;
 }
-if lista->numElem > 0,
-  lista->pElemCorr != NULL;
+if lista->numElem > 0
+  	lista->pElemCorr != NULL;
+
 if lista->numElem == 1
 {
-lista->pElemCorr == lista->pOrigemLista;
- lista->pOrigemLista == lista->pFimLista;
+	lista->pElemCorr == lista->pOrigemLista;
+ 	lista->pOrigemLista == lista->pFimLista;
 }
-Tabuleiro
+
+Tabuleiro:
+Tabuleiro é uma struct que possui:
+	-Uma matriz de struct casa
+		-struct casa possui 
+		-Uma lista de ameaçados que contém as peças ameaçadas pela peça da casa
+		-Uma lista de ameaçantes que contém as peças que ameaçam a peça da casa
+		-Ponteiro para o elemento contido na casa
+
+
 Tabuleio é um vetor de ponteiros
 If tabuleiro != NULL
-Tabuleiro->x[0]->[y0] ... Tabuleiro->x[0]->y[f]
-.
-.
-.
-Tabuleiro->x[f]->[y0] ... Tabuleiro->x[f]->y[f]
+	Tabuleiro->x[0]->[y0] ... Tabuleiro->x[0]->y[f]
+		.
+		.
+		.
+	Tabuleiro->x[f]->[y0] ... Tabuleiro->x[f]->y[f]
 
 Peça
 Peça é uma struct que possui
@@ -65,7 +77,7 @@ Seja k uma peça:
 			0 < val < 7
 
 
-if k->movPeca->y
+	if k->movPeca->y
 		k->movPeca->y = (int*) val 
 			0 < val < 7
 
