@@ -236,7 +236,7 @@ int diminui1DeX(int coordX);
             CondRet = TAB_ObterListaAmeacantes(tabu, x, coordYInt, &ameacas);
 
            
-            return TST_CompararPonteiroNulo( 1 , ameacas,
+            return TST_CompararPonteiroNulo( CondRetEsp , ameacas,
                "Erro em ponteiro de lista de ameacantes."  ) ;
 
          } /* fim ativa: ObterListaAmeacantes */
@@ -259,7 +259,7 @@ int diminui1DeX(int coordX);
 
            CondRet = TAB_ObterListaAmeacantes(tabu, x, coordYInt, &ameacas);
 
-            return TST_CompararPonteiroNulo( 1 , ameacas,
+            return TST_CompararPonteiroNulo( CondRetEsp , ameacas,
                "Erro em ponteiro de lista de ameacados."  ) ;
 
          } /* fim ativa: ObterListaAmeacados */
