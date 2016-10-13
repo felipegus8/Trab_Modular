@@ -211,7 +211,6 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 	TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
           char corPecaLista,corPecaTabuleiro,idPecaLista,idPecaTabuleiro;
           int i,qtdMov,movX,movY,moveParaTras,xRet,yRet;
-          char id;
 	  Peca *pecaLista = NULL;
 	  
 	   

@@ -85,7 +85,7 @@ int diminui1DeX(int coordX);
 
       char   StringDado[  DIM_VALOR ],StringDado2[  DIM_VALOR  ] ;
 
-	  int x, xf,coordX,coordX2,coordYInt,coordYInt2;
+	  int x, xf,coordYInt,coordYInt2;
 	  char y, yf, cor, id,corLida,idLido;
 
 	  LIS_tppLista ameacas;
