@@ -19,12 +19,12 @@ Caso queira criar uma peça nova para o xadrez deve-se digitar no PecasNovas.txt 
 	.
 	.
 	.
-(MovimentoXF)		(Movimento YF)
-(Identificação 2)		 (Cor)
-.
-.
-.
-(Identificação 3)		 (Cor)
+	(MovimentoXF)		(Movimento YF)
+	(Identificação 2)		 (Cor)
+	.
+	.
+	.
+	(Identificação 3)		 (Cor)
 
 
 
