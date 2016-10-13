@@ -141,5 +141,11 @@
 ==Verificar se a casa onde a torre branca estava ficou vazia
 =obterpeca int0 charH charV  charV  OK
 
+==Verificar se uma peca não captura outra da mesma cor
+=inserepeca int1 charA  charB  rainha OK
+=moverpeca int0 charA int1 charA OK
+=obterpeca int0 charA charB torre OK
+=obterpeca int1 charA charB rainha OK
+
 ==Destruir Tabuleiro
 =destruirtabuleiro OK
