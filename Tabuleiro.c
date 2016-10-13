@@ -44,7 +44,7 @@ typedef struct TAG_tabuleiro {
 /***** Protótipos das funções encapuladas no módulo *****/
    void destruirValor(void *pValor);
    TAB_tpCondRet criarListaPecas();
-   TAB_tpCondRet TAB_VerificaSeCome(ptTabuleiro tabu,int xo,int yo,int xd,int yd,char corRecebida,char idRecebido);
+   void TAB_VerificaSeCome(ptTabuleiro tabu,int xo,int yo,int xd,int yd,char corRecebida,char idRecebido);
  /*****  Código das funções exportadas pelo módulo  *****/
 /***************************************************************************
 *
@@ -298,7 +298,7 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 *
 *  Função: TAB  -Verifica Se Come
 *  ****/
- TAB_tpCondRet TAB_VerificaSeCome(ptTabuleiro tabu,int xo,int yo,int xd,int yd,char corRecebida,char idRecebido) {
+ void TAB_VerificaSeCome(ptTabuleiro tabu,int xo,int yo,int xd,int yd,char corRecebida,char idRecebido) {
 	char corObtida,idObtido;
 	  
         TAB_ObterPeca(tabu,xd,yd,&corObtida,&idObtido);
@@ -307,14 +307,12 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 	      TAB_RetirarPeca(tabu,xd,yd);
 	      TAB_RetirarPeca(tabu,xo,yo);
 	      TAB_InserirPeca(tabu,xd,yd,corRecebida,idRecebido);
-	      return TAB_CondRetComeu;
-	 } 
-	 if(idObtido == 'V' && corObtida == 'V') {
-              TAB_RetirarPeca(tabu,xo,yo);
-	      TAB_InserirPeca(tabu,xd,yd,corRecebida,idRecebido);
-	      return TAB_CondRetOK;
+	 } else {
+	     if(idObtido == 'V' && corObtida == 'V') {
+                 TAB_RetirarPeca(tabu,xo,yo);
+	         TAB_InserirPeca(tabu,xd,yd,corRecebida,idRecebido);
+	     }
 	 }
-         return TAB_CondRetCasaTemDono;
   }/* Fim função: TAB  -Verifica Se Come*/
 
    
