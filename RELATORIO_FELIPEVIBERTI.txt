@@ -1,0 +1,23 @@
+﻿22/09 - 2 h:Especificar módulos e funções:Li o trabalho e especifiquei os módulos e as funções.As funções especificadas foram sobre o módulo Lista.c e Tabuleiro.c além de algumas especificações referentes ao que o arquivo TesteLista teria que fazer.
+
+23/09 - 2h:Desenvolvimento do Módulo TesteLista.c:Desenvolvi o módulo TesteLista por completo.Ainda não foi testado.
+
+02/10 - 1h:Especificação do módulo Peca.c.Percebemos que seria melhor criar esse módulo para organizar melhor o código.
+
+04/10 - 2h:Desenvolvimento do Módulo Peca.c e Peca.h.Ainda não foi testado no Arcabouço.
+
+05/10 - 2h:Correção do módulo peça.c,peça.h e TestePeca.c.Rodando e funcionando no arcabouço.
+
+05/10 - 6h:Diagnosticando e corrigindo problemas.Problemas no TesteLista.c e Lista.c.Um momento um pouco tenso quando dá problema em tudo.No momento apenas o módulo peça está funcionando corretamente.
+
+08/10 - 2h:Colocando vários comentários no código.Várias das funções feitas estavam sem comentários sobre como funcionavam.Além disso coloquei o nome dos integrantes do grupo em todos os arquivos e um histórico de evolução de cada arquivo.
+
+08/10 - 3h:Corrigindo problemas.Vários arquivos como o Lista.c,o Tabuleiro.c e TesteTabuleiro.h estavam com erros de compilação.Depois de bastante tempo consegui eliminar todos os erros e deixar apenas alguns warnings no tabuleiro.O módulo lista funcionou completamente.O script dele está rodando sem erros.Agora só falta o módulo tabuleiro.
+
+09/10 - 2h:Retirando vários warnings do Tabuleiro.c e Teste Tabuleiro.c.Agora só falta fazer o script para rodar o tabuleiro.O .exe do tabuleiro já foi gerado.
+
+09/10 - 1h:Terminando os comentários sobre o funcionamento das funções no tabuleiro.h.Além disso corrigi um problema no Tabuleiro.c.
+
+11/10 - 6h:Passei o dia inteiro tentando entender porque o módulo Tabuleiro.c estava dando segFault.Ele estava rodando normal em modo debug e estava dando problema em modo release.O grande problema é que não dá pra debugar direito um programa em release então ficou bem difícil diagnosticar o erro.No fim do dia decidimos refazer as funções do Tabueleiro.c de outra forma.
+
+12/10 - 4h:Terminamos finalmente o módulo Tabuleiro sem dar segFault!Fiz algumas mudanças no script para ter um teste mais preciso de algumas funções.Tudo finalmente funciona no arcabouço.
