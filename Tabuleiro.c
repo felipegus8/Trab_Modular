@@ -60,7 +60,6 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 	criarListaPecas();
 	
     if(novo == NULL) {
-        printf("bayblade\n");
         exit(-1);
     }
     for(i=0;i<8;i++) {
@@ -70,7 +69,6 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 			LIS_CriarLista((LIS_tppLista *)&(novo->tab[i][j].ameacantes),b,destruirValor);
 			PEC_RetornaCor((Peca *)(novo->tab[i][j].elemento),&cor);
 			PEC_RetornaId((Peca *)(novo->tab[i][j].elemento),&id);
-			printf("cor: %c e id: %c",cor,id);
         }
     }
     *tabu = novo;
@@ -81,22 +79,17 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 *  Função: TAB  &Inserir Peca
 *  ****/
  TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id) {
-        //int yi = (int)(y - 'A');
-		printf("Criou a lista\n");
+
         if(x>7 || x<0 || yi>7 || yi<0) {
             return TAB_CondRetCoordenadaNExiste; 
         }
 		
         retPeca = PEC_CriaPeca((Peca **)&(tabuleiro->tab[x][yi].elemento),id,cor);//cria peça nova
-		printf("criou peça\n");
         if(retPeca == PEC_CondRetFaltouMemoria) {
             return TAB_CondRetFaltouMemoria;
         }
-		printf("%d e %d\n",x,yi);
-		//printf("cor obtida: %c e id obtida: %c\n",corObtida,idObtida);
 		retLis = LIS_InserirNo(listaPecas,(void *)(tabuleiro->tab[x][yi].elemento)); //insere peça nova na lista
         retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)&(tabuleiro->tab[x][yi].elemento)); //obtem o movimento da peça caso esta for "conhecida"
-		printf("Chegou aqui");
         if(retPeca == PEC_CondRetFaltouMemoria) {
             return TAB_CondRetOK;
         }
@@ -117,16 +110,12 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 *  ****/
  TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id) {
 	 char corObtida,idObtido;
-      printf("Chegou aqui peca\n");
           if(x>7 || x<0 || y>7 || y < 0) {
-			  printf("deu blade aqui\n");
              return TAB_CondRetCoordenadaNExiste; 
           }
 
 	       PEC_RetornaCor((Peca *)(tabu->tab[x][y].elemento),&corObtida);
 			PEC_RetornaId((Peca *)(tabu->tab[x][y].elemento),&idObtido);
-			 printf("linha: %d e coluna: %d\n",x,y);
-			printf("cor: %c e id: %c\n",corObtida,idObtido);
 	 *cor = corObtida;
 	 *id = idObtido;
 	
@@ -164,20 +153,14 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 
           LIS_tppLista listaAmeacantesCopia = NULL;
           LIS_CriarLista(&listaAmeacantesCopia,a,destruirValor);
-          printf("to na obter ameaçantes\n");
           if(listaAmeacantesCopia == NULL) {
               return TAB_CondRetListaAmeacantesNaoExiste;
           }
-          printf("%d\n",listaAmeacantesCopia);
           if(x>7 || x<0 || y>7 || y<0) {
              return TAB_CondRetCoordenadaNExiste; 
           }
-          printf("tabu :%d\n",tabu->tab[x][y].ameacantes);
           listaAmeacantesCopia = tabu->tab[x][y].ameacantes;
-          printf("atribuiu\n");
           *listaAmeacantes = listaAmeacantesCopia;
-          printf("atribui2\n");
-          printf("Copia: %d\n",listaAmeacantesCopia);
           
 
           return TAB_CondRetOK;
@@ -246,13 +229,9 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 		  PEC_RetornaMoveParaTras(pecaLista,&moveParaTras); //descobre se a peça pode andar para trás
 	    for(i=0;i<qtdMov;i++) {
                 movX = xd - xo; //quantidade de passos que a peça tentará se mover na horizontal
-				printf("MOVX:%d",movX);
                 movY = yi2 - yi; //quantidade de passos que a peça tentará se mover na vertical
-				printf("MOVY:%d",movY);
 				PEC_RetornaXMovimento(pecaLista,i,&xRet);//recebe a quantidade de peças na horizontal que a peça realiza
-				printf("\nX:%d\n",xRet);
 				PEC_RetornaYMovimento(pecaLista,i,&yRet);//recebe a quantidade de peças na vertical que a peça realiza
-				printf("\nY:%d\n",yRet);
                 if(abs(movX) == xRet && abs(movY) == yRet) {
                         if(movX<0 || movY <0) {
                               if(moveParaTras == 1) {
