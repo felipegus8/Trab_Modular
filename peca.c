@@ -52,9 +52,7 @@ typedef struct movimento{
 *  ****/
 PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
 	      Peca *novoCopia;
-	      printf("Entrou na criar peca");
           novoCopia = (Peca *)malloc(sizeof(Peca));
-		  printf("Passou malloc");
           if(novoCopia == NULL) {
             return PEC_CondRetFaltouMemoria;
           }
@@ -76,13 +74,11 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 	switch((*novo)->id)
 	{
 	case 'T':
-		printf("\nEntrou na torre\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*14);
 		if((*novo)->movPeca == NULL)
 		{
 			return PEC_CondRetFaltouMemoria;
 		}
-		printf("Passou daqui");
 		(*novo)->qtdMov = 14;
 		(*novo)->movParaTras = 1;
 		if((*novo)->movPeca == NULL)
@@ -106,7 +102,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		}
 	break;
 	case 'C':
-		printf("\nEntrou no cavalo\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
 		(*novo)->qtdMov = 2;
 		(*novo)->movParaTras = 1;
@@ -121,9 +116,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		(*novo)->movPeca[1].y = 2;
 		break;
 	case 'B':
-		printf("\nEntrou no bispo\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*7);
-		printf("Passou");
 		(*novo)->qtdMov = 7;
 		(*novo)->movParaTras = 1;
 		if((*novo)->movPeca == NULL)
@@ -131,7 +124,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		return PEC_CondRetFaltouMemoria;
 		}
 		i = 2;
-		printf("Chegou aqui");
 		//Movimento do bispo(diagonais)
 		(*novo)->movPeca[0].x = 1;
 		(*novo)->movPeca[0].y = 1;
@@ -143,7 +135,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		}
 		break;
 	case 'P':
-		printf("\nEntrou no peao\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
 		(*novo)->qtdMov = 2;
 		(*novo)->movParaTras = 0;
@@ -158,7 +149,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		(*novo)->movPeca[1].y = 1;
 		break;
 	case 'D':
-		printf("\nEntrou na rainha\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*21);
 		(*novo)->qtdMov = 21;
 		(*novo)->movParaTras = 1;
@@ -174,7 +164,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 			(*novo)->movPeca[i].x = i + 1;
 			(*novo)->movPeca[i].y = 0;
 		}
-		printf("\nESSSS E O i:%d\n",i);
 		//Movimento na horizontal da rainha
 		for(j=1;j<8;j++)
 		{
@@ -183,7 +172,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 			i++;
 		}
 		j=1;
-		printf("\nESSSS E O i:%d\n",i);
 		//Movimento na diagonal da rainha
 		for(k=1;k<8;k++)
 		{
@@ -193,7 +181,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 		}
 		break;
 	case 'R':
-		printf("\nEntrou no rei\n");
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*3);
 		(*novo)->qtdMov = 3;
 		(*novo)->movParaTras = 1;	
@@ -228,10 +215,8 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 	//O arquivo PecasNovas.txt contem todas as peças novas que podem ser usadas no jogo.Para criar uma nova peça,o usuário deve escrever nesse arquivo,seguindo o formato lá apresentado.
 	if (fp==NULL)
 			{
-			 printf("Error! opening file1");
 			exit(1);         
 			}
-	printf("Passou");
 			i = 0;
 		while(fscanf(fp,"%c %c",&idLido,&corLido) == 2)
 		{
@@ -246,7 +231,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 				while(fscanf(fp,"%d  %d",&x,&y) == 2);
 			}
 		}
-		printf("%d\n",i);
 		(*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*i);
 		if ((*novo)->movPeca  == NULL)
 		{
@@ -256,7 +240,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 		fclose(fp);
 		if ((fp=fopen("PecasNovas.txt","r"))==NULL)
 			{
-			 printf("Error! opening file2");
 			exit(1);         
 			}
 		while(fscanf(fp,"%c %c",&idLido,&corLido) == 2)
@@ -265,8 +248,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 			{
 					while(fscanf(fp,"%d %d",&x,&y) == 2)
 					{
-					printf("%d %d",x,y);
-					printf("\n");
 					(*novo)->movPeca[i].x = x;
 					(*novo)->movPeca[i].y = y;
 					i++;
@@ -279,12 +260,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 		}
 		(*novo)->qtdMov = i;
 		fclose(fp);
-		printf("\n\n\n");
-		for(j=0;j<i;j++)
-		{
-			printf("%d %d",(*novo)->movPeca[j].x,(*novo)->movPeca[j].y);
-			printf("\n");
-		}
 	return PEC_CondRetOK;
 }/* Fim função: PEC  &Ensina Movimentos Pecas Desconhecidas */
 
