@@ -1,0 +1,25 @@
+22/09 - 2 h: Estudei os modulos especificados pelos meus amigos.
+
+23/09 - 2h:Desenvolvimento do módulo TesteTabuleiro.c porém sem testa-lo ainda.
+
+02/10 - 1h:Ajudei a especificar o peca.c
+
+04/10 - 2h:Continuação do modelo Peca.c e Peca.h. Não foi estado ainda.
+
+05/10 - 2h:Reconstrução do modulo TesteTabuleiro.c, estava tudo errado.
+
+05/10 - 10h:Diagnosticando e corrigindo problemas em grupo. Problemas no TesteLista.c e Lista.c. Tinha erro em praticamente todas as linhas. Aparentemente so o peça estava funcionado bem.
+
+08/10 - 3h:Revendo os problemas do modulos criados.Os os codigos fontes estavam com problemas para serem criados com execeção do peca.c e peca.h. Com dificuldade apenas minimizei os erros. O módulo lista funcionou completamente.O script dele está rodando sem erros.
+
+09/10 - 2h:Retirando vários warnings do Tabuleiro.c e TesteTabuleiro.c. Restruturamos o testeTabuleiro.script.
+
+09/10 - 2h:Fiz o leia-me
+
+10/10 - 3h: Quase terminei as assertivas estruturais.
+
+11/10 - 6h:Tentava ajudar meus amigos com o problemas de segfault. Até debugava normal, mas em release não.
+
+11/10 - 4h: Refizemos as funções do Tabuleiro.c
+
+12/10 - 4h: Meus amigos conseguiram resolver o problema de segfault! Tiveram mudanças no testeTabuleiro.script para testar mais funções.Tudo funciona agora.
