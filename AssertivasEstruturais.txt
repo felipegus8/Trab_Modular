@@ -57,7 +57,7 @@ Peça é uma struct que possui
 	-Quantidade de movimentos
 	-Verificados se ela pode ir pra trás ou naão
 	OBS: 
-		Struct movimento te as coordenadas x e y
+		Struct movimento tem as coordenadas x e y
 
 Seja k uma peça:
 	if k.cor 
