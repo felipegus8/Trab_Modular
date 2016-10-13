@@ -12,6 +12,22 @@ Foi disponibilizado o arquivo INF1301-Trab2-FVLCVB.zip. Nele há arquivos do modu
 Instalação
 Separe uma pasta vazia para instalar o jogo e extraia os arquivos do .zip para ela.
 Nesse diretório haverá todos os arquivos necessário para rodar o programa.
+Caso queira criar uma peça nova para o xadrez deve-se digitar no PecasNovas.txt no seguinte padrão:
+	(Identificação 1)		 (Cor)
+	(MovimentoX0)		(Movimento Y0)
+	(MovimentoX1)		(Movimento Y1)
+	.
+	.
+	.
+(MovimentoXF)		(Movimento YF)
+(Identificação 2)		 (Cor)
+.
+.
+.
+(Identificação 3)		 (Cor)
+
+
+
 
 Estrutura de diretórios
 
