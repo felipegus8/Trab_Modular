@@ -29,8 +29,8 @@
 =declararparm    rei      char    'R'
 =declararparm    charV    char    'V'
 
-=declararparm    pNull    int      1
-=declararparm    pNaoNull int      0
+=declararparm    pNull    int      0
+=declararparm    pNaoNull int      1
 
 
 =declararparm   OK                     int  0
