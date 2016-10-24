@@ -1,0 +1,13 @@
+Coisas a fazer para o Trabalho 3: 
+Módulo Tabuleiro:
+1)Fazer com que as peças sejam bloqueadas pelas outras(uma não pule a outra, exceto  o cavalo que pode pular).
+2)Obter a Lista de Ameaçados e a Lista de Ameaçantes de cada casa.Todas as listas de todas as casas do tabuleiro tem que ser checadas(e alteradas) cada vez que um movimento for feito.
+Módulo Jogo:
+Esse módulo tem que duas versões(uma realizando testes no arcabouço e outra de produção que não vai usar o arcabouço ,já que não vai usar scripts.
+3)Verificar se o rei está em cheque.Tendo as listas certas isso é fácil.
+4)Verificar se o rei está em cheque mate.Primeiro tem que ver se está em cheque.Depois tem que ver se o rei pode sair do cheque sozinho(se mexendo uma casa em qualquer direção).Depois tem que ver se alguma peça da mesma cor do rei consegue capturar a peça que está colocando o rei em cheque(isso é só ver a lista de ameacantes da peça.Por fim tem que ver se alguma peça da mesma cor do rei consegue bloquear o cheque, ou seja, consegue se colocar entre o rei e a peça que o está colocando em cheque.(isso é mais foda).
+5)O programa tem que avisar após cada movimento se a peça que acabou de ser movimentada pode ser atacada por alguma peça oponente e quais peças ela pode capturar a partir dessa nova posição.(isso é só ver as listas depois que o movimento aconteceu).
+6)No início do jogo o programa deve pedir o nome dos participantes e apresentar o tabuleiro com as peças nas posições iniciais.
+7)Em cada rodada deve mostrar o tabuleiro e pedir para o jogador da vez realizar o seu movimento.
+8)A partida deve terminar quando acontecer um Cheque Mate ou a qualquer momento que um dos jogadores digitar ‘FIM’.
+9)A versão para testes deve simular no script um trecho de um jogo.Deve montar um tabuleiro em estado intermediário e realizar pelo menos 6 jogadas.Para cada uma deve ver se são válidas e se as listas de ameaçados e ameaçantes ficaram certas.
