@@ -12,6 +12,8 @@ int verificaHard(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,int p
 					}
                                    return 0;
 			   	}
+			   } else if(qtdFaltax<MovimentoX[i] || qtdFaltaY < MovimentoY[i]) { 
+			           continue;
 			   } else {
                                  if(idObtido == 'V') {
 				     retorno = verificaHard(tabu,movimentoX,movimentoY,posX + movimentoX[i],posY + movimentoY[i],qtdMov,FaltaX - movimentoX[i], FaltaY - movimentoY[i],cor);
