@@ -1,35 +1,5 @@
-24/09 - 2 h: Codificar:  Começei a codificar o arquivo lista.c e o lista.h
+Relatório trabalho 3:
 
-25/09 - 3h: Codificar: Terminei de codificar os arquivos lista.c e o lista.h e começei e terminei o testelista.c
+25/10  1hr  especificar as funções   Começei a especificar as funções de verificação de movimento e preenchimento das listas ameçados e ameaçantes.
 
-02/10 - 1h:Especificação do módulo Peca.c.Percebemos que seria melhor criar esse módulo para organizar melhor o código.
-
-02/10 - 1h:Codificar: começei a codificar os arquivos do módulo peça
-
-03/10 :2h:Desenvolvimento do Módulo tabuleiro.c e tabuleiro.h. Ainda não foi testado no Arcabouço.
-
-05/10 - 6h:Diagnosticando e corrigindo problemas.Problemas no TesteLista.c e Lista.c.Um momento um pouco tenso quando dá problema em tudo.No momento apenas o módulo peça está funcionando corretamente.
-
-06/10: 1h: Diagnosticando e corrigindo problemas. Após encontrar diversos erros nos arquivos fonte do módulo lista tive que refazer grande parte do código.
-
-08/10: 2h: Diagnosticando e corrigindo problemas. Ainda haviam diversos erros nas funções do lista.c, portanto continuamos a recodificar esse arquivo.
-
-08/10: 3h: Diagnosticando e corrigindo problemas. Finalmente conseguimos fazer com que o módulo lista rodasse no arcabouço após corrigir mais de 70 erros de compilação existentes nesses arquivos e encontrar a nossa maior fonte de frustração durante os dias que viriam: O segfault.
-
-09/10: 2h: Codificar. Após o planejamento do módulo tabuleiro. Começei a codificar o tabuleiro.c, tabuleiro.h e o testetabuleiro.c
-
-09/10: 2h: Diagnosticando e corrigindo problemas. Começamos a rodar a o módulo tabuleiro no arcabouço e depois desse primeiro momento descobrimos um mar de segfaults.
-
-10/10:8h: Diagnosticando e corrigindo problemas. Hoje  diversas bizarrices ocorreram enquanto tentavamos debugar o tabuleiro. Coisas como colocar prints ou mudar prints de lugares eram o que fazia o segfault ocorrer ou não. Chegou um momento em que fui declarar mais um char no testetabuleiro.c e simplesmente houve outro segfault!! Coisas tão simples como essa decidiam até que ponto o programa iria rodar. Ficamos simplesmente pasmos com aquela situação. Vimos, pelo que pesquisamos na internet, que esse enxame de segfaults seriam fruto de um mau uso de memória(stack overflow ou uso indevido da heap). De qualquer forma não faziamos a menor ideia de como resolver aquilo. Continuei pesquisando soluções durante a madrugada, contudo não achei nenhuma.
-
-11/10:6h: Diagnosticando e corrigindo problemas. Continuamos pesquisando soluções para os segfaults e descobrimos que em modo debug o programa demorava mais para crash, em comparação ao modo release. Vimos que o modo debug alocava mais espaço na stack o que nos dava um maior indicio que de fato deveriamos estar cometendo um stack overflow. Fizemos de tudo que poderiamos pensar para resolver esse problema até que eu decidi que deveriamos mudar a forma como estavamos representando o tabuleiro, pois isso também parecia estar causando os segfaults.
-
-11/10 2h: revisar projetos. Repensamos e fizemos e mudamos o tabuleiro para uma struct que continha uma matriz 8 por 8 do tipo casa.
-
-11/10 2h: Codificar. Comecei a refazer o testetabuleiro.c, o tabuleiro.c e, consequentemente, o tabuleiro.h para que eles se adequassem a nova definição do tabuleiro.
-
-11/10 2h: Planejar teste. Planejamos finalmente o teste para o módulo tabuleiro e vimos que, finalmente, este não estava dando segfault!
-
-12/10: 4h: Codificar. Terminamos de codificar o tabuleiro e vimos que este estava rodando perfeitamente! 
-
-
+26/10  30mins codificar Codifiquei a função de verificação do movimento.
