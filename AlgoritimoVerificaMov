@@ -1,0 +1,55 @@
+int verificaHard(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,int posY,int qtdMov,int qtdFaltaX,int qtdFaltaY,char cor) {
+           int retorno,i;
+           char idObtido,corObtida;
+           TAB_tpCondRet condRet;
+           for(i=0;i<qtdMov;i++) {
+                condRet = TAB_ObterPeca(tabu,posX + movimentoX[i],posY + movimentoY[i],&corObtida,&idObtido);/* obtem propriedades da peca para onde o movimentoCorrente levaria */
+                if(condRet == TAB_CondRetOK) {
+                           if(qtdFaltax == movimentoX[i] && qtdFaltaY == movimentoY[i]) {
+                           	if(idObtido != 'V') {
+                                 	if(corObtido != cor) {
+ 				 	     return 1;
+					}
+                                   return 0;
+			   	}
+			   } else {
+                                 if(idObtido == 'V') {
+				     retorno = verificaHard(tabu,movimentoX,movimentoY,posX + movimentoX[i],posY + movimentoY[i],qtdMov,FaltaX - movimentoX[i], FaltaY - movimentoY[i],cor);
+                                     if(retorno == 1) {
+                                         return 1;
+				     }    
+				 }
+			   }
+                }      
+           }
+           return 0;                
+
+}
+
+
+
+TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int movY,Tabuleiro *tabu,char corPeca) {
+          int qtdMov,*movimentoX,*movimentoY,i,achou=0,retornoHard,xObtido,yObtido;
+          PEC_Retornaqtd_Mov(p,&qtdMov);
+          movimentoX = (int *) malloc(sizeof(int) * qtdMov);
+          movimentoY = (int *) malloc(sizeof(int) * qtdMov);
+    	  for(i=0;i<qtdMov;i++) {
+              PEC_RetornaXMovimento(p,i,&xObtido);
+	      PEC_RetornaYMovimento(p,i,&yObtido);
+              if(xObtido <=1 && yObtido <=1) {
+                   movimentoX[i] = xObtido;
+                   movimentoY[i] = yObtido;
+              }
+              if(movX == xObtido && movY = yObtido) {
+                   achou = 1;
+              }
+ 	  }
+          if(achou == 1) {
+                 retornoHard = verificaHard(tabu,movimentoX,movimentoY,posIniX,posIniY,qtdMov,movX,movY,corPeca);
+                 if(retornoHard == 1) {
+ 	                return TAB_CondRetOK;
+		 } 
+          }
+          return TAB_CondRetMovimentoIrregular;
+
+}
