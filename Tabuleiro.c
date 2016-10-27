@@ -252,9 +252,10 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 *  Função: TAB  &Destruir Tabuleiro
 *  ****/
    TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu) {
-          int i=0,j=0;
+          int i=0,j;
           while(i<8) {
                while(j<8) {
+		   j=0;
                    if(tabu->tab[i][j].elemento != NULL) {
                      LIS_DestroiLista(tabu->tab[i][j].ameacados);
                      LIS_DestroiLista(tabu->tab[i][j].ameacantes);
