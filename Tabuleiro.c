@@ -258,19 +258,19 @@ TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
     
     for(i=0;i<qtdMov;i++) {
         //printf("Entrei no for\n");
-        printf("antes\n");
+        //printf("antes\n");
         PEC_RetornaXMovimento(pecaLista,i,&xObtido);
         PEC_RetornaYMovimento(pecaLista,i,&yObtido);
-        printf("depois\n");
+        //printf("depois\n");
         //printf("Sai dos retorna\n");
         //printf("xObtido: %d e yObtido: %d e i: %d\n",xObtido,yObtido,i);
         if (xObtido == xd - xo && yObtido == yi2 - yi) {
             achou = 1;
         }
-        if(0<abs(xObtido) && abs(xObtido)<=1 && abs(yObtido)>0 && abs(yObtido)<=1) {
-            //printf("X: %d\n",xObtido);
-            //printf("Y: %d\n",yObtido);
-            //printf("\n\n");
+        if(0<=abs(xObtido) && abs(xObtido)<=1 && abs(yObtido)>=0 && abs(yObtido)<=1 && (xObtido != 0 || yObtido != 0)) {
+            printf("X: %d\n",xObtido);
+            printf("Y: %d\n",yObtido);
+            printf("\n\n");
             qtdUnitarios++;
         }
     }
@@ -279,7 +279,7 @@ TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
     printf("achou: %d\n",achou);
     
     if(achou == 1) {
-		  return verificaMovimento(xo,yi,pecaLista,xd,yi2,tabu,corPecaLista,qtdUnitarios);
+        return verificaMovimento(xo,yi,pecaLista,xd,yi2,tabu,corPecaLista,qtdUnitarios);
     }
 		  /*
            for(i=0;i<qtdMov;i++) {
@@ -378,18 +378,102 @@ TAB_tpCondRet criarListaPecas() {
     return TAB_CondRetFaltouMemoria;
 }/* Fim função: TAB  -Criar Lista Pecas*/
 
+int *verificaDirecaoSeguida(int *movimentoX,int *movimentoY,int qtdFaltaX,int qtdFaltaY,int qtdMov){
+    int i,*retorno;
+    retorno = (int *) malloc(sizeof(int) *2);
+    printf("qtd UNi: %d\n",qtdMov);
+    if(retorno == 0) {
+        printf("Erro no retorno\n");
+        exit(-1);
+    }
+    retorno[0] = 0;
+    retorno[1] = 0;
+    printf("Qtd falta: (%d,%d)\n",qtdFaltaX,qtdFaltaY);
+    for (i=0;i<qtdMov;i++) {
+        
+        if(movimentoX[i] != 0 && movimentoY[i] != 0) {
+            
+            if(qtdFaltaX/movimentoX[i]== qtdFaltaY / movimentoY[i] && qtdFaltaX/movimentoX[i]> 0 && qtdFaltaY/movimentoY[i]>0) {
+                    retorno[0] = movimentoX[i];
+                    retorno[1] = movimentoY[i];
+            }
+        } else {
+            if(qtdFaltaX == 0) {
+                printf("Y: %d\n",movimentoY[i]);
+                if (movimentoX[i] == 0 && qtdFaltaY/movimentoY[i]>0) {
+                    retorno[0] = movimentoX[i];
+                    retorno[1] = movimentoY[i];
+                }
+            } else if(qtdFaltaY == 0){
+                if (movimentoY[i] == 0 && qtdFaltaX/movimentoX[i]>0) {
+                    retorno[0] = movimentoX[i];
+                    retorno[1] = movimentoY[i];
+                }
+            }
+        }
+    }
+    return retorno;
+}
+
+
 int verificaHard(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,int posY,int qtdMov,int qtdFaltaX,int qtdFaltaY,char cor) {
-    int retorno,i;
+    int *direcao,i,xDirecao,yDirecao,diretor,qtdFalta;
     char idObtido,corObtida;
     TAB_tpCondRet condRet;
+    
+    
+    direcao = verificaDirecaoSeguida(movimentoX,movimentoY,qtdFaltaX,qtdFaltaY,qtdMov);
+    
+    xDirecao = direcao[0];
+    yDirecao = direcao[1];
+    
+    printf("Retorno: (%d,%d)\n",direcao[0],direcao[1]);
+    
+    if(xDirecao == 0) {
+        diretor = yDirecao;
+        qtdFalta = qtdFaltaY;
+    } else {
+        diretor = xDirecao;
+        qtdFalta = qtdFaltaX;
+    }
+
+    printf("Até: %d\n",qtdFalta/diretor);
+    
+    for (i=0; i<qtdFalta/diretor; i++) {
+        printf("ENtrei no loop\n");
+        condRet = TAB_ObterPeca(tabu,posX + xDirecao,posY + yDirecao,&corObtida,&idObtido);
+        qtdFaltaX -= xDirecao;
+        qtdFaltaY -= yDirecao;
+        posX += xDirecao;
+        posY += yDirecao;
+        if (corObtida != 'V') {
+            if (qtdFaltaX == 0 && qtdFaltaY == 0) {
+                if (corObtida != cor) {
+                    printf("Comeu\n");
+                    return 1;
+                }
+                printf("barrado\n");
+            }
+        } else {
+            if (qtdFaltaX == 0 && qtdFaltaY == 0) {
+                printf("Chegou sem comer\n");
+                return 1;
+            }
+        }
+        
+        
+    }
+        
+    
     //printf("Falta x: %d e Falta y: %d\n",qtdFaltaX,qtdFaltaY);
     //printf("Cheguei na hard\n");
+    /*
     for(i=0;i<qtdMov;i++) {
-        //printf("(%d,%d)\n",movimentoX[i],movimentoY[i]);
-        condRet = TAB_ObterPeca(tabu,posX + movimentoX[i],posY + movimentoY[i],&corObtida,&idObtido);/* obtem propriedades da peca para onde o movimentoCorrente levaria */
+        printf("(%d,%d)\n",movimentoX[i],movimentoY[i]);
+        condRet = TAB_ObterPeca(tabu,posX + movimentoX[i],posY + movimentoY[i],&corObtida,&idObtido); obtem propriedades da peca para onde o movimentoCorrente levaria
         if(condRet == TAB_CondRetOK) {
             if(qtdFaltaX == movimentoX[i] && qtdFaltaY == movimentoY[i]) {
-                //printf("Entrei onde devia\n");
+                printf("Entrei onde devia\n");
                 if(idObtido != 'V') {
                     //printf("entrei aqui\n");
                     if(corObtida != cor) {
@@ -412,9 +496,10 @@ int verificaHard(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,int p
                 }
             }
         } else {
-             return 0;
+            return 0;
         }
     }
+     */
     return 0;
     
 }
@@ -443,7 +528,7 @@ TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int mov
         PEC_RetornaXMovimento(p,i,&xObtido);
         PEC_RetornaYMovimento(p,i,&yObtido);
         printf("Sai dos retorna\n");
-        if(0<abs(xObtido) && abs(xObtido)<=1 && abs(yObtido)>0 && abs(yObtido)<=1) {
+        if(0<=abs(xObtido) && abs(xObtido)<=1 && abs(yObtido)>=0 && abs(yObtido)<=1 && (xObtido != 0 || yObtido != 0)) {
             movimentoX[j] = xObtido;
             movimentoY[j] = yObtido;
             printf("X: %d\n",xObtido);
@@ -461,11 +546,11 @@ TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int mov
          */
         //printf("Chegou no fim do loop\n");
  	  }
-        retornoHard = verificaHard(tabu,movimentoX,movimentoY,posIniX,posIniY,qtdUnitarios,movX - posIniX,movY - posIniY,corPeca);
-        if(retornoHard == 1) {
-            //printf("/*--------------------: %d\n-------------*/\n",j);
-            return TAB_CondRetOK;
-        }
+    retornoHard = verificaHard(tabu,movimentoX,movimentoY,posIniX,posIniY,qtdUnitarios,movX - posIniX,movY - posIniY,corPeca);
+    if(retornoHard == 1) {
+        //printf("/*--------------------: %d\n-------------*/\n",j);
+        return TAB_CondRetOK;
+    }
     
 		  //printf("sai da verifica\n");
     return TAB_CondRetMovimentoIrregular;

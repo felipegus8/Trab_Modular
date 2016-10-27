@@ -74,12 +74,12 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
     switch((*novo)->id)
     {
         case 'T':
-            (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*14);
+            (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*28);
             if((*novo)->movPeca == NULL)
             {
                 return PEC_CondRetFaltouMemoria;
             }
-            (*novo)->qtdMov = 14;
+            (*novo)->qtdMov = 28;
             (*novo)->movParaTras = 1;
             if((*novo)->movPeca == NULL)
             {
@@ -99,6 +99,22 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
                 (*novo)->movPeca[i].x = 0;
                 (*novo)->movPeca[i].y = j;
                 i++;
+            }
+            (*novo)->movPeca[14].x = -1;
+            (*novo)->movPeca[14].y = 0;
+            for (i=2; i<8; i++) {
+                //printf("i: %d\n",i);
+                (*novo)->movPeca[13 + i].x = -i;
+                (*novo)->movPeca[13 + i].y = 0;
+            }
+            (*novo)->movPeca[21].x = 0;
+            (*novo)->movPeca[21].y = -1;
+            for (i=2; i<8; i++) {
+                (*novo)->movPeca[20 + i].x = 0;
+                (*novo)->movPeca[20 + i].y = -i;
+            }
+            for(i=0;i<28;i++) {
+                //printf("(%d,%d)\n",(*novo)->movPeca[i].x,(*novo)->movPeca[i].y);
             }
             break;
         case 'C':
@@ -134,29 +150,36 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
                 
                 i++;
             }
-            for(k=8;k<15;k++)
+            (*novo)->movPeca[7].x = 1;
+            (*novo)->movPeca[7].y = -1;
+            i++;
+            for(k=8;k<14;k++)
             {
                 (*novo)->movPeca[k].x = i - 7;
                 (*novo)->movPeca[k].y = -i + 7;
-                printf("No Peca: (%d,%d)\n",(*novo)->movPeca[k].x,(*novo)->movPeca[k].y);
-               
+                //printf("No Peca: (%d,%d)\n",(*novo)->movPeca[k].x,(*novo)->movPeca[k].y);
                 i++;
             }
-            for(k=15;k<22;k++)
+            (*novo)->movPeca[14].x = -1;
+            (*novo)->movPeca[14].y = -1;
+            i++;
+            for(k=15;k<21;k++)
             {
                 (*novo)->movPeca[k].x = -i + 14;
                 (*novo)->movPeca[k].y = -i + 14;
                 
                 i++;
             }
-            for(k=22;k<29;k++)
+            (*novo)->movPeca[21].x = -1;
+            (*novo)->movPeca[21].y = 1;
+            i++;
+            for(k=22;k<28;k++)
             {
                 (*novo)->movPeca[k].x = -i + 21;
                 (*novo)->movPeca[k].y = i - 21;
-                
                 i++;
             }
-            printf("\n\n\n");
+            //printf("\n\n\n");
             break;
         case 'P':
             (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
@@ -173,40 +196,91 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
             (*novo)->movPeca[1].y = 1;
             break;
         case 'D':
-            (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*21);
-            (*novo)->qtdMov = 21;
+            (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*56);
+            (*novo)->qtdMov = 56;
             (*novo)->movParaTras = 1;
+            i = 2;
             if((*novo)->movPeca == NULL)
             {
                 return PEC_CondRetFaltouMemoria;
             }
-            //Movimento na vertical da rainha
-            (*novo)->movPeca[i].x = 1;
-            (*novo)->movPeca[i].y = 0;
-            for(i=1;i<7;i++)
+            //movimento da rainha na diagonal
+            (*novo)->movPeca[0].x = 1;
+            (*novo)->movPeca[0].y = 1;
+            for(k=1;k<7;k++)
             {
-                (*novo)->movPeca[i].x = i + 1;
-                (*novo)->movPeca[i].y = 0;
-            }
-            //Movimento na horizontal da rainha
-            for(j=1;j<8;j++)
-            {
-                (*novo)->movPeca[i].x = 0;
-                (*novo)->movPeca[i].y = j;
+                (*novo)->movPeca[k].x = i;
+                (*novo)->movPeca[k].y = i;
+                
                 i++;
             }
-            j=1;
-            //Movimento na diagonal da rainha
-            for(k=1;k<8;k++)
+            (*novo)->movPeca[7].x = 1;
+            (*novo)->movPeca[7].y = -1;
+            i++;
+            for(k=8;k<14;k++)
             {
-                (*novo)->movPeca[i].x = k;
-                (*novo)->movPeca[i].y = k;
+                (*novo)->movPeca[k].x = i - 7;
+                (*novo)->movPeca[k].y = -i + 7;
+                //printf("No Peca: (%d,%d)\n",(*novo)->movPeca[k].x,(*novo)->movPeca[k].y);
+                i++;
+            }
+            (*novo)->movPeca[14].x = -1;
+            (*novo)->movPeca[14].y = -1;
+            i++;
+            for(k=15;k<21;k++)
+            {
+                (*novo)->movPeca[k].x = -i + 14;
+                (*novo)->movPeca[k].y = -i + 14;
+                
+                i++;
+            }
+            (*novo)->movPeca[21].x = -1;
+            (*novo)->movPeca[21].y = 1;
+            i++;
+            for(k=22;k<28;k++)
+            {
+                (*novo)->movPeca[k].x = -i + 21;
+                (*novo)->movPeca[k].y = i - 21;
+                i++;
+            }
+            //movimento da rainha na horizontal
+            (*novo)->movPeca[28].x = 1;
+            (*novo)->movPeca[28].y = 0;
+            i++;
+            for(k=29;k<35;k++) {
+                (*novo)->movPeca[k].x = i - 28;
+                (*novo)->movPeca[k].y = 0;
+                i++;
+            }
+            (*novo)->movPeca[35].x = -1;
+            (*novo)->movPeca[35].y = 0;
+            i++;
+            for(k=36;k<42;k++) {
+                (*novo)->movPeca[k].x = -i + 35;
+                (*novo)->movPeca[k].y = 0;
+                i++;
+            }
+            //movimento da rainha na vertical
+            (*novo)->movPeca[42].x = 0;
+            (*novo)->movPeca[42].y = 1;
+            i++;
+            for(k=43;k<49;k++) {
+                (*novo)->movPeca[k].x = 0;
+                (*novo)->movPeca[k].y = i - 42;
+                i++;
+            }
+            (*novo)->movPeca[49].x = 0;
+            (*novo)->movPeca[49].y = -1;
+            i++;
+            for(k=50;k<56;k++) {
+                (*novo)->movPeca[k].x = 0;
+                (*novo)->movPeca[k].y = -i + 49;
                 i++;
             }
             break;
         case 'R':
-            (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*3);
-            (*novo)->qtdMov = 3;
+            (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*8);
+            (*novo)->qtdMov = 8;
             (*novo)->movParaTras = 1;
             if((*novo)->movPeca == NULL)
             {
@@ -215,10 +289,27 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
             //Movimento do rei
             (*novo)->movPeca[0].x = 1;
             (*novo)->movPeca[0].y = 0;
+            
             (*novo)->movPeca[1].x = 1;
             (*novo)->movPeca[1].y = 1;
+            
             (*novo)->movPeca[2].x = 0;
             (*novo)->movPeca[2].y = 1;
+            
+            (*novo)->movPeca[3].x = -1;
+            (*novo)->movPeca[3].y = 0;
+            
+            (*novo)->movPeca[4].x = -1;
+            (*novo)->movPeca[4].y = -1;
+            
+            (*novo)->movPeca[5].x = 0;
+            (*novo)->movPeca[5].y = -1;
+            
+            (*novo)->movPeca[6].x = 1;
+            (*novo)->movPeca[6].y = -1;
+            
+            (*novo)->movPeca[7].x = -1;
+            (*novo)->movPeca[7].y = 1;
             break;
             
         default:
