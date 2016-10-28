@@ -379,6 +379,11 @@ TAB_tpCondRet criarListaPecas() {
     return TAB_CondRetFaltouMemoria;
 }/* Fim função: TAB  -Criar Lista Pecas*/
 
+/***************************************************************************
+ *
+ *  Função: TAB  &Verifica Direção Seguida
+ *  ****/
+
 int *verificaDirecaoSeguida(int *movimentoX,int *movimentoY,int qtdFaltaX,int qtdFaltaY,int qtdMov){
     int i,*retorno;
     retorno = (int *) malloc(sizeof(int) *2);
@@ -416,6 +421,10 @@ int *verificaDirecaoSeguida(int *movimentoX,int *movimentoY,int qtdFaltaX,int qt
     return retorno;
 }/* Fim função: TAB  -Verifica Direção*/
 
+/***************************************************************************
+ *
+ *  Função: TAB  &Verifica Condição De movimento
+ *  ****/
 
 int verificaCondMov(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,int posY,int qtdMov,int qtdFaltaX,int qtdFaltaY,char cor) {
     int *direcao,i,xDirecao,yDirecao,diretor,qtdFalta;
@@ -463,7 +472,7 @@ int verificaCondMov(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,in
         }
         
         
-    } /* Fim função: TAB  -Verifica Condição De Movimento*/
+    } 
         
     
     //printf("Falta x: %d e Falta y: %d\n",qtdFaltaX,qtdFaltaY);
@@ -503,9 +512,12 @@ int verificaCondMov(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,in
      */
     return 0;
     
-}
+}/* Fim função: TAB  -Verifica Condição De Movimento*/
 
-
+/***************************************************************************
+ *
+ *  Função: TAB  &Verifica Validade Do Movimento
+ *  ****/
 
 TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int movY,Tabuleiro *tabu,char corPeca,int qtdUnitarios) {
     int qtdMov,*movimentoX,*movimentoY,i,j=0,retornoHard,xObtido,yObtido;
@@ -556,7 +568,7 @@ TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int mov
 		  //printf("sai da verifica\n");
     return TAB_CondRetMovimentoIrregular;
     
-}
+}/* Fim função: TAB  -Verifica Validade Do Movimento*/
 
 
 /********** Fim do módulo de implementação: TAB  Tabuleiro **********/
