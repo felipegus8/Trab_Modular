@@ -45,7 +45,7 @@ void destruirValor(void *pValor);
 TAB_tpCondRet criarListaPecas();
 void TAB_VerificaSeCome(ptTabuleiro tabu,int xo,int yo,int xd,int yd,char corRecebida,char idRecebido);
 TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int movY,Tabuleiro *tabu,char corPeca,int qtdUnitarios);
-int verificaHard(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,int posY,int qtdMov,int qtdFaltaX,int qtdFaltaY,char cor);
+int verificaCondMov(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,int posY,int qtdMov,int qtdFaltaX,int qtdFaltaY,char cor);
 int *verificaDirecaoSeguida(int *movimentoX,int *movimentoY,int qtdFaltaX,int qtdFaltaY,int qtdMov);
 /*****  Código das funções exportadas pelo módulo  *****/
 /***************************************************************************
@@ -414,10 +414,10 @@ int *verificaDirecaoSeguida(int *movimentoX,int *movimentoY,int qtdFaltaX,int qt
         }
     }
     return retorno;
-}
+}/* Fim função: TAB  -Verifica Direção*/
 
 
-int verificaHard(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,int posY,int qtdMov,int qtdFaltaX,int qtdFaltaY,char cor) {
+int verificaCondMov(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,int posY,int qtdMov,int qtdFaltaX,int qtdFaltaY,char cor) {
     int *direcao,i,xDirecao,yDirecao,diretor,qtdFalta;
     char idObtido,corObtida;
     TAB_tpCondRet condRet;
@@ -463,7 +463,7 @@ int verificaHard(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,int p
         }
         
         
-    }
+    } /* Fim função: TAB  -Verifica Condição De Movimento*/
         
     
     //printf("Falta x: %d e Falta y: %d\n",qtdFaltaX,qtdFaltaY);
@@ -547,7 +547,7 @@ TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int mov
          */
         //printf("Chegou no fim do loop\n");
  	  }
-    retornoHard = verificaHard(tabu,movimentoX,movimentoY,posIniX,posIniY,qtdUnitarios,movX - posIniX,movY - posIniY,corPeca);
+    retornoHard = verificaCondMov(tabu,movimentoX,movimentoY,posIniX,posIniY,qtdUnitarios,movX - posIniX,movY - posIniY,corPeca);
     if(retornoHard == 1) {
         //printf("/*--------------------: %d\n-------------*/\n",j);
         return TAB_CondRetOK;
