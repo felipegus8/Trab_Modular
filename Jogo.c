@@ -1,7 +1,7 @@
 /***************************************************************************
- *  $MCI Módulo de implementação: Jogador
- *  Arquivo gerado:              Jogador.c
- *  Letras identificadoras:      //Completar
+ *  $MCI Módulo de implementação: Jogo
+ *  Arquivo gerado:              Jogo.c
+ *  Letras identificadoras:      JOG
  *
  *  Autores: Felipe Viberti,Luis Claudio e Victor Nogueira
  *
@@ -20,4 +20,13 @@ typedef stuct jogador
 {
 	char nome[30];
 	char cor;
+}Jogador;
+
+
+void JOG_PedeNomesJogadores(Jogador *a,Jogador *b)
+{
+	printf("Insira o nome do jogador 1:");
+	scanf("%[ˆ\n],a->nome");
+	printf("Insira o nome do jogador 2:");
+	scanf("%[ˆ\n],b->nome");
 }
