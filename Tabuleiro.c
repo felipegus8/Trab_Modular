@@ -191,10 +191,10 @@ void apagaListas(ptTabuleiro tabu) {
 
 TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
     /*
-    
-    char idPecaTabuleiro,corPecaTabuleiro,corPecaUsada,corPecaUsada2,idPecaUsada,idPecaUsada2;
-    int qtdUnitarios,qtdMov,verificaMov;
-    */
+     
+     char idPecaTabuleiro,corPecaTabuleiro,corPecaUsada,corPecaUsada2,idPecaUsada,idPecaUsada2;
+     int qtdUnitarios,qtdMov,verificaMov;
+     */
     int i,j,k,xObtido,yObtido,qtdUnitarios,qtdMov,verificaMov;
     char corPecaUsada,corPecaUsada2,idPecaUsada,idPecaUsada2;
     Peca *pecaUsada;
@@ -217,6 +217,7 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
     for (i=0; i<8; i++) {
         for (j=0; j<8; j++) {
             pecaUsada = (Peca *) tabu->tab[i][j].elemento;
+            printf("aqui (%d,%d)\n",i,j);
             PEC_RetornaCor(pecaUsada, &corPecaUsada);
             PEC_RetornaId(pecaUsada, &idPecaUsada);
             PEC_RetornaQtd_Mov(pecaUsada, &qtdMov);
@@ -226,8 +227,9 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
                 PEC_RetornaYMovimento(pecaUsada, k, &yObtido);
                 verificaMov = verificaMovimento(i, j, pecaUsada,i + xObtido,j + yObtido, tabu, corPecaUsada, qtdUnitarios);
                 if(verificaMov == 2) {
-
+                    
                     pecaUsada2 = (Peca *) tabu->tab[i + xObtido][j + yObtido].elemento;
+                    printf("isso e %d\n",i + xObtido);
                     PEC_RetornaCor(pecaUsada2, &corPecaUsada2);
                     printf("Verificou\n");
                     printf("pos comedor(%d,%d) e posComido(%d,%d)\nidComedor: %c e cor comedor: %c e cor comido: %c\n",i,j,i + xObtido,j + yObtido,idPecaUsada,corPecaUsada,corPecaUsada2);
@@ -339,7 +341,7 @@ TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
 	   //printf("depois\n");
 	   
     PEC_RetornaQtd_Mov(pecaLista,&qtdMov); //obtem o movimento da peÁa
-    PEC_RetornaMoveParaTras(pecaLista,&moveParaTras); //descobre se a peÁa pode andar para tr·s
+//descobre se a peÁa pode andar para tr·s
     
 		  //printf("Entrarei na verifica\n");
     
@@ -583,27 +585,27 @@ int verificaCondMov(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,in
     for (i=0; i<qtdFalta/diretor; i++) {
         //printf("ENtrei no loop\n");
         if((posX + xDirecao) <8 && (posX + xDirecao)>=0 && (posY + yDirecao)<8 && (posY + yDirecao)>=0) {
-        condRet = TAB_ObterPeca(tabu,posX + xDirecao,posY + yDirecao,&corObtida,&idObtido);
-        
-        qtdFaltaX -= xDirecao;
-        qtdFaltaY -= yDirecao;
-        posX += xDirecao;
-        posY += yDirecao;
-        if (corObtida != 'V') {
-            if (qtdFaltaX == 0 && qtdFaltaY == 0) {
-                if (corObtida != cor) {
-                    printf("Comeu\n");
-                    return 2;
+            condRet = TAB_ObterPeca(tabu,posX + xDirecao,posY + yDirecao,&corObtida,&idObtido);
+            
+            qtdFaltaX -= xDirecao;
+            qtdFaltaY -= yDirecao;
+            posX += xDirecao;
+            posY += yDirecao;
+            if (corObtida != 'V') {
+                if (qtdFaltaX == 0 && qtdFaltaY == 0) {
+                    if (corObtida != cor) {
+                        printf("Comeu\n");
+                        return 2;
+                    }
+                    
                 }
-                
+                return 0;
+            } else {
+                if (qtdFaltaX == 0 && qtdFaltaY == 0) {
+                    printf("Chegou sem comer\n");
+                    return 1;
+                }
             }
-            return 0;
-        } else {
-            if (qtdFaltaX == 0 && qtdFaltaY == 0) {
-                printf("Chegou sem comer\n");
-                return 1;
-            }
-        }
         }
         
     }
@@ -653,8 +655,12 @@ int verificaCondMov(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,in
  *  FunÁ„o: TAB  &Verifica Validade Do Movimento
  *  ****/
 
+
+
+
 TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int movY,Tabuleiro *tabu,char corPeca,int qtdUnitarios) {
-    int qtdMov,*movimentoX,*movimentoY,i,j=0,retornoHard,xObtido,yObtido;
+    int qtdMov,*movimentoX,*movimentoY,i,j=0,retornoHard,xObtido,yObtido,podePular;
+    char corObtida,idObtido;
     PEC_RetornaQtd_Mov(p,&qtdMov);
 		  //printf("qtd mov:%d\n",qtdMov);
 		  //printf("%c\n\n\n\n\n",idPeca);
@@ -668,6 +674,10 @@ TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int mov
               printf("deu ruim na criar Y\n");
               exit(-1);
           }
+    
+    PEC_RetornaPodePular(p, &podePular);
+    
+    
 		  //printf("i dps: %d\n",i);
 		  //printf("Entre na verifica\n");
     for(i=0;i<qtdMov;i++) {
@@ -675,6 +685,25 @@ TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int mov
         PEC_RetornaXMovimento(p,i,&xObtido);
         PEC_RetornaYMovimento(p,i,&yObtido);
         //printf("Sai dos retorna\n");
+        
+        if (podePular == 1) {
+            if ((xObtido + posIniX)<0 || (xObtido + posIniX)>7 || (posIniY + yObtido)<0 || (posIniY + yObtido)>7) {
+                return 7;
+            }
+            if((xObtido + posIniX) == movX && (yObtido + posIniY) == movY) {
+                TAB_ObterPeca(tabu, xObtido + posIniX, yObtido + posIniY, &corObtida, &idObtido);
+                if (corObtida != 'V') {
+                    if (corObtida != corPeca) {
+                        return 2;
+                    } else {
+                        return 7;
+                    }
+                } else {
+                    return 0;
+                }
+            }
+        }
+        
         if(0<=abs(xObtido) && abs(xObtido)<=1 && abs(yObtido)>=0 && abs(yObtido)<=1 && (xObtido != 0 || yObtido != 0)) {
             if(xObtido == 0 && yObtido == 0) {
                 printf("impossibilidade logica\n");
@@ -703,6 +732,7 @@ TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int mov
         //printf("/*--------------------: %d\n-------------*/\n",j);
         return TAB_CondRetOK;
     } else if(retornoHard == 2) {
+        printf("passou aqui retorno\n");
         return 2;
     }
     
