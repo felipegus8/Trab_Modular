@@ -50,6 +50,7 @@ int *verificaDirecaoSeguida(int *movimentoX,int *movimentoY,int qtdFaltaX,int qt
 void buscaNaLista(Peca **pecaLista,char *corPecaLista,char idPecaLista,char idPecaTabuleiro);
 int contaUnitarios(Peca *pecaLista,int qtdMov);
 int verificaCoordenadas(int x, int y);
+int verificaPeao(ptTabuleiro tabu,int posIniX,int posIniY,int posFimX,int posFimY,char corPeao);
 
 /*****  CÛdigo das funÁıes exportadas pelo mÛdulo  *****/
 /***************************************************************************
@@ -225,7 +226,11 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
             for(k=0;k<qtdMov;k++) {
                 PEC_RetornaXMovimento(pecaUsada, k, &xObtido);
                 PEC_RetornaYMovimento(pecaUsada, k, &yObtido);
-                verificaMov = verificaMovimento(i, j, pecaUsada,i + xObtido,j + yObtido, tabu, corPecaUsada, qtdUnitarios);
+                if(idPecaUsada != 'P') {
+                    verificaMov = verificaMovimento(i, j, pecaUsada,i + xObtido,j + yObtido, tabu, corPecaUsada, qtdUnitarios);
+                } else {
+                    verificaMov = verificaPeao(tabu, i, j, i + xObtido, j + yObtido, corPecaUsada);
+                }
                 if(verificaMov == 2) {
                     
                     pecaUsada2 = (Peca *) tabu->tab[i + xObtido][j + yObtido].elemento;
@@ -328,6 +333,7 @@ TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
            PEC_RetornaId((Peca *)pecaLista,&idPecaLista);
            //printf("%c e %c\n",corPecaLista,idPecaLista);
            if(idPecaTabuleiro == idPecaLista) {  //caso a peÁa esteja na lista sai do loop
+               printf("idPEca: %c\n",idPecaTabuleiro);
                break;
            }
            if(LIS_IrProx(listaPecas) == LIS_CondRetFimLista) { //obtem a peÁa do nÛ corrente da lista
@@ -364,6 +370,7 @@ TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
         //printf("Sai dos retorna\n");
         //printf("xObtido: %d e yObtido: %d e i: %d\n",xObtido,yObtido,i);
         if (xObtido == xd - xo && yObtido == yi2 - yi) {
+            printf("idPeca achou %c\n",idPecaTabuleiro);
             //printf("(%d,%d) e %d e %d e %d e %d\n",xObtido,yObtido,xd,xo,yi2,yi);
             achou = 1;
         }
@@ -386,8 +393,11 @@ TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
     
     if(achou == 1) {
         printf("foi alguma vez\n");
-        verificaMov =  verificaMovimento(xo,yi,pecaLista,xd,yi2,tabu,corPecaLista,qtdUnitarios);
-        
+        if(idPecaTabuleiro != 'P') {
+          verificaMov =  verificaMovimento(xo,yi,pecaLista,xd,yi2,tabu,corPecaLista,qtdUnitarios);
+        } else {
+            verificaMov = verificaPeao(tabu, xo, yi, xd, yi2, corPecaTabuleiro);
+        }
         
         if(verificaMov == 2) {
             TAB_RetirarPeca(tabu,xd,yi2);
@@ -741,6 +751,28 @@ TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int mov
     
 }/* Fim funÁ„o: TAB  -Verifica Validade Do Movimento*/
 
+
+int verificaPeao(ptTabuleiro tabu,int posIniX,int posIniY,int posFimX,int posFimY,char corPeao) {
+    char corPecaAlvo,idPecaAlvo;
+    TAB_ObterPeca(tabu, posFimX, posFimY, &corPecaAlvo, &idPecaAlvo);
+    if (((posFimY - posIniX) == 1 && (posFimY - posIniY) == 1) || ((posFimY - posIniX) == -1 && (posFimY - posIniY) == 1)) {
+        
+        printf("passou peao e %c e %c\n",corPecaAlvo,corPeao);
+        
+        if(corPecaAlvo != 'V') {
+            if (corPecaAlvo != corPeao) {
+                printf("xaxando\n");
+                return 2;
+            }
+        }
+    } else if((posFimY - posIniX) == 0 && (posFimY - posIniY) == 1) {
+        printf("Entrou aqui peao\n");
+        if (corPecaAlvo == 'V') {
+            return 0;
+        }
+    }
+    return 7;
+}
 
 void buscaNaLista(Peca **pecaLista,char *corPecaLista,char idPecaLista,char idPecaTabuleiro) {
     IrInicioLista(listaPecas);
