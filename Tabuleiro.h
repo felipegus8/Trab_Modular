@@ -60,8 +60,17 @@ typedef enum {
 
          TAB_CondRetCorErrada,
 	      /* cor obtida está errado */
-         TAB_CondRetIdErrado
+         TAB_CondRetIdErrado,
              /* id obtido está errado */
+        TAB_CondRetCheck,
+            /* rei está em cheque*/
+        TAB_CondRetNoCheck,
+            /* rei não está em cheque*/
+         TAB_CondRetNoCheckMate,
+             /* rei está em cheque, porém não em cheque mate */
+    
+        TAB_CondRetCheckMate
+            /* rei está em cheque mate */
    } TAB_tpCondRet ;
 
 
@@ -255,8 +264,8 @@ TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id);
 
 ***********************************************************************/
 TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu);
-
-
+TAB_tpCondRet TAB_VerificaCheck(ptTabuleiro tabu,int xRei,int yRei);
+TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmeacante,int yAmeacante);
 
 /********** Fim do módulo de definição: TAB  Tabuleiro **********/
 #endif
