@@ -271,6 +271,7 @@ LIS_tpCondRet LIS_AlterarNoCorrente(LIS_tppLista lista, void *referencia);
 
 void EsvaziarLista(LIS_tppLista pLista);
 
+LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista,int *numElem);
 /************************************************************************
  
  *  $FC Função: LIS  &Destroi lista
