@@ -437,6 +437,13 @@ void EsvaziarLista( LIS_tppLista lista ) {
 } /* Fim função: LIS  &Esvaziar lista */
 //AS: A lista recebida foi desvinculada de todos seus nó e cabeça
 
+LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista,int *numElem) {
+    if(lista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    *numElem = lista->numElem;
+    return LIS_CondRetOK;
+}
 
 
 /********** Fim do módulo de implementação: LIS  Lista duplamente encadeada **********/
