@@ -38,11 +38,11 @@ typedef struct peca {
     char id;  // string identificadora da peça
     char cor; //cor da peça
     int qtdMov; //quantidade de movimentos da peça
-    int movParaTras; // Bool para ver se a peça move para trás ou não(0 ou 1).
+    int podePular; // Bool para ver se a peça move para trás ou não(0 ou 1).
     Movimento *movPeca; //Vetor da struct movimento contendo todos os movimentos que a peça pode fazer
 }Peca;
 
-
+PEC_tpCondRet retornoPeca;
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -59,6 +59,22 @@ PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
 		  novoCopia->id = id;
     
 		  novoCopia->cor = cor;
+    
+    retornoPeca = PEC_EnsinaMovimentosPecasConhecidas(&novoCopia);
+    if(retornoPeca == PEC_CondRetFaltouMemoria) {
+        
+        return PEC_CondRetFaltouMemoria;
+    }
+    
+    if(retornoPeca == PEC_CondRetNaoAchouPeca) { //caso insere o movimento
+        
+        retornoPeca = PEC_EnsinaMovimentosPecasDesconhecidas(&novoCopia);
+        if(retornoPeca == PEC_CondRetFaltouMemoria) {
+            
+            return PEC_CondRetFaltouMemoria;
+        }
+    }
+    
 		  *novo = novoCopia;
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Criar peca */
@@ -80,7 +96,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
                 return PEC_CondRetFaltouMemoria;
             }
             (*novo)->qtdMov = 28;
-            (*novo)->movParaTras = 1;
+            (*novo)->podePular = 0;
             if((*novo)->movPeca == NULL)
             {
                 return PEC_CondRetFaltouMemoria;
@@ -120,7 +136,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
         case 'C':
             (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
             (*novo)->qtdMov = 2;
-            (*novo)->movParaTras = 1;
+            (*novo)->podePular = 1;
             if((*novo)->movPeca == NULL)
             {
                 return PEC_CondRetFaltouMemoria;
@@ -134,7 +150,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
         case 'B':
             (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*28);
             (*novo)->qtdMov = 28;
-            (*novo)->movParaTras = 1;
+            (*novo)->podePular = 0;
             if((*novo)->movPeca == NULL)
             {
                 return PEC_CondRetFaltouMemoria;
@@ -184,7 +200,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
         case 'P':
             (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
             (*novo)->qtdMov = 2;
-            (*novo)->movParaTras = 0;
+            (*novo)->podePular = 0;
             if((*novo)->movPeca == NULL)
             {
                 return PEC_CondRetFaltouMemoria;
@@ -198,7 +214,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
         case 'D':
             (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*56);
             (*novo)->qtdMov = 56;
-            (*novo)->movParaTras = 1;
+            (*novo)->podePular = 0;
             i = 2;
             if((*novo)->movPeca == NULL)
             {
@@ -281,7 +297,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
         case 'R':
             (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*8);
             (*novo)->qtdMov = 8;
-            (*novo)->movParaTras = 1;
+            (*novo)->podePular = 0;
             if((*novo)->movPeca == NULL)
             {
                 return PEC_CondRetFaltouMemoria;
@@ -311,6 +327,8 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
             (*novo)->movPeca[7].x = -1;
             (*novo)->movPeca[7].y = 1;
             break;
+        case 'V':
+            break;
             
         default:
             return PEC_CondRetNaoAchouPeca;
@@ -330,6 +348,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
     //O arquivo PecasNovas.txt contem todas as peças novas que podem ser usadas no jogo.Para criar uma nova peça,o usuário deve escrever nesse arquivo,seguindo o formato lá apresentado.
     if (fp==NULL)
     {
+        printf("n tem arquivo\n");
         exit(1);
     }
     i = 0;
@@ -405,6 +424,10 @@ PEC_tpCondRet PEC_RetornaId(Peca *peca,char *id)
  *  ****/
 PEC_tpCondRet PEC_RetornaCor(Peca *peca,char *cor)
 {
+    if(peca == NULL) {
+        printf("blade\n");
+        exit(-1);
+    }
     *cor = peca->cor;
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Retorna Cor */
@@ -423,9 +446,9 @@ PEC_tpCondRet PEC_RetornaQtd_Mov(Peca *peca,int *qtdMov)
  *
  *  Função: PEC  &Retorna Move Para Tras
  *  ****/
-PEC_tpCondRet PEC_RetornaMoveParaTras(Peca *peca,int *moveParaTras)
+PEC_tpCondRet PEC_RetornaPodePular(Peca *peca,int *podePular)
 {
-    *moveParaTras = peca->movParaTras;
+    *podePular = peca->podePular;
     //Move Para Tras sempre será 0 ou 1.
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Retorna Move Para Tras */
@@ -437,7 +460,9 @@ PEC_tpCondRet PEC_RetornaMoveParaTras(Peca *peca,int *moveParaTras)
  *  ****/
 PEC_tpCondRet PEC_RetornaXMovimento(Peca *peca,int i,int *x)
 {
-    *x = peca->movPeca[i].x;
+    if(peca->movPeca != NULL) {
+        *x = peca->movPeca[i].x;
+    }
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Retorna X Movimento */
 
@@ -447,7 +472,9 @@ PEC_tpCondRet PEC_RetornaXMovimento(Peca *peca,int i,int *x)
  *  ****/
 PEC_tpCondRet PEC_RetornaYMovimento(Peca *peca,int i,int *y)
 {
-    *y = peca->movPeca[i].y;
+    if(peca->movPeca != NULL) {
+        *y = peca->movPeca[i].y;
+    }
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Retorna Y Movimento */
 
@@ -459,6 +486,9 @@ PEC_tpCondRet PEC_EliminarPeca(Peca *peca)
 {
     peca->id = 'V';
     peca->cor = 'V';
+    peca->qtdMov = 0;
+    peca->podePular = 0;
+    peca->movPeca = NULL;
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Eliminar Peca */
 
