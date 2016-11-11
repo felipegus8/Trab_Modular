@@ -898,8 +898,8 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
                         retornoVerifica = verificaPeao(tabu, i, j, xSacrificio, ySacrificio, corPecaTabuleiro);
                     }
                     if(retornoVerifica == 0) {
-                        printf("ALLAHU AKBAR!!!\n");
-                        printf("Peca id: %c e cor: %c na posicao(%d,%d) pode se sacrificar em nome de ALLAH\n",idPecaTabuleiro,corPecaTabuleiro,i,j);
+                        printf("O retorno verifica é igual a 0\n");
+                        printf("Peca id: %c e cor: %c na posicao(%d,%d) \n",idPecaTabuleiro,corPecaTabuleiro,i,j);
                         podeSacrificar = 1;
                     }
                 }
