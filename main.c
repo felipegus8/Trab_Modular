@@ -11,7 +11,7 @@ int main()
 	char cor,id;
 	ptTabuleiro tabu;
 
-	TAB_CriaTabuleiro(&tabu,8,8);
+	TAB_CriaTabuleiro(&tabu);
 	//Inserindo Pecas
 	TAB_InserirPeca(tabu,1,6,'B','R');
 	TAB_InserirPeca(tabu,2,2,'P','T');
@@ -25,10 +25,10 @@ int main()
 	TAB_MoverPeca(tabu,3,3,0,3);
 	
 	//Destruir o Tabuleiro
-	TAB_DestruirTabueleiro(tabu);
+	TAB_DestruirTabuleiro(tabu);
 	
 	//Criar um novo tabuleiro e simular outra situação
-	TAB_CriaTabuleiro(&tabu,8,8);
+	TAB_CriaTabuleiro(&tabu);
 	
 	//Inserindo Peças
 	TAB_InserirPeca(tabu,1,6,'B','R');
@@ -46,11 +46,11 @@ int main()
 	
 	
 	//Destruir o Tabuleiro
-	TAB_DestruirTabueleiro(tabu);
+	TAB_DestruirTabuleiro(tabu);
 	
 	
 	//Criar um novo tabuleiro e simular outra situação
-	TAB_CriaTabuleiro(&tabu,8,8);
+	TAB_CriaTabuleiro(&tabu);
 	
 	//Inserindo Peças
 	TAB_InserirPeca(tabu,1,6,'B','R');
@@ -69,5 +69,5 @@ int main()
 	TAB_MoverPeca(tabu,0,1,0,4);
 	
 	//Destruir o Tabuleiro
-	TAB_DestruirTabueleiro(tabu);
+	TAB_DestruirTabuleiro(tabu);
 }
