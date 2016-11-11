@@ -75,6 +75,8 @@ typedef enum {
     LIS_CondRetNaoAchou ,
     /* Não encontrou o valor procurado */
     
+    LIS_CondRetListaNExiste,
+    
     LIS_CondRetFaltouMemoria
     /* Faltou memória ao tentar criar um elemento de lista */
     
@@ -271,7 +273,8 @@ LIS_tpCondRet LIS_AlterarNoCorrente(LIS_tppLista lista, void *referencia);
 
 void EsvaziarLista(LIS_tppLista pLista);
 
-LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista,int *numElem);
+LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista, int *numElem);
+
 /************************************************************************
  
  *  $FC Função: LIS  &Destroi lista
