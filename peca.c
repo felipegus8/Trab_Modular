@@ -206,8 +206,8 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
                 return PEC_CondRetFaltouMemoria;
             }
             //Movimento do peão.Aqui não se considera o fato dele poder se mover duas casas para frente na primeira jogada.
-            (*novo)->movPeca[0].x = 1;
-            (*novo)->movPeca[0].y = 0;
+            (*novo)->movPeca[0].x = 0;
+            (*novo)->movPeca[0].y = 1;
             (*novo)->movPeca[1].x = 1;
             (*novo)->movPeca[1].y = 1;
             break;
