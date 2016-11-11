@@ -97,7 +97,7 @@ typedef struct TAG_tabuleiro * ptTabuleiro;
 ***********************************************************************/
 TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu);
 
-
+TAB_tpCondRet TAB_VerificaMovimentoRei(ptTabuleiro tabu,int xRei, int yRei, char cor,int xFim,int yFim);
 /***********************************************************************
 
 *  $FC Função: TAB &Inserir Peca

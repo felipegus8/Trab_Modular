@@ -799,6 +799,7 @@ void buscaNaLista(Peca **pecaLista,char *corPecaLista,char idPecaLista,char idPe
     
 }
 
+
 int contaUnitarios(Peca *pecaLista,int qtdMov) {
     int xObtido,yObtido,i,qtdUnitarios=0;
     for(i=0;i<qtdMov;i++) {
@@ -822,6 +823,7 @@ int verificaSePecaChegaEmPos(ptTabuleiro tabu,int posX,int posY,int cor) {
     char corObtida,idObtido,i,j,qtdUnitarios,retornoVerifica;
     int qtdMov;
     Peca *ameacante;
+    /*quando a peça que pode comer um rei é o outro rei, podemos tratar o movimento dessa peça como se fosse uma peça qualquer, tendo em vista que se o rei1 puder comer o rei2, não importa se o movimento feito para levar o rei1 a comer o rei2 faça com que ele fique em cheque, pois se um rei2 for comido, acaba o jogo */
     for(i=0;i<8;i++) {
         for (j=0; j<8; j++) {
             TAB_ObterPeca(tabu, i, j, &corObtida, &idObtido);
@@ -830,11 +832,20 @@ int verificaSePecaChegaEmPos(ptTabuleiro tabu,int posX,int posY,int cor) {
             PEC_RetornaQtd_Mov(ameacante, &qtdMov);
             qtdUnitarios = contaUnitarios(ameacante, qtdMov);
             if(corObtida == 'P') {
-                retornoVerifica = verificaMovimento(i, j, ameacante, posX, posY, tabu, 'B', qtdUnitarios);
+                if(idObtido != 'P') {
+                   retornoVerifica = verificaMovimento(i, j, ameacante, posX, posY, tabu, 'B', qtdUnitarios);
+                } else  {
+                    retornoVerifica = verificaPeao(tabu, i, j, posX, posY, 'B');
+                }
             } else {
-                retornoVerifica = verificaMovimento(i, j, ameacante, posX, posY, tabu, 'P', qtdUnitarios);
+                if(idObtido != 'P') {
+                    retornoVerifica = verificaMovimento(i, j, ameacante, posX, posY, tabu, 'P', qtdUnitarios);
+                } else {
+                    retornoVerifica = verificaPeao(tabu, i, j, posX, posY, 'P');
+                }
             }
             if ((retornoVerifica == 0 || retornoVerifica == 2) && cor != corObtida) {
+                printf("%c e %c\n",corObtida,idObtido);
                 return 0;
             }
             }
@@ -843,12 +854,13 @@ int verificaSePecaChegaEmPos(ptTabuleiro tabu,int posX,int posY,int cor) {
     return 1;
 }
 
-TAB_tpCondRet TAB_VerificaMovimentoRei(ptTabuleiro tabu,int xRei, int yRei, int cor,int xFim,int yFim) {
+TAB_tpCondRet TAB_VerificaMovimentoRei(ptTabuleiro tabu,int xRei, int yRei, char cor,int xFim,int yFim) {
     int retornoVerifica1,retornoVerifica2;
     Peca *rei;
     rei = (Peca *)tabu->tab[xRei][yRei].elemento;
 
         retornoVerifica1 = verificaMovimento(xRei, yRei, rei, xFim, yFim, tabu, cor, 8);
+    
         if (retornoVerifica1 != 7) {
             retornoVerifica2 = verificaSePecaChegaEmPos(tabu, xFim, yFim, cor);
             if (retornoVerifica2 == 1) {
@@ -898,14 +910,14 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
         PEC_RetornaXMovimento(rei, i, &xMovimento);
         PEC_RetornaYMovimento(rei, i, &yMovimento);
         printf("mov: (%d,%d)\n",xRei + xMovimento,yRei+yMovimento);
-        if(!(xSacrificio == xRei + xMovimento && ySacrificio == yRei + yMovimento)) {
             printf("mov: (%d,%d)\n",xMovimento + xRei,yMovimento + yRei);
-        retornoVerifica = verificaMovimento(xRei, yRei, rei, xRei + xMovimento, yRei + yMovimento, tabu, corRei, 8);
+        retornoVerifica = TAB_VerificaMovimentoRei(tabu, xRei, yRei, corRei, xRei + xMovimento, yRei + yMovimento);
+        
         if(retornoVerifica != 7) { //verifica se o movimento é possível
             printf("Não está em cheque, pois pode ir para (%d,%d)\n",xRei + xMovimento,yRei + yMovimento);
             podeMover = 1;
         }
-        }
+        
     }
     if(podeMover == 1) {
         return TAB_CondRetNoCheckMate;
