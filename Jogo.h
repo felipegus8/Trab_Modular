@@ -45,7 +45,6 @@ typedef enum {
     
 } JOG_tpCondRet ;
 
-#include "lista.h"
 #include "Tabuleiro.h"
 
 typedef struct jogador* ptJogador;
