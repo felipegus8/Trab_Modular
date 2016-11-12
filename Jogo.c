@@ -17,8 +17,7 @@
 #include "Tabuleiro.h"
 #include "jogo.h"
 
-ptTabuleiro tabu;
-LIS_tppLista lista;
+TAB_tpCondRet condRetTab;
 
 typedef struct jogador
 {
@@ -26,13 +25,72 @@ typedef struct jogador
     char cor;
 }Jogador;
 
-void JOG_PedeNomesJogadores(Jogador *a,Jogador *b)
-{
-    printf("Insira o nome do jogador 1:");
-    scanf("%[ˆ\n]",a->nome);
-    printf("Insira o nome do jogador 2:");
-    scanf("%[ˆ\n]",b->nome);
+typedef struct juiz {
+    ptJogador jogador1;
+    ptJogador jogador2;
+    ptTabuleiro tabu;
+    int vez;
+}Judge;
 
-	return;
+
+JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b,ptTabuleiro tabu) {
+    ptJudge novo;
+    novo = (Judge *) malloc(sizeof(Judge));
+    if(novo == NULL) {
+        return JOG_CondRetFaltouMemoria;
+    }
+    novo->jogador1 = a;
+    novo->jogador2 = b;
+    novo->tabu = tabu;
+    *j = novo;
+    return  JOG_CondRetOK;
 }
+
+JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY) {
+    char cor,id;
+    TAB_ObterPeca(j->tabu,posIniX , posIniY, &cor, &id);
+    if(cor != corDaVez) {
+        return JOG_CondRetCorErrada;
+    }
+    condRetTab = TAB_MoverPeca(j->tabu, posIniX, posIniY, posFimX, posFimY);
+    if(condRetTab == 0) {
+        return JOG_CondRetOK;
+    } else if (condRetTab == 2) {
+        return JOG_CondRetComeu;
+    }
+    return JOG_CondRetMovimentoIrregular;
+}
+
+
+
+
+JOG_tpCondRet JOG_ComecarJogo(ptJudge j,ptJogador a,ptJogador b,char *nomeA,char *nomeB,ptTabuleiro tabu,int (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id))) {
+    
+    a->cor = 'B';
+    b->cor = 'P';
+    if(strlen(nomeA)<30) {
+        strcpy(a->nome, nomeA);
+    } else {
+        return JOG_CondRetFaltouMemoria;
+    }
+    if(strlen(nomeB)<30) {
+        strcpy(b->nome, nomeB);
+    } else {
+        return JOG_CondRetFaltouMemoria;
+    }
+    TAB_CriaTabuleiro(&tabu);
+    InserirPecas(TAB_InserirPeca);
+    JOG_CriaJuiz(&j, a, b, tabu);
+    return JOG_CondRetOK;
+}
+
+JOG_tpCondRet JOG_AssasinarJuiz(ptJudge j) {
+    TAB_DestruirTabuleiro(j->tabu);
+    free(j->jogador1);
+    free(j->jogador2);
+    free(j);
+    return JOG_CondRetOK;
+}
+
+
 
