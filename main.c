@@ -1,7 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include "peca.h"
-#include "lista.h"
 #include"Tabuleiro.h"
 
    
