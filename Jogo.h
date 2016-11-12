@@ -46,7 +46,6 @@ typedef enum {
 } JOG_tpCondRet ;
 
 #include "lista.h"
-#include "peca.h"
 #include "Tabuleiro.h"
 
 typedef struct jogador* ptJogador;
@@ -71,9 +70,9 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
 
 
 
-JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b,ptTabuleiro tabu);
+JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b);
 
-JOG_tpCondRet JOG_ComecarJogo(ptJudge j,ptJogador a,ptJogador b,char *nomeA,char *nomeB,ptTabuleiro tabu,int (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id)));
+JOG_tpCondRet JOG_ComecarJogo(ptJudge j,ptJogador a,ptJogador b,char *nomeA,char *nomeB,int (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id)));
 
 
 JOG_tpCondRet JOG_AssasinarJuiz(ptJudge j);

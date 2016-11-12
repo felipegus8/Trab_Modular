@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
-#include "Tabuleiro.h"
 #include "jogo.h"
 
 TAB_tpCondRet condRetTab;
@@ -33,7 +32,7 @@ typedef struct juiz {
 }Judge;
 
 
-JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b,ptTabuleiro tabu) {
+JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b) {
     ptJudge novo;
     novo = (Judge *) malloc(sizeof(Judge));
     if(novo == NULL) {
@@ -41,7 +40,7 @@ JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b,ptTabuleiro tabu) 
     }
     novo->jogador1 = a;
     novo->jogador2 = b;
-    novo->tabu = tabu;
+    TAB_CriaTabuleiro(&(novo->tabu));
     *j = novo;
     return  JOG_CondRetOK;
 }
@@ -64,7 +63,7 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
 
 
 
-JOG_tpCondRet JOG_ComecarJogo(ptJudge j,ptJogador a,ptJogador b,char *nomeA,char *nomeB,ptTabuleiro tabu,int (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id))) {
+JOG_tpCondRet JOG_ComecarJogo(ptJudge j,ptJogador a,ptJogador b,char *nomeA,char *nomeB,int (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id))) {
     
     a->cor = 'B';
     b->cor = 'P';
@@ -78,9 +77,9 @@ JOG_tpCondRet JOG_ComecarJogo(ptJudge j,ptJogador a,ptJogador b,char *nomeA,char
     } else {
         return JOG_CondRetFaltouMemoria;
     }
-    TAB_CriaTabuleiro(&tabu);
+    JOG_CriaJuiz(&j, a, b);
     InserirPecas(TAB_InserirPeca);
-    JOG_CriaJuiz(&j, a, b, tabu);
+    
     return JOG_CondRetOK;
 }
 
