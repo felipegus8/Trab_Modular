@@ -62,19 +62,17 @@ Peca* vtPecas[DIM_VT_PECA];
  //AE: Recebe um comando defido pelo modulo
 TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 {
-	 int inxPeca  = -1 ,
-          numLidos   = -1 ,
-          CondRetEsp = -1  ;
-      TST_tpCondRet CondRet ;
-      char   StringDado[  DIM_VALOR ],StringDado2[DIM_VALOR] ;
-	  char idPeca,corPeca;
-      char * pDado ;
-      int ValEsp = -1 ;
-      int i ;
-		Peca *novo;
-      int numElem = -1 ;
+	 int inxPeca  = -1 , numLidos   = -1 , CondRetEsp = -1  ;
+	 TST_tpCondRet CondRet ;
+     char   StringDado[  DIM_VALOR ],StringDado2[DIM_VALOR] ;
+	 char idPeca,corPeca;
+     char * pDado ;
+     int ValEsp = -1 ;
+     int i ;
+	 Peca *novo;
+     int numElem = -1 ;
 	  
-       void * elemento;
+     void * elemento;
       StringDado[ 0 ] = 0,StringDado2[0] = 0;
 
 	   if ( strcmp( ComandoTeste , CRIAR_PECA) == 0 )

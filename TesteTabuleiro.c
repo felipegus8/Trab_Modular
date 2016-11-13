@@ -54,7 +54,7 @@ int diminui1DeX(int coordX);
 
 /***********************************************************************
 *
-*  $FC Funcão: TLIS &Testar tabuleiro
+*  $FC Funcão: TTAB &Testar tabuleiro
 *
 *  $ED Descriçãoo da função
 *     É criado um tabuleiro e nele pode operar todas as funções abaixo
