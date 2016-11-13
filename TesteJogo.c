@@ -31,11 +31,8 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
 JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b);
 
 JOG_tpCondRet JOG_ComecarJogo(ptJudge j,ptJogador a,ptJogador b,char *nomeA,char *nomeB,int (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id)));
-
-
 JOG_tpCondRet JOG_AssasinarJuiz(ptJudge j);
 */
-
 static const char EFETUAR_JOGADA             							[ ] = "=efetuarjogada" ;
 static const char CRIA_JUIZ          	                                [ ] = "=criajuiz"   ;
 static const char COMECAR_JOGO              	                        [ ] = "=comecarjogo"      ;
@@ -52,8 +49,6 @@ ptJudge juiz;
 ptJogador JogadorA, JogadorB;
 //#define DIM_VT_PECA   100
 //#define DIM_VALOR     100
-
-
 /***********************************************************************
 *
 *  $FC Funcão: TJOG &Testar Jogo
@@ -65,22 +60,19 @@ ptJogador JogadorA, JogadorB;
 *
 *	efetuarjogada	 char int int int int CondRetEsp
 *	criajuiz		CondRetEsp
-*	comecarjogo     //Comletar
+*	comecarjogo     //int int int str str CondRetEsp CondRet
 *	assasinarjuiz   CondRetEsp
 
 ***********************************************************************/
  //AE: Recebe um comando defido pelo modulo
 TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 {
-	 int inxPeca  = -1 , numLidos   = -1 , CondRetEsp = -1  ;
+	 int numLidos   = -1 , CondRetEsp = -1  ;
 	 TST_tpCondRet CondRet ;
      char   StringDado[  DIM_VALOR ],StringDado2[DIM_VALOR] ;
-	 char idPeca,corPeca;
-     char * pDado ;
      int ValEsp = -1 ;
      int i ;
      int numElem = -1 ;
-     void * elemento;
 	 int xi,  yi, xf, yf;
      StringDado[ 0 ] = 0,StringDado2[0] = 0;
 
@@ -110,6 +102,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro ao efetuar Jogada" );
          }//Fim da efetuar jogada
+	   //Inicio da assasinar juiz
 	   	   else if ( strcmp( ComandoTeste , ASSASINAR_JUIZ) == 0 )
          {
 
@@ -121,6 +114,19 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
             } /* if */
 
              return TST_CompararPonteiroNulo( 1 , juiz , "Erro em assasinar juiz"  ) ;
-         }
+         }//Fim de assasinar Juiz
+	   //Inicio de começar Jogo
+		else if ( strcmp( ComandoTeste , COMECAR_JOGO) == 0 )
+         {
+
+            numLidos = LER_LerParametros( "iiissii" ,&juiz, JogadorA, JogadorB, StringDado, StringDado2, &CondRetEsp, &CondRetEsp); 
+
+            if (  numLidos != 7 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            return TST_CompararInt( CondRetEsp , CondRet ,"Erro ao ComeçarJogo" );
+         }//Fim de começar jogo
 
 }
