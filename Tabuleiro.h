@@ -40,7 +40,7 @@ typedef enum {
          TAB_CondRetCasaVazia ,
                /* A casa não contém peças */
 
-         TAB_CondRetCoordenadaNExiste ,
+        TAB_CondRetComeu,
                /* coordenada inserida não existe */
 
          TAB_CondRetNaoAchouPeca ,
@@ -69,8 +69,9 @@ typedef enum {
          TAB_CondRetNoCheckMate,
              /* rei está em cheque, porém não em cheque mate */
     
-        TAB_CondRetCheckMate
+        TAB_CondRetCheckMate,
             /* rei está em cheque mate */
+        TAB_CondRetCoordenadaNExiste
    } TAB_tpCondRet ;
 
 
@@ -266,6 +267,7 @@ TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id);
 TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu);
 TAB_tpCondRet TAB_VerificaCheck(ptTabuleiro tabu,int xRei,int yRei);
 TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmeacante,int yAmeacante);
+TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *x,int *y,int xRei,int yRei);
 
 /********** Fim do módulo de definição: TAB  Tabuleiro **********/
 #endif

@@ -41,7 +41,13 @@ typedef enum {
     
     JOG_CondRetMovimentoIrregular,
     
-    JOG_CondRetComeu
+    JOG_CondRetComeu,
+    
+    JOG_CondRetCheckMate,
+    
+    JOG_CondRetNoCheckMate,
+    
+    JOG_CondRetCheck
     
 } JOG_tpCondRet ;
 
@@ -71,11 +77,22 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
 
 JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b);
 
-JOG_tpCondRet JOG_ComecarJogo(ptJudge j,ptJogador a,ptJogador b,char *nomeA,char *nomeB,int (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id)));
+JOG_tpCondRet JOG_ComecarJogo(ptJudge j,JOG_tpCondRet (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id),ptJudge j));
 
 
 JOG_tpCondRet JOG_AssasinarJuiz(ptJudge j);
 
+JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,ptTabuleiro *tabu);
+JOG_tpCondRet JOG_GeraMatrizTabuleiro(ptJudge j,char matriz[8][8][2]);
 
+JOG_tpCondRet JOG_CriaJogador(ptJogador *j,char *nome,char cor);
+
+JOG_tpCondRet JOG_RetornoNomeJogador1(ptJudge j,char nome[30]);
+
+JOG_tpCondRet JOG_RetornoNomeJogador2(ptJudge j,char nome[30]);
+
+JOG_tpCondRet JOG_DevolveAmeacantes(ptJudge j,char *corAmeacantes,char *idAmeacantes,int *qtdAmeacantes,int x,int y);
+
+JOG_tpCondRet JOG_DevolveAmeacados(ptJudge j,char *corAmeacados,char *idAmeacados,int *qtdAmeacados,int x,int y);
 
 #endif
