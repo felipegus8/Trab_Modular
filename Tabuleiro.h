@@ -41,7 +41,7 @@ typedef enum {
                /* A casa não contém peças */
 
         TAB_CondRetComeu,
-               /* coordenada inserida não existe */
+    
 
          TAB_CondRetNaoAchouPeca ,
                /* Não encontrou a peca procurada */
@@ -71,7 +71,12 @@ typedef enum {
     
         TAB_CondRetCheckMate,
             /* rei está em cheque mate */
-        TAB_CondRetCoordenadaNExiste
+        TAB_CondRetCoordenadaNExiste,
+            /* coordenada inserida não existe */
+        TAB_CondRetSeSacrificou,
+            /* peça se sacrificou para salvar o rei */
+        TAB_CondRetComeuParaSalvar
+            /*peca comeu peça que estava colocando rei em cheque */
    } TAB_tpCondRet ;
 
 
