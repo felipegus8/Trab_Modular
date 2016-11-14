@@ -200,11 +200,12 @@ void IrInicioLista( LIS_tppLista pLista )
 
 //AE:Recebe uma LIS_tppLista lista já criada
 LIS_tpCondRet LIS_ExcluirNoCorrente(LIS_tppLista lista) {
-#ifdef _DEBUG
+
+    tpElemLista * pElem;
+
+    #ifdef _DEBUG
     assert(lista != NULL ) ;
 #endif
-    tpElemLista * pElem;
-    
     pElem = lista->pElemCorr;
     if(lista->pElemCorr == NULL) {
         return LIS_CondRetListaVazia;
@@ -241,11 +242,12 @@ LIS_tpCondRet LIS_ExcluirNoCorrente(LIS_tppLista lista) {
  *  ****/
 //AE:Recebe uma LIS_tppLista lista já criada
 LIS_tpCondRet LIS_IrProx(LIS_tppLista pLista) {
-#ifdef _DEBUG
-    assert(lista != NULL ) ;
-#endif
+
     tpElemLista * pElem ;
-    
+
+    #ifdef _DEBUG
+    assert(pLista != NULL ) ;
+     #endif
     if ( pLista->pElemCorr == NULL )
     {
         
@@ -281,7 +283,7 @@ LIS_tpCondRet LIS_IrAnt(LIS_tppLista pLista) {
     
     tpElemLista * pElem ;
 #ifdef _DEBUG
-    assert(lista != NULL ) ;
+    assert(pLista != NULL ) ;
 #endif
     
     pElem = pLista->pElemCorr ;
