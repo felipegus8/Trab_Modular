@@ -248,13 +248,7 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
                 } else {
                     verificaMov = TAB_VerificaMovimentoRei(tabu, i, j, corPecaUsada, i + xObtido, j + yObtido);
                 }
-                if(i == 1 && j== 6 && k == 0) {
-                    printf("fdsafdsa\n");
-                    LIS_ObterNo(tabu->tab[1][2].ameacados, (void **)&pecaUsada3);
-                    PEC_RetornaCor(pecaUsada3, &corPecaUsada3);
-                    PEC_RetornaId(pecaUsada3, &idPecaUsada3);
-                    printf("cor: %c e id: %c\n",corPecaUsada3,idPecaUsada3);
-                }
+                
                 
                 if(verificaMov == 2) {
                     printf("cor e id in hell comeu: %c e %c e pos:(%d,%d) e %d e %d e %d\n",corPecaUsada,idPecaUsada,i,j,pecaUsada,i + xObtido,j + yObtido);
