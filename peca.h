@@ -78,7 +78,9 @@ typedef struct peca Peca;
  *
  *
  ***********************************************************************/
+PEC_tpCondRet PEC_AlteraCorEId(Peca *peca,char cor,char id);
 PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor);
+PEC_tpCondRet PEC_FingeQueTira(Peca *peca);
 
 
 /***********************************************************************

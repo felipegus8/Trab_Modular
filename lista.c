@@ -166,7 +166,7 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
     assert( lista != NULL ) ;
 #endif
     if(lista->pElemCorr == NULL) {
-        printf("xaxando\n");
+        printf("xaxando porra\n");
         *referencia = NULL;
         return LIS_CondRetListaVazia;
     }

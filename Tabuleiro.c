@@ -199,15 +199,16 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
      int qtdUnitarios,qtdMov,verificaMov;
      */
     int i,j,k,xObtido,yObtido,qtdUnitarios,qtdMov,verificaMov;
-    char corPecaUsada,corPecaUsada2,idPecaUsada,idPecaUsada2;
+    char corPecaUsada,corPecaUsada2,idPecaUsada,idPecaUsada2,corPecaUsada3,idPecaUsada3;
     Peca *pecaUsada;
-    Peca *pecaUsada2;
+    Peca *pecaUsada2,*pecaUsada3;
     
     
     
     //PEC_CriaPeca(&pecaUsada2, 'V', 'V');
     
     //PEC_CriaPeca(&pecaUsada,'V','V');
+    printf("Entrei na atualiza\n");
     
     for (i=0; i<8; i++) {
         for (j=0; j<8; j++) {
@@ -219,6 +220,7 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
     
     for (i=0; i<8; i++) {
         for (j=0; j<8; j++) {
+            
             pecaUsada = (Peca *) tabu->tab[i][j].elemento;
             PEC_RetornaCor(pecaUsada, &corPecaUsada);
             PEC_RetornaId(pecaUsada, &idPecaUsada);
@@ -246,6 +248,14 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
                 } else {
                     verificaMov = TAB_VerificaMovimentoRei(tabu, i, j, corPecaUsada, i + xObtido, j + yObtido);
                 }
+                if(i == 1 && j== 6 && k == 0) {
+                    printf("fdsafdsa\n");
+                    LIS_ObterNo(tabu->tab[1][2].ameacados, (void **)&pecaUsada3);
+                    PEC_RetornaCor(pecaUsada3, &corPecaUsada3);
+                    PEC_RetornaId(pecaUsada3, &idPecaUsada3);
+                    printf("cor: %c e id: %c\n",corPecaUsada3,idPecaUsada3);
+                }
+                
                 if(verificaMov == 2) {
                     printf("cor e id in hell comeu: %c e %c e pos:(%d,%d) e %d e %d e %d\n",corPecaUsada,idPecaUsada,i,j,pecaUsada,i + xObtido,j + yObtido);
                     if (verificaCoordenadas(i + xObtido, j + yObtido) == 0) {
@@ -268,13 +278,22 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
                             pecaUsada2 = (Peca *) tabu->tab[i - 1][j - 1].elemento;
                         }
                     } else {
+                        printf("Fuck: (%d,%d)\n",i + xObtido,j + yObtido);
                         pecaUsada2 = (Peca *) tabu->tab[i + xObtido][j + yObtido].elemento;
                     }
                     printf("isso e %d\n",i + xObtido);
                     PEC_RetornaCor(pecaUsada2, &corPecaUsada2);
-                    //printf("Verificou\n");
-                    printf("pos comedor(%d,%d) e posComido(%d,%d)\nidComedor: %c e cor comedor: %c e cor comido: %c\n",i,j,i + 1,j + 1,idPecaUsada,corPecaUsada,corPecaUsada2);
+                    PEC_RetornaId(pecaUsada2, &idPecaUsada2);
+                    printf("Verificou\n");
+                    if (i + xObtido == 1 && j + yObtido == 2) {
+                        printf("entrou aqui\n");
+                    }
+                    printf("pos comedor(%d,%d) e posComido(%d,%d)\nidComedor: %c e cor comedor: %c e cor comido: %c e id comido: %c\n",i,j,i + xObtido,j + yObtido,idPecaUsada,corPecaUsada,corPecaUsada2,idPecaUsada2);
                     LIS_InserirNo(tabu->tab[i][j].ameacados, (void *)pecaUsada2);
+                    printf("peca2: %d\n",pecaUsada2);
+                    LIS_ObterNo(tabu->tab[i][j].ameacados, (void **)&pecaUsada3);
+                    PEC_RetornaCor(pecaUsada3, &corPecaUsada3);
+                    PEC_RetornaId(pecaUsada3, &idPecaUsada3);
                     if(idPecaUsada == 'P') {
                         if(corPecaUsada == 'B') {
                             LIS_InserirNo(tabu->tab[i + 1][j + 1].ameacantes, (void *)pecaUsada);
@@ -282,6 +301,8 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
                             LIS_InserirNo(tabu->tab[i - 1][j - 1].ameacantes, (void *)pecaUsada);
                         }
                     } else {
+                        printf("pos: (%d,%d)\n",i + xObtido,j + yObtido);
+                        printf("cor: %c e id: %c\n",corPecaUsada3,idPecaUsada3);
                         LIS_InserirNo(tabu->tab[i + xObtido][j + yObtido].ameacantes, (void *)pecaUsada);
                     }
                 }
@@ -290,6 +311,7 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
             }
         }
     }
+    
     
     
     
@@ -809,7 +831,7 @@ int verificaPeao(ptTabuleiro tabu,int posIniX,int posIniY,int posFimX,int posFim
         
         if(corPecaAlvo != 'V') {
             if (corPecaAlvo != corPeao) {
-                printf("xaxando\n");
+                printf("xaxando allah\n");
                 return 2;
             }
         }
@@ -827,7 +849,7 @@ int verificaPeao(ptTabuleiro tabu,int posIniX,int posIniY,int posFimX,int posFim
             
             if(corPecaAlvo != 'V') {
                 if (corPecaAlvo != corPeao) {
-                    printf("xaxando\n");
+                    printf("xaxando maome\n");
                     return 2;
                 }
             }
@@ -946,12 +968,12 @@ TAB_tpCondRet TAB_VerificaMovimentoRei(ptTabuleiro tabu,int xRei, int yRei, char
     if (retornoVerifica1 != 7) {
         retornoVerifica2 = verificaSePecaChegaEmPos(tabu, xFim, yFim, cor);
         if (retornoVerifica2 == 1) {
-            TAB_InserirPeca(tabu, xRei, yRei, cor, 'R');
+            PEC_AlteraCorEId(rei, cor, 'R');
             return retornoVerifica1;
         }
         printf("movimento é valido,contudo deixa o rei em cheque, logo, ilegal\n");
     }
-    TAB_InserirPeca(tabu, xRei, yRei, cor, 'R');
+    PEC_AlteraCorEId(rei, cor, 'R');
     return 7;
 }
 

@@ -503,6 +503,12 @@ PEC_tpCondRet PEC_FingeQueTira(Peca *peca)
     return PEC_CondRetOK;
 }
 
+PEC_tpCondRet PEC_AlteraCorEId(Peca *peca,char cor,char id) {
+    peca->id = id;
+    peca->cor = cor;
+    return PEC_CondRetOK;
+}
+
 PEC_tpCondRet PEC_EliminarPeca(Peca *peca)
 {
     peca->id = 'V';
