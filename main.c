@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <string.h>
+#include<Windows.h>
 #include"jogo.h"
 
 
@@ -96,7 +97,16 @@ void recebeNomeJogadorB(char nomeB[30]) {
 void imprimeTabuleiro(char matrizTabuleiro[8][8][2]) {
     int x,y;
     char row = 'A';
-    printf("\n");
+	 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+    WORD saved_attributes;
+	 printf("\n");
+    /* Save current attributes */
+    GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+    saved_attributes = consoleInfo.wAttributes;
+
+    /* Restore original attributes */
+   
     for (x=0; x<8; x++) {
         printf("%d\t",8 - x);
         for (y=0; y<8; y++) {
@@ -104,7 +114,18 @@ void imprimeTabuleiro(char matrizTabuleiro[8][8][2]) {
 			printf("-\t");
 			else
 			{
-			printf("%c%c\t",matrizTabuleiro[y][7 - x][0],matrizTabuleiro[y][7 - x][1]);
+			if (matrizTabuleiro[y][7 - x][1] == 'B')
+			{
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (BACKGROUND_RED | BACKGROUND_BLUE | BACKGROUND_GREEN));
+			printf("%c\t",matrizTabuleiro[y][7 - x][0]);
+			 SetConsoleTextAttribute(hConsole, saved_attributes);
+			}
+			else
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),(FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN | 0));
+				printf("%c\t",matrizTabuleiro[y][7 - x][0]);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+			}
 			}
         }
         printf("\n");
