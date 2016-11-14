@@ -134,8 +134,8 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
             }
             break;
         case 'C':
-            (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*2);
-            (*novo)->qtdMov = 2;
+            (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*8);
+            (*novo)->qtdMov = 8;
             (*novo)->podePular = 1;
             if((*novo)->movPeca == NULL)
             {
@@ -146,6 +146,18 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
             (*novo)->movPeca[0].y = 1;
             (*novo)->movPeca[1].x = 1;
             (*novo)->movPeca[1].y = 2;
+            (*novo)->movPeca[2].x = -2;
+            (*novo)->movPeca[2].y = -1;
+            (*novo)->movPeca[3].x = -1;
+            (*novo)->movPeca[3].y = -2;
+            (*novo)->movPeca[4].x = -2;
+            (*novo)->movPeca[4].y = 1;
+            (*novo)->movPeca[5].x = -1;
+            (*novo)->movPeca[5].y = 2;
+            (*novo)->movPeca[6].x = 2;
+            (*novo)->movPeca[6].y = -1;
+            (*novo)->movPeca[7].x = 1;
+            (*novo)->movPeca[7].y = -2;
             break;
         case 'B':
             (*novo)->movPeca = (Movimento*)malloc(sizeof(Movimento)*28);
@@ -425,7 +437,7 @@ PEC_tpCondRet PEC_RetornaId(Peca *peca,char *id)
 PEC_tpCondRet PEC_RetornaCor(Peca *peca,char *cor)
 {
     if(peca == NULL) {
-        printf("blade\n");
+        printf("blade peça\n");
         exit(-1);
     }
     *cor = peca->cor;
@@ -470,6 +482,7 @@ PEC_tpCondRet PEC_RetornaXMovimento(Peca *peca,int i,int *x)
  *
  *  Função: PEC  &Retorna Y Movimento
  *  ****/
+
 PEC_tpCondRet PEC_RetornaYMovimento(Peca *peca,int i,int *y)
 {
     if(peca->movPeca != NULL) {
@@ -482,6 +495,14 @@ PEC_tpCondRet PEC_RetornaYMovimento(Peca *peca,int i,int *y)
  *
  *  Função: PEC  &Eliminar Peca
  *  ****/
+
+PEC_tpCondRet PEC_FingeQueTira(Peca *peca)
+{
+    peca->id = 'V';
+    peca->cor = 'V';
+    return PEC_CondRetOK;
+}
+
 PEC_tpCondRet PEC_EliminarPeca(Peca *peca)
 {
     peca->id = 'V';
@@ -489,6 +510,7 @@ PEC_tpCondRet PEC_EliminarPeca(Peca *peca)
     peca->qtdMov = 0;
     peca->podePular = 0;
     peca->movPeca = NULL;
+    free(peca);
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Eliminar Peca */
 

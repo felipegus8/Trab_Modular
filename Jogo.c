@@ -66,10 +66,10 @@ JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b) {
     novo->jogador1 = a;
     novo->jogador2 = b;
     TAB_CriaTabuleiro(&(novo->tabu));
-    novo->xReiBranco = 1;
-    novo->yReiBranco = 6;
+    novo->xReiBranco = 4;
+    novo->yReiBranco = 0;
     novo->xReiPreto = 4;
-    novo->yReiPreto = 6;
+    novo->yReiPreto = 7;
     *j = novo;
     return  JOG_CondRetOK;
 }
@@ -77,7 +77,7 @@ JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b) {
 JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei) {
     Peca *ameacante;
     TAB_tpCondRet retCheckMate;
-    int xAmeacante,yAmeacante;
+    int xAmeacante,yAmeacante,numElem;
     char corAmeacante,idAmeacante;
     LIS_tppLista ameacantes;
     TAB_ObterListaAmeacantes(j->tabu, j->xReiBranco, j->yReiBranco, &ameacantes);
@@ -90,10 +90,17 @@ JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei) {
         TAB_AchaPecaCheck(j->tabu, corAmeacante, idAmeacante, &xAmeacante, &yAmeacante, j->xReiPreto, j->yReiPreto);
         retCheckMate = TAB_VerificaCheckMate(j->tabu, j->xReiBranco, j->yReiBranco, xAmeacante, yAmeacante);
     }
-    if (retCheckMate == TAB_CondRetCheckMate) {
-        return JOG_CondRetCheckMate;
+    if (retCheckMate == TAB_CondRetNoCheckMate) {
+        return JOG_CondRetNoCheckMate;
+    } else if(retCheckMate == TAB_CondRetSeSacrificou || retCheckMate == TAB_CondRetComeuParaSalvar) {
+        LIS_RetornaNumElementos(ameacantes, &numElem);
+        if(numElem <=1) {
+            /*Caso as peças tenham que se movimentar para salvar o rei, elas, logicamente, terão que usar um movimento. Nesse caso, se houver mais alguma outra peça que coloca o rei em cheque, acabará o jogo, visto que as peças da cor do rei terão que realizar um dos movimentos para evitar que o rei seja capturado pela primeira peça e, com isso, a segunda peça que ameaça o rei pode o capturar  */
+            return JOG_CondRetNoCheckMate;
+        }
+        
     }
-    return JOG_CondRetNoCheckMate;
+    return JOG_CondRetCheckMate;
     
 }
 
@@ -195,7 +202,7 @@ JOG_tpCondRet JOG_DevolveAmeacantes(ptJudge j,char *corAmeacantes,char *idAmeaca
     LIS_tppLista ameacantes;
     Peca *ameacante;
     int numElem,i;
-    printf("x: %d e y: %d\n",x,y);
+    
     TAB_ObterListaAmeacantes(j->tabu, x, y, &ameacantes);
     LIS_RetornaNumElementos(ameacantes, &numElem);
     *qtdAmeacantes = numElem;
@@ -204,7 +211,6 @@ JOG_tpCondRet JOG_DevolveAmeacantes(ptJudge j,char *corAmeacantes,char *idAmeaca
         LIS_ObterNo(ameacantes, (void **)&ameacante);
         PEC_RetornaCor(ameacante, &corAmeacantes[i]);
         PEC_RetornaId(ameacante, &idAmeacantes[i]);
-        printf("cor: %c e id: %c\n",corAmeacantes[i],idAmeacantes[i]);
         LIS_IrProx(ameacantes);
     }
     return JOG_CondRetOK;
@@ -214,7 +220,6 @@ JOG_tpCondRet JOG_DevolveAmeacados(ptJudge j,char *corAmeacados,char *idAmeacado
     LIS_tppLista ameacados;
     Peca *ameacado;
     int numElem,i;
-    printf("x: %d e y: %d\n",x,y);
     TAB_ObterListaAmeacados(j->tabu, x, y, &ameacados);
     LIS_RetornaNumElementos(ameacados, &numElem);
     *qtdAmeacados = numElem;
@@ -223,7 +228,6 @@ JOG_tpCondRet JOG_DevolveAmeacados(ptJudge j,char *corAmeacados,char *idAmeacado
         LIS_ObterNo(ameacados, (void **)&ameacado);
         PEC_RetornaCor(ameacado, &corAmeacados[i]);
         PEC_RetornaId(ameacado, &idAmeacados[i]);
-        printf("cor: %c e id: %c\n",corAmeacados[i],idAmeacados[i]);
         LIS_IrProx(ameacados);
     }
     return JOG_CondRetOK;

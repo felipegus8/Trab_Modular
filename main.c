@@ -40,10 +40,40 @@ JOG_tpCondRet inserirPecas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,i
     InserirNoTab(tabu,3,1,'P','D');
     InserirNoTab(tabu,4,4,'B','T');
      */
-    InserirNoTab(tabu,0,6,'B','T');
-    InserirNoTab(tabu,1,0,'P','T');
-    InserirNoTab(tabu,1,1,'B','B');
-    InserirNoTab(tabu,0,3,'P','D');
+    //Insere peças brancas
+    InserirNoTab(tabu,0,0,'B','T');
+    InserirNoTab(tabu,1,0,'B','C');
+    InserirNoTab(tabu,2,0,'B','B');
+    InserirNoTab(tabu,3,0,'B','D');
+    InserirNoTab(tabu,4,0,'B','R');
+    InserirNoTab(tabu,5,0,'B','B');
+    InserirNoTab(tabu,6,0,'B','C');
+    InserirNoTab(tabu,7,0,'B','T');
+    InserirNoTab(tabu,0,1,'B','P');
+    InserirNoTab(tabu,1,1,'B','P');
+    InserirNoTab(tabu,2,1,'B','P');
+    InserirNoTab(tabu,3,1,'B','P');
+    InserirNoTab(tabu,4,1,'B','P');
+    InserirNoTab(tabu,5,1,'B','P');
+    InserirNoTab(tabu,6,1,'B','P');
+    InserirNoTab(tabu,7,1,'B','P');
+    //Insere peças pretas
+    InserirNoTab(tabu,0,7,'P','T');
+    InserirNoTab(tabu,1,7,'P','C');
+    InserirNoTab(tabu,2,7,'P','B');
+    InserirNoTab(tabu,3,7,'P','D');
+    InserirNoTab(tabu,4,7,'P','R');
+    InserirNoTab(tabu,5,7,'P','B');
+    InserirNoTab(tabu,6,7,'P','C');
+    InserirNoTab(tabu,7,7,'P','T');
+    InserirNoTab(tabu,0,6,'P','P');
+    InserirNoTab(tabu,1,6,'P','P');
+    InserirNoTab(tabu,2,6,'P','P');
+    InserirNoTab(tabu,3,6,'P','P');
+    InserirNoTab(tabu,4,6,'P','P');
+    InserirNoTab(tabu,5,6,'P','P');
+    InserirNoTab(tabu,6,6,'P','P');
+    InserirNoTab(tabu,7,6,'P','P');
     return JOG_CondRetOK;
 }
 
@@ -122,6 +152,8 @@ void loopJogo(ptJudge j) {
         scanf(" %c",&coordXFim);
         printf("Insira para qual coordenada Y  deseja movimentar a peça\n");
         scanf(" %d",&coordYFim);
+        coordYFim--;
+        coordYIni--;
         resMovimento = JOG_EfetuarJogada(j, corDavez, converteCharParaInt(coordXIni), coordYIni, converteCharParaInt(coordXFim), coordYFim);
         if (resMovimento == JOG_CondRetOK) {
             printf("Movimento foi realizado com sucesso, sem capturar outra peça");
@@ -164,11 +196,15 @@ void loopJogo(ptJudge j) {
 
 int main()
 {
-    int ret;
     ptTabuleiro tabu;
-    char cor,id;
+    int ret;
+    char cor,id,corAmeacados[16],idAmeacados[16];
+    int numElem;
     ptJudge j;
     ptJogador a,b;
+    LIS_tppLista elis;
+    
+    
     
     char nomeA[30],nomeB[30];
     recebeNomeJogadorA(nomeA);
@@ -176,10 +212,17 @@ int main()
     JOG_CriaJogador(&a,nomeA,'P');
     JOG_CriaJogador(&b,nomeB,'B');
     JOG_CriaJuiz(&j, a, b);
+    JOG_ObtemTabuleiro(j, &tabu);
     JOG_ComecarJogo(j, inserirPecas);
-     
-    
-    
-    
+    /*
+    ret = TAB_MoverPeca(tabu, 4, 6, 4, 5);
+    ret = TAB_MoverPeca(tabu, 4, 5, 4, 4);
+    ret = TAB_MoverPeca(tabu, 4, 4, 4, 3);
+    printf("Entrei no ultimo");
+    ret = TAB_MoverPeca(tabu, 4, 3, 4, 2);
+    printf("%d\n",ret);
+    JOG_DevolveAmeacantes(j, corAmeacados, idAmeacados, &numElem, 4, 2);
+    */
     loopJogo(j);
+    
 }
