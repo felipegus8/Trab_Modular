@@ -4,6 +4,7 @@
 #include"jogo.h"
 
 
+
 int converteCharParaInt(char i) {
     return (int)i - 'A';
 }
@@ -99,10 +100,16 @@ void imprimeTabuleiro(char matrizTabuleiro[8][8][2]) {
     for (x=0; x<8; x++) {
         printf("%d\t",8 - x);
         for (y=0; y<8; y++) {
-            printf("%c%c\t",matrizTabuleiro[y][7 - x][0],matrizTabuleiro[y][7 - x][1]);
+			if(matrizTabuleiro[y][7 - x][0] == 'V' &&  matrizTabuleiro[y][7 - x][1] == 'V')
+			printf("-\t");
+			else
+			{
+			printf("%c%c\t",matrizTabuleiro[y][7 - x][0],matrizTabuleiro[y][7 - x][1]);
+			}
         }
         printf("\n");
     }
+	printf("\n\n");
     for (y=1; y<9; y++) {
         printf(" \t%c ",row);
         row++;
@@ -144,9 +151,9 @@ void loopJogo(ptJudge j) {
         JOG_GeraMatrizTabuleiro(j, matrizTabuleiro);
         imprimeTabuleiro(matrizTabuleiro);
         
-        printf("Insira a coordenada X da peça que deseja movimentar\n");
+        printf("Insira a coordenada X de onde a peca que quer movimentar esta agora\n");
         scanf(" %c",&coordXIni);
-        printf("Insira a coordenada Y da peça que deseja movimentar\n");
+        printf("Insira a coordenada Y de onde a peca que quer movimentar esta agora\n");
         scanf(" %d",&coordYIni);
         printf("Insira para qual coordenada X  deseja movimentar a peça\n");
         scanf(" %c",&coordXFim);
@@ -188,7 +195,7 @@ void loopJogo(ptJudge j) {
             }
             break;
         }
-        printf("deseja continuar?\n");
+        printf("deseja continuar?\nDigite FIM para sair\n");
         scanf(" %s",continuar);
         i++;
     } while (strcmp(continuar, "FIM") != 0);
