@@ -198,7 +198,7 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
      */
     TAB_tpCondRet retTab;
     int i,j,k,xObtido,yObtido,qtdUnitarios,qtdMov,verificaMov;
-    char corPecaUsada,corPecaUsada2,idPecaUsada,idPecaUsada2,corPecaUsada3,idPecaUsada3,corPecaObtida,idPecaObtido;
+    char corPecaUsada,corPecaUsada2,idPecaUsada,idPecaUsada2,corPecaUsada3,idPecaUsada3;
     Peca *pecaUsada;
     Peca *pecaUsada2,*pecaUsada3;
     
@@ -398,7 +398,7 @@ TAB_tpCondRet TAB_ObterListaAmeacados(ptTabuleiro tabu,int x, int y,LIS_tppLista
  *  ****/
 TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
     char corPecaLista,corPecaTabuleiro,idPecaLista,idPecaTabuleiro;
-    int i,qtdMov,moveParaTras,xObtido,yObtido,achou = 0,qtdUnitarios = 0,verificaMov,j;
+    int i,qtdMov,xObtido,yObtido,achou = 0,qtdUnitarios = 0,verificaMov;
     Peca *pecaLista = NULL;
     
     //printf("ta na movimento\n");
@@ -658,7 +658,7 @@ int *verificaDirecaoSeguida(int *movimentoX,int *movimentoY,int qtdFaltaX,int qt
 
 int verificaCondMov(Tabuleiro *tabu,int *movimentoX, int *movimentoY,int posX,int posY,int qtdMov,int qtdFaltaX,int qtdFaltaY,char cor) {
     int *direcao,i,xDirecao,yDirecao,diretor,qtdFalta;
-    char idObtido,corObtida,corTeste,idTeste;
+    char idObtido,corObtida;
     TAB_tpCondRet condRet;
     
     
