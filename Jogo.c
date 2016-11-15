@@ -51,21 +51,32 @@ JOG_tpCondRet JOG_CriaJogador(ptJogador *j,char *nome,char cor) {
 
 JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,ptTabuleiro *tabu) {
     if(j->tabu == NULL) {
-        return JOG_CondRetFaltouMemoria;
+        return JOG_CondRetTabuleiroNulo;
     }
     *tabu = j->tabu;
     return JOG_CondRetOK;
 }
 
-JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b) {
+JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,char nomeJogadorA[30],char nomeJogadorB[30]) {
     ptJudge novo;
+	TAB_tpCondRet retTab;
+	JOG_tpCondRet retJogo;
     novo = (Judge *) malloc(sizeof(Judge));
     if(novo == NULL) {
         return JOG_CondRetFaltouMemoria;
     }
-    novo->jogador1 = a;
-    novo->jogador2 = b;
-    TAB_CriaTabuleiro(&(novo->tabu));
+	retJogo = JOG_CriaJogador(&(novo->jogador1),nomeJogadorA,'B');
+	if(retJogo == JOG_CondRetFaltouMemoria) {
+	    return retJogo;
+	} 
+	retJogo = JOG_CriaJogador(&(novo->jogador2),nomeJogadorB,'P');
+	if(retJogo == JOG_CondRetFaltouMemoria) {
+	   return retJogo;
+	}
+    retTab = TAB_CriaTabuleiro(&(novo->tabu));
+	if(retTab == TAB_CondRetFaltouMemoria) {
+	   return JOG_CondRetTabuleiroNulo;
+	}
     novo->xReiBranco = 4;
     novo->yReiBranco = 0;
     novo->xReiPreto = 4;

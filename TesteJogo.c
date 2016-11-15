@@ -23,6 +23,9 @@
 #include    "Jogo.h"
 #include    "TST_ESPC.h"
 
+/* funções encapsuladas no testejogo */
+void inserirPecas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) ;
+/******************************************************************************************************************/
 /*
 JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY);
 JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b);
@@ -66,7 +69,9 @@ ptJudge juiz;
 ptJogador JogadorA, JogadorB;
 ptTabuleiro tabu;
 //#define DIM_VT_PECA   100
-//#define DIM_VALOR     100
+#define DIM_VALOR     30
+
+
 /***********************************************************************
 *
 *  $FC Funcão: TJOG &Testar Jogo
@@ -81,28 +86,39 @@ ptTabuleiro tabu;
 *	comecarjogo     //int int int str str CondRetEsp CondRet
 *	assasinarjuiz   CondRetEsp
 
+
+
+
 ***********************************************************************/
  //AE: Recebe um comando defido pelo modulo
+
+
+
 TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 {
 	 int numLidos   = -1 , CondRetEsp = -1  ;
 	 TST_tpCondRet CondRet ;
-     char   StringDado[  DIM_VALOR ],StringDado2[DIM_VALOR], id ;
+     char   StringDado[  DIM_VALOR ],StringDado2[DIM_VALOR],corRecebida[16],idRecebido[16],corDada[16],idDado[16], id,cor ;
      int ValEsp = -1 ;
-     int i ;
+     int i,x,y ;
      int numElem = -1 ;
+	 ptTabuleiro tabu;
+	 ptJuiz j;
+	 ptJogador jo;
 	 int xi,  yi, xf, yf;
      StringDado[ 0 ] = 0,StringDado2[0] = 0;
+	 idDado[ 0 ] = 0;
+	 corDada[ 0 ] = 0;
+	 
 
 	   if ( strcmp( ComandoTeste , CRIA_JUIZ) == 0 )
 	   {
-		   numLidos = LER_LerParametros( "i", &CondRetEsp) ;
-		   if ( numLidos != 1 )
+		   numLidos = LER_LerParametros( "iss", &CondRetEsp,StringDado,StringDado2) ;
+		   if ( numLidos != 3 )
             {
                return TST_CondRetParm ;
-            } 
-		   CondRet = JOG_CriaJuiz(&juiz, JogadorA, JogadorB);
-		   printf("%d\n",CondRet);
+            }
+		   CondRet = JOG_CriaJuiz(&juiz, StringDado, StringDado2);
 
 			return TST_CompararInt( CondRetEsp , CondRet ,"Erro em criar juiz" );
        }/*Fim ativa: Efetuar Jogada */
@@ -140,14 +156,14 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		else if ( strcmp( ComandoTeste , COMECAR_JOGO) == 0 )
          {
 
-            numLidos = LER_LerParametros( "ssi" ,StringDado, StringDado2, &CondRetEsp); 
+            numLidos = LER_LerParametros( "i" , &CondRetEsp); 
 
-            if (  numLidos != 3 )
+            if (  numLidos != 1 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-			CondRet = JOG_tpCondRet JOG_ComecarJogo(juiz, TAB_InserirPeca(xi, yi, corDaVez, id)
+			CondRet =  JOG_ComecarJogo(juiz, inserirPecas)
 			//JOG_tpCondRet JOG_ComecarJogo(ptJudge j,JOG_tpCondRet (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id),ptJudge j));
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro ao ComeçarJogo" );
          }//Fim de começar jogo
@@ -162,10 +178,61 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
                return TST_CondRetParm ;
             } /* if */
 
-			//JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,ptTabuleiro *tabu);
+			condRet = JOG_tpCondRet JOG_ObtemTabuleiro(j,&tabu);
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro em obter tabuleiro" );
-         }
-		//Fim de obtem tabuleiro
+         }//Fim de obtem tabuleiro
+		//Inicio cria jogador
+		else if(strcmp(ComandoTeste, CRIA_JOGADOR) == 0) {
+		    numLidos = LER_LerParametros( "isc", &CondRetEsp,StringDado,&cor); 
+			if(numLidos != 3) {
+			   return TST_CondRetParm;
+			}
+			condRet = JOG_CriaJogador(&jo,stringDado,cor);
+			return TST_CompararInt(CondRetEsp, CondRet, "Erro ao criar jogador" );
+		}//Fim cria jogador
+		//Inicio retorna nome jogador 1
+		else if(strcmp(ComandoTeste, RETORNA_NOME_JOGADOR1) == 0) {
+		    numLidos = LER_LerParametros("s",StringDado);
+			if(numLidos != 1) {
+			    return TST_CondRetParm;
+			}
+			condRet = JOG_RetornoNomeJogador1(j,StringDado2);
+			return TST_CompararString( StringDado , StringDado2 ,"Valor Encontrado diferente do esperado." ) ;
+		}//FIM retorna nome jogador 1
+		//Inicio retorna nome jogador 2
+		else if(strcmp(ComandoTeste, RETORNA_NOME_JOGADOR2) == 0) {
+		    numLidos = LER_LerParametros("s",StringDado);
+			if(numLidos != 1) {
+			    return TST_CondRetParm;
+			}
+			condRet = JOG_RetornoNomeJogador2(j,StringDado2);
+			return TST_CompararString( StringDado , StringDado2 ,"Valor Encontrado diferente do esperado." ) ;
+		}//Fim retorna nome jogador 2
+		//Inicio devolve ameacantes
+		else if(strcmp(ComandoTeste, DEVOLVE_AMEACANTES)) {
+		     numLidos = LER_LerParametros("siii",idDado,&ValEsp,&x,&y);
+			 if(numLidos != 3) {
+			    return TST_CondRetParm;
+			 }
+			 CondRet = JOG_DevolveAmeacantes(j,corRecebida,idRecebido,&numElem,x,y);
+			 if(numElem != ValEsp) {
+			     return TST_CompararInt(numElem, ValEsp, "Quantidade de elementos ameacantes é diferente da quantia recebida " );
+			 }
+			 return TST_CompararString( idDado , idRecebido ,"Valor Encontrado diferente do esperado." ) ;
+		}//Fim devolve ameacantes
+		//Inicio devolve ameacados
+		else if(strcmp(ComandoTeste, DEVOLVE_AMEACADOS)) {
+		     numLidos = LER_LerParametros("siii",idDado,&ValEsp,&x,&y);
+			 if(numLidos != 3) {
+			    return TST_CondRetParm;
+			 }
+			 CondRet = JOG_DevolveAmeacados(j,corRecebida,idRecebido,&numElem,x,y);
+			 if(numElem != ValEsp) {
+			     return TST_CompararInt(numElem, ValEsp, "Quantidade de elementos ameacantes é diferente da quantia recebida " );
+			 }
+			 return TST_CompararString( idDado , idRecebido ,"Valor Encontrado diferente do esperado." ) ;
+		}//Fim devolve ameacados
+
 }
 /*
 JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,ptTabuleiro *tabu);
@@ -182,3 +249,77 @@ JOG_tpCondRet JOG_DevolveAmeacantes(ptJudge j,char *corAmeacantes,char *idAmeaca
 
 JOG_tpCondRet JOG_DevolveAmeacados(ptJudge j,char *corAmeacados,char *idAmeacados,int *qtdAmeacados,int x,int y);
 */
+
+/* Inicio funcoes encapsuladas no testejogo*/
+
+void inserirPecas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
+    ptTabuleiro tabu;
+    int y,xi,continuar = 1;
+    char cor,id,x;
+    /*
+    do {
+        printf("Entre com a identidade da peça\n");
+        scanf(" %c",&id);
+        printf("id peça: %d\n",id);
+        printf("Entre com a cor da peça\n");
+        scanf(" %c",&cor);
+        printf("Entre com a coordenada X da peça\n");
+        scanf(" %c",&x);
+        printf("Entre com a coordenada Y da peça\n");
+        scanf(" %d",&y);
+        xi = converteCharParaInt(x);
+        printf("convertido: %d\n",xi);
+        JOG_ObtemTabuleiro(j, &tabu);
+        y--;
+        InserirNoTab(tabu, xi, y, cor, id);
+        printf("se quiser continuar inserindo digite 1\n");
+        scanf("%d",&continuar);
+    } while (continuar == 1);
+    */
+     
+    JOG_ObtemTabuleiro(j, &tabu);
+    /*
+    InserirNoTab(tabu,1,6,'B','R');
+    InserirNoTab(tabu,2,2,'P','T');
+    InserirNoTab(tabu,3,1,'P','D');
+    InserirNoTab(tabu,4,4,'B','T');
+     */
+    //Insere peças brancas
+    InserirNoTab(tabu,0,0,'B','T');
+    InserirNoTab(tabu,1,0,'B','C');
+    InserirNoTab(tabu,2,0,'B','B');
+    InserirNoTab(tabu,3,0,'B','D');
+    InserirNoTab(tabu,4,0,'B','R');
+    InserirNoTab(tabu,5,0,'B','B');
+    InserirNoTab(tabu,6,0,'B','C');
+    InserirNoTab(tabu,7,0,'B','T');
+    InserirNoTab(tabu,0,1,'B','P');
+    InserirNoTab(tabu,1,1,'B','P');
+    InserirNoTab(tabu,2,1,'B','P');
+    InserirNoTab(tabu,3,1,'B','P');
+    InserirNoTab(tabu,4,1,'B','P');
+    InserirNoTab(tabu,5,1,'B','P');
+    InserirNoTab(tabu,6,1,'B','P');
+    InserirNoTab(tabu,7,1,'B','P');
+    //Insere peças pretas
+    InserirNoTab(tabu,0,7,'P','T');
+    InserirNoTab(tabu,1,7,'P','C');
+    InserirNoTab(tabu,2,7,'P','B');
+    InserirNoTab(tabu,3,7,'P','D');
+    InserirNoTab(tabu,4,7,'P','R');
+    InserirNoTab(tabu,5,7,'P','B');
+    InserirNoTab(tabu,6,7,'P','C');
+    InserirNoTab(tabu,7,7,'P','T');
+    InserirNoTab(tabu,0,6,'P','P');
+    InserirNoTab(tabu,1,6,'P','P');
+    InserirNoTab(tabu,2,6,'P','P');
+    InserirNoTab(tabu,3,6,'P','P');
+    InserirNoTab(tabu,4,6,'P','P');
+    InserirNoTab(tabu,5,6,'P','P');
+    InserirNoTab(tabu,6,6,'P','P');
+    InserirNoTab(tabu,7,6,'P','P');
+    return JOG_CondRet;
+}
+
+/*Fim funções encapsuladas no testejogo */
+/*Fim testejogo */

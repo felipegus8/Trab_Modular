@@ -47,7 +47,9 @@ typedef enum {
     
     JOG_CondRetNoCheckMate,
     
-    JOG_CondRetCheck
+    JOG_CondRetCheck,
+    
+    JOG_CondRetTabuleiroNulo
     
 } JOG_tpCondRet ;
 
@@ -75,7 +77,7 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
 
 
 
-JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,ptJogador a,ptJogador b);
+JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,char nomeJogadorA[30], char nomeJogadorB[30]);
 
 JOG_tpCondRet JOG_ComecarJogo(ptJudge j,JOG_tpCondRet (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id),ptJudge j));
 

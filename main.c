@@ -230,9 +230,7 @@ int main()
     char nomeA[30],nomeB[30];
     recebeNomeJogadorA(nomeA);
     recebeNomeJogadorB(nomeB);
-    JOG_CriaJogador(&a,nomeA,'P');
-    JOG_CriaJogador(&b,nomeB,'B');
-    JOG_CriaJuiz(&j, a, b);
+    JOG_CriaJuiz(&j, nomeA, nomeB);
     JOG_ObtemTabuleiro(j, &tabu);
     JOG_ComecarJogo(j, inserirPecas);
     
@@ -264,4 +262,8 @@ int main()
     */
     loopJogo(j);
     
+    
+    
+    JOG_AssasinarJuiz(j);
+    printf("saiu daqui\n");
 }
