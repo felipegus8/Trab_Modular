@@ -82,11 +82,20 @@ JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei) {
     LIS_tppLista ameacantes;
     TAB_ObterListaAmeacantes(j->tabu, j->xReiBranco, j->yReiBranco, &ameacantes);
     LIS_ObterNo(ameacantes, (void **)&ameacante);
-    PEC_RetornaCor(ameacante, &corAmeacante);
-    PEC_RetornaId(ameacante, &idAmeacante);
+    
+    printf("dps de obter\n");
+    
     if(corRei == 'B') {
+        TAB_ObterListaAmeacantes(j->tabu, j->xReiBranco, j->yReiBranco, &ameacantes);
+        LIS_ObterNo(ameacantes, (void **)&ameacante);
+        PEC_RetornaCor(ameacante, &corAmeacante);
+        PEC_RetornaId(ameacante, &idAmeacante);
         TAB_AchaPecaCheck(j->tabu, corAmeacante, idAmeacante, &xAmeacante, &yAmeacante, j->xReiBranco, j->yReiBranco);retCheckMate = TAB_VerificaCheckMate(j->tabu, j->xReiBranco, j->yReiBranco, xAmeacante, yAmeacante);
     } else {
+        TAB_ObterListaAmeacantes(j->tabu, j->xReiPreto, j->yReiPreto, &ameacantes);
+        LIS_ObterNo(ameacantes, (void **)&ameacante);
+        PEC_RetornaCor(ameacante, &corAmeacante);
+        PEC_RetornaId(ameacante, &idAmeacante);
         TAB_AchaPecaCheck(j->tabu, corAmeacante, idAmeacante, &xAmeacante, &yAmeacante, j->xReiPreto, j->yReiPreto);
         retCheckMate = TAB_VerificaCheckMate(j->tabu, j->xReiBranco, j->yReiBranco, xAmeacante, yAmeacante);
     }
@@ -106,10 +115,10 @@ JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei) {
 
 JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY) {
     char cor,id;
-    int x,y;
+    int x,y,i,k;
     TAB_tpCondRet retCheck;
     JOG_tpCondRet jogCheckMate;
-    LIS_tppLista lis;
+    LIS_tppLista lis,elis1,elis2;
     TAB_ObterPeca(j->tabu,posIniX , posIniY, &cor, &id);
     if(cor != corDaVez) {
         printf("cor: %c e da vez: %c\n",cor,corDaVez);
@@ -127,6 +136,8 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
             }
         }
         retCheck = TAB_VerificaCheck(j->tabu, j->xReiBranco, j->yReiBranco);
+        printf("blabla\n");
+        
         printf("check: %d\n",retCheck);
         if(retCheck == TAB_CondRetCheck) {
             printf("passou pelo check\n");
@@ -136,9 +147,10 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
                 return jogCheckMate;
             }
         }
-        
+        printf("Passei aqui\n");
         retCheck = TAB_VerificaCheck(j->tabu, j->xReiPreto, j->yReiPreto);
         if(retCheck == TAB_CondRetCheck) {
+            printf("ENtrei no check afro\n");
             jogCheckMate = JOG_AvaliaCheck(j,'P');
             printf("%d\n",jogCheckMate);
             if (jogCheckMate == JOG_CondRetCheckMate) {

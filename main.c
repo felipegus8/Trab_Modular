@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <string.h>
-#include<Windows.h>
 #include"jogo.h"
 
 
@@ -97,13 +96,10 @@ void recebeNomeJogadorB(char nomeB[30]) {
 void imprimeTabuleiro(char matrizTabuleiro[8][8][2]) {
     int x,y;
     char row = 'A';
-	 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
-    WORD saved_attributes;
+	 
 	 printf("\n");
     /* Save current attributes */
-    GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
-    saved_attributes = consoleInfo.wAttributes;
+    
 
     /* Restore original attributes */
    
@@ -116,15 +112,13 @@ void imprimeTabuleiro(char matrizTabuleiro[8][8][2]) {
 			{
 			if (matrizTabuleiro[y][7 - x][1] == 'B')
 			{
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (BACKGROUND_RED | BACKGROUND_BLUE | BACKGROUND_GREEN));
 			printf("%c\t",matrizTabuleiro[y][7 - x][0]);
-			 SetConsoleTextAttribute(hConsole, saved_attributes);
+			 
 			}
 			else
 			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),(FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN | 0));
+				
 				printf("%c\t",matrizTabuleiro[y][7 - x][0]);
-				SetConsoleTextAttribute(hConsole, saved_attributes);
 			}
 			}
         }
@@ -230,8 +224,8 @@ int main()
     int numElem;
     ptJudge j;
     ptJogador a,b;
-    LIS_tppLista elis;
-    
+    LIS_tppLista elis1,elis2;
+    int i=0,k=0;
     
     
     char nomeA[30],nomeB[30];
@@ -242,14 +236,32 @@ int main()
     JOG_CriaJuiz(&j, a, b);
     JOG_ObtemTabuleiro(j, &tabu);
     JOG_ComecarJogo(j, inserirPecas);
+    
+    
+    
     /*
-    ret = TAB_MoverPeca(tabu, 4, 6, 4, 5);
-    ret = TAB_MoverPeca(tabu, 4, 5, 4, 4);
-    ret = TAB_MoverPeca(tabu, 4, 4, 4, 3);
-    printf("Entrei no ultimo");
-    ret = TAB_MoverPeca(tabu, 4, 3, 4, 2);
-    printf("%d\n",ret);
-    JOG_DevolveAmeacantes(j, corAmeacados, idAmeacados, &numElem, 4, 2);
+    ret = TAB_MoverPeca(tabu, 6, 7, 5, 5);
+    ret = TAB_MoverPeca(tabu, 3, 1, 3, 2);
+    ret = TAB_MoverPeca(tabu, 0, 6, 0, 5);
+    
+    ret = TAB_MoverPeca(tabu, 3, 0, 3, 1);
+    
+    
+    ret = TAB_MoverPeca(tabu, 0, 5, 0, 4);
+    
+    
+    ret = TAB_MoverPeca(tabu, 3, 1, 4, 2);
+    
+    ret = TAB_MoverPeca(tabu, 0, 4, 0, 3);
+    
+    JOG_EfetuarJogada(j, 'B', 4, 2, 4, 6);
+    
+    
+     
+     printf("%d\n",ret);
+    
+    
+    //JOG_DevolveAmeacantes(j, corAmeacados, idAmeacados, &numElem, 4, 2);
     */
     loopJogo(j);
     
