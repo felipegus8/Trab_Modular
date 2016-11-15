@@ -79,4 +79,6 @@
 ==Efeutar jogada bispo branco(Essa jogada coloca o rei adversario em cheque)
 =efetuarjogada  int1  charB   int5  int0   int1  int4  OK
 
+==Proteger o rei com o bispo
+=efetuarjogada  int1  charP   int2  int7  int3  int6   OK
    
