@@ -210,7 +210,7 @@ void loopJogo(ptJudge j) {
             }
             break;
         }
-        printf("deseja continuar?\nDigite FIM para sair\n");
+        printf("deseja continuar?\nDigite FIM para sair.Digite SIM para continuar\n");
         scanf(" %s",continuar);
         i++;
     } while (strcmp(continuar, "FIM") != 0);
