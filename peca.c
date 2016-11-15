@@ -340,6 +340,9 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
             (*novo)->movPeca[7].y = 1;
             break;
         case 'V':
+			(*novo)->qtdMov = 0;
+			(*novo)->movPeca = NULL;
+			(*novo)->podePular = 0;
             break;
             
         default:
