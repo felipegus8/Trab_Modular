@@ -222,10 +222,17 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
         for (j=0; j<8; j++) {
             
             pecaUsada = (Peca *) tabu->tab[i][j].elemento;
+			if(i== 0 && j == 3) {
+			   printf("cheguei desgraça\n");
+			}
             PEC_RetornaCor(pecaUsada, &corPecaUsada);
+			
             PEC_RetornaId(pecaUsada, &idPecaUsada);
+			
             PEC_RetornaQtd_Mov(pecaUsada, &qtdMov);
+			printf("passei do conta unitarios (%d,%d)\n",i,j);
             qtdUnitarios = contaUnitarios(pecaUsada, qtdMov);
+			printf("(%d,%d)\n",i,j);
             if(corPecaUsada != 'V' && idPecaUsada != 'V') {
             for(k=0;k<qtdMov;k++) {
                 PEC_RetornaXMovimento(pecaUsada, k, &xObtido);
@@ -248,7 +255,6 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
                 } else {
                     verificaMov = TAB_VerificaMovimentoRei(tabu, i, j, corPecaUsada, i + xObtido, j + yObtido);
                 }
-                
                 
                 if(verificaMov == 2) {
                     printf("cor e id in hell comeu: %c e %c e pos:(%d,%d) e %d e %d e %d\n",corPecaUsada,idPecaUsada,i,j,pecaUsada,i + xObtido,j + yObtido);
@@ -819,11 +825,12 @@ int verificaPeao(ptTabuleiro tabu,int posIniX,int posIniY,int posFimX,int posFim
     char corPecaAlvo,idPecaAlvo;
     TAB_ObterPeca(tabu, posFimX, posFimY, &corPecaAlvo, &idPecaAlvo);
     if(corPeao == 'B') {
-    if (((posFimX - posIniX) == 1 && (posFimY - posIniY) == 1)) {
+    if (((posFimX - posIniX) == 1 && (posFimY - posIniY) == 1) || ((posFimX - posIniX) == -1 && (posFimY - posIniY) == 1)) {
         
-        printf("passou peao e %c e %c\n",corPecaAlvo,corPeao);
+        printf("passou peao e %c e %c bla\n",corPecaAlvo,corPeao);
         
         if(corPecaAlvo != 'V') {
+			printf("passei aqui caralha\n");
             if (corPecaAlvo != corPeao) {
                 printf("xaxando allah\n");
                 return 2;
@@ -837,7 +844,7 @@ int verificaPeao(ptTabuleiro tabu,int posIniX,int posIniY,int posFimX,int posFim
     }
     } else {
         printf("cor peca alvo: %c e (%d,%d)\n",corPecaAlvo,posFimX,posFimY);
-        if (((posFimX - posIniX) == -1 && (posFimY - posIniY) == -1)) {
+        if (((posFimX - posIniX) == -1 && (posFimY - posIniY) == -1) || ((posFimX - posIniX) == 1 && (posFimY - posIniY) == -1)) {
             
             printf("passou peao e %c e %c\n",corPecaAlvo,corPeao);
             
@@ -854,6 +861,7 @@ int verificaPeao(ptTabuleiro tabu,int posIniX,int posIniY,int posFimX,int posFim
             }
         }
     }
+	printf("retornei\n");
     return 7;
 }
 
@@ -880,8 +888,10 @@ void buscaNaLista(Peca **pecaLista,char *corPecaLista,char idPecaLista,char idPe
 int contaUnitarios(Peca *pecaLista,int qtdMov) {
     int xObtido,yObtido,i,qtdUnitarios=0;
     for(i=0;i<qtdMov;i++) {
+		printf("conta unitarios %d e %d\n",i,qtdMov);
         PEC_RetornaXMovimento(pecaLista,i,&xObtido);
         PEC_RetornaYMovimento(pecaLista,i,&yObtido);
+		
         if(0<=abs(xObtido) && abs(xObtido)<=1 && abs(yObtido)>=0 && abs(yObtido)<=1 && (xObtido != 0 || yObtido != 0)) {
             qtdUnitarios++;
         }
