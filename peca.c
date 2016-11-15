@@ -357,7 +357,7 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 {
     char idLido,corLido;
-    int x,y,i,j;
+    int x,y,i;
     FILE *fp;
     fp = fopen("PecasNovas.txt","r");
     //O arquivo PecasNovas.txt contem todas as peças novas que podem ser usadas no jogo.Para criar uma nova peça,o usuário deve escrever nesse arquivo,seguindo o formato lá apresentado.

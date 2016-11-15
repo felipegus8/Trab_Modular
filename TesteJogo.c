@@ -240,7 +240,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 			 }
 			 return TST_CompararString( idDado , idRecebido ,"Valor Encontrado diferente do esperado." ) ;
 		}//Fim devolve ameacados
-
+      return TST_CondRetNaoConhec ;
 }
 /*
 JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,ptTabuleiro *tabu);

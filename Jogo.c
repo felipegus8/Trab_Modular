@@ -126,10 +126,8 @@ JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei) {
 
 JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY) {
     char cor,id;
-    int x,y,i,k;
     TAB_tpCondRet retCheck;
     JOG_tpCondRet jogCheckMate;
-    LIS_tppLista lis,elis1,elis2;
     TAB_ObterPeca(j->tabu,posIniX , posIniY, &cor, &id);
     if(cor != corDaVez) {
         printf("cor: %c e da vez: %c\n",cor,corDaVez);
@@ -211,11 +209,8 @@ JOG_tpCondRet JOG_GeraMatrizTabuleiro(ptJudge j,char matriz[8][8][2]) {
     return JOG_CondRetOK;
 }
 
-JOG_tpCondRet JOG_ComecarJogo(ptJudge j,JOG_tpCondRet (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j)) {
-    JOG_tpCondRet ret;
-    char cor2,id2;
-    int i,k;
-
+JOG_tpCondRet JOG_ComecarJogo(ptJudge j,JOG_tpCondRet (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j)) 
+{
     InserirPecas(TAB_InserirPeca,j);
     
     return JOG_CondRetOK;

@@ -119,6 +119,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		  vtPecas[inxPeca] = NULL;
 		   return TST_CompararInt( CondRetEsp ,CondRet  ,"Condição de retorno errada ao liberar uma peça" ) ;
 	   }/* fim ativa: Testar LiberaPeca */
+	   return TST_CondRetNaoConhec ;
 }
 /*****  Código das funções encapsuladas no módulo  *****/
 
