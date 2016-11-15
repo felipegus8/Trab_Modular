@@ -153,11 +153,11 @@ void loopJogo(ptJudge j) {
         JOG_RetornoNomeJogador1(j, nome1);
         JOG_RetornoNomeJogador2(j, nome2);
         if(i%2 == 0) {
-            corDavez = 'B';
+            corDavez = 'P';
             printf("vez do jogador %s\n",nome1);
             vez = 0;
         } else {
-            corDavez = 'P';
+            corDavez = 'B';
             printf("vez do jogador %s\n",nome2);
             vez = 1;
         }
@@ -191,11 +191,15 @@ void loopJogo(ptJudge j) {
             printf("Movimento irregular\n");
             i--; //pois a vez do jogador será repetida
         } else if(resMovimento == JOG_CondRetCheck) {
+            JOG_DevolveAmeacantes(j, corAmeacantes, idAmeacantes, &qtdAmeacantes, converteCharParaInt(coordXFim), coordYFim);
+            JOG_DevolveAmeacados(j, corAmeacados, idAmeacados, &qtdAmeacados, converteCharParaInt(coordXFim), coordYFim);
+            imprimeAmeacantes(corAmeacantes,idAmeacantes,qtdAmeacantes);
+            imprimeAmeacados(corAmeacados, idAmeacados, qtdAmeacados);
             printf("Cheque ");
             if(vez == 0) {
-                printf("de %s\n",nome1);
-            } else {
                 printf("de %s\n",nome2);
+            } else {
+                printf("de %s\n",nome1);
             }
         } else if(resMovimento == JOG_CondRetCorErrada) {
             printf("Está tentando movimentar peça da cor errada\nFique mais atento e tenta novamente\n");
