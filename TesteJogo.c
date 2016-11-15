@@ -128,13 +128,13 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	   else if ( strcmp( ComandoTeste , EFETUAR_JOGADA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iciiiii" ,&juiz, &corDada, &xi, &yi, &xf, &yf, &CondRetEsp) ; //ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY
+            numLidos = LER_LerParametros( "iciiiii" ,&juiz, cor, &xi, &yi, &xf, &yf, &CondRetEsp) ; //ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY
 
             if (  numLidos != 7 )
             {
                return TST_CondRetParm ;
             } /* if */
-			CondRet = JOG_EfetuarJogada(juiz, corDada, xi, yi, xf, yf, CondRetEsp);
+			CondRet = JOG_EfetuarJogada(juiz, cor, xi, yi, xf, yf, CondRetEsp);
 			//JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY);
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro ao efetuar Jogada" );
          }//Fim da efetuar jogada
