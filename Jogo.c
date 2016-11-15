@@ -59,24 +59,24 @@ JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,ptTabuleiro *tabu) {
 
 JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,char nomeJogadorA[30],char nomeJogadorB[30]) {
     ptJudge novo;
-	TAB_tpCondRet retTab;
-	JOG_tpCondRet retJogo;
+    TAB_tpCondRet retTab;
+    JOG_tpCondRet retJogo;
     novo = (Judge *) malloc(sizeof(Judge));
     if(novo == NULL) {
         return JOG_CondRetFaltouMemoria;
     }
-	retJogo = JOG_CriaJogador(&(novo->jogador1),nomeJogadorA,'B');
-	if(retJogo == JOG_CondRetFaltouMemoria) {
-	    return retJogo;
-	} 
-	retJogo = JOG_CriaJogador(&(novo->jogador2),nomeJogadorB,'P');
-	if(retJogo == JOG_CondRetFaltouMemoria) {
-	   return retJogo;
-	}
+    retJogo = JOG_CriaJogador(&(novo->jogador1),nomeJogadorA,'B');
+    if(retJogo == JOG_CondRetFaltouMemoria) {
+        return retJogo;
+    }
+    retJogo = JOG_CriaJogador(&(novo->jogador2),nomeJogadorB,'P');
+    if(retJogo == JOG_CondRetFaltouMemoria) {
+        return retJogo;
+    }
     retTab = TAB_CriaTabuleiro(&(novo->tabu));
-	if(retTab == TAB_CondRetFaltouMemoria) {
-	   return JOG_CondRetTabuleiroNulo;
-	}
+    if(retTab == TAB_CondRetFaltouMemoria) {
+        return JOG_CondRetTabuleiroNulo;
+    }
     novo->xReiBranco = 4;
     novo->yReiBranco = 0;
     novo->xReiPreto = 4;
@@ -91,8 +91,6 @@ JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei) {
     int xAmeacante,yAmeacante,numElem;
     char corAmeacante,idAmeacante;
     LIS_tppLista ameacantes;
-    TAB_ObterListaAmeacantes(j->tabu, j->xReiBranco, j->yReiBranco, &ameacantes);
-    LIS_ObterNo(ameacantes, (void **)&ameacante);
     
     printf("dps de obter\n");
     
@@ -107,8 +105,9 @@ JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei) {
         LIS_ObterNo(ameacantes, (void **)&ameacante);
         PEC_RetornaCor(ameacante, &corAmeacante);
         PEC_RetornaId(ameacante, &idAmeacante);
+        printf("cor Ameacanten never: %c e id Ameacante: %c\n",corAmeacante,idAmeacante);
         TAB_AchaPecaCheck(j->tabu, corAmeacante, idAmeacante, &xAmeacante, &yAmeacante, j->xReiPreto, j->yReiPreto);
-        retCheckMate = TAB_VerificaCheckMate(j->tabu, j->xReiBranco, j->yReiBranco, xAmeacante, yAmeacante);
+        retCheckMate = TAB_VerificaCheckMate(j->tabu, j->xReiPreto, j->yReiPreto, xAmeacante, yAmeacante);
     }
     if (retCheckMate == TAB_CondRetNoCheckMate) {
         return JOG_CondRetNoCheckMate;
@@ -155,6 +154,7 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
                 printf("passou pelo check mate\n");
                 return jogCheckMate;
             }
+            return JOG_CondRetCheck;
         }
         printf("Passei aqui\n");
         retCheck = TAB_VerificaCheck(j->tabu, j->xReiPreto, j->yReiPreto);
@@ -165,6 +165,7 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
             if (jogCheckMate == JOG_CondRetCheckMate) {
                 return jogCheckMate;
             }
+            return JOG_CondRetCheck;
         }
         
         
@@ -177,7 +178,7 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
         }
     }
     
-        
+    
     
     return JOG_CondRetMovimentoIrregular;
 }
@@ -209,8 +210,8 @@ JOG_tpCondRet JOG_GeraMatrizTabuleiro(ptJudge j,char matriz[8][8][2]) {
     return JOG_CondRetOK;
 }
 
-JOG_tpCondRet JOG_ComecarJogo(ptJudge j,JOG_tpCondRet (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j)) 
-{
+JOG_tpCondRet JOG_ComecarJogo(ptJudge j,JOG_tpCondRet (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j)) {
+    
     InserirPecas(TAB_InserirPeca,j);
     
     return JOG_CondRetOK;
