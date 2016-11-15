@@ -98,9 +98,9 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 {
 	 int numLidos   = -1 , CondRetEsp = -1  ;
 	 TST_tpCondRet CondRet ;
-     char   StringDado[  DIM_VALOR ],StringDado2[DIM_VALOR],corRecebida[16],idRecebido[16],corDada[16],idDado[16], id,cor ;
+     char   StringDado[  DIM_VALOR ],StringDado2[DIM_VALOR],corRecebida[16],idRecebido[16],corDada[16],idDado[16],cor ;
      int ValEsp = -1 ;
-     int i,x,y ;
+     int x,y ;
      int numElem = -1 ;
 	 ptTabuleiro tabu;
 	 ptJudge j;
