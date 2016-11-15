@@ -42,9 +42,41 @@
 =declararparm   NaoChequeMate          int  6
 =declararparm   Cheque                 int  7
 
+
+==Cria jogador com as peças brancas
+=criajogador OK  "Felipe"  charB
+
+==Cria jogador com as peças pretas
+=criajogador OK  "Gustavo"  charP
+
 ==Cria um juiz 
-=criajuiz  OK
+=criajuiz  OK   "Felipe"  "Gustavo"
 
+==Obtem o tabuleiro
+=obtemtabuleiro OK
+ 
 ==Inicia o jogo
-=comecarjogo  "Felipe"  "Gustavo"  OK
+=comecarjogo   OK
 
+==Verifica nome do jogador 1
+=retornonomejogador1  "Felipe"  
+
+==Verifica nome do jogador 2
+=retornonomejogador2  "Gustavo"
+
+==Efetuar primeira jogada das brancas(movimento do cavalo branco)
+=efetuarjogada  int1  charB  int6  int0  int5  int2  OK
+
+==Efetuar primeira jogada das pretas(movimento do peao preto)
+=efetuarjogada   int1  charP  int3  int5  int3  int5  OK
+
+==Efetuar jogada do peao branco
+=efetuarjogada   int1  charB  int4  int1  int4  int2  OK
+
+==Efetuar jogada cavalo preto
+=efetuarjogada  int1  charP   int1  int5  int7  int0 int5 OK  
+
+==Efeutar jogada bispo branco(Essa jogada coloca o rei adversario em cheque)
+=efetuarjogada  int1  charB   int5  int0   int1  int4  OK
+
+   
