@@ -103,7 +103,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
      int i,x,y ;
      int numElem = -1 ;
 	 ptTabuleiro tabu;
-	 ptJuiz j;
+	 ptJudge j;
 	 ptJogador jo;
 	 int xi,  yi, xf, yf;
      StringDado[ 0 ] = 0,StringDado2[0] = 0;
@@ -124,20 +124,22 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
        }/*Fim ativa: Efetuar Jogada */
 
 	   //Inicio da Efetuar jogada
+	   
 	   else if ( strcmp( ComandoTeste , EFETUAR_JOGADA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iciiiii" ,&juiz, &corDaVez, &xi, &yi, &xf, &yf, &CondRetEsp) ; //ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY
+            numLidos = LER_LerParametros( "iciiiii" ,&juiz, &corDada, &xi, &yi, &xf, &yf, &CondRetEsp) ; //ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY
 
             if (  numLidos != 7 )
             {
                return TST_CondRetParm ;
             } /* if */
-			CondRet = JOG_EfetuarJogada(juiz, corDaVez, xi, yi, xf, yf, CondRetEsp);
+			CondRet = JOG_EfetuarJogada(juiz, corDada, xi, yi, xf, yf, CondRetEsp);
 			//JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY);
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro ao efetuar Jogada" );
          }//Fim da efetuar jogada
 	   //Inicio da assasinar juiz
+	   
 	   	   else if ( strcmp( ComandoTeste , ASSASINAR_JUIZ) == 0 )
          {
 
@@ -153,6 +155,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
              return TST_CompararInt( CondRetEsp , CondRet ,"Assasinar Juiz" );
          }//Fim de assasinar Juiz
 	   //Inicio de começar Jogo
+	   
 		else if ( strcmp( ComandoTeste , COMECAR_JOGO) == 0 )
          {
 
@@ -163,7 +166,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
                return TST_CondRetParm ;
             } /* if */
 
-			CondRet =  JOG_ComecarJogo(juiz, inserirPecas)
+			CondRet =  JOG_ComecarJogo(juiz, inserirPecas);
 			//JOG_tpCondRet JOG_ComecarJogo(ptJudge j,JOG_tpCondRet (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id),ptJudge j));
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro ao ComeçarJogo" );
          }//Fim de começar jogo
@@ -178,37 +181,41 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
                return TST_CondRetParm ;
             } /* if */
 
-			condRet = JOG_tpCondRet JOG_ObtemTabuleiro(j,&tabu);
+			CondRet = JOG_ObtemTabuleiro(j,&tabu);
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro em obter tabuleiro" );
          }//Fim de obtem tabuleiro
 		//Inicio cria jogador
+		
 		else if(strcmp(ComandoTeste, CRIA_JOGADOR) == 0) {
 		    numLidos = LER_LerParametros( "isc", &CondRetEsp,StringDado,&cor); 
 			if(numLidos != 3) {
 			   return TST_CondRetParm;
 			}
-			condRet = JOG_CriaJogador(&jo,stringDado,cor);
+			CondRet = JOG_CriaJogador(&jo,StringDado,cor);
 			return TST_CompararInt(CondRetEsp, CondRet, "Erro ao criar jogador" );
 		}//Fim cria jogador
 		//Inicio retorna nome jogador 1
-		else if(strcmp(ComandoTeste, RETORNA_NOME_JOGADOR1) == 0) {
+		
+		else if(strcmp(ComandoTeste, RETORNO_NOME_JOGADOR_1) == 0) {
 		    numLidos = LER_LerParametros("s",StringDado);
 			if(numLidos != 1) {
 			    return TST_CondRetParm;
 			}
-			condRet = JOG_RetornoNomeJogador1(j,StringDado2);
+			CondRet = JOG_RetornoNomeJogador1(j,StringDado2);
 			return TST_CompararString( StringDado , StringDado2 ,"Valor Encontrado diferente do esperado." ) ;
 		}//FIM retorna nome jogador 1
 		//Inicio retorna nome jogador 2
-		else if(strcmp(ComandoTeste, RETORNA_NOME_JOGADOR2) == 0) {
+		
+		else if(strcmp(ComandoTeste, RETORNO_NOME_JOGADOR_2) == 0) {
 		    numLidos = LER_LerParametros("s",StringDado);
 			if(numLidos != 1) {
 			    return TST_CondRetParm;
 			}
-			condRet = JOG_RetornoNomeJogador2(j,StringDado2);
+			CondRet = JOG_RetornoNomeJogador2(j,StringDado2);
 			return TST_CompararString( StringDado , StringDado2 ,"Valor Encontrado diferente do esperado." ) ;
 		}//Fim retorna nome jogador 2
 		//Inicio devolve ameacantes
+		
 		else if(strcmp(ComandoTeste, DEVOLVE_AMEACANTES)) {
 		     numLidos = LER_LerParametros("siii",idDado,&ValEsp,&x,&y);
 			 if(numLidos != 3) {
@@ -221,6 +228,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 			 return TST_CompararString( idDado , idRecebido ,"Valor Encontrado diferente do esperado." ) ;
 		}//Fim devolve ameacantes
 		//Inicio devolve ameacados
+		
 		else if(strcmp(ComandoTeste, DEVOLVE_AMEACADOS)) {
 		     numLidos = LER_LerParametros("siii",idDado,&ValEsp,&x,&y);
 			 if(numLidos != 3) {
@@ -318,7 +326,6 @@ void inserirPecas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char
     InserirNoTab(tabu,5,6,'P','P');
     InserirNoTab(tabu,6,6,'P','P');
     InserirNoTab(tabu,7,6,'P','P');
-    return JOG_CondRet;
 }
 
 /*Fim funções encapsuladas no testejogo */
