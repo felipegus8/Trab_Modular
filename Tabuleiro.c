@@ -89,7 +89,7 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id) {
     //int yi = (int)(y - 'A');
     //printf("Criou a lista\n");
-    
+    char corObtida,idObtida;
     if(x>7 || x<0 || yi>7 || yi<0) {
         
         return TAB_CondRetCoordenadaNExiste;
@@ -103,8 +103,10 @@ TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char 
         
         return TAB_CondRetFaltouMemoria;
     }
+    PEC_RetornaCor((Peca *)(tabuleiro->tab[x][yi].elemento), &corObtida);
+    PEC_RetornaId((Peca *)(tabuleiro->tab[x][yi].elemento), &idObtida);
     //printf("%d e %d\n",x,yi);
-    //printf("cor obtida: %c e id obtida: %c\n",corObtida,idObtida);
+    printf("cor obtida: %c e id obtida: %c\n",corObtida,idObtida);
     retLis = LIS_InserirNo(listaPecas,(void *)(tabuleiro->tab[x][yi].elemento)); //insere peÁa nova na lista
     
     //retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)&(tabuleiro->tab[x][yi].elemento)); //obtem o movimento da peÁa caso esta for "conhecida"
@@ -173,14 +175,6 @@ TAB_tpCondRet TAB_RetirarPeca(ptTabuleiro tabu,int x,int y) {
     return TAB_CondRetOK;
 }/* Fim funÁ„o: TAB  &Retirar Peca */
 
-void apagaListas(ptTabuleiro tabu) {
-    int i,j;
-    for (i=0; i<8; i++) {
-        for (j=0; j<8; j++) {
-            EsvaziarLista(tabu->tab[i][j].ameacados);
-        }
-    }
-}
 
 
 /***************************************************************************
@@ -233,7 +227,7 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
                                 retTab = TAB_ObterPeca(tabu, i + 1, j + 1,&corPecaUsada2 ,&idPecaUsada2);/*recebe cor e id de casa onde o peão poderia comer */
                                 if(retTab == TAB_CondRetOK) {
                                     if(idPecaUsada2 != 'V' && corPecaUsada2 == 'P') {/*caso haja uma peça que possa ser comida pelo peão */
-                                        PEC_CriaPeca(&pecaUsada2,corPecaUsada2,idPecaUsada2);/*cria peça que pode ser comida */
+                                        PEC_CriaPeca(&pecaUsada2,idPecaUsada2,corPecaUsada2);/*cria peça que pode ser comida */
                                         LIS_InserirNo(tabu->tab[i + 1][j + 1].ameacantes, (void *)pecaUsada);/*insere peão comedor na lista de ameaçantes de peça que pode ser comida */
                                         LIS_InserirNo(tabu->tab[i][j].ameacados, (void *)pecaUsada2);/* insere peça que pode ser comida na lista de ameaçados pelo peão*/
                                     }
@@ -241,7 +235,7 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
                                 retTab = TAB_ObterPeca(tabu, i - 1, j + 1,&corPecaUsada2 ,&idPecaUsada2);/*recebe cor e id de casa onde o peão poderia comer */
                                 if(retTab == TAB_CondRetOK) {
                                 if(idPecaUsada2 != 'V' && corPecaUsada2 == 'P') {/*caso haja uma peça que possa ser comida pelo peão */
-                                    PEC_CriaPeca(&pecaUsada2,corPecaUsada2,idPecaUsada2);/*cria peça que pode ser comida */
+                                    PEC_CriaPeca(&pecaUsada2,idPecaUsada2,corPecaUsada2);/*cria peça que pode ser comida */
                                     LIS_InserirNo(tabu->tab[i - 1][j + 1].ameacantes, (void *)pecaUsada);/*insere peão comedor na lista de ameaçantes de peça que pode ser comida */
                                     LIS_InserirNo(tabu->tab[i][j].ameacados, (void *)pecaUsada2); /* insere peça que pode ser comida na lista de ameaçados pelo peão*/
                                 }
@@ -253,7 +247,7 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
                                 retTab = TAB_ObterPeca(tabu, i + 1, j - 1,&corPecaUsada2 ,&idPecaUsada2);/*recebe cor e id de casa onde o peão poderia comer */
                                 if(retTab == TAB_CondRetOK) {
                                     if(idPecaUsada2 != 'V' && corPecaUsada2 == 'B') {/*caso haja uma peça que possa ser comida pelo peão */
-                                        PEC_CriaPeca(&pecaUsada2,corPecaUsada2,idPecaUsada2);/*cria peça que pode ser comida */
+                                        PEC_CriaPeca(&pecaUsada2,idPecaUsada2,corPecaUsada2);/*cria peça que pode ser comida */
                                         LIS_InserirNo(tabu->tab[i + 1][j - 1].ameacantes, (void *)pecaUsada);/*insere peão comedor na lista de ameaçantes de peça que pode ser comida */
                                         LIS_InserirNo(tabu->tab[i][j].ameacados, (void *)pecaUsada2);/* insere peça que pode ser comida na lista de ameaçados pelo peão*/
                                     }
@@ -261,7 +255,7 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
                                 retTab = TAB_ObterPeca(tabu, i - 1, j - 1,&corPecaUsada2 ,&idPecaUsada2);/*recebe cor e id de casa onde o peão poderia comer */
                                 if(retTab == TAB_CondRetOK) {
                                     if(idPecaUsada2 != 'V' && corPecaUsada2 == 'B') {/*caso haja uma peça que possa ser comida pelo peão */
-                                        PEC_CriaPeca(&pecaUsada2,corPecaUsada2,idPecaUsada2);/*cria peça que pode ser comida */
+                                        PEC_CriaPeca(&pecaUsada2,idPecaUsada2,corPecaUsada2);/*cria peça que pode ser comida */
                                         LIS_InserirNo(tabu->tab[i - 1][j - 1].ameacantes, (void *)pecaUsada);/*insere peão comedor na lista de ameaçantes de peça que pode ser comida */
                                         LIS_InserirNo(tabu->tab[i][j].ameacados, (void *)pecaUsada2);/* insere peça que pode ser comida na lista de ameaçados pelo peão*/
                                         
@@ -421,7 +415,6 @@ TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
     //printf("qtdMov: %d\n",qtdMov);
     
     qtdUnitarios = contaUnitarios(pecaLista, qtdMov);
-    
     for(i=0;i<qtdMov;i++) {
         //printf("Entrei no for\n");
         //printf("antes\n");
@@ -430,7 +423,8 @@ TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
         //printf("depois\n");
         //printf("Sai dos retorna\n");
         //printf("xObtido: %d e yObtido: %d e i: %d\n",xObtido,yObtido,i);
-        if (xObtido == xd - xo && yObtido == yi2 - yi) { /*caso haja algum movimento da peça que seja igual ao movimento proposta pelo usuário */
+        if (xObtido == xd - xo && yObtido == yi2 - yi) { /*caso haja algum movimento da peça que seja igual ao 
+                                                          movimento proposta pelo usuário */
             //printf("idPeca achou %c\n",idPecaTabuleiro);
             achou = 1; //se houver achou = 1
         }
@@ -443,6 +437,7 @@ TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2) {
     }
     
     if(achou == 1) {
+        
         if(idPecaTabuleiro != 'P' && idPecaTabuleiro != 'R') {
             verificaMov =  verificaMovimento(xo,yi,pecaLista,xd,yi2,tabu,corPecaTabuleiro,qtdUnitarios);
         } else if(idPecaTabuleiro == 'P') {
@@ -991,7 +986,7 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
  *  FunÁ„o: TAB  &Verifica Acha Peca Check
  *  ****/
 
-TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *xAmeacante,int *yAmeacante,int xRei,int yRei) {
+TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *x,int *y,int xRei,int yRei) {
     int i,j,qtdMov,qtdUnitarios,retVerifica;
     Peca *ameacante;
     char corObtida,idObtido;
@@ -1004,13 +999,13 @@ TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *xAmeacant
             if (corObtida == cor && idObtido == id) {
                 retVerifica = verificaMovimento(i, j, ameacante, xRei, yRei, tabu, corObtida, qtdUnitarios);
                 if (retVerifica == TAB_CondRetComeu) {
-                    *xAmeacante = i;
-                    *yAmeacante = j;
+                    *x = i;
+                    *y = j;
                 }
             }
         }
     }
-    return TAB_CondRetOK;
+    return 0;
 }/* Fim funÁ„o: TAB  -Verifica Acha Peca Check*/
 
 
