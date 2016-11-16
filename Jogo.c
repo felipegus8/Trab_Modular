@@ -26,21 +26,21 @@ typedef struct jogador
 
 typedef struct juiz {
     ptJogador jogador1;
-	/*Ponteiro para o primeiro jogador associado ao juiz*/
+    /*Ponteiro para o primeiro jogador associado ao juiz*/
     ptJogador jogador2;
-	/*Ponteiro para o segundo jogador associado ao juiz*/
+    /*Ponteiro para o segundo jogador associado ao juiz*/
     ptTabuleiro tabu;
-	/*Ponteiro para o tabuleiro associado ao juiz*/
+    /*Ponteiro para o tabuleiro associado ao juiz*/
     int xReiBranco;
-	/*Posição Atual em X do Rei de Cor Branca*/
+    /*Posição Atual em X do Rei de Cor Branca*/
     int yReiBranco;
-	/*Posição Atual em Y do Rei de Cor Branca*/
+    /*Posição Atual em Y do Rei de Cor Branca*/
     int xReiPreto;
-	/*Posição Atual em X do Rei de Cor Preta*/
+    /*Posição Atual em X do Rei de Cor Preta*/
     int yReiPreto;
-	/*Posição Atual em Y do Rei de Cor Preta*/
+    /*Posição Atual em Y do Rei de Cor Preta*/
     int vez;
-	/*Int para determinar de quem é a vez de jogar */
+    /*Int para determinar de quem é a vez de jogar */
 }Judge;
 
 /***** Protótipos das funções encapuladas no módulo *****/
@@ -61,7 +61,7 @@ JOG_tpCondRet JOG_CriaJogador(ptJogador *j,char *nome,char cor) {
     strcpy(novo->nome, nome);
     novo->cor = cor;
     *j = novo;
-    printf("jogador: %d\n",novo);
+    //printf("jogador: %d\n",novo);
     return JOG_CondRetOK;
 }/* Fim função: JOG  &Cria Jogador*/
 
@@ -120,7 +120,7 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
     JOG_tpCondRet jogCheckMate;
     TAB_ObterPeca(j->tabu,posIniX , posIniY, &cor, &id);
     if(cor != corDaVez) {
-        printf("cor: %c e da vez: %c\n",cor,corDaVez);
+        //printf("cor: %c e da vez: %c\n",cor,corDaVez);
         return JOG_CondRetCorErrada;
     }
     condRetTab = TAB_MoverPeca(j->tabu, posIniX, posIniY, posFimX, posFimY);
@@ -135,22 +135,19 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
             }
         }
         retCheck = TAB_VerificaCheck(j->tabu, j->xReiBranco, j->yReiBranco);
-        printf("blabla\n");
         
-        printf("check: %d\n",retCheck);
         if(retCheck == TAB_CondRetCheck) {
-            printf("passou pelo check\n");
+            //printf("passou pelo check\n");
             jogCheckMate = JOG_AvaliaCheck(j,'B');
             if (jogCheckMate == JOG_CondRetCheckMate) {
-                printf("passou pelo check mate\n");
+                //printf("passou pelo check mate\n");
                 return jogCheckMate;
             }
             return JOG_CondRetCheck;
         }
-        printf("Passei aqui\n");
         retCheck = TAB_VerificaCheck(j->tabu, j->xReiPreto, j->yReiPreto);
         if(retCheck == TAB_CondRetCheck) {
-            printf("ENtrei no check afro\n");
+            //printf("ENtrei no check afro\n");
             jogCheckMate = JOG_AvaliaCheck(j,'P');
             printf("%d\n",jogCheckMate);
             if (jogCheckMate == JOG_CondRetCheckMate) {
@@ -195,7 +192,7 @@ JOG_tpCondRet JOG_RetornoNomeJogador2(ptJudge j,char nome[30]) {
  *
  *  Função: JOG  &Gera Matriz Tabuleiro
  *  ****/
- 
+
 JOG_tpCondRet JOG_GeraMatrizTabuleiro(ptJudge j,char matriz[8][8][2]) {
     int x,y;
     char cor,id;
@@ -204,10 +201,10 @@ JOG_tpCondRet JOG_GeraMatrizTabuleiro(ptJudge j,char matriz[8][8][2]) {
             TAB_ObterPeca(j->tabu, x, y, &cor, &id);
             //printf("x: %d\n",x);
             //printf("y: %d\n",y);
-            printf("%c e %c\n",cor,id);
+            //printf("%c e %c\n",cor,id);
             matriz[x][y][0] = id;
             matriz[x][y][1] = cor;
-            printf("cor: %c e id: %c\n",cor,id);
+            //printf("cor: %c e id: %c\n",cor,id);
         }
     }
     return JOG_CondRetOK;
@@ -297,7 +294,6 @@ JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei) {
     char corAmeacante,idAmeacante;
     LIS_tppLista ameacantes;
     
-    printf("dps de obter\n");
     
     if(corRei == 'B') {
         TAB_ObterListaAmeacantes(j->tabu, j->xReiBranco, j->yReiBranco, &ameacantes);
@@ -310,7 +306,6 @@ JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei) {
         LIS_ObterNo(ameacantes, (void **)&ameacante);
         PEC_RetornaCor(ameacante, &corAmeacante);
         PEC_RetornaId(ameacante, &idAmeacante);
-        printf("cor Ameacanten never: %c e id Ameacante: %c\n",corAmeacante,idAmeacante);
         TAB_AchaPecaCheck(j->tabu, corAmeacante, idAmeacante, &xAmeacante, &yAmeacante, j->xReiPreto, j->yReiPreto);
         retCheckMate = TAB_VerificaCheckMate(j->tabu, j->xReiPreto, j->yReiPreto, xAmeacante, yAmeacante);
     }
