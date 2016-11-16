@@ -26,16 +26,32 @@ typedef struct jogador
 
 typedef struct juiz {
     ptJogador jogador1;
+	/*Ponteiro para o primeiro jogador associado ao juiz*/
     ptJogador jogador2;
+	/*Ponteiro para o segundo jogador associado ao juiz*/
     ptTabuleiro tabu;
+	/*Ponteiro para o tabuleiro associado ao juiz*/
     int xReiBranco;
+	/*Posição Atual em X do Rei de Cor Branca*/
     int yReiBranco;
+	/*Posição Atual em Y do Rei de Cor Branca*/
     int xReiPreto;
+	/*Posição Atual em X do Rei de Cor Preta*/
     int yReiPreto;
+	/*Posição Atual em Y do Rei de Cor Preta*/
     int vez;
+	/*Int para determinar de quem é a vez de jogar */
 }Judge;
 
+/***** Protótipos das funções encapuladas no módulo *****/
+JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei);
 
+/*****  Código das funções exportadas pelo módulo  *****/
+
+/***************************************************************************
+ *
+ *  Função: JOG  &Cria Jogador
+ *  ****/
 JOG_tpCondRet JOG_CriaJogador(ptJogador *j,char *nome,char cor) {
     ptJogador novo;
     novo = (Jogador *) malloc(sizeof(Jogador));
@@ -47,16 +63,24 @@ JOG_tpCondRet JOG_CriaJogador(ptJogador *j,char *nome,char cor) {
     *j = novo;
     printf("jogador: %d\n",novo);
     return JOG_CondRetOK;
-}
+}/* Fim função: JOG  &Cria Jogador*/
 
+/***************************************************************************
+ *
+ *  Função: JOG  &Obtem Tabuleiro
+ *  ****/
 JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,ptTabuleiro *tabu) {
     if(j->tabu == NULL) {
         return JOG_CondRetTabuleiroNulo;
     }
     *tabu = j->tabu;
     return JOG_CondRetOK;
-}
+}/* Fim função: JOG  &Obtem Tabuleiro*/
 
+/***************************************************************************
+ *
+ *  Função: JOG  &Cria Juiz
+ *  ****/
 JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,char nomeJogadorA[30],char nomeJogadorB[30]) {
     ptJudge novo;
     TAB_tpCondRet retTab;
@@ -83,10 +107,13 @@ JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,char nomeJogadorA[30],char nomeJogadorB[30
     novo->yReiPreto = 7;
     *j = novo;
     return  JOG_CondRetOK;
-}
+}/* Fim função: JOG  &Cria Juiz*/
 
 
-
+/***************************************************************************
+ *
+ *  Função: JOG  &Efetuar Jogada
+ *  ****/
 JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY) {
     char cor,id;
     TAB_tpCondRet retCheck;
@@ -145,18 +172,30 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
     
     
     return JOG_CondRetMovimentoIrregular;
-}
+}/* Fim função: JOG  &Efetuar Jogada*/
 
+/***************************************************************************
+ *
+ *  Função: JOG  &Retorno Nome Jogador 1
+ *  ****/
 JOG_tpCondRet JOG_RetornoNomeJogador1(ptJudge j,char nome[30]) {
     strcpy(nome, j->jogador1->nome);
     return JOG_CondRetOK;
-}
-
+}/* Fim função: JOG  &Retorno Nome Jogador 1*/
+/***************************************************************************
+ *
+ *  Função: JOG  &Retorno Nome Jogador 2
+ *  ****/
 JOG_tpCondRet JOG_RetornoNomeJogador2(ptJudge j,char nome[30]) {
     strcpy(nome, j->jogador2->nome);
     return JOG_CondRetOK;
-}
+}/* Fim função: JOG  &Retorno Nome Jogador 2*/
 
+/***************************************************************************
+ *
+ *  Função: JOG  &Gera Matriz Tabuleiro
+ *  ****/
+ 
 JOG_tpCondRet JOG_GeraMatrizTabuleiro(ptJudge j,char matriz[8][8][2]) {
     int x,y;
     char cor,id;
@@ -172,15 +211,23 @@ JOG_tpCondRet JOG_GeraMatrizTabuleiro(ptJudge j,char matriz[8][8][2]) {
         }
     }
     return JOG_CondRetOK;
-}
+}/* Fim função: JOG  &Gera Matriz Tabuleiro*/
 
+/***************************************************************************
+ *
+ *  Função: JOG  &Comecar Jogo
+ *  ****/
 JOG_tpCondRet JOG_ComecarJogo(ptJudge j,void (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j)) {
     
     InserirPecas(TAB_InserirPeca,j);
     
     return JOG_CondRetOK;
-}
+}/* Fim função: JOG  &Comecar Jogo*/
 
+/***************************************************************************
+ *
+ *  Função: JOG  &Devolve Ameacantes
+ *  ****/
 JOG_tpCondRet JOG_DevolveAmeacantes(ptJudge j,char *corAmeacantes,char *idAmeacantes,int *qtdAmeacantes,int x,int y) {
     LIS_tppLista ameacantes;
     Peca *ameacante;
@@ -197,8 +244,12 @@ JOG_tpCondRet JOG_DevolveAmeacantes(ptJudge j,char *corAmeacantes,char *idAmeaca
         LIS_IrProx(ameacantes);
     }
     return JOG_CondRetOK;
-}
+}/* Fim função: JOG  &Devolve Ameacantes*/
 
+/***************************************************************************
+ *
+ *  Função: JOG  &Devolve Ameacados
+ *  ****/
 JOG_tpCondRet JOG_DevolveAmeacados(ptJudge j,char *corAmeacados,char *idAmeacados,int *qtdAmeacados,int x,int y) {
     LIS_tppLista ameacados;
     Peca *ameacado;
@@ -214,18 +265,31 @@ JOG_tpCondRet JOG_DevolveAmeacados(ptJudge j,char *corAmeacados,char *idAmeacado
         LIS_IrProx(ameacados);
     }
     return JOG_CondRetOK;
-}
+}/* Fim função: JOG  &Devolve Ameacados*/
 
-
+/***************************************************************************
+ *
+ *  Função: JOG  &Assasinar Juiz
+ *  ****/
 JOG_tpCondRet JOG_AssasinarJuiz(ptJudge j) {
     TAB_DestruirTabuleiro(j->tabu);
     free(j->jogador1);
     free(j->jogador2);
     free(j);
     return JOG_CondRetOK;
-}
+}/* Fim função: JOG  &Assasinar Juiz*/
 
+/***************************************************************************
+ 
+ 
+ /*****  Código das funções encapsuladas no módulo  *****/
 
+/***************************************************************************/
+
+/***************************************************************************
+ *
+ *  Função: JOG   - Avalia Check
+ *  ****/
 JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei) {
     Peca *ameacante;
     TAB_tpCondRet retCheckMate;
@@ -262,6 +326,6 @@ JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei) {
     }
     return JOG_CondRetCheckMate;
     
-}
+}/* Fim função: JOG  &Avalia Check*/
 
-
+/********** Fim do módulo de implementação: JOG  Jogo **********/

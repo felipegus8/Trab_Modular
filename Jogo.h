@@ -3,7 +3,7 @@
 
 /***************************************************************************
  *
- *  $MCD MÛdulo de definição: JOG  Jogo
+ *  $MCD Módulo de definição: JOG  Jogo
  *
  *  Arquivo gerado:              Jogo.h
  *  Letras identificadoras:      JOG
@@ -171,16 +171,121 @@ JOG_tpCondRet JOG_AssasinarJuiz(ptJudge j);
 ***********************************************************************/
 JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,ptTabuleiro *tabu);
 
+/***********************************************************************
+
+*  $FC Função: JOG &Gera Matriz Tabuleiro
+*
+*  $ED Descrição da função
+*    Monta uma matriz iniciada com as peças padrão.
+*
+*  $EP Parâmetros
+*    juiz = Ponteiro para o  juiz que se quer colocar o tabuleiro.
+*    matriz = Ponteiro para a matriz que se quer inicializar.
+*   
+*  $FV Valor retornado
+*    Se executou corretamente retona OK.
+
+***********************************************************************/
 JOG_tpCondRet JOG_GeraMatrizTabuleiro(ptJudge j,char matriz[8][8][2]);
 
+/***********************************************************************
+
+*  $FC Função: JOG &Cria Jogador
+*
+*  $ED Descrição da função
+*    Cria um jogador.
+*
+*  $EP Parâmetros
+*    juiz = Ponteiro para o  juiz que se quer criar o jogador.
+*    nome = Nome do jogador que quer se criar.
+*    cor = Cor das peças controladas pelo jogador que se quer criar.
+*   
+*  $FV Valor retornado
+*    Se executou corretamente retona OK.
+*    Se houve algum problema por falta de memória retorna Faltou Memória.
+
+***********************************************************************/
 JOG_tpCondRet JOG_CriaJogador(ptJogador *j,char *nome,char cor);
 
+/***********************************************************************
+
+*  $FC Função: JOG &Retorno Nome Jogador 1
+*
+*  $ED Descrição da função
+*    Retorno o nome do jogador 1.
+*
+*  $EP Parâmetros
+*    juiz = Ponteiro para o  juiz que contem o jogador.
+*    nome = Nome do jogador que se quer obter.
+*   
+*  $FV Valor retornado
+*    Se executou corretamente retona OK.
+
+***********************************************************************/
 JOG_tpCondRet JOG_RetornoNomeJogador1(ptJudge j,char nome[30]);
 
+/***********************************************************************
+
+*  $FC Função: JOG &Retorno Nome Jogador 2
+*
+*  $ED Descrição da função
+*    Retorno o nome do jogador 2.
+*
+*  $EP Parâmetros
+*    juiz = Ponteiro para o  juiz que se quer colocar o tabuleiro.
+*    nome = Nome do jogador que quer se criar.
+*    cor = Cor das peças controladas pelo jogador que se quer criar.
+*   
+*  $FV Valor retornado
+*    Se executou corretamente retona OK.
+
+***********************************************************************/
 JOG_tpCondRet JOG_RetornoNomeJogador2(ptJudge j,char nome[30]);
 
+/***********************************************************************
+
+*  $FC Função: JOG &Devolve Ameaçantes
+*
+*  $ED Descrição da função
+*    Retorna a lista de ameaçantes de uma casa do Tabuleiro.
+*
+*  $EP Parâmetros
+*    juiz = Ponteiro para o  juiz que se quer colocar o tabuleiro.
+*    corAmeacantes = Ponteiro onde será colocada a cor das peças que ameaçam aquela casa.
+*    idAmeacantes  = Ponteiro onde serão colocados os Id´s das peças ameaçando aquela casa.
+*    qtdAmeacantes  = Quantidade de peças ameaçando a casa.
+*    x = Coordenada X da casa em questão no tabuleiro.
+*    y = Coordenada Y da casa em questão no tabuleiro.
+* 
+*
+*   
+*  $FV Valor retornado
+*    Se executou corretamente retona OK.
+
+***********************************************************************/
 JOG_tpCondRet JOG_DevolveAmeacantes(ptJudge j,char *corAmeacantes,char *idAmeacantes,int *qtdAmeacantes,int x,int y);
 
+/***********************************************************************
+
+*  $FC Função: JOG &Devolve Ameaçados
+*
+*  $ED Descrição da função
+*    Retorna a lista de ameaçados de uma casa do Tabuleiro.
+*
+*  $EP Parâmetros
+*    juiz = Ponteiro para o  juiz que se quer colocar o tabuleiro.
+*    corAmeacantes = Ponteiro onde será colocada a cor das peças que são ameaçadas pela peça naquela casa.
+*    idAmeacantes  = Ponteiro onde serão colocados os Id´s das peças que são ameaçadas pela peça naquela casa.
+*    qtdAmeacantes  = Quantidade de peças que são ameaçadas pela peça naquela casa.
+*    x = Coordenada X da casa em questão no tabuleiro.
+*    y = Coordenada Y da casa em questão no tabuleiro.
+* 
+*
+*   
+*  $FV Valor retornado
+*    Se executou corretamente retona OK.
+
+***********************************************************************/
 JOG_tpCondRet JOG_DevolveAmeacados(ptJudge j,char *corAmeacados,char *idAmeacados,int *qtdAmeacados,int x,int y);
 
 #endif
