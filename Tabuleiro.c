@@ -1106,6 +1106,7 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
                         if(yDirecao != 0) {
                             ySacrificio += (yDirecao/(abs(yDirecao)));
                         }
+                        printf("xaxando e pos sacrificio(%d,%d)",xSacrificio,ySacrificio);
                     }
                 }
             }
