@@ -118,7 +118,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
             {
                return TST_CondRetParm ;
             }
-		   CondRet = JOG_CriaJuiz(&juiz, StringDado, StringDado2);
+		   CondRet = JOG_CriaJuiz(&j, StringDado, StringDado2);
 
 			return TST_CompararInt( CondRetEsp , CondRet ,"Erro em criar juiz" );
        }/*Fim ativa: Efetuar Jogada */
@@ -166,7 +166,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
                return TST_CondRetParm ;
             } /* if */
 
-			CondRet =  JOG_ComecarJogo(juiz, inserirPecas);
+			CondRet =  JOG_ComecarJogo(j, inserirPecas);
 			//JOG_tpCondRet JOG_ComecarJogo(ptJudge j,JOG_tpCondRet (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id),ptJudge j));
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro ao ComeçarJogo" );
          }//Fim de começar jogo
@@ -181,7 +181,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
                return TST_CondRetParm ;
             } /* if */
 
-			CondRet = JOG_ObtemTabuleiro(j,&tabu);
+			CondRet = JOG_ObtemTabuleiro(juiz,&tabu);
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro em obter tabuleiro" );
          }//Fim de obtem tabuleiro
 		//Inicio cria jogador
