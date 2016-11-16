@@ -242,13 +242,13 @@ void loopJogo(ptJudge j) {
         JOG_GeraMatrizTabuleiro(j, matrizTabuleiro);
         imprimeTabuleiro(matrizTabuleiro);
         
-        printf("Insira a coordenada X de onde a peca que quer movimentar esta agora\n");
+        printf("Insira a coluna onde se encontra a peça que você deseja movimentar.\n");
         scanf(" %c",&coordXIni);
-        printf("Insira a coordenada Y de onde a peca que quer movimentar esta agora\n");
+        printf("Insira a linha onde se encontra a peça que você deseja movimentar.\n");
         scanf(" %d",&coordYIni);
-        printf("Insira para qual coordenada X  deseja movimentar a peça\n");
+        printf("Insira a coluna para onde você deseja movimentar a peça.\n");
         scanf(" %c",&coordXFim);
-        printf("Insira para qual coordenada Y  deseja movimentar a peça\n");
+        printf("Insira a linha para onde você deseja movimentar a peça.\n");
         scanf(" %d",&coordYFim);
         coordYFim--;
         coordYIni--;
