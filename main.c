@@ -9,7 +9,7 @@ int converteCharParaInt(char i) {
     return (int)i - 'A';
 }
 
-JOG_tpCondRet inserirPecas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
+void inserirPecas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
     ptTabuleiro tabu;
     int y,xi,continuar = 1;
     char cor,id,x;
