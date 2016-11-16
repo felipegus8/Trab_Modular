@@ -221,9 +221,6 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
         for (j=0; j<8; j++) {
             
             pecaUsada = (Peca *) tabu->tab[i][j].elemento;
-            if(i== 0 && j == 3) {
-                printf("cheguei desgraça\n");
-            }
             PEC_RetornaCor(pecaUsada, &corPecaUsada);
             
             PEC_RetornaId(pecaUsada, &idPecaUsada);
@@ -235,7 +232,6 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
             }
             
             PEC_RetornaQtd_Mov(pecaUsada, &qtdMov);
-            printf("passei do conta unitarios (%d,%d)\n",i,j);
             qtdUnitarios = contaUnitarios(pecaUsada, qtdMov);
             printf("(%d,%d)\n",i,j);
             if(corPecaUsada != 'V' && idPecaUsada != 'V') {
@@ -913,7 +909,6 @@ void buscaNaLista(Peca **pecaLista,char *corPecaLista,char idPecaLista,char idPe
 int contaUnitarios(Peca *pecaLista,int qtdMov) {
     int xObtido,yObtido,i,qtdUnitarios=0;
     for(i=0;i<qtdMov;i++) {
-		printf("conta unitarios %d e %d\n",i,qtdMov);
         PEC_RetornaXMovimento(pecaLista,i,&xObtido);
         PEC_RetornaYMovimento(pecaLista,i,&yObtido);
 		
@@ -1019,7 +1014,7 @@ TAB_tpCondRet TAB_VerificaCheck(ptTabuleiro tabu,int xRei,int yRei) {
 
 TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmeacante,int yAmeacante) {
     Peca *pecaTabuleiro,*ameacante,*rei;
-    int qtdMovRei,podePular,i,j,xMovimento,yMovimento,retornoVerifica,podeMover = 0,podeSacrificar=0,numElemLista,qtdUnitarios,xDirecao,yDirecao,xSacrificio,ySacrificio,qtdMovTab;
+    int qtdMovRei,podePular,i,j,xMovimento,yMovimento,retornoVerifica,podeMover = 0,podeSacrificar=0,numElemLista,qtdUnitarios,xDirecao,yDirecao,xSacrificio,ySacrificio,qtdMovTab,xSacrificioOG,ySacrificioOG;
     LIS_tppLista listaAmeacantes;
     char corRei,corPecaAmeacante,idPecaAmeacante,corPecaTabuleiro,idPecaTabuleiro,idTeste;
     //ver se o rei pode se mexer
@@ -1079,6 +1074,8 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
         } else {
             ySacrificio = yRei;
         }
+        xSacrificioOG = xSacrificio;
+        ySacrificioOG = ySacrificio;
         //printf("sac: (%d,%d)\n",xSacrificio,ySacrificio);
         for (i=0; i<8; i++) {
             for (j=0; j<8; j++) {
@@ -1087,10 +1084,14 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
                 PEC_RetornaId(pecaTabuleiro, &idPecaTabuleiro);
                 PEC_RetornaQtd_Mov(pecaTabuleiro, &qtdMovTab);
                 qtdUnitarios = contaUnitarios(pecaTabuleiro, qtdMovTab);
-                if(corPecaTabuleiro == corRei && i != xRei && j != yRei) {
-                    while(xSacrificio != xAmeacante && yAmeacante != ySacrificio) {
+                if(corPecaTabuleiro == corRei && (i != xRei || j != yRei)) {
+                    printf("Entrei (%d,%d)\n",i,j);
+                    xSacrificio = xSacrificioOG;
+                    ySacrificio = ySacrificioOG;
+                    while(xSacrificio != xAmeacante || ySacrificio != yAmeacante) {
                     if(idPecaTabuleiro != 'P') {
                         printf("%c\n",idPecaTabuleiro);
+                        
                         retornoVerifica = verificaMovimento(i, j, pecaTabuleiro, xSacrificio, ySacrificio, tabu, corPecaTabuleiro, qtdUnitarios,0);
                     } else {
                         retornoVerifica = verificaPeao(tabu, i, j, xSacrificio, ySacrificio, corPecaTabuleiro);
@@ -1100,14 +1101,17 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
                         printf("Peca id: %c e cor: %c na posicao(%d,%d) pode se sacrificar\n",idPecaTabuleiro,corPecaTabuleiro,i,j);
                         podeSacrificar = 1;
                     }
+                        printf("xaxando e pos sacrificio(%d,%d)",xSacrificio,ySacrificio);
+                    
                         if(xDirecao != 0) {
-                            xSacrificio += (xDirecao/(abs(xDirecao)));
+                            xSacrificio -= (xDirecao/(abs(xDirecao)));
                         }
                         if(yDirecao != 0) {
-                            ySacrificio += (yDirecao/(abs(yDirecao)));
+                            ySacrificio -= (yDirecao/(abs(yDirecao)));
                         }
-                        printf("xaxando e pos sacrificio(%d,%d)",xSacrificio,ySacrificio);
+                         
                     }
+                    
                 }
             }
         }
