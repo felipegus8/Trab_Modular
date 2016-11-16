@@ -1,0 +1,90 @@
+TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu) {
+    int i=0,j = 0;
+    while(i<8) {
+        j=0;
+        while(j<8) {
+            if(tabu->tab[i][j].elemento != NULL) {
+                LIS_DestroiLista(tabu->tab[i][j].ameacados);
+                LIS_DestroiLista(tabu->tab[i][j].ameacantes);
+                
+                PEC_LiberaPeca((Peca*)tabu->tab[i][j].elemento);
+            }
+            j++;
+        }
+        i++;
+    }
+    LIS_DestroiLista(listaPecas);
+    return TAB_CondRetOK;
+}
+
+Argumentação de Sequencia
+AE: A função de destruir tabuleiro recebe um ponteiro para a struct TAG_tabuleiro.
+AS: Ao final da função o tabuleiro foi liberado da mémoria do computador, ou seja, destruído
+A1: i aponta para a primeira linha
+A2: j aponta para a primeira coluna
+A1’: i aponta para a última linha
+A2’: j aponta para a última coluna
+
+Argumentação de Seleção
+if(tabu->tab[i][j].elemento != NULL)
+
+AE && (C == T) => IF
+IF
+{
+	Executa A: LIS_DestroiLista(tabu->tab[i][j].ameacados);
+ 	-AE: A função de destruir lista recebe o endereço da lista de peças ameaçadas 
+ 	-AS: A lista recebida por referência com as peças ameaçadas foi destruída, ou seja, apagada da memória do computador
+
+	Executa B: LIS_DestroiLista(tabu->tab[i][j].ameacantes);
+	 -AE: A função de destruir lista recebe o endereço da lista de peças ameaçantes
+	 -AS: A lista recebida por referência com as peças ameaçantes foi destruída, ou seja, apagada da memória do computador
+
+	Executa C: PEC_LiberaPeca((Peca*)tabu->tab[i][j].elemento);
+	 -AE: A função libera peça recebe o endereço da peça alocada na sua respectiva casa 
+	 -AS: A peça recebida por referência foi destruída, ou seja, liberada da memória do computador  
+
+}
+AE && (C == F) => Beta 3.1
+
+Argumentação de Repetição
+	Repetição Alpha: while(i<8) {…}
+		AE: A1
+		AS: A1’
+	Repetição Beta: while(j<8) {…}
+		AE: A2
+		AS: A2’
+	
+Alpha
+	Alpha 1: AE => AINV
+		-AINV diz respeito ao descritor de estado i, é a assertiva de entrada da repetição Alpha
+	
+	Alpha 2: AINV + (C == T) => Alpha 3
+		-Significa que o descritor de estado está dentro dos limites do tabuleiro (linhas)
+
+	Alpha 3: Alpha3 => Beta
+		- Executa repetição Beta
+	-Atualiza a AINV para a linha consecutiva
+
+	Alpha 4: AINV + (F == T) => Alpha 5
+	-Significa que AINV já percorreu todas as linhas e colunas do tabuleiro, ou seja, está fora dos limites do tabuleiro
+
+Alpha 5: AE + (C == F) => AS
+	-Para a repetição, o que significa que todos os elementos do tabuleiro foram destruidos
+
+Beta
+	Beta 1: AE => AINV2
+	-AINV diz respeito ao descritor de estado j, é a assertiva de entrada da repetição Beta
+
+	Beta 2: AINV2 + (C == T) => Beta 3
+		-Significa que o descritor de estado está dentro dos limites do tabuleiro (colunas)
+
+	Beta 3: Beta3 => IF
+	-Vai executar as linhas dentro do bloco if
+	Beta 3.1:
+	-Atualiza o AINV2 para a próxima coluna
+
+	Beta 4: AINV2 + (C == F) = Beta 5
+	-Significa que AINV2 já percorreu todas colunas do tabuleiro, ou seja, está fora dos limites do tabuleiro
+	
+	Beta 5: AE + (C == F) => AS
+		-Para a repetição, o que significa que todos os elementos a linha AINV foram destruidos

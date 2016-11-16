@@ -7,7 +7,7 @@ Desenvolvido por:
 Prof. Flavio, e-mail:  bevilac@inf.puc-rio.br
 
 Apresentação
-Foi disponibilizado o arquivo INF1301-Trab2-FVLCVB.zip. Nele há arquivos do modulo lista, peça e tabuleiro para o jogo de Xadrez.
+Foi disponibilizado o arquivo INF1301-Trab3-FVLCVB.zip. Nele há arquivos do modulo lista, peça, tabuleiro ,jogo e mainpara o jogo de Xadrez.
 
 Instalação
 Separe uma pasta vazia para instalar o jogo e extraia os arquivos do .zip para ela.
@@ -47,6 +47,12 @@ Batches: Final.bat
 Código Fonte: tabuleiro.c, tabuleiro.h e testeTabuleiro.c
 Script De Teste: testeTabuleiro.script
 Executáveis: TesteTabuleiro.exe
+Batches: Final.bat
+
+-Jogo
+Código Fonte: Jogo.c, Jogoo.h e testeJogo.c
+Script De Teste: testeJogo.script
+Executáveis: TesteJogo.exe
 Batches: Final.bat
 
 Documentação
