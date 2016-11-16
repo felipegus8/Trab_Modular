@@ -54,7 +54,7 @@ void inserirPecas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char
     InserirNoTab(tabu,0,1,'B','P');
     InserirNoTab(tabu,1,1,'B','P');
     InserirNoTab(tabu,2,1,'B','P');
-    InserirNoTab(tabu,3,1,'B','P');
+    InserirNoTab(tabu,3,1,'B','X');
     InserirNoTab(tabu,4,1,'B','P');
     InserirNoTab(tabu,5,1,'B','P');
     InserirNoTab(tabu,6,1,'B','P');
@@ -76,7 +76,6 @@ void inserirPecas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char
     InserirNoTab(tabu,5,6,'P','P');
     InserirNoTab(tabu,6,6,'P','P');
     InserirNoTab(tabu,7,6,'P','P');
-    return JOG_CondRetOK;
 }
 
 
@@ -163,11 +162,11 @@ void loopJogo(ptJudge j) {
         JOG_RetornoNomeJogador1(j, nome1);
         JOG_RetornoNomeJogador2(j, nome2);
         if(i%2 == 0) {
-            corDavez = 'P';
+            corDavez = 'B';
             printf("vez do jogador %s\n",nome1);
             vez = 0;
         } else {
-            corDavez = 'B';
+            corDavez = 'P';
             printf("vez do jogador %s\n",nome2);
             vez = 1;
         }
@@ -207,9 +206,9 @@ void loopJogo(ptJudge j) {
             imprimeAmeacados(corAmeacados, idAmeacados, qtdAmeacados);
             printf("Cheque ");
             if(vez == 0) {
-                printf("de %s\n",nome2);
-            } else {
                 printf("de %s\n",nome1);
+            } else {
+                printf("de %s\n",nome2 );
             }
         } else if(resMovimento == JOG_CondRetCorErrada) {
             printf("Está tentando movimentar peça da cor errada\nFique mais atento e tenta novamente\n");
