@@ -79,7 +79,7 @@ JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY
 
 JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,char nomeJogadorA[30], char nomeJogadorB[30]);
 
-JOG_tpCondRet JOG_ComecarJogo(ptJudge j,JOG_tpCondRet (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id),ptJudge j));
+JOG_tpCondRet JOG_ComecarJogo(ptJudge j,void (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id),ptJudge j));
 
 
 JOG_tpCondRet JOG_AssasinarJuiz(ptJudge j);
