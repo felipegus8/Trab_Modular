@@ -179,7 +179,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
                 return TST_CondRetParm ;
             } /* if */
             
-            CondRet =  JOG_ComecarJogo(j, inserirPecasPadrao);
+            CondRet =  JOG_ComecarJogo(j, inserirPecasNovas);
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro ao ComeÁarJogo" );
         }//Fim de começar jogo com peças novas
 		   //Inicio obtem tabuleiro 

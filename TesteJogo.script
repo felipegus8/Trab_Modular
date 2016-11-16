@@ -56,7 +56,7 @@
 =obtemtabuleiro OK
  
 ==Inicia o jogo
-=comecarjogo   OK
+=comecarjogopadrao   OK
 
 ==Verifica nome do jogador 1
 =retornonomejogador1  "Felipe"  
@@ -76,30 +76,44 @@
 ==Efetuar jogada cavalo preto
 =efetuarjogada    charP   int1  int7  int0 int5 OK  
 
-==Efetuar movimento rainha
-=efetuarjogada    charB   int3  int0  int4   int1  OK
+//==Efetuar movimento rainha
+//=efetuarjogada    charB   int3  int0  int4   int1  OK
 
-==Efetuar movimento peao preto
-=efetuarjogada    charP   int4  int6  int4   int5   OK
+//==Efetuar movimento peao preto
+//=efetuarjogada    charP   int4  int6  int4   int5   OK
 
-==Efetuar movimento rainha
-=efetuarjogada    charB  int4   int1  int3  int2  OK
+//==Efetuar movimento rainha
+//=efetuarjogada    charB  int4   int1  int3  int2  OK
 
-==Efetuar movimento peao
-=efetuarjogada   charP  int7  int6   int7  int5  OK
+//==Efetuar movimento peao
+//=efetuarjogada   charP  int7  int6   int7  int5  OK
 
-==Efetuar movimento rainha
-=efetuarjogada    charB  int3  int2   int4  int3  OK
+//==Efetuar movimento rainha
+//=efetuarjogada    charB  int3  int2   int4  int3  OK
 
-==Efetuar movimento peao
-=efetuarjogada   charP  int7  int5   int7  int4  OK
+//==Efetuar movimento peao
+//=efetuarjogada   charP  int7  int5   int7  int4  OK
 
-==Efetuar movimento rainha(coloca o rei em cheque)
-=efetuarjogada    charB  int4  int3   int4  int5  Cheque
+//==Efetuar movimento rainha(coloca o rei em cheque)
+//=efetuarjogada    charB  int4  int3   int4  int5  Cheque
 
-//==Efeutar jogada bispo branco(Essa jogada coloca o rei adversario em cheque)
-//=efetuarjogada    charB   int5  int0   int1  int4  Cheque
+==Efeutar jogada bispo branco(Essa jogada coloca o rei adversario em cheque)
+=efetuarjogada    charB   int5  int0   int1  int4  Cheque
 
-//==Proteger o rei com o bispo
-//=efetuarjogada   charP   int2  int7  int3  int6   OK
+==Proteger o rei com o bispo
+=efetuarjogada   charP   int2  int7  int3  int6   OK
    
+==Destroi o juiz
+=assasinarjuiz OK
+
+==Cria um juiz 
+=criajuiz  OK   "Felipe2"  "Gustavo2"
+
+==Obtem o tabuleiro
+=obtemtabuleiro OK
+ 
+==Inicia o jogo
+=comecarjogonovas   OK
+
+==Move a peca nova
+=efetuarjogada  charB  int3 int1 int4 int1 OK
