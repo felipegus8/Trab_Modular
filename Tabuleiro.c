@@ -1019,7 +1019,7 @@ TAB_tpCondRet TAB_VerificaCheck(ptTabuleiro tabu,int xRei,int yRei) {
 
 TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmeacante,int yAmeacante) {
     Peca *pecaTabuleiro,*ameacante,*rei;
-    int qtdMovRei,podePular,i,j,xMovimento,yMovimento,retornoVerifica,podeMover = 0,podeSacrificar=0,numElemLista,qtdUnitarios,xDirecao,yDirecao,xSacrificio,ySacrificio,qtdMovTab;
+    int qtdMovRei,podePular,i,j,xMovimento,yMovimento,retornoVerifica,podeMover = 0,podeSacrificar=0,numElemLista,qtdUnitarios,xDirecao,yDirecao,xSacrificio,ySacrificio,qtdMovTab,k;
     LIS_tppLista listaAmeacantes;
     char corRei,corPecaAmeacante,idPecaAmeacante,corPecaTabuleiro,idPecaTabuleiro,idTeste;
     //ver se o rei pode se mexer
@@ -1088,6 +1088,7 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
                 PEC_RetornaQtd_Mov(pecaTabuleiro, &qtdMovTab);
                 qtdUnitarios = contaUnitarios(pecaTabuleiro, qtdMovTab);
                 if(corPecaTabuleiro == corRei && i != xRei && j != yRei) {
+                    while(xSacrificio != xAmeacante && yAmeacante != ySacrificio) {
                     if(idPecaTabuleiro != 'P') {
                         printf("%c\n",idPecaTabuleiro);
                         retornoVerifica = verificaMovimento(i, j, pecaTabuleiro, xSacrificio, ySacrificio, tabu, corPecaTabuleiro, qtdUnitarios,0);
@@ -1098,6 +1099,9 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
                         printf("ALLAHU AKBAR!!!\n");
                         printf("Peca id: %c e cor: %c na posicao(%d,%d) pode se sacrificar\n",idPecaTabuleiro,corPecaTabuleiro,i,j);
                         podeSacrificar = 1;
+                    }
+                        xSacrificio += xDirecao;
+                        ySacrificio += yDirecao;
                     }
                 }
             }
