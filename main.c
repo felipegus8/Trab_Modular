@@ -132,9 +132,9 @@ void imprimeTabuleiro(char matrizTabuleiro[8][8][2]) {
         printf("\n");
     }
 	printf("\n\n\n");
-	printf("\t");
+	printf("\t  ");
     for (y=1; y<9; y++) {
-        printf(" %c  ",row);
+        printf("%c   ",row);
         row++;
     }
     printf("\n");
