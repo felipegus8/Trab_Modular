@@ -150,14 +150,14 @@ void inserirPecasNovas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y
 
 void recebeNomeJogadorA(char nomeA[30]) {
     char s[30];
-    printf("Entre com o nome do jogador que joga com as peças brancas\n");
+    printf("Entre com o nome do jogador que joga com as pecas brancas\n");
     scanf("%s",s);
     strcpy(nomeA,s);
 }
 
 void recebeNomeJogadorB(char nomeB[30]) {
     char s[30];
-    printf("Entre com o nome do jogador que jogo com as peças pretas\n");
+    printf("Entre com o nome do jogador que jogo com as pecas pretas\n");
     scanf("%s",s);
     strcpy(nomeB,s);
 }
@@ -254,13 +254,13 @@ void loopJogo(ptJudge j) {
         coordYIni--;
         resMovimento = JOG_EfetuarJogada(j, corDavez, converteCharParaInt(coordXIni), coordYIni, converteCharParaInt(coordXFim), coordYFim);
         if (resMovimento == JOG_CondRetOK) {
-            printf("Movimento foi realizado com sucesso, sem capturar outra peça");
+            printf("Movimento foi realizado com sucesso, sem capturar outra peca");
             JOG_DevolveAmeacantes(j, corAmeacantes, idAmeacantes, &qtdAmeacantes, converteCharParaInt(coordXFim), coordYFim);
             JOG_DevolveAmeacados(j, corAmeacados, idAmeacados, &qtdAmeacados, converteCharParaInt(coordXFim), coordYFim);
             imprimeAmeacantes(corAmeacantes,idAmeacantes,qtdAmeacantes);
             imprimeAmeacados(corAmeacados, idAmeacados, qtdAmeacados);
         } else if(resMovimento == JOG_CondRetComeu) {
-            printf("Movimento foi realizado com sucesso, capturando outra peça\n");
+            printf("Movimento foi realizado com sucesso, capturando outra peca\n");
             JOG_DevolveAmeacantes(j, corAmeacantes, idAmeacantes, &qtdAmeacantes, converteCharParaInt(coordXFim), coordYFim);
             JOG_DevolveAmeacados(j, corAmeacados, idAmeacados, &qtdAmeacados, converteCharParaInt(coordXFim), coordYFim);
             imprimeAmeacantes(corAmeacantes,idAmeacantes,qtdAmeacantes);
@@ -314,7 +314,7 @@ int main()
     recebeNomeJogadorB(nomeB);
     JOG_CriaJuiz(&j, nomeA, nomeB);
 	while(1) { 
-		printf("deseja jogar com as peças padroes ou com peças novas?\nSe quiser com peças novas digite 0, se quiser com peças padroes digite 1\n");
+		printf("deseja jogar com as pecas padroes ou com pecas novas?\nSe quiser com pecas novas digite 0, se quiser com pecas padroes digite 1\n");
 		scanf("%d",&modoJogo);
 		if(modoJogo == 1) {
 			JOG_ComecarJogo(j, inserirPecasPadrao);
