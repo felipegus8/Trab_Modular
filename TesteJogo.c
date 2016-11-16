@@ -130,7 +130,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 
             numLidos = LER_LerParametros( "ciiiii" , &cor, &xi, &yi, &xf, &yf, &CondRetEsp) ; //ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY
 
-            if (  numLidos != 7 )
+            if (  numLidos != 6 )
             {
                return TST_CondRetParm ;
             } /* if */

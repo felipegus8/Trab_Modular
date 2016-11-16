@@ -65,20 +65,20 @@
 =retornonomejogador2  "Gustavo"
 
 ==Efetuar primeira jogada das brancas(movimento do cavalo branco)
-=efetuarjogada  int1  charB  int6  int0  int5  int2  OK
+=efetuarjogada    charB  int6  int0  int5  int2  OK
 
 ==Efetuar primeira jogada das pretas(movimento do peao preto)
-=efetuarjogada   int1  charP  int3  int5  int3  int5  OK
+=efetuarjogada     charP  int3  int5  int3  int5  OK
 
 ==Efetuar jogada do peao branco
-=efetuarjogada   int1  charB  int4  int1  int4  int2  OK
+=efetuarjogada    charB  int4  int1  int4  int2  OK
 
 ==Efetuar jogada cavalo preto
-=efetuarjogada  int1  charP   int1  int5  int7  int0 int5 OK  
+=efetuarjogada    charP   int1  int7  int0 int5 OK  
 
 ==Efeutar jogada bispo branco(Essa jogada coloca o rei adversario em cheque)
-=efetuarjogada  int1  charB   int5  int0   int1  int4  OK
+=efetuarjogada    charB   int5  int0   int1  int4  OK
 
 ==Proteger o rei com o bispo
-=efetuarjogada  int1  charP   int2  int7  int3  int6   OK
+=efetuarjogada   charP   int2  int7  int3  int6   OK
    
