@@ -720,7 +720,10 @@ TAB_tpCondRet verificaMovimento(int posIniX,int posIniY,Peca *p,int movX,int mov
     return TAB_CondRetMovimentoIrregular;
     
 }/* Fim funÁ„o: TAB  -Verifica Validade Do Movimento*/
-
+/***************************************************************************
+ *
+ *  FunÁ„o: TAB  &Verifica Validade Do Movimento Do Peão
+ *  ****/
 
 int verificaPeao(ptTabuleiro tabu,int posIniX,int posIniY,int posFimX,int posFimY,char corPeao) {
     char corPecaAlvo,idPecaAlvo;
@@ -754,9 +757,12 @@ int verificaPeao(ptTabuleiro tabu,int posIniX,int posIniY,int posFimX,int posFim
         }
     }
     return 7;
-}
+}/* Fim funÁ„o: TAB  -Verifica Validade Do Movimento Do Peão*/
 
-
+/***************************************************************************
+ *
+ *  FunÁ„o: TAB  &Conta Movimentos Unitários De Uma Peça
+ *  ****/
 int contaUnitarios(Peca *pecaLista,int qtdMov) {
     int xObtido,yObtido,i,qtdUnitarios=0;
     for(i=0;i<qtdMov;i++) {
@@ -768,7 +774,7 @@ int contaUnitarios(Peca *pecaLista,int qtdMov) {
         }
     }
     return qtdUnitarios;
-}
+}/* Fim funÁ„o: TAB  -Conta Movimentos Unitários De Uma Peça*/
 
 int verificaCoordenadas(int x, int y) {
     if(x>7 || x<0 || y>7 || y<0) {
@@ -777,13 +783,11 @@ int verificaCoordenadas(int x, int y) {
     return 1;
 }
 
-void trocaReiPorVazio(ptTabuleiro tabu,int xRei,int yRei) {
-    Peca *rei;
-    rei = (Peca *)tabu->tab[xRei][yRei].elemento;
-    
-}
-
-int verificaSeMovimentoDeixaReiEmCheque(ptTabuleiro tabu,int posX,int posY,char cor) {/*verifica se movimento que rei poderia fazer n o deixa em cheque */
+/***************************************************************************
+ *
+ *  FunÁ„o: TAB  &Verifica Se Movimento Deixa Rei Em Cheque
+ *  ****/
+int verificaSeMovimentoDeixaReiEmCheque(ptTabuleiro tabu,int posX,int posY,char cor) {
     char corObtida,idObtido,i,j,retornoVerifica = 7;
     int qtdMov,qtdUnitarios;
     Peca *ameacante;
@@ -832,8 +836,13 @@ int verificaSeMovimentoDeixaReiEmCheque(ptTabuleiro tabu,int posX,int posY,char 
         }
     }
     return 1;
-}
+}/* Fim funÁ„o: TAB  -Verifica Se Movimento Deixa Rei Em Cheque*/
 
+
+/***************************************************************************
+ *
+ *  FunÁ„o: TAB  &Verifica Movimento Do Rei
+ *  ****/
 TAB_tpCondRet TAB_VerificaMovimentoRei(ptTabuleiro tabu,int xRei, int yRei, char cor,int xFim,int yFim) {
     int retornoVerifica1,retornoVerifica2;
     Peca *rei;
@@ -850,8 +859,12 @@ TAB_tpCondRet TAB_VerificaMovimentoRei(ptTabuleiro tabu,int xRei, int yRei, char
     }
     PEC_AlteraCorEId(rei, cor, 'R');/*coloca rei de volta */
     return 7;
-}
+}/* Fim funÁ„o: TAB  -Verifica Movimento Do Rei*/
 
+/***************************************************************************
+ *
+ *  FunÁ„o: TAB  &Verifica Check
+ *  ****/
 TAB_tpCondRet TAB_VerificaCheck(ptTabuleiro tabu,int xRei,int yRei) {
     int numElem;
     LIS_RetornaNumElementos(tabu->tab[xRei][yRei].ameacantes, &numElem);
@@ -859,10 +872,12 @@ TAB_tpCondRet TAB_VerificaCheck(ptTabuleiro tabu,int xRei,int yRei) {
         return TAB_CondRetCheck;
     }
     return TAB_CondRetNoCheck;
-}
+}/* Fim funÁ„o: TAB  -Verifica Check*/
 
-
-
+/***************************************************************************
+ *
+ *  FunÁ„o: TAB  &Verifica Check Mate
+ *  ****/
 TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmeacante,int yAmeacante) {
     Peca *pecaTabuleiro,*ameacante,*rei;
     int qtdMovRei,podePular,i,j,xMovimento,yMovimento,retornoVerifica,podeMover = 0,podeSacrificar=0,numElemLista,qtdUnitarios,xDirecao,yDirecao,xSacrificio,ySacrificio,qtdMovTab,xSacrificioOG,ySacrificioOG;
@@ -969,7 +984,12 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
     }
     
     
-}
+}/* Fim funÁ„o: TAB  -Verifica Check Mate*/
+
+/***************************************************************************
+ *
+ *  FunÁ„o: TAB  &Verifica Acha Peca Check
+ *  ****/
 
 TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *x,int *y,int xRei,int yRei) {
     int i,j,qtdMov,qtdUnitarios,retVerifica;
@@ -991,7 +1011,7 @@ TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *x,int *y,
         }
     }
     return 0;
-}
+}/* Fim funÁ„o: TAB  -Verifica Acha Peca Check*/
 
 
 /********** Fim do mÛdulo de implementaÁ„o: TAB  Tabuleiro **********/
