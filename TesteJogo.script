@@ -68,7 +68,7 @@
 =efetuarjogada    charB  int6  int0  int5  int2  OK
 
 ==Efetuar primeira jogada das pretas(movimento do peao preto)
-=efetuarjogada     charP  int3  int5  int3  int5  OK
+=efetuarjogada     charP  int3  int6  int3  int5  OK
 
 ==Efetuar jogada do peao branco
 =efetuarjogada    charB  int4  int1  int4  int2  OK
@@ -77,7 +77,7 @@
 =efetuarjogada    charP   int1  int7  int0 int5 OK  
 
 ==Efeutar jogada bispo branco(Essa jogada coloca o rei adversario em cheque)
-=efetuarjogada    charB   int5  int0   int1  int4  OK
+=efetuarjogada    charB   int5  int0   int1  int4  Cheque
 
 ==Proteger o rei com o bispo
 =efetuarjogada   charP   int2  int7  int3  int6   OK
