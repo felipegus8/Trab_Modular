@@ -23,8 +23,9 @@
 #include    "Jogo.h"
 #include    "TST_ESPC.h"
 
-/* funÁıes encapsuladas no testejogo */
-void inserirPecas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) ;
+/* funções encapsuladas no testejogo */
+void inserirPecasPadrao(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) ;
+void inserirPecasNovas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) ;
 /******************************************************************************************************************/
 /*
 JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY);
@@ -48,7 +49,8 @@ JOG_tpCondRet JOG_DevolveAmeacados(ptJudge j,char *corAmeacados,char *idAmeacado
 */
 static const char EFETUAR_JOGADA             							[ ] = "=efetuarjogada" ;
 static const char CRIA_JUIZ          	                                [ ] = "=criajuiz"   ;
-static const char COMECAR_JOGO              	                        [ ] = "=comecarjogo"      ;
+static const char COMECAR_JOGO_PADRAO              	                        [ ] = "=comecarjogopadrao"      ;
+static const char COMECAR_JOGO_NOVAS              	                        [ ] = "=comecarjogonovas"      ;
 static const char ASSASINAR_JUIZ                						[ ] = "=assasinarjuiz"        ;
 static const char OBTEM_TABULEIRO               						[ ] = "=obtemtabuleiro"        ;
 static const char GERA_MATRIZ_TABULEIRO              					[ ] = "=geramatriztabuleiro"        ;
@@ -152,9 +154,8 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 			CondRet = JOG_AssasinarJuiz(j);
              return TST_CompararInt( CondRetEsp , CondRet ,"Assasinar Juiz" );
          }//Fim de assasinar Juiz
-	   //Inicio de comeÁar Jogo
-	   
-		else if ( strcmp( ComandoTeste , COMECAR_JOGO) == 0 )
+	   //Inicio de começar Jogo com peças padrão
+		else if ( strcmp( ComandoTeste , COMECAR_JOGO_PADRAO) == 0 )
          {
 
             numLidos = LER_LerParametros( "i" , &CondRetEsp); 
@@ -164,9 +165,23 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
                return TST_CondRetParm ;
             } /* if */
 
-			CondRet =  JOG_ComecarJogo(j, inserirPecas);
+			CondRet =  JOG_ComecarJogo(j, inserirPecasPadrao);
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro ao ComeÁarJogo" );
-         }//Fim de comeÁar jogo
+         }//Fim de começar jogo com peças padrão
+        //Inicio de começar Jogo com peças novas
+        else if ( strcmp( ComandoTeste , COMECAR_JOGO_NOVAS) == 0 )
+        {
+            
+            numLidos = LER_LerParametros( "i" , &CondRetEsp);
+            
+            if (  numLidos != 1 )
+            {
+                return TST_CondRetParm ;
+            } /* if */
+            
+            CondRet =  JOG_ComecarJogo(j, inserirPecasPadrao);
+            return TST_CompararInt( CondRetEsp , CondRet ,"Erro ao ComeÁarJogo" );
+        }//Fim de começar jogo com peças novas
 		   //Inicio obtem tabuleiro 
 		else if ( strcmp( ComandoTeste , OBTEM_TABULEIRO) == 0 )
          {
@@ -257,7 +272,7 @@ JOG_tpCondRet JOG_DevolveAmeacados(ptJudge j,char *corAmeacados,char *idAmeacado
 
 /* Inicio funcoes encapsuladas no testejogo*/
 
-void inserirPecas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
+void inserirPecasPadrao(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
     ptTabuleiro tabu;
     int y,xi,continuar = 1;
     char cor,id,x;
@@ -324,6 +339,75 @@ void inserirPecas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char
     InserirNoTab(tabu,6,6,'P','P');
     InserirNoTab(tabu,7,6,'P','P');
 }
+
+void inserirPecasNovas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
+    ptTabuleiro tabu;
+    int y,xi,continuar = 1;
+    char cor,id,x;
+    /*
+     do {
+     printf("Entre com a identidade da peça\n");
+     scanf(" %c",&id);
+     printf("id peça: %d\n",id);
+     printf("Entre com a cor da peça\n");
+     scanf(" %c",&cor);
+     printf("Entre com a coordenada X da peça\n");
+     scanf(" %c",&x);
+     printf("Entre com a coordenada Y da peça\n");
+     scanf(" %d",&y);
+     xi = converteCharParaInt(x);
+     printf("convertido: %d\n",xi);
+     JOG_ObtemTabuleiro(j, &tabu);
+     y--;
+     InserirNoTab(tabu, xi, y, cor, id);
+     printf("se quiser continuar inserindo digite 1\n");
+     scanf("%d",&continuar);
+     } while (continuar == 1);
+     */
+    
+    JOG_ObtemTabuleiro(j, &tabu);
+    /*
+     InserirNoTab(tabu,1,6,'B','R');
+     InserirNoTab(tabu,2,2,'P','T');
+     InserirNoTab(tabu,3,1,'P','D');
+     InserirNoTab(tabu,4,4,'B','T');
+     */
+    //Insere peças brancas
+    InserirNoTab(tabu,0,0,'B','T');
+    InserirNoTab(tabu,1,0,'B','C');
+    InserirNoTab(tabu,2,0,'B','B');
+    InserirNoTab(tabu,3,0,'B','D');
+    InserirNoTab(tabu,4,0,'B','R');
+    InserirNoTab(tabu,5,0,'B','B');
+    InserirNoTab(tabu,6,0,'B','C');
+    InserirNoTab(tabu,7,0,'B','T');
+    InserirNoTab(tabu,0,1,'B','P');
+    InserirNoTab(tabu,1,1,'B','P');
+    InserirNoTab(tabu,2,1,'B','P');
+    InserirNoTab(tabu,3,1,'B','X');
+    InserirNoTab(tabu,4,1,'B','P');
+    InserirNoTab(tabu,5,1,'B','P');
+    InserirNoTab(tabu,6,1,'B','P');
+    InserirNoTab(tabu,7,1,'B','P');
+    //Insere peças pretas
+    InserirNoTab(tabu,0,7,'P','T');
+    InserirNoTab(tabu,1,7,'P','C');
+    InserirNoTab(tabu,2,7,'P','B');
+    InserirNoTab(tabu,3,7,'P','D');
+    InserirNoTab(tabu,4,7,'P','R');
+    InserirNoTab(tabu,5,7,'P','B');
+    InserirNoTab(tabu,6,7,'P','C');
+    InserirNoTab(tabu,7,7,'P','T');
+    InserirNoTab(tabu,0,6,'P','P');
+    InserirNoTab(tabu,1,6,'P','P');
+    InserirNoTab(tabu,2,6,'P','P');
+    InserirNoTab(tabu,3,6,'P','P');
+    InserirNoTab(tabu,4,6,'P','P');
+    InserirNoTab(tabu,5,6,'P','P');
+    InserirNoTab(tabu,6,6,'P','P');
+    InserirNoTab(tabu,7,6,'P','P');
+}
+
 
 /*Fim funÁıes encapsuladas no testejogo */
 /*Fim testejogo */

@@ -10,7 +10,76 @@ int converteCharParaInt(char i) {
     return (int)i - 'A';
 }
 
-void inserirPecas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
+void inserirPecasPadrao(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
+    ptTabuleiro tabu;
+    int y,xi,continuar = 1;
+    char cor,id,x;
+    /*
+     do {
+     printf("Entre com a identidade da peÁa\n");
+     scanf(" %c",&id);
+     printf("id peÁa: %d\n",id);
+     printf("Entre com a cor da peÁa\n");
+     scanf(" %c",&cor);
+     printf("Entre com a coordenada X da peÁa\n");
+     scanf(" %c",&x);
+     printf("Entre com a coordenada Y da peÁa\n");
+     scanf(" %d",&y);
+     xi = converteCharParaInt(x);
+     printf("convertido: %d\n",xi);
+     JOG_ObtemTabuleiro(j, &tabu);
+     y--;
+     InserirNoTab(tabu, xi, y, cor, id);
+     printf("se quiser continuar inserindo digite 1\n");
+     scanf("%d",&continuar);
+     } while (continuar == 1);
+     */
+    
+    JOG_ObtemTabuleiro(j, &tabu);
+    /*
+     InserirNoTab(tabu,1,6,'B','R');
+     InserirNoTab(tabu,2,2,'P','T');
+     InserirNoTab(tabu,3,1,'P','D');
+     InserirNoTab(tabu,4,4,'B','T');
+     */
+    //Insere peÁas brancas
+    InserirNoTab(tabu,0,0,'B','T');
+    InserirNoTab(tabu,1,0,'B','C');
+    InserirNoTab(tabu,2,0,'B','B');
+    InserirNoTab(tabu,3,0,'B','D');
+    InserirNoTab(tabu,4,0,'B','R');
+    InserirNoTab(tabu,5,0,'B','B');
+    InserirNoTab(tabu,6,0,'B','C');
+    InserirNoTab(tabu,7,0,'B','T');
+    InserirNoTab(tabu,0,1,'B','P');
+    InserirNoTab(tabu,1,1,'B','P');
+    InserirNoTab(tabu,2,1,'B','P');
+    InserirNoTab(tabu,3,1,'B','P');
+    InserirNoTab(tabu,4,1,'B','P');
+    InserirNoTab(tabu,5,1,'B','P');
+    InserirNoTab(tabu,6,1,'B','P');
+    InserirNoTab(tabu,7,1,'B','P');
+    //Insere peÁas pretas
+    InserirNoTab(tabu,0,7,'P','T');
+    InserirNoTab(tabu,1,7,'P','C');
+    InserirNoTab(tabu,2,7,'P','B');
+    InserirNoTab(tabu,3,7,'P','D');
+    InserirNoTab(tabu,4,7,'P','R');
+    InserirNoTab(tabu,5,7,'P','B');
+    InserirNoTab(tabu,6,7,'P','C');
+    InserirNoTab(tabu,7,7,'P','T');
+    InserirNoTab(tabu,0,6,'P','P');
+    InserirNoTab(tabu,1,6,'P','P');
+    InserirNoTab(tabu,2,6,'P','P');
+    InserirNoTab(tabu,3,6,'P','P');
+    InserirNoTab(tabu,4,6,'P','P');
+    InserirNoTab(tabu,5,6,'P','P');
+    InserirNoTab(tabu,6,6,'P','P');
+    InserirNoTab(tabu,7,6,'P','P');
+}
+
+
+void inserirPecasNovas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
     ptTabuleiro tabu;
     int y,xi,continuar = 1;
     char cor,id,x;
@@ -245,7 +314,7 @@ int main()
     recebeNomeJogadorB(nomeB);
     JOG_CriaJuiz(&j, nomeA, nomeB);
     JOG_ObtemTabuleiro(j, &tabu);
-    JOG_ComecarJogo(j, inserirPecas);
+    JOG_ComecarJogo(j, inserirPecasPadrao);
     
     
     
