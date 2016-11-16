@@ -128,14 +128,13 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 	   else if ( strcmp( ComandoTeste , EFETUAR_JOGADA) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iciiiii" ,&juiz, &cor, &xi, &yi, &xf, &yf, &CondRetEsp) ; //ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY
+            numLidos = LER_LerParametros( "ciiiii" , &cor, &xi, &yi, &xf, &yf, &CondRetEsp) ; //ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY
 
             if (  numLidos != 7 )
             {
                return TST_CondRetParm ;
             } /* if */
-			CondRet = JOG_EfetuarJogada(juiz, cor, xi, yi, xf, yf);
-			//JOG_tpCondRet JOG_EfetuarJogada(ptJudge j, char corDaVez,int posIniX,int posIniY,int posFimX,int posFimY);
+			CondRet = JOG_EfetuarJogada(j, cor, xi, yi, xf, yf);
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro ao efetuar Jogada" );
          }//Fim da efetuar jogada
 	   //Inicio da assasinar juiz
@@ -150,8 +149,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
                return TST_CondRetParm ;
             } /* if */
 
-			CondRet = JOG_AssasinarJuiz(juiz);
-			//JOG_tpCondRet JOG_AssasinarJuiz(ptJudge j);
+			CondRet = JOG_AssasinarJuiz(j);
              return TST_CompararInt( CondRetEsp , CondRet ,"Assasinar Juiz" );
          }//Fim de assasinar Juiz
 	   //Inicio de começar Jogo
@@ -167,7 +165,6 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
             } /* if */
 
 			CondRet =  JOG_ComecarJogo(j, inserirPecas);
-			//JOG_tpCondRet JOG_ComecarJogo(ptJudge j,JOG_tpCondRet (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id),ptJudge j));
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro ao ComeçarJogo" );
          }//Fim de começar jogo
 		   //Inicio obtem tabuleiro 
@@ -181,7 +178,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
                return TST_CondRetParm ;
             } /* if */
 
-			CondRet = JOG_ObtemTabuleiro(juiz,&tabu);
+			CondRet = JOG_ObtemTabuleiro(j,&tabu);
             return TST_CompararInt( CondRetEsp , CondRet ,"Erro em obter tabuleiro" );
          }//Fim de obtem tabuleiro
 		//Inicio cria jogador
