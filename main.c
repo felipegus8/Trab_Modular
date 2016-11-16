@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include <string.h>
 #include<Windows.h>
-#include"jogo.h"
+#include "jogo.h"
 
 
 
@@ -300,7 +300,7 @@ void loopJogo(ptJudge j) {
 int main()
 {
     ptTabuleiro tabu;
-    int ret;
+    int ret,modoJogo;
     char cor,id,corAmeacados[16],idAmeacados[16];
     int numElem;
     ptJudge j;
@@ -313,8 +313,19 @@ int main()
     recebeNomeJogadorA(nomeA);
     recebeNomeJogadorB(nomeB);
     JOG_CriaJuiz(&j, nomeA, nomeB);
-    JOG_ObtemTabuleiro(j, &tabu);
-    JOG_ComecarJogo(j, inserirPecasPadrao);
+	while(1) { 
+		printf("deseja jogar com as peças padroes ou com peças novas?\nSe quiser com peças novas digite 0, se quiser com peças padroes digite 1\n");
+		scanf("%d",&modoJogo);
+		if(modoJogo == 1) {
+			JOG_ComecarJogo(j, inserirPecasPadrao);
+			break;
+		} else if(modoJogo == 0) {
+	        JOG_ComecarJogo(j, inserirPecasNovas);
+			break;
+		} else {
+			printf("Opção não existe\n");
+		}
+	}
     
     
     
