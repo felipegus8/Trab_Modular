@@ -103,7 +103,7 @@ typedef struct TAG_tabuleiro * ptTabuleiro;
 ***********************************************************************/
 TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu);
 
-TAB_tpCondRet TAB_VerificaMovimentoRei(ptTabuleiro tabu,int xRei, int yRei, char cor,int xFim,int yFim);
+
 /***********************************************************************
 
 *  $FC Função: TAB &Inserir Peca
@@ -270,9 +270,98 @@ TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id);
 
 ***********************************************************************/
 TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu);
+
+/***********************************************************************
+ 
+ *  $FC Função: TAB &Verifica Check
+ *
+ *  $ED Descrição da função
+ *      Verifica se o rei que se situa na posição (xRei,yRei) está em cheque.
+ *
+ *  $EP Parâmetros
+ *    tabu = Ponteiro para o tabuleiro que se quer verificar se o rei está em cheque.
+ *    xRei= Coordenada X onde se situa o rei que se deseja verificar se está em cheque.
+ *    yRei= Coordenada Y onde se situa o rei que se deseja verificar se está em cheque.
+ *
+ *  $FV Valor retornado
+ *     Se o rei na posição (xRei, yRei) estiver em cheque retorna TAB_CondRetCheck.
+ *     Se o rei que se encontra na posição (xRei, yRei) não estiver em cheque retorna TAB_CondRetNoCheck.
+ 
+ ***********************************************************************/
+
+
 TAB_tpCondRet TAB_VerificaCheck(ptTabuleiro tabu,int xRei,int yRei);
+
+/***********************************************************************
+ 
+ *  $FC Função: TAB &Verifica Check Mate
+ *
+ *  $ED Descrição da função
+ *      Verifica se o rei que se situa na posição (xRei,yRei) está em cheque mate pela peça que o colocou em cheque.
+ *
+ *  $EP Parâmetros
+ *    tabu = Ponteiro para o tabuleiro que se quer verificar se o rei está em cheque mate.
+ *    xRei = Coordenada X onde se situa o rei que se deseja verificar se está em cheque mate.
+ *    yRei = Coordenada Y onde se situa o rei que se deseja verificar se está em cheque mate.
+ *    xAmeacante = Coordenada X onde se situa o rei a peça que está colocando o rei em cheque mate.
+ *    yAmeacante = Coordenada Y onde se situa o rei a peça que está colocando o rei em cheque mate.
+ *
+ *  $FV Valor retornado
+ *     Se o rei na posição (xRei, yRei) estiver em cheque mate pela peça que o colocou em cheque retorna TAB_CondRetCheckMate.
+ *     Se o rei na posição (xRei, yRei) não estiver em cheque mate pela peça que o colocou em cheque retorna TAB_CondRetNoCheckMate.
+ 
+ ***********************************************************************/
+
+
 TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmeacante,int yAmeacante);
-TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *x,int *y,int xRei,int yRei);
+
+/***********************************************************************
+ 
+ *  $FC Função: TAB &Acha Peca Check
+ *
+ *  $ED Descrição da função
+ *      Acha a posição da peça que colocou o rei em cheque(no caso achará primeira peça que está na lista ameacantes do rei).
+ *
+ *  $EP Parâmetros
+ *    tabu = Ponteiro para o tabuleiro onde se deseja encontrar a peça que colocou o rei que está na posição (xRei, yRei) em cheque.
+ *    cor = Cor da peça que colocou o rei que está na posição (xRei, yRei) em cheque.
+ *    id = Id da peça que colocou o rei em cheque.
+ *    xAmeacante = Coordenada X que se deseja obter da peça que coloca o rei que está na posição (xRei, yRei) em cheque.
+ *    yAmeacante = Coordenada Y que se deseja obter da peça que coloca o rei que está na posição (xRei, yRei) em cheque.
+ *   xRei = Coordenada X do rei que está em cheque.
+ *   yRei = Coordenada Y do rei que está em cheque.
+ 
+ *  $FV Valor retornado
+ *    Retorna TAB_CondRetOK
+ 
+ ***********************************************************************/
+
+TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *xAmeacante,int *yAmeacante,int xRei,int yRei);
+
+/***********************************************************************
+ 
+ *  $FC Função: TAB &Verifica Movimento Rei
+ *
+ *  $ED Descrição da função
+ *      Verifica se o movimento do rei que se encontra na posição (xRei,yRei) até a posição (xFim,yFim) é válido
+ *
+ *  $EP Parâmetros
+ *    tabu = Ponteiro para o tabuleiro onde se deseja verifica se o movimento do rei na posição (xRei,yRei) até a posição (xFim,yFim) é válido
+ *    xRei = Coordenada X onde se situa o rei que se deseja verificar se o movimento do rei na posição (xRei,yRei) até a posição (xFim,yFim) é válido.
+ *    yRei = Coordenada Y onde se situa o rei que se deseja verificar se o movimento do rei na posição (xRei,yRei) até a posição (xFim,yFim) é válido.
+ *    cor = Cor do rei
+ *    xFim = Coordenada X da posição para onde o rei deseja se movimentar.
+*     yFim = Coordenada Y da posição para onde o rei deseja se movimentar.
+ 
+ 
+ *  $FV Valor retornado
+ *    se o movimento proposto for válido e o rei não tiver comido alguma peça com esse movimento, Retorna TAB_CondRetOK
+ *    se o movimento proposto for válido e o rei  tiver comido alguma peça com esse movimento, Retorna TAB_CondRetComeu
+ *    se o movimento proposto for irregular, Retorna TAB_CondRetMovimentoIrregular.
+ 
+ ***********************************************************************/
+
+TAB_tpCondRet TAB_VerificaMovimentoRei(ptTabuleiro tabu,int xRei, int yRei, char cor,int xFim,int yFim);
 
 /********** Fim do módulo de definição: TAB  Tabuleiro **********/
 #endif

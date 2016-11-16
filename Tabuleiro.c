@@ -991,7 +991,7 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
  *  FunÁ„o: TAB  &Verifica Acha Peca Check
  *  ****/
 
-TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *x,int *y,int xRei,int yRei) {
+TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *xAmeacante,int *yAmeacante,int xRei,int yRei) {
     int i,j,qtdMov,qtdUnitarios,retVerifica;
     Peca *ameacante;
     char corObtida,idObtido;
@@ -1004,13 +1004,13 @@ TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *x,int *y,
             if (corObtida == cor && idObtido == id) {
                 retVerifica = verificaMovimento(i, j, ameacante, xRei, yRei, tabu, corObtida, qtdUnitarios);
                 if (retVerifica == TAB_CondRetComeu) {
-                    *x = i;
-                    *y = j;
+                    *xAmeacante = i;
+                    *yAmeacante = j;
                 }
             }
         }
     }
-    return 0;
+    return TAB_CondRetOK;
 }/* Fim funÁ„o: TAB  -Verifica Acha Peca Check*/
 
 
