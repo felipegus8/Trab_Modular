@@ -1019,7 +1019,7 @@ TAB_tpCondRet TAB_VerificaCheck(ptTabuleiro tabu,int xRei,int yRei) {
 
 TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmeacante,int yAmeacante) {
     Peca *pecaTabuleiro,*ameacante,*rei;
-    int qtdMovRei,podePular,i,j,xMovimento,yMovimento,retornoVerifica,podeMover = 0,podeSacrificar=0,numElemLista,qtdUnitarios,xDirecao,yDirecao,xSacrificio,ySacrificio,qtdMovTab,k;
+    int qtdMovRei,podePular,i,j,xMovimento,yMovimento,retornoVerifica,podeMover = 0,podeSacrificar=0,numElemLista,qtdUnitarios,xDirecao,yDirecao,xSacrificio,ySacrificio,qtdMovTab;
     LIS_tppLista listaAmeacantes;
     char corRei,corPecaAmeacante,idPecaAmeacante,corPecaTabuleiro,idPecaTabuleiro,idTeste;
     //ver se o rei pode se mexer
@@ -1100,8 +1100,12 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
                         printf("Peca id: %c e cor: %c na posicao(%d,%d) pode se sacrificar\n",idPecaTabuleiro,corPecaTabuleiro,i,j);
                         podeSacrificar = 1;
                     }
-                        xSacrificio += xDirecao;
-                        ySacrificio += yDirecao;
+                        if(xDirecao != 0) {
+                            xSacrificio += (xDirecao/(abs(xDirecao)));
+                        }
+                        if(yDirecao != 0) {
+                            ySacrificio += (yDirecao/(abs(yDirecao)));
+                        }
                     }
                 }
             }
