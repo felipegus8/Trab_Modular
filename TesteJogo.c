@@ -230,7 +230,7 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		
 		else if(strcmp(ComandoTeste, DEVOLVE_AMEACANTES)) {
 		     numLidos = LER_LerParametros("siii",idDado,&ValEsp,&x,&y);
-			 if(numLidos != 3) {
+			 if(numLidos != 4) {
 			    return TST_CondRetParm;
 			 }
 			 CondRet = JOG_DevolveAmeacantes(j,corRecebida,idRecebido,&numElem,x,y);
@@ -243,12 +243,12 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 		
 		else if(strcmp(ComandoTeste, DEVOLVE_AMEACADOS)) {
 		     numLidos = LER_LerParametros("siii",idDado,&ValEsp,&x,&y);
-			 if(numLidos != 3) {
+			 if(numLidos != 4) {
 			    return TST_CondRetParm;
 			 }
 			 CondRet = JOG_DevolveAmeacados(j,corRecebida,idRecebido,&numElem,x,y);
 			 if(numElem != ValEsp) {
-			     return TST_CompararInt(numElem, ValEsp, "Quantidade de elementos ameacantes é diferente da quantia recebida " );
+			     return TST_CompararInt(numElem, ValEsp, "Quantidade de elementos ameacados é diferente da quantia recebida " );
 			 }
 			 return TST_CompararString( idDado , idRecebido ,"Valor Encontrado diferente do esperado." ) ;
 		}//Fim devolve ameacados

@@ -97,6 +97,12 @@
 ==Efetuar movimento rainha(coloca o rei em cheque)
 =efetuarjogada    charB  int4  int3   int4  int5  Cheque
 
+==Testa a lista de ameacados da casa da rainha
+=devolveameacados  "PPBR" 4  int4  int5     
+
+==Testa a lista de ameacantes da casa da rainha 
+=devolveameacantes  "PB" 2 int4 int5 
+
 ==Destroi o juiz
 =assasinarjuiz OK
 
