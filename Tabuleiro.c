@@ -417,6 +417,7 @@ TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu) {
         }
         i++;
     }
+    LIS_DestroiLista(listaPecas);
     return TAB_CondRetOK;
 }/* Fim funÁ„o: TAB  &Destruir Tabuleiro*/
 
