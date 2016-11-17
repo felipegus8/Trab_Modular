@@ -56,11 +56,11 @@ Executavel: Trab3_2.exe
 
 Documentação
 ModeloFisico.pdf: É um arquivo que ilustra o modelo físico do jogo
-Assertivas Estruturais: É um arquivo que define algumas assertivas da arquitetura do programa.
+Assertivas Estruturais.pdf: É um arquivo que define algumas assertivas da arquitetura do programa.
 Leia-Me.txt: É um arquivo que possui a explicação de como utilizar o programa  em questão
-ManualDoJogador.txt:É um arquivo que possui o tutorial de como jogar o xadrex
-Arquitetura da Aplição: É um arquivo descrevendo a arquitetura utilizada para confeccionar o trabalho
-Exemplo de modelo: Ilustra os modelos ultilizados no trabalho
+ManualDoJogador.pdf:É um arquivo que possui o tutorial de como jogar o xadrex
+Arquitetura da Aplição.pdf: É um arquivo descrevendo a arquitetura utilizada para confeccionar o trabalho
+Exemplo de modelo.pdf: Ilustra os modelos ultilizados no trabalho
 -Execução dos Testes
 Os testes dos arquivos desse programa são executados no CMD do Windows.
 Testando os arquivos do código fonte:
