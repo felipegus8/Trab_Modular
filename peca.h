@@ -78,10 +78,8 @@ typedef struct peca Peca;
  *
  *
  ***********************************************************************/
-PEC_tpCondRet PEC_AlteraCorEId(Peca *peca,char cor,char id);
-PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor);
-PEC_tpCondRet PEC_FingeQueTira(Peca *peca);
 
+PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor);
 
 /***********************************************************************
  *  $FC Função: PEC  &EnsinaMovimentosPecasConhecidas
@@ -295,6 +293,28 @@ PEC_tpCondRet PEC_RetornaYMovimento(Peca *peca,int i,int *y);
  *
  ***********************************************************************/
 PEC_tpCondRet PEC_EliminarPeca(Peca *peca);
+
+/***********************************************************************
+ *  $FC Função: PEC  &Altera Cor E Id
+ *
+ *  $ED Descrição da função
+ *  Troca a cor e a identidade da peça passada como parâmetro
+ *
+ *
+ *  $EP Parâmetros
+ *     peca = peça que se quer alterar a cor e a identidade
+ *     cor = cor que a peca passada irá receber
+ *     id = identidade que a peca passada irá receber
+ *
+ *  $FV Valor retornado
+ *     Se executou corretamente retorna OK.
+ *
+ *
+ *
+ *
+ ***********************************************************************/
+
+PEC_tpCondRet PEC_AlteraCorEId(Peca *peca,char cor,char id);
 
 /********** Fim do módulo de definição: PEC  Peça **********/
 
