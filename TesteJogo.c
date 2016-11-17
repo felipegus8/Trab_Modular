@@ -274,8 +274,6 @@ JOG_tpCondRet JOG_DevolveAmeacados(ptJudge j,char *corAmeacados,char *idAmeacado
 
 void inserirPecasPadrao(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
     ptTabuleiro tabu;
-    int y,xi,continuar = 1;
-    char cor,id,x;
     /*
     do {
         printf("Entre com a identidade da peÁa\n");
@@ -342,8 +340,6 @@ void inserirPecasPadrao(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int 
 
 void inserirPecasNovas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
     ptTabuleiro tabu;
-    int y,xi,continuar = 1;
-    char cor,id,x;
     /*
      do {
      printf("Entre com a identidade da peça\n");

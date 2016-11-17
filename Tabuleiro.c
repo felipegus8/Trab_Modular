@@ -186,9 +186,9 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(ptTabuleiro tabu) {
 
     TAB_tpCondRet retTab;
     int i,j,k,xObtido,yObtido,qtdUnitarios,qtdMov,verificaMov;
-    char corPecaUsada,corPecaUsada2,idPecaUsada,idPecaUsada2,corPecaUsada3,idPecaUsada3;
+    char corPecaUsada,corPecaUsada2,idPecaUsada,idPecaUsada2;
     Peca *pecaUsada;
-    Peca *pecaUsada2,*pecaUsada3;
+    Peca *pecaUsada2;
     
     
     
