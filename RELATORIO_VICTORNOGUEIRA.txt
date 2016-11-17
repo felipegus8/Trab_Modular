@@ -3,3 +3,53 @@ Relatório trabalho 3:
 25/10  1hr  especificar as funções   Começei a especificar as funções de verificação de movimento e preenchimento das listas ameçados e ameaçantes.
 
 26/10  30mins codificar Codifiquei a função de verificação do movimento.
+
+28/10  30mins especificar as funções   Tive que especificar novamente a função de verificação de movimento, visto que estava interpretando o movimento das peças de forma equivocada
+
+28/10 2hrs   codificar  Refiz toda a função de verificação de movimento.
+
+30/10 30min estudar Estudei todas as circunstâncias no xadrez que leva um cheque a se tornar um cheque mate.
+
+30/10 1hr  especificar as funções Começei a pensar em como faria para verificar se um cheque era cheque mate.
+
+30/10 30min codificar Codifiquei a função cheque.
+
+02/11 30min planejar testes Começei a planejar os testes para testar as mudanças no tabuleiro.
+
+02/11 10min testar Começei a testar a versão novo do tabuleiro e, obviamente, haviam diversos erros.
+
+02/11 1hr revisar codigo Analisei o código do tabuleiro e percebi que de fato haviam vários erros imbecis(dar um parâmetro errado para uma função).
+
+02/11 1hr corrigir Corrigi parte dos erros encontrados na versão nova do tabuleiro.
+
+03/11 3hrs corrigir Fiquei mais 3 horas corrigindo erros do tabuleiro
+
+07/11 1hr especificar os módulos Começamos a especificar "mais ou menos" o módulo jogo
+
+08/11 1hr especificar os módulos Continuamos especificando como seria o módulo jogo, desta vez definitivamente
+
+08/11 1hr especificar as funções Começamos a especificar as funções do módulo jogo.
+
+10/11 2hrs codificar Finalmente começamos a fazer as funções do módulo jogo.
+
+12/11 2hrs planejar testes Planejei a forma como iríamos testar as funções do módulo jogo
+
+12/11 1hr codificar Começei a codificar, junto com o Luis, o testejogo.c
+
+12/11 1hrs codificar Finalmente terminamos de codificar o testejogo.c
+
+12/11 10min testar Rodamos o testejogo.c e, "para nossa surpresa" encontramos diversos erros
+
+13/11 2hrs corrigir Começamos a corrigir diversos dos erros que se encontravam na função jogo
+
+14/11 1hr especificar funções Especificamos como seriam, de fato, as funções contidas na main.c
+
+14/11 1hr corrigir Encontramos um erro na especificação e, por isso, tivemos que refazer grande parte dela
+
+14/11 2hrs codificar Começamos a de fato "botar a mão na massa" e fazer a main.
+
+15/11 3hrs codificar Finalmente terminamos a main.c.
+
+15/11 2hrs "testar" começamos a testar(no caso jogar xadrez) e encontramos um erro no cheque
+
+16/11 2hrs corrigir corrigimos o erro da funcão de cheque e da de cheque mate
