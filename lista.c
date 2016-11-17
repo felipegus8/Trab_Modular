@@ -353,7 +353,6 @@ void LiberarElemento( LIS_tppLista   lista ,
     if ( ( lista->ExcluirValor != NULL )
         && ( pElem->pValor != NULL        ))
     {
-        //printf("valor na libera: %x\n",pElem->pValor);
         //lista->ExcluirValor( pElem->pValor ) ;
     } /* if */
     
@@ -424,9 +423,6 @@ void EsvaziarLista( LIS_tppLista lista ) {
 #endif
     
     pElem = lista->pOrigemLista;
-    if(pElem != NULL) {
-    printf("%x\n",pElem->pValor);
-    }
     while ( pElem != NULL )
     {
         pProx = pElem->pProx ;
