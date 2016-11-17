@@ -50,16 +50,22 @@ Executáveis: TesteTabuleiro.exe
 Batches: Final.bat
 
 -Jogo
-Código Fonte: Jogo.c, Jogoo.h e testeJogo.c
+Código Fonte: Jogo.c, Jogo.h e testeJogo.c
 Script De Teste: testeJogo.script
 Executáveis: TesteJogo.exe
 Batches: Final.bat
+
+-Main
+Código Fonte: main.c
 
 Documentação
 ModeloFisico.pdf: É um arquivo que ilustra o modelo físico do jogo
 Assertivas Estruturais: É um arquivo que define algumas assertivas da arquitetura do programa.
 Leia-Me.txt: É um arquivo que possui a explicação de como utilizar o programa  em questão
-Execução dos Testes
+ManualDoJogador.txt:É um arquivo que possui o tutorial de como jogar o xadrex
+Arquitetura da Aplição: É um arquivo descrevendo a arquitetura utilizada para confeccionar o trabalho
+
+-Execução dos Testes
 Os testes dos arquivos desse programa são executados no CMD do Windows.
 Testando os arquivos do código fonte:
  	Abrir o CMD
@@ -67,3 +73,5 @@ Testando os arquivos do código fonte:
 	Digite Final.bat
 	OBS: Cada diretório testará apenas os códigos fonte dentro dela 
 
+-Executar o Xadrex
+Clique no main.exe o jogo abrirá

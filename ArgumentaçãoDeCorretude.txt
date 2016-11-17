@@ -6,7 +6,6 @@ TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu) {
             if(tabu->tab[i][j].elemento != NULL) {
                 LIS_DestroiLista(tabu->tab[i][j].ameacados);
                 LIS_DestroiLista(tabu->tab[i][j].ameacantes);
-                
                 PEC_LiberaPeca((Peca*)tabu->tab[i][j].elemento);
             }
             j++;
@@ -17,74 +16,53 @@ TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu) {
     return TAB_CondRetOK;
 }
 
-Argumentação de Sequencia
+Argumentação de Sequência:
 AE: A função de destruir tabuleiro recebe um ponteiro para a struct TAG_tabuleiro.
 AS: Ao final da função o tabuleiro foi liberado da mémoria do computador, ou seja, destruído
-A1: i aponta para a primeira linha
-A2: j aponta para a primeira coluna
-A1’: i aponta para a última linha
-A2’: j aponta para a última coluna
-
-Argumentação de Seleção
-if(tabu->tab[i][j].elemento != NULL)
-
-AE && (C == T) => IF
-IF
-{
-	Executa A: LIS_DestroiLista(tabu->tab[i][j].ameacados);
- 	-AE: A função de destruir lista recebe o endereço da lista de peças ameaçadas 
- 	-AS: A lista recebida por referência com as peças ameaçadas foi destruída, ou seja, apagada da memória do computador
-
-	Executa B: LIS_DestroiLista(tabu->tab[i][j].ameacantes);
-	 -AE: A função de destruir lista recebe o endereço da lista de peças ameaçantes
-	 -AS: A lista recebida por referência com as peças ameaçantes foi destruída, ou seja, apagada da memória do computador
-
-	Executa C: PEC_LiberaPeca((Peca*)tabu->tab[i][j].elemento);
-	 -AE: A função libera peça recebe o endereço da peça alocada na sua respectiva casa 
-	 -AS: A peça recebida por referência foi destruída, ou seja, liberada da memória do computador  
-
-}
-AE && (C == F) => Beta 3.1
+AI1- Declaro i e j, porém i é inicializada apontando para a primeira linha
+AI2- Uso a função para destruir para destruir a lista de peças
+AI3 - Significa que a função acabou sem problemas
 
 Argumentação de Repetição
-	Repetição Alpha: while(i<8) {…}
-		AE: A1
-		AS: A1’
-	Repetição Beta: while(j<8) {…}
-		AE: A2
-		AS: A2’
-	
-Alpha
-	Alpha 1: AE => AINV
-		-AINV diz respeito ao descritor de estado i, é a assertiva de entrada da repetição Alpha
-	
-	Alpha 2: AINV + (C == T) => Alpha 3
-		-Significa que o descritor de estado está dentro dos limites do tabuleiro (linhas)
+AE  => AINV
+-Pela a assertiva de entrada a variável i aponta para a primeira linha do tabuleiro
+AE && (C == F) => AS
+	-Não executará a repetição, ou seja, todas as linhas e colunas foram percorridas
+AE && (C == T) + B2 => AINV	
+	-Pela AE, i aponta para a primeira linha do tabuleiro, quando for executado o bloco 2 o i será atualizado. Vale a AINV
+AINV && (C == T)  + B2 => AINV
+	-Para AINV continuar valendo o i tem que está dentro dos limites do tabuleiro
+AINV && (C == F)  => AS
+	-A variável i está fora dos limites do tabuleiro
 
-	Alpha 3: Alpha3 => Beta
-		- Executa repetição Beta
-	-Atualiza a AINV para a linha consecutiva
-
-	Alpha 4: AINV + (F == T) => Alpha 5
-	-Significa que AINV já percorreu todas as linhas e colunas do tabuleiro, ou seja, está fora dos limites do tabuleiro
-
-Alpha 5: AE + (C == F) => AS
-	-Para a repetição, o que significa que todos os elementos do tabuleiro foram destruidos
-
-Beta
-	Beta 1: AE => AINV2
-	-AINV diz respeito ao descritor de estado j, é a assertiva de entrada da repetição Beta
-
-	Beta 2: AINV2 + (C == T) => Beta 3
-		-Significa que o descritor de estado está dentro dos limites do tabuleiro (colunas)
-
-	Beta 3: Beta3 => IF
-	-Vai executar as linhas dentro do bloco if
-	Beta 3.1:
-	-Atualiza o AINV2 para a próxima coluna
-
-	Beta 4: AINV2 + (C == F) = Beta 5
-	-Significa que AINV2 já percorreu todas colunas do tabuleiro, ou seja, está fora dos limites do tabuleiro
-	
-	Beta 5: AE + (C == F) => AS
-		-Para a repetição, o que significa que todos os elementos a linha AINV foram destruidos
+Argumentação de Sequência
+AE: j aponta para a primeira coluna e i para a linha do valor corrente
+AS:  j aponta para a última coluna e i para a linda do valor corrente
+AI4- j aponta para a primeira coluna
+AI5- i aponta para o próxima linha do tabuleiro
+Argumentação de Repetição
+AE  => AINV
+-Pela a assertiva de entrada a variável j aponta para a primeira linha do tabuleiro
+AE && (C == F) => AS
+	-Não executará a repetição, ou seja todas as colunas foram percorridas
+AE && (C == T) + B3 => AINV	
+	-Pela AE, j aponta para a primeira coluna do tabuleiro, quando for executado o bloco 3 o j será atualizado. Vale a AINV
+AINV && (C == T)  + B3 => AINV
+	-Para AINV continuar valendo o j tem que está dentro dos limites do tabuleiro
+AINV && (C == F)  => AS
+	-A variável j está fora dos limites do tabuleiro
+Argumentação de Sequência
+AE: -Com a i e j definidos e verdadeiro na AINV, serviram para indicar a posição no tabuleiro a ser testada e destruída 
+AS:  -A lista de ameaçados, ameaçantes e a peça foram destruídas 
+AI6- j aponta para a próxima coluna
+Argumentação de Seleção
+AE && (C == T) + B4 => AS
+AE: AI5
+AE && (C == F)  => AS  
+	-Ignorará o comando de seleção
+Argumentação de Sequência
+AE: -O endereço apontado no tabuleiro na linha e coluna (i, j) não são nulos
+AS: -A lista de ameaçados, ameaçantes e a peça foram destruídas
+AI7 - Destroi a lista de ameçados
+AI8 - Destroi a lista de ameçantes
+AI9 - Destroi a peça
