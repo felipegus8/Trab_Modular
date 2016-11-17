@@ -1,23 +1,18 @@
-﻿22/09 - 2 h:Especificar módulos e funções:Li o trabalho e especifiquei os módulos e as funções.As funções especificadas foram sobre o módulo Lista.c e Tabuleiro.c além de algumas especificações referentes ao que o arquivo TesteLista teria que fazer.
+24/10 - 1h: Especifiquei módulos referentes ao Trabalho 3 bem como o que deveria ser alterado do Trabalho2.
 
-23/09 - 2h:Desenvolvimento do Módulo TesteLista.c:Desenvolvi o módulo TesteLista por completo.Ainda não foi testado.
+07/11 -1h:Comecei a fazer o módulo jogo.
 
-02/10 - 1h:Especificação do módulo Peca.c.Percebemos que seria melhor criar esse módulo para organizar melhor o código.
+11/11 - 1h:Fiz uma função main para testar se as funções de Cheque e Cheque Mate que o Victor fez estavam funcionando.
 
-04/10 - 2h:Desenvolvimento do Módulo Peca.c e Peca.h.Ainda não foi testado no Arcabouço.
+11/11 - 1h:Corrigindo erros de algumas funções.
 
-05/10 - 2h:Correção do módulo peça.c,peça.h e TestePeca.c.Rodando e funcionando no arcabouço.
+14/11- 2h:Melhorei a interface da main colocando cor nas peças brancas no terminal.
 
-05/10 - 6h:Diagnosticando e corrigindo problemas.Problemas no TesteLista.c e Lista.c.Um momento um pouco tenso quando dá problema em tudo.No momento apenas o módulo peça está funcionando corretamente.
+15/11 - 1h:Comecei a fazer o script para testar o módulo jogo.
 
-08/10 - 2h:Colocando vários comentários no código.Várias das funções feitas estavam sem comentários sobre como funcionavam.Além disso coloquei o nome dos integrantes do grupo em todos os arquivos e um histórico de evolução de cada arquivo.
+15/11 - 1h:Testando o módulo jogo no arcabouço.Foram detectados alguns erros que foram corrigidos.
 
-08/10 - 3h:Corrigindo problemas.Vários arquivos como o Lista.c,o Tabuleiro.c e TesteTabuleiro.h estavam com erros de compilação.Depois de bastante tempo consegui eliminar todos os erros e deixar apenas alguns warnings no tabuleiro.O módulo lista funcionou completamente.O script dele está rodando sem erros.Agora só falta o módulo tabuleiro.
+15/11 - 30 min:Atualizando o módulo TesteJogo e o script.
 
-09/10 - 2h:Retirando vários warnings do Tabuleiro.c e Teste Tabuleiro.c.Agora só falta fazer o script para rodar o tabuleiro.O .exe do tabuleiro já foi gerado.
+16/11 - 1h:Terminei o script e rodei no arcabouço.O script rodou sem erros.Além disso o .exe da main também foi executado e funcionou como deveria.
 
-09/10 - 1h:Terminando os comentários sobre o funcionamento das funções no tabuleiro.h.Além disso corrigi um problema no Tabuleiro.c.
-
-11/10 - 6h:Passei o dia inteiro tentando entender porque o módulo Tabuleiro.c estava dando segFault.Ele estava rodando normal em modo debug e estava dando problema em modo release.O grande problema é que não dá pra debugar direito um programa em release então ficou bem difícil diagnosticar o erro.No fim do dia decidimos refazer as funções do Tabueleiro.c de outra forma.
-
-12/10 - 4h:Terminamos finalmente o módulo Tabuleiro sem dar segFault!Fiz algumas mudanças no script para ter um teste mais preciso de algumas funções.Tudo finalmente funciona no arcabouço.
