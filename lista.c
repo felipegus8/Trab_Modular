@@ -353,7 +353,7 @@ void LiberarElemento( LIS_tppLista   lista ,
     if ( ( lista->ExcluirValor != NULL )
         && ( pElem->pValor != NULL        ))
     {
-        lista->ExcluirValor( pElem->pValor ) ;
+        //lista->ExcluirValor( pElem->pValor ) ;
     } /* if */
     
     free( pElem ) ;
