@@ -21,7 +21,7 @@ AE: A função de destruir tabuleiro recebe um ponteiro para a struct TAG_tabuleir
 AS: Ao final da função o tabuleiro foi liberado da mémoria do computador, ou seja, destruído
 AI1- Declaro i e j, porém i é inicializada apontando para a primeira linha
 AI2- Uso a função para destruir para destruir a lista de peças
-AI3 - Significa que a função acabou sem problemas
+AI3 -Significa que a função acabou sem problemas
 
 Argumentação de Repetição
 AE  => AINV

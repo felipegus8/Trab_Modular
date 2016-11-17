@@ -17,7 +17,7 @@ If no->pProx != NULL
 if no->pAnt != NULL
 	 no->pAnt->pProx == no;
 
-if lista->numElem == 0
+if lista->numElem ==  0
 {
 	lista->pElemCorr == NULL;
 	lista->pOrigemLista == NULL;
