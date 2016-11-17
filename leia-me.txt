@@ -32,19 +32,16 @@ Estrutura de diretórios
 -Lista
 Código Fonte: lista.c, lista.h, testeLista.c
 Script De Teste: TesteLista.script
-Executáveis: TesteLista.exe
 Batches: Final.bat
 
 -Peça
 Código Fonte: peca.c, peca.h e testePeca.c
 Script De Teste: testaPeca.script
-Executaveis: TestePeca.exe
 Batches: Final.bat
 
 -Tabuleiro
 Código Fonte: tabuleiro.c, tabuleiro.h e testeTabuleiro.c
 Script De Teste: testeTabuleiro.script
-Executáveis: TesteTabuleiro.exe
 Batches: Final.bat
 
 -Jogo
@@ -55,6 +52,7 @@ Batches: Final.bat
 
 -Main
 Código Fonte: main.c
+Executavel: Trab3_2.exe
 
 Documentação
 ModeloFisico.pdf: É um arquivo que ilustra o modelo físico do jogo
