@@ -499,19 +499,6 @@ PEC_tpCondRet PEC_RetornaYMovimento(Peca *peca,int i,int *y)
  *  Função: PEC  &Eliminar Peca
  *  ****/
 
-PEC_tpCondRet PEC_FingeQueTira(Peca *peca)
-{
-    peca->id = 'V';
-    peca->cor = 'V';
-    return PEC_CondRetOK;
-}
-
-PEC_tpCondRet PEC_AlteraCorEId(Peca *peca,char cor,char id) {
-    peca->id = id;
-    peca->cor = cor;
-    return PEC_CondRetOK;
-}
-
 PEC_tpCondRet PEC_EliminarPeca(Peca *peca)
 {
     peca->id = 'V';
@@ -522,5 +509,16 @@ PEC_tpCondRet PEC_EliminarPeca(Peca *peca)
     free(peca);
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Eliminar Peca */
+
+/***************************************************************************
+ *
+ *  Função: PEC  &Altera Cor E Id
+ *  ****/
+
+PEC_tpCondRet PEC_AlteraCorEId(Peca *peca,char cor,char id) {
+    peca->id = id;
+    peca->cor = cor;
+    return PEC_CondRetOK;
+}/* Fim função: PEC  &Altera Cor E Id */
 
 /********** Fim do módulo de implementação: PEC  Peca **********/
