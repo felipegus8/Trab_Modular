@@ -39,8 +39,6 @@ typedef struct juiz {
     /*Posição Atual em X do Rei de Cor Preta*/
     int yReiPreto;
     /*Posição Atual em Y do Rei de Cor Preta*/
-    int vez;
-    /*Int para determinar de quem é a vez de jogar */
 }Judge;
 
 /***** Protótipos das funções encapuladas no módulo *****/
