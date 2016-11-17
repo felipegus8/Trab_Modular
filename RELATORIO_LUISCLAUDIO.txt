@@ -1,25 +1,21 @@
-22/09 - 2 h: Estudei os modulos especificados pelos meus amigos.
+24/10 - 1h: Estudei o enunciado do trabalho 3 e planejei o que deveria ser criado a mais e alterado do trabalho 2
 
-23/09 - 2h:Desenvolvimento do módulo TesteTabuleiro.c porém sem testa-lo ainda.
+07/11 -1h: Meus colegas fizeram o jogo.c e eu fiz o testeJogo.c
 
-02/10 - 1h:Ajudei a especificar o peca.c
+11/11 - 1h:Fiz a interface visual da main
 
-04/10 - 2h:Continuação do modelo Peca.c e Peca.h. Não foi estado ainda.
+11/11 - 1h: Tive que corrigir os erros do testeJogo.c
 
-05/10 - 2h:Reconstrução do modulo TesteTabuleiro.c, estava tudo errado.
+14/11- 2h: Agora que a main tinha cor, ajustei o seu tamanha para ficar com o aspecto mais bonito
 
-05/10 - 10h:Diagnosticando e corrigindo problemas em grupo. Problemas no TesteLista.c e Lista.c. Tinha erro em praticamente todas as linhas. Aparentemente so o peça estava funcionado bem.
+15/11 - 1h: Dei sugestões de como fazer o script de teste
 
-08/10 - 3h:Revendo os problemas do modulos criados.Os os codigos fontes estavam com problemas para serem criados com execeção do peca.c e peca.h. Com dificuldade apenas minimizei os erros. O módulo lista funcionou completamente.O script dele está rodando sem erros.
+15/11 - 1h: Corrigi os erros do jogo.c
 
-09/10 - 2h:Retirando vários warnings do Tabuleiro.c e TesteTabuleiro.c. Restruturamos o testeTabuleiro.script.
+15/11 - 30 min: Corrigi os erros do testeJogo.c
 
-09/10 - 2h:Fiz o leia-me
+16/11 - 1h: Fiz a argumentação de corretude
 
-10/10 - 3h: Quase terminei as assertivas estruturais.
+16/11 - 1h: Comecei o manual do jogador
 
-11/10 - 6h:Tentava ajudar meus amigos com o problemas de segfault. Até debugava normal, mas em release não.
-
-11/10 - 4h: Refizemos as funções do Tabuleiro.c
-
-12/10 - 4h: Meus amigos conseguiram resolver o problema de segfault! Tiveram mudanças no testeTabuleiro.script para testar mais funções.Tudo funciona agora.
+16/11 - 1h: Terminei o leia-me
