@@ -81,3 +81,33 @@ Seja k uma peça:
 		k->movPeca->y = (int*) val 
 			0 < val < 7
 
+Jogo
+O modulo jogo possui Struct jogador e a Struct juiz
+	-A struct jogador possui:
+		Um vetor de char com tamanho 30
+		char nome[30] = “Nome da Pessoa”
+
+		Uma cor do tipo char
+		char cor = (char*)val
+
+	-A struct juiz possui:
+		Um ponteiro para struct jogador 
+		Juiz->jogador
+
+		Outro ponteiro para struct jogador
+		Juiz->jogador
+	
+		Um ponteiro para a struct tabuleiro
+		Juiz->tabuleiro
+
+		Um inteiro relativo a coordenada X da peça Rei branco
+		int xReiBraco = (int*)val
+
+		Um inteiro relativo a coordenada Y da peça Rei branco
+		int yReiBraco = (int*)val
+
+		Um inteiro relativo a coordenada X da peça Rei preto
+		int xReiPreto = (int*)val
+
+		Um inteiro relativo a coordenada Y da peça Rei preto
+		int yReiPreto = (int*)val
