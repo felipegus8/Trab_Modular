@@ -271,9 +271,6 @@ LIS_tpCondRet LIS_IrAnt(LIS_tppLista lista);
 
 LIS_tpCondRet LIS_AlterarNoCorrente(LIS_tppLista lista, void *referencia);
 
-void EsvaziarLista(LIS_tppLista pLista);
-
-LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista, int *numElem);
 
 /************************************************************************
  
@@ -293,6 +290,39 @@ LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista, int *numElem);
 
 LIS_tpCondRet LIS_DestroiLista(LIS_tppLista lista);
 
+/************************************************************************
+ 
+ *  $FC Função: LIS  &Retorna Número De Elementos
+ *
+ *  $ED Descrição da função
+ *     Retorna Número de elementos presentens dentro da lista.
+ *
+ *  $EP Parâmetros
+ *     pLista = ponteiro para a lista que deverá ser retornado o número de Elementos
+ *     numELem = ponteiro onde será guardado o número de elementos da lista passada como parâmetro
+ *
+ *  $FV Valor retornado
+ *     Retorna ListaNExiste, caso a lista seja nula
+ *     Retorna OK, caso a lista não seja nula
+ ************************************************************************/
+
+LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista, int *numElem);
+
+/************************************************************************
+ 
+ *  $FC Função: LIS  &Esvaziar Lista
+ *
+ *  $ED Descrição da função
+ *     Esvazia a lista passada como parametro.
+ *
+ *  $EP Parâmetros
+ *     pLista = ponteiro para a lista que deverá ser esvaziada
+ *
+ *  $FV Valor retornado
+ *     Não retorna nada, pois é do tipo void
+ ************************************************************************/
+
+void EsvaziarLista(LIS_tppLista pLista);
 
 /********** Fim do módulo de definição: LIS  Lista duplamente encadeada **********/
 
