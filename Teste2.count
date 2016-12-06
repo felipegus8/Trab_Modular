@@ -1,0 +1,28 @@
+//////////////////////////////////////////////////////////////////////
+// Contadores acumulados, gerado: 2016/12/06-20:15:45
+//////////////////////////////////////////////////////////////////////
+
+erro-antecessor-com-lixo\=0
+erro-antecessor-nulo-quando-nao-deveria\=0
+erro-carta-corrente-alterada\=0
+erro-no-corrente-com-lixo\=0
+erro-no-corrente-nulo\=0
+erro-origem-nula\=0
+erro-sucessor-com-lixo\=0
+erro-sucessor-nulo-quando-nao-deveria\=0
+erro-tipo-da-pilha-e-diferente-dos-seus-nos\=0
+ok-antecessor-nao-nulo\=0
+ok-antecessor-sem-lixo\=0
+ok-carta-corrente-consistente\=0
+ok-no-corrente-consistente\=0
+ok-no-corrente-encadeado\=0
+ok-origem-consistente\=0
+ok-pilha-correta-quando-qtdNos-maior-0\=0
+ok-pilha-existe-mas-nao-tem-nos\=0
+ok-sucessor-nao-nulo\=0
+ok-sucessor-sem-lixo\=0
+ok-tipo-da-pilha-e-o-mesmo-dos-seus-nos\=0
+
+//////////////////////////////////////////////////////////////////////
+// Fim arquivo de contadores acumulados
+//////////////////////////////////////////////////////////////////////
