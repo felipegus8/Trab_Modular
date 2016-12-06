@@ -1,0 +1,28 @@
+//////////////////////////////////////////////////////////////////////
+// Contadores acumulados, gerado: 2015/07/04-01:50:51
+//////////////////////////////////////////////////////////////////////
+
+erro-antecessor-com-lixo\=2
+erro-antecessor-nulo-quando-nao-deveria\=3
+erro-carta-corrente-alterada\=6
+erro-no-corrente-com-lixo\=1
+erro-no-corrente-nulo\=2
+erro-origem-nula\=1
+erro-sucessor-com-lixo\=3
+erro-sucessor-nulo-quando-nao-deveria\=1
+erro-tipo-da-pilha-e-diferente-dos-seus-nos\=1
+ok-antecessor-nao-nulo\=13
+ok-antecessor-sem-lixo\=14
+ok-carta-corrente-consistente\=14
+ok-no-corrente-consistente\=1
+ok-no-corrente-encadeado\=8
+ok-origem-consistente\=10
+ok-pilha-correta-quando-qtdNos-maior-0\=8
+ok-pilha-existe-mas-nao-tem-nos\=1
+ok-sucessor-nao-nulo\=15
+ok-sucessor-sem-lixo\=13
+ok-tipo-da-pilha-e-o-mesmo-dos-seus-nos\=13
+
+//////////////////////////////////////////////////////////////////////
+// Fim arquivo de contadores acumulados
+//////////////////////////////////////////////////////////////////////
