@@ -78,10 +78,10 @@ typedef enum {
         TAB_CondRetComeuParaSalvar,
             /*peca comeu peça que estava colocando rei em cheque */
         #ifdef _DEBUG
-            TAB_CondRetRetonoTamanhoPecaFalhou,
-            /* retorno da função que retorna o tamanho da peça foi nulo */
-            TAB_CondRetRetornoTamanhoListaFalhou
-            /* retorno da função que retorna o tamanho da lista foi nulo */
+            TAB_CondRetTabuleiroNulo,
+            /* valor do taubleiro é nulo*/
+            TAB_CondRetQtdNosInvalida
+            /* Quantidade de nós é invalida*/
         #endif
    } TAB_tpCondRet ;
 
@@ -388,6 +388,8 @@ TAB_tpCondRet TAB_AchaPecaCheck(LIS_tppLista pLista,char cor,char id,int *xAmeac
 //TAB_tpCondRet TAB_VerificaMovimentoRei(ptTabuleiro tabu,int xRei, int yRei, char cor,int xFim,int yFim);
 
 TAB_tpCondRet TAB_VerificaMovimentoRei(LIS_tppLista pLista,int xRei, int yRei, char cor,int xFim,int yFim);
+
+TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros);
 
 /********** Fim do módulo de definição: TAB  Tabuleiro **********/
 #endif

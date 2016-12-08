@@ -15,11 +15,7 @@
 #include <assert.h>
 #include <string.h>
 #include "Tabuleiro.h"
-#ifdef _DEBUG
-#define qtdTab 64
-char EspacoLixo[256] =
-"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" ;
-#endif
+
 
 char idListaPecas[5] = "PeLi"; //identificaÁ„o da lista de peÁas
 LIS_tppLista listaPecas;
@@ -42,8 +38,6 @@ typedef struct casa {
     /*ponteiro para o elemento contido na casa */
 #ifdef _DEBUG
     char tipoElemento; //tipo do ponteiro void elemento
-    pCasa suc; /*ponteiro para a casa sucessora */
-    pCasa ant; /*ponteiro para a casa anterior */
 #endif
 } Casa;
 
@@ -77,6 +71,9 @@ int verificaPeao(LIS_tppLista pLista,int posIniX,int posIniY,int posFimX,int pos
 TAB_tpCondRet TAB_CriaCasa(pCasa*casa,char cor,char id) {
     pCasa novo;
     novo = (Casa *) malloc(sizeof(Casa));
+#ifdef _DEBUG
+    //CED_DefinirTipoEspaco(listaCopia,LIS_tpCasa);
+#endif
     PEC_CriaPeca((Peca **)&(novo->elemento),cor,id);
     LIS_CriarLista((LIS_tppLista *)&(novo->ameacados),a,destruirValor);
     LIS_CriarLista((LIS_tppLista *)&(novo->ameacantes),b,destruirValor);
@@ -105,10 +102,7 @@ TAB_tpCondRet TAB_CriaLL(LIS_tppLista *pLista) {
         }
     }
     
-    
-    
-   
-    printf("terminei cria\n");
+
     
     *pLista = novo;
     return TAB_CondRetOK;
@@ -145,64 +139,46 @@ TAB_tpCondRet TAB_Converte(LIS_tppLista pLista,int x,int y,pCasa *casa) {
 } /*Fim Função: TAB  &Converter coordenadas de matriz para lista de listas */
 
 #ifdef _DEBUG
-TAB_tpCondRet TAB_Deturpa(ptTabuleiro tabu,int acao) {
+TAB_tpCondRet TAB_Deturpa(LIS_tppLista tabu,int acao) {
     int *i = (int *) malloc(sizeof(int));
-    pCasa corrente = tabu->corrente,aux;
-    Peca *obtida1,*obtida2;
+    LIS_tppLista noCabecas;
+    pCasa noCasa;
     *i = -1;
     switch (acao) {
         case 1:
-            free(corrente);
+            LIS_DeturpaEliminaCorrente(tabu);
             break;
         case 2:
-            corrente->suc = NULL;
+            LIS_DeturpaAtribuiNullSucessor(tabu);
             break;
         case 3:
-            corrente->ant = NULL;
+            LIS_DeturpaAtribuiNullAntecessor(tabu);
             break;
         case 4:
-            corrente->suc = (Casa *) EspacoLixo;
+            LIS_DeturpaAtribuiLixoSucessor(tabu);
             break;
         case 5:
-            corrente->ant = (Casa *) EspacoLixo;
+            LIS_DeturpaAtribuiLixoAntecessor(tabu);
             break;
         case 6:
-            corrente->elemento = NULL;
+            LIS_ObterNo(tabu, (void **)&noCabecas);
+            LIS_InserirNo(noCabecas, (void **)&noCasa);
+            noCasa = NULL;
             break;
         case 7:
-            corrente->tipoElemento = 'i';
-            corrente->elemento = i;
+            LIS_ObterNo(tabu, (void **)&noCabecas);
+            LIS_ObterNo(noCabecas,(void **)&noCasa);
+            noCasa->tipoElemento = 'i';
             break;
         case 8:
-            corrente = NULL;
+            LIS_DeturpaDesencadeiaSemFree(tabu);
             break;
         case 9:
-            corrente->ameacados = NULL;
+            LIS_DeturpaAtribuiNullCorrente(tabu);
             break;
         case 10:
-            corrente->ameacantes = NULL;
-            break;
-        case 11:
-            corrente->suc = corrente;
-            break;
-        case 12:
-            IrInicioLista(corrente->ameacados);
-            LIS_ObterNo(corrente->ameacados, (void**)&obtida1);
-            LIS_IrProx(corrente->ameacados);
-            LIS_ObterNo(corrente->ameacados, (void**)&obtida2);
-            obtida2 = obtida1;
-            break;
-        case 13:
-            IrInicioLista(corrente->ameacantes);
-            LIS_ObterNo(corrente->ameacantes, (void**)&obtida1);
-            LIS_IrProx(corrente->ameacantes);
-            LIS_ObterNo(corrente->ameacantes, (void**)&obtida2);
-            obtida2 = obtida1;
-            break;
-        case 14:
-            aux = corrente->suc;
-            corrente->suc = aux->suc;
-            corrente = aux->ant;
+            LIS_ObterNo(tabu, (void **)&noCabecas);
+            LIS_DeturpaNosApontamIgual(noCabecas);
             break;
         default:
             break;
@@ -214,116 +190,47 @@ TAB_tpCondRet TAB_Deturpa(ptTabuleiro tabu,int acao) {
 
 
 #ifdef _DEBUG
-TAB_tpCondRet TAB_VerificaTabuleiro(ptTabuleiro tabu, int *numErros) {
-    int i, k, qtdIguaisCasa;
+TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
+    int i, j, qtdIguaisCasa,qtdElementos,numElemListaDeCabecas,numElemListaDeCasas;
     Peca *obtidaAmeacante,*obtidaAmeacado,*ameacadoCorrente,*ameacanteCorrente;
     pCasa auxCorrente,auxCorrente2;
-    LIS_tppLista pListaAmeacantes,pListaAmeacados;
-    if(tabu == NULL) {
-      //CNT_CONTAR("erro tabuleiro nulo");
-    }
-    if(tabu->corrente == NULL) {
-       //CNT_CONTAR("erro corrente nulo");
-    }
-    if(tabu->corrente->suc == NULL/* 2 atribui NULL ao ponteiro para uma casa sucessora*/)
-    {
-        //CNT_CONTAR("erro sucessor = nulo");
-    }
-    if(tabu->corrente->ant == NULL){/*3 atribui NULL ao ponteiro para uma casa predecessora.*/
-        //CNT_CONTAR("erro ancessor = nulo");
-    }
-    if(tabu->corrente->suc == (Casa *)EspacoLixo){/*4 atribui lixo ao ponteiro para a referência a uma casa sucessora*/
-        //CNT_CONTAR("erro lixo na sucessora");
-    }
-    if(tabu->corrente->ant == (Casa *)EspacoLixo)/*5 atribui lixo ao ponteiro para a referência a uma casa predecessora.*/
-    {
-        //CNT_CONTAR("erro lixo na antecessora");
-    }
-    if(tabu->corrente->elemento == NULL)/*6 atribui NULL ao ponteiro para o conteúdo da casa.*/
-    {
-        //CNT_CONTAR("erro null no conteudo da casa");
-    }
-    if(tabu->corrente->tipoElemento == 'P')/*7 altera o tipo de estrutura apontado na casa.*/
-    {
-        //CNT_CONTAR("erro no tipo da estrutura");
+    LIS_tppLista noCabeca,noCasa;
+    LIS_tpCondRet retLis;
+    
+    
+    retLis = LIS_RetornaNumElementos(tabu, &numElemListaDeCabecas);
+    
+    if (retLis == LIS_CondRetListaNExiste) {
+        //CNT_Contar(TAB_VerificarTabuleiroNulo , __LINE__ );
+        return TAB_CondRetTabuleiroNulo;
+        
     }
     
-    auxCorrente = tabu->tab[0][0];
-    for(i = 0; i < qtdTab; i++)
-    {
-        
-        if(auxCorrente == NULL)
-        {
-            //CNT_CONTAR("erro corrente nao nulo");
-        }
-        pListaAmeacantes = auxCorrente->ameacantes;
-        pListaAmeacados = auxCorrente->ameacados;
-        auxCorrente2 = tabu->corrente;
-        qtdIguaisCasa = 0;
-        for(k = 0; i < qtdTab; k++)
-        {
-            if(auxCorrente == auxCorrente2) {
-                qtdIguaisCasa++;
-                if(qtdIguaisCasa>1) {
-                        //CNT_CONTAR("matriz tabuleiro possui duas casas identicas");
-                }
-            } else {
-                if(LIS_VerificaSeVazia(pListaAmeacados) == LIS_CondRetOK) {
-                    IrInicioLista(pListaAmeacados);
-                    while(1) {
-                        LIS_ObterNo(pListaAmeacados, (void **)&ameacadoCorrente);
-                        if(ameacadoCorrente == NULL) {
-                            break;
-                        }
-                        if(LIS_VerificaSeVazia(auxCorrente2->ameacados) == LIS_CondRetOK) {
-                            IrInicioLista(auxCorrente2->ameacados);
-                            LIS_ObterNo(auxCorrente2->ameacados, (void **)&obtidaAmeacado);
-                            if(obtidaAmeacado == NULL) {
-                                //CNT_CONTAR("lista ameacados nula");
-                                break;
-                            }
-                            if(ameacadoCorrente == obtidaAmeacado) {
-                                //CNT_CONTAR("lista ameacados de uma casa possui valores identicos a de outra casa");
-                            }
-                            LIS_IrProx(auxCorrente2->ameacados);
-                        } else if(LIS_VerificaSeVazia(auxCorrente2->ameacantes) == LIS_CondRetListaNExiste) {
-                            //CNT_CONTAR("lista ameacados vazia");
-                        }
-                        LIS_IrProx(pListaAmeacados);
-                    }
-                }
-                if(LIS_VerificaSeVazia(pListaAmeacantes) == LIS_CondRetOK) {
-                    IrInicioLista(pListaAmeacantes);
-                    while(1) {
-                        LIS_ObterNo(pListaAmeacantes, (void **)&ameacanteCorrente);
-                            if(ameacanteCorrente == NULL) {
-                                break;
-                            }
-                        if(LIS_VerificaSeVazia(auxCorrente2->ameacantes) == LIS_CondRetOK) {
-                            IrInicioLista(auxCorrente2->ameacantes);
-                            while(1) {
-                                LIS_ObterNo(auxCorrente2->ameacantes, (void **)&obtidaAmeacante);
-                                if(obtidaAmeacante == NULL) {
-                                    //CNT_CONTAR("lista ameacantes nula");
-                                    break;
-                                }
-                                if(ameacanteCorrente == obtidaAmeacante) {
-                                    //CNT_CONTAR("lista ameacantes de uma casa possui valores identicos a de outra casa");
-                                }
-                                LIS_IrProx(auxCorrente2->ameacantes);
-                            }
-                        } else if(LIS_VerificaSeVazia(auxCorrente2->ameacantes) == LIS_CondRetListaNExiste) {
-                                //CNT_CONTAR("lista ameacantes vazia");
-                        }
-                        LIS_IrProx(pListaAmeacantes);
-                    }
-                }
-            }
-            
-            auxCorrente2 = auxCorrente2->suc;
-        }
-        auxCorrente = auxCorrente->suc;
+    if(numElemListaDeCabecas != 8) {
+        //CNT_Contar(TAB_QtdNosInvalidaListaCabecas , __LINE__ );
+        return TAB_CondRetQtdNosInvalida;
     }
+    IrInicioLista(tabu);
+    
+    for(i =0;i<8;i++) {
+        LIS_ObterNo(tabu, (void **)&noCabeca);
+        LIS_RetornaNumElementos(noCabeca, &numElemListaDeCasas);
+        IrInicioLista(noCabeca);
+        if(numElemListaDeCasas != 8) {
+            return TAB_CondRetQtdNosInvalida;
+        }
+        for (j=0; j<8; j++) {
+            LIS_ObterNo(noCabeca, (void **)&noCasa);
+            LIS_IrProx(noCabeca);
+        }
+        LIS_IrProx(tabu);
+    }
+    
+
+    
+
+    
+   
     return TAB_CondRetOK;
 }
 
@@ -334,66 +241,9 @@ TAB_tpCondRet TAB_VerificaTabuleiro(ptTabuleiro tabu, int *numErros) {
  *  FunÁ„o: TAB  &Criar Tabuleiro
  *  ****/
 
-TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
-    int i=0,j=0,idx;
-    ptTabuleiro novo = (Tabuleiro *) malloc(sizeof(Tabuleiro));
 
-    char cor,id;
-    criarListaPecas();
-    
-    //CED_DefinirTipoEspaco(novo,TAB_tpTipoTabuleiro);
-    //CED_MarcarEspacoAtivo(novo);
-    
-    if(novo == NULL) {
-        //printf("bayblade\n");
-        exit(-1);
-    }
-    
-    
-    
 
-    for(i=0;i<8;i++) {
-        for(j=0;j<8;j++) {
-            idx = i* 8 + j;
-            novo->tab[i][j] = (Casa *) malloc(sizeof(Casa));
-            #ifdef _DEBUG
-                //CED_DefinirTipoEspaco(novo,TAB_TipoCasa);
-            #endif
-            
-            
-            PEC_CriaPeca((Peca **)&(novo->tab[i][j]->elemento),'V','V');
-            LIS_CriarLista((LIS_tppLista *)&(novo->tab[i][j]->ameacados),a,destruirValor);
-            LIS_CriarLista((LIS_tppLista *)&(novo->tab[i][j]->ameacantes),b,destruirValor);
-            PEC_RetornaCor((Peca *)(novo->tab[i][j]->elemento),&cor);
-            PEC_RetornaId((Peca *)(novo->tab[i][j]->elemento),&id);
-            #ifdef _DEBUG
-                novo->tab[i][j]->tipoElemento = 'P'; /*'P' nesse caso equivale a peça */
-                /*Preenche os ponteiros para a casa sucessora e para a casa anterior */
-                    if(j!=7) {
-                        novo->tab[i][j]->suc = novo->tab[i][j+1];
-                    } else {
-                        if(i==7) {
-                            novo->tab[i][j]->suc = NULL; /*caso i=7 e j=7 */
-                        } else {
-                            novo->tab[i][j]->suc = novo->tab[i + 1][0];
-                        }
-                    }
-                    if(j!=0) {
-                        novo->tab[i][j]->ant = novo->tab[i][j - 1];
-                    } else {
-                        if(i == 0) {
-                            novo->tab[i][j]->ant = NULL; /*caso i=0 e j=0*/
-                        } else {
-                            novo->tab[i][j]->ant = novo->tab[i - 1][7];
-                        }
-                    }
-                novo->corrente = novo->tab[0][0];
-            #endif
-        }
-    }
-    *tabu = novo;
-    return TAB_CondRetOK;
-}/* Fim funÁ„o: TAB  &Criar Tabuleiro*/
+
 /***************************************************************************
  *
  *  FunÁ„o: TAB  &Inserir Peca
@@ -413,88 +263,23 @@ TAB_tpCondRet TAB_InserirPeca(LIS_tppLista pLista,int x, int yi,char cor,char id
     
     TAB_Converte(pLista, x, yi, (Casa **)&aux);
     
-    retPeca = PEC_CriaPeca((Peca **)&(aux->elemento),id,cor);//cria peÁa nova
-    //printf("criou peÁa\n");
-    
+    retPeca = PEC_CriaPeca((Peca **)&(aux->elemento),id,cor);//cria peça nova
     if(retPeca == PEC_CondRetFaltouMemoria) {
         
         return TAB_CondRetFaltouMemoria;
     }
-    //printf("%d e %d\n",x,yi);
-    //printf("cor obtida: %c e id obtida: %c\n",corObtida,idObtida);
     
     retPeca = PEC_CriaPeca((Peca **)&pecaLista,id,cor);//cria peÁa nova
     
     if(retPeca == PEC_CondRetFaltouMemoria) {
         return TAB_CondRetFaltouMemoria;
     }
-    retLis = LIS_InserirNo(listaPecas,(void *)pecaLista); //insere peÁa nova na lista
-    
-    //retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)&(tabuleiro->tab[x][yi].elemento)); //obtem o movimento da peÁa caso esta for "conhecida"
-    //printf("Chegou aqui");
-    /*
-     if(retPeca == PEC_CondRetFaltouMemoria) {
-     
-     return TAB_CondRetOK;
-     }
-     
-     if(retPeca == PEC_CondRetNaoAchouPeca) { //caso insere o movimento
-     
-     retPeca = PEC_EnsinaMovimentosPecasDesconhecidas((Peca **)&(tabuleiro->tab[x][yi].elemento));
-     printf("ENtrou na insere\n");
-     if(retPeca == PEC_CondRetFaltouMemoria) {
-     
-     return TAB_CondRetFaltouMemoria;
-     }
-     }
-     */
-    return TAB_CondRetOK;
-    
-}/* Fim funÁ„o: TAB  &Inserir Peca*/
-
-/*
-TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id) {
-    //int yi = (int)(y - 'A');
-    //printf("Criou a lista\n");
-    #ifdef _DEBUG
-        int tamanhoPecaAnt,tamanhoPecaDps;
-        PEC_tpCondRet retornoTamanho;
-    #endif
-    Peca *pecaAInserir;
-    
-    
-    
-    if(x>7 || x<0 || yi>7 || yi<0) {
-        
-        return TAB_CondRetCoordenadaNExiste;
-    }
-    
-    pecaAInserir = (Peca *) tabuleiro->tab[x][yi]->elemento;
-    
-    
-    retPeca = PEC_CriaPeca((Peca **)&(tabuleiro->tab[x][yi]->elemento),id,cor);//cria peÁa nova
-    //printf("criou peÁa\n");
-    
-    if(retPeca == PEC_CondRetFaltouMemoria) {
-        
-        return TAB_CondRetFaltouMemoria;
-    }
-    #ifdef _DEBUG
-        retornoTamanho = PEC_RetornaTamanhoPeca(pecaAInserir, &tamanhoPecaAnt);/*pega tamanho da peça anterior que estava na casa */
-        /*Tratar do retorno */
-    //retornoTamanho = PEC_RetornaTamanhoPeca((Peca *)tabuleiro->tab[x][yi]->elemento, &tamanhoPecaDps); /*pega tamanho da peça atual que está na casa */
-        /*Tratar do retorno */
-
-    //#endif
-    /*
-    PEC_CriaPeca(&pecaAInserir, id, cor);
-    retLis = LIS_InserirNo(listaPecas,(void *)pecaAInserir); //insere peÁa nova na lista
-    
+    retLis = LIS_InserirNo(listaPecas,(void *)pecaLista); //insere peça nova na lista de peças
     
     
     return TAB_CondRetOK;
     
-}/* Fim funÁ„o: TAB  &Inserir Peca*/
+}/* Fim função: TAB  &Inserir Peca*/
 
 
 /***************************************************************************
@@ -556,11 +341,6 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(LIS_tppLista pLista) {
     Peca *pecaUsada;
     Peca *pecaUsada2;
     pCasa aux,aux2,aux3,aux4;
-    #ifdef _DEBUG
-        int tamanhoListaAmeacantesAntes,tamanhoListaAmeacantesDps,tamanhoListaAmeacadosAntes,tamanhoListaAmeacadosDps;
-        LIS_tpCondRet retornoLista;
-        PEC_tpCondRet retornoPeca;
-    #endif
     
     
     
@@ -664,7 +444,6 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(LIS_tppLista pLista) {
                     }
                     
                     if(verificaMov == 2) {//caso a peça na posição (i,j) n seja um peão e possa comer outra peça
-                        //printf("cor e id in hell comeu: %c e %c e pos:(%d,%d) e %d e %d e %d\n",corPecaUsada,idPecaUsada,i,j,pecaUsada,i + xObtido,j + yObtido);
                         if (verificaCoordenadas(i + xObtido, j + yObtido) == 0) {/*caso a coordenada obtida seja invalida */
                             continue;
                         }
@@ -686,12 +465,9 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(LIS_tppLista pLista) {
                         
                             PEC_CriaPeca(&pecaUsada,idPecaUsada,corPecaUsada);
                             */
-                        
-                        //printf("isso e %d\n",i + xObtido);
+
                         PEC_RetornaCor(pecaUsada2, &corPecaUsada2);
                         PEC_RetornaId(pecaUsada2, &idPecaUsada2);
-                        //printf("Verificou\n");
-                        //printf("pos comedor(%d,%d) e posComido(%d,%d)\nidComedor: %c e cor comedor: %c e cor comido: %c e id comido: %c\n",i,j,i + xObtido,j + yObtido,idPecaUsada,corPecaUsada,corPecaUsada2,idPecaUsada2);
                         LIS_InserirNo(aux->ameacados, (void *)pecaUsada2);/*Insere na lista de ameçados da peça que come a peça que ele captura */
                         LIS_InserirNo(aux3->ameacantes, (void *)pecaUsada);/*Insere na lista de ameçantes da peça comida a peça que a captura */
                     }
@@ -717,11 +493,9 @@ TAB_tpCondRet TAB_ObterListaAmeacantes(LIS_tppLista pLista,int x, int y,LIS_tppL
     pCasa aux;
     LIS_tppLista listaAmeacantesCopia = NULL;
     LIS_CriarLista(&listaAmeacantesCopia,a,destruirValor);
-    //printf("to na obter ameaÁantes\n");
     if(listaAmeacantesCopia == NULL) {
         return TAB_CondRetListaAmeacantesNaoExiste;
     }
-    //printf("%d\n",listaAmeacantesCopia);
     if(x>7 || x<0 || y>7 || y<0) {
         return TAB_CondRetCoordenadaNExiste;
     }
@@ -729,10 +503,7 @@ TAB_tpCondRet TAB_ObterListaAmeacantes(LIS_tppLista pLista,int x, int y,LIS_tppL
     TAB_Converte(pLista, x, y, &aux);
     
     listaAmeacantesCopia = aux->ameacantes;
-    // printf("atribuiu\n");
     *listaAmeacantes = listaAmeacantesCopia;
-    //printf("atribui2\n");
-    //printf("Copia: %d\n",listaAmeacantesCopia);
     
     
     return TAB_CondRetOK;
@@ -790,7 +561,6 @@ TAB_tpCondRet TAB_MoverPeca(LIS_tppLista pLista,int xo,int yi,int xd,int yi2) {
            LIS_ObterNo(listaPecas,(void **)&pecaLista);
            PEC_RetornaCor((Peca *)pecaLista,&corPecaLista);
            PEC_RetornaId((Peca *)pecaLista,&idPecaLista);
-           //printf("%c e %c\n",corPecaLista,idPecaLista);
            if(idPecaTabuleiro == idPecaLista) {  //caso a peÁa esteja na lista sai do loop
                achou2 = 1;
                if (idPecaTabuleiro == 'P') {
@@ -809,39 +579,19 @@ TAB_tpCondRet TAB_MoverPeca(LIS_tppLista pLista,int xo,int yi,int xd,int yi2) {
 	   printf("depois %d\n",achou2);
 	   
     PEC_RetornaQtd_Mov(pecaLista,&qtdMov); //obtem o movimento da peÁa
-    //descobre se a peÁa pode andar para tr·s
-    
-		  //printf("Entrarei na verifica\n");
-    
-    //printf("Qtd MOv:%d\n",qtdMov);
-    
-    //printf("xd - xo: %d\n e yi2 - yi: %d\n",xd - xo, yi2 - yi);
-    
-    //printf("id: %c\n",idPecaLista);
-    
-    //printf("qtdMov: %d\n",qtdMov);
     
     qtdUnitarios = contaUnitarios(pecaLista, qtdMov);
     for(i=0;i<qtdMov;i++) {
-        //printf("Entrei no for\n");
-        //printf("antes\n");
         PEC_RetornaXMovimento(pecaLista,i,&xObtido);
         PEC_RetornaYMovimento(pecaLista,i,&yObtido);
-        //printf("depois\n");
-        //printf("Sai dos retorna\n");
-        //printf("xObtido: %d e yObtido: %d e i: %d\n",xObtido,yObtido,i);
         if (xObtido == xd - xo && yObtido == yi2 - yi) { /*caso haja algum movimento da peça que seja igual ao 
                                                           movimento proposta pelo usuário */
-            //printf("idPeca achou %c\n",idPecaTabuleiro);
             achou = 1; //se houver achou = 1
         }
         
     }
 
     
-    if(achou == 0) {
-        printf("n da\n");
-    }
     
     if(achou == 1) {
         if(idPecaTabuleiro != 'P' && idPecaTabuleiro != 'R') {
@@ -909,21 +659,6 @@ TAB_tpCondRet TAB_DestruirTabuleiro(LIS_tppLista tabu) {
     
     LIS_DestroiLista(tabu);
     
-    /*
-    while(i<8) {
-        j=0;
-        while(j<8) {
-            if(tabu->tab[i][j]->elemento != NULL) {
-                LIS_DestroiLista(tabu->tab[i][j]->ameacados);
-                LIS_DestroiLista(tabu->tab[i][j]->ameacantes);
-                
-                PEC_LiberaPeca((Peca*)tabu->tab[i][j]->elemento);
-            }
-            j++;
-        }
-        i++;
-    }
-     */
     LIS_DestroiLista(listaPecas);
     return TAB_CondRetOK;
 }/* Fim funÁ„o: TAB  &Destruir Tabuleiro*/

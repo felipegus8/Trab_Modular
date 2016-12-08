@@ -49,6 +49,31 @@ typedef enum {
     
 } PEC_tpCondRet ;
 
+/***********************************************************************
+ *
+ *  $TC Tipo de dados: LIS Tipo Espaços
+ *
+ *
+ *  $ED Descrição do tipo
+ *     Tipos de dados que podem estão alocados dinamicamente na lista
+ *     Lembrete: Melhorar descrição do enum
+ *
+ ***********************************************************************/
+
+#ifdef _DEBUG
+
+typedef enum {
+    PEC_tpPeca,
+    
+    PEC_tpMovimento
+    
+}PEC_tpEspaco;
+
+#endif
+
+/***********************************************************************/
+
+
 /* Tipo referencia para um movimento */
 typedef struct movimento Movimento;
 /* Tipo referencia para uma peça */

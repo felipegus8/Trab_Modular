@@ -44,6 +44,8 @@
 #define LISTA_EXT extern
 #endif
 
+
+
 /***** Declarações exportadas pelo módulo *****/
 
 /* Tipo referencia para uma lista */
@@ -82,6 +84,29 @@ typedef enum {
     
 } LIS_tpCondRet ;
 
+/***********************************************************************
+ *
+ *  $TC Tipo de dados: LIS Tipo Espaços
+ *
+ *
+ *  $ED Descrição do tipo
+ *     Tipos de dados que podem estão alocados dinamicamente na lista
+ *     Lembrete: Melhorar descrição do enum
+ *
+ ***********************************************************************/
+
+#ifdef _DEBUG
+
+typedef enum {
+    LIS_tpCabeca,
+    
+    LIS_tpCasa,
+    
+    LIS_tpElemLista
+    
+}LIS_tpEspaco;
+
+#endif
 
 /***********************************************************************/
 
@@ -295,7 +320,25 @@ LIS_tpCondRet LIS_VerificaSeVazia(LIS_tppLista pLista);
 
 LIS_tpCondRet LIS_DestroiLista(LIS_tppLista lista);
 
+#ifdef _DEBUG
 
+LIS_tpCondRet LIS_DeturpaEliminaCorrente(LIS_tppLista pLista);
+
+LIS_tpCondRet LIS_DeturpaAtribuiNullSucessor(LIS_tppLista pLista);
+
+LIS_tpCondRet LIS_DeturpaAtribuiNullAntecessor(LIS_tppLista pLista);
+
+LIS_tpCondRet LIS_DeturpaAtribuiLixoSucessor(LIS_tppLista pLista);
+
+LIS_tpCondRet LIS_DeturpaAtribuiLixoAntecessor(LIS_tppLista pLista);
+
+LIS_tpCondRet LIS_DeturpaDesencadeiaSemFree(LIS_tppLista pLista);
+
+LIS_tpCondRet LIS_DeturpaAtribuiNullCorrente(LIS_tppLista pLista);
+
+LIS_tpCondRet LIS_DeturpaNosApontamIgual(LIS_tppLista pLista);
+
+#endif
 /********** Fim do módulo de definição: LIS  Lista duplamente encadeada **********/
 
 #endif

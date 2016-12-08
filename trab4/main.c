@@ -14,6 +14,7 @@ pCasa cas;
 
 int main(int argc, const char * argv[]) {
     char cor,id;
+    int numErros;
 #ifdef _DEBUG
     printf("to em debug\n");
 #endif
@@ -21,7 +22,8 @@ int main(int argc, const char * argv[]) {
     //Imprime(pLista);
     TAB_InserirPeca(pLista, 0, 0, 'B', 'R');
     TAB_ObterPeca(pLista, 0, 0, &cor, &id);
-    //TAB_DestruirTabuleiro(pLista);
+    TAB_VerificaTabuleiro(pLista, &numErros);
+    TAB_DestruirTabuleiro(pLista);
     
     //Imprime(pLista);
     printf("%c e %c\n",cor,id);

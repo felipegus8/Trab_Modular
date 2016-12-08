@@ -56,6 +56,8 @@ PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
     if(novoCopia == NULL) {
         return PEC_CondRetFaltouMemoria;
     }
+   
+    
 		  novoCopia->id = id;
     
 		  novoCopia->cor = cor;
@@ -74,8 +76,14 @@ PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
             return PEC_CondRetFaltouMemoria;
         }
     }
+     #ifdef _DEBUG
+        //CED_DefinirTipoEspaco(novoCopia,PEC_tpPeca);
+        if(novoCopia->qtdMov>0) {
+            //CED_DefinirTipoEspaco(novoCopia->qtdMov,PEC_tpMovimento);
+        }
+    #endif
     
-		  *novo = novoCopia;
+    *novo = novoCopia;
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Criar peca */
 

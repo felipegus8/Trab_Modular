@@ -44,7 +44,7 @@ typedef struct LIS_tagLista {
     /* Ponteiro para a função de destruição do valor contido em um elemento */
     
 #ifdef _DEBUG
-    char tipo;
+    LIS_tpEspaco tipo;
 #endif
     
     
@@ -83,6 +83,12 @@ LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,
     {
         return LIS_CondRetFaltouMemoria ;
     } /* if */
+    
+#ifdef _DEBUG
+    //CED_DefinirTipoEspaco(listaCopia,LIS_tpCabeca);
+#endif
+    
+    
     
     LimparCabeca(listaCopia );
     
@@ -158,6 +164,10 @@ LIS_tpCondRet LIS_InserirNo(LIS_tppLista pLista, void *pValor) {
     
     pLista->pElemCorr = pElem ;
     
+#ifdef _DEBUG
+    pElem->cabeca = pLista;
+#endif
+    
     
     
     return LIS_CondRetOK ;
@@ -176,7 +186,6 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
     assert( lista != NULL ) ;
 #endif
     if(lista->pElemCorr == NULL) {
-        printf("xaxando porra\n");
         *referencia = NULL;
         return LIS_CondRetListaVazia;
     }
@@ -239,7 +248,6 @@ LIS_tpCondRet LIS_ExcluirNoCorrente(LIS_tppLista lista) {
     {
         lista->pFimLista = pElem->pAnt ;
     } /* if */
-    printf("to aqui\n");
     LiberarElemento( lista , pElem ) ;
     
     return LIS_CondRetOK;
@@ -391,6 +399,12 @@ tpElemLista * CriarElemento( LIS_tppLista lista ,
         return NULL ;
     } /* if */
     
+#ifdef _DEBUG
+    //CED_DefinirTipoEspaco(listaCopia,LIS_tpElemLista);
+#endif
+    
+    
+    
     pElem->pValor = pValor ;
     pElem->pAnt   = NULL  ;
     pElem->pProx  = NULL  ;
@@ -454,12 +468,133 @@ LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista,int *numElem) {
     return LIS_CondRetOK;
 }
 
+
+
+#ifdef _DEBUG
 LIS_tpCondRet LIS_VerificaSeVazia(LIS_tppLista pLista) {
     if(pLista->pElemCorr == NULL) {
         return LIS_CondRetListaVazia;
     }
     return LIS_CondRetOK;
 }
+
+LIS_tpCondRet LIS_insereTipo(LIS_tppLista pLista,LIS_tpEspaco tipo) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    pLista->tipo = tipo;
+    
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_DeturpaEliminaCorrente(LIS_tppLista pLista) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    free(pLista->pElemCorr);
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_DeturpaAtribuiNullCorrente(LIS_tppLista pLista) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    pLista->pElemCorr = NULL;
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_DeturpaAtribuiNullSucessor(LIS_tppLista pLista) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    pLista->pElemCorr->pProx = NULL;
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_DeturpaAtribuiNullAntecessor(LIS_tppLista pLista) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    pLista->pElemCorr->pAnt = NULL;
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_DeturpaAtribuiLixoSucessor(LIS_tppLista pLista) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    pLista->pElemCorr->pProx = 12;
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_DeturpaAtribuiLixoAntecessor(LIS_tppLista pLista) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    pLista->pElemCorr->pProx = 12;
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_DeturpaDesencadeiaSemFree(LIS_tppLista pLista) {
+    tpElemLista * pElem;
+    
+    if(pLista == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+
+    pElem = pLista->pElemCorr;
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    /* Desencadeia esquerda */
+    
+    if ( pElem->pAnt != NULL )
+    {
+        pElem->pAnt->pProx   = pElem->pProx ;
+        pLista->pElemCorr    = pElem->pAnt ;
+    } else {
+        pLista->pElemCorr    = pElem->pProx ;
+        pLista->pOrigemLista = pLista->pElemCorr ;
+    } /* if */
+    /* Desencadeia direita */
+    
+    if ( pElem->pProx != NULL )
+    {
+        pElem->pProx->pAnt = pElem->pAnt ;
+    } else
+    {
+        pLista->pFimLista = pElem->pAnt ;
+    } /* if */
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_DeturpaNosApontamIgual(LIS_tppLista pLista) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    pLista->pElemCorr->pValor = pLista->pFimLista->pValor;
+    return LIS_CondRetOK;
+}
+
+#endif
 
 
 /********** Fim do módulo de implementação: LIS  Lista duplamente encadeada **********/
