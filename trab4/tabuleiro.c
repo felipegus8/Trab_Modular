@@ -90,9 +90,9 @@ TAB_tpCondRet TAB_CriaCasa(pCasa*casa,char cor,char id) {
  *  ****/
 
 TAB_tpCondRet TAB_CriaLL(LIS_tppLista *pLista) {
-    LIS_tppLista novo,novo2;
-    Casa *novaCasa;
-    int i,j;
+    LIS_tppLista novo,novo2,noLista;
+    Casa *novaCasa,*noCasa;
+    int i,j,h,k;
     LIS_CriarLista(&novo,idLL,destruirValor);
     criarListaPecas();
     for(i=0;i<8;i++) {
@@ -100,11 +100,16 @@ TAB_tpCondRet TAB_CriaLL(LIS_tppLista *pLista) {
         LIS_InserirNo(novo,(void *)novo2);
         for(j=0;j<8;j++) {
                 TAB_CriaCasa((Casa **)&(novaCasa),'V','V');
+            
             LIS_InserirNo(novo2,(void *)novaCasa);
         }
     }
     
+    
+    
+   
     printf("terminei cria\n");
+    
     *pLista = novo;
     return TAB_CondRetOK;
 }/* Fim função: TAB  &Criar lista de listas duplamente encadeada*/
@@ -396,15 +401,15 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 
 
 TAB_tpCondRet TAB_InserirPeca(LIS_tppLista pLista,int x, int yi,char cor,char id) {
-    //int yi = (int)(y - 'A');
-    //printf("Criou a lista\n");
+    Peca *pecaLista;
+    pCasa aux;
     
     if(x>7 || x<0 || yi>7 || yi<0) {
         
         return TAB_CondRetCoordenadaNExiste;
     }
     
-    pCasa aux;
+    
     
     TAB_Converte(pLista, x, yi, (Casa **)&aux);
     
@@ -417,7 +422,13 @@ TAB_tpCondRet TAB_InserirPeca(LIS_tppLista pLista,int x, int yi,char cor,char id
     }
     //printf("%d e %d\n",x,yi);
     //printf("cor obtida: %c e id obtida: %c\n",corObtida,idObtida);
-    retLis = LIS_InserirNo(listaPecas,(void *)(aux->elemento)); //insere peÁa nova na lista
+    
+    retPeca = PEC_CriaPeca((Peca **)&pecaLista,id,cor);//cria peÁa nova
+    
+    if(retPeca == PEC_CondRetFaltouMemoria) {
+        return TAB_CondRetFaltouMemoria;
+    }
+    retLis = LIS_InserirNo(listaPecas,(void *)pecaLista); //insere peÁa nova na lista
     
     //retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)&(tabuleiro->tab[x][yi].elemento)); //obtem o movimento da peÁa caso esta for "conhecida"
     //printf("Chegou aqui");
@@ -573,9 +584,9 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(LIS_tppLista pLista) {
             PEC_RetornaCor(pecaUsada, &corPecaUsada);
             
             PEC_RetornaId(pecaUsada, &idPecaUsada);
-            /*
+            
             PEC_CriaPeca(&pecaUsada,idPecaUsada,corPecaUsada);
-            */
+            
             
             PEC_RetornaQtd_Mov(pecaUsada, &qtdMov);
             qtdUnitarios = contaUnitarios(pecaUsada, qtdMov);
@@ -629,7 +640,7 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(LIS_tppLista pLista) {
                                         PEC_CriaPeca(&pecaUsada2,idPecaUsada2,corPecaUsada2);/*cria peça que pode ser comida */
                                         TAB_Converte(pLista, i + 1, j  - 1, &aux2);
                                         LIS_InserirNo(aux2->ameacantes, (void *)pecaUsada);/*insere peão comedor na lista de ameaçantes de peça que pode ser comida */
-                                        TAB_Converte(pLista, i + 1, j  - 1, &aux3);
+                                        TAB_Converte(pLista, i, j, &aux3);
                                         LIS_InserirNo(aux3->ameacados, (void *)pecaUsada2);/* insere peça que pode ser comida na lista de ameaçados pelo peão*/
                                         
                                     }
@@ -640,7 +651,7 @@ TAB_tpCondRet TAB_AtualizaListaAmeacadosEAmeacantes(LIS_tppLista pLista) {
                                         PEC_CriaPeca(&pecaUsada2,idPecaUsada2,corPecaUsada2);/*cria peça que pode ser comida */
                                         TAB_Converte(pLista, i + 1, j  - 1, &aux3);
                                         LIS_InserirNo(aux3->ameacantes, (void *)pecaUsada);/*insere peão comedor na lista de ameaçantes de peça que pode ser comida */
-                                        TAB_Converte(pLista, i + 1, j  - 1, &aux4);
+                                        TAB_Converte(pLista, i, j, &aux4);
                                         LIS_InserirNo(aux4->ameacados, (void *)pecaUsada2);/* insere peça que pode ser comida na lista de ameaçados pelo peão*/
                                        
                                     }
@@ -757,8 +768,14 @@ TAB_tpCondRet TAB_ObterListaAmeacados(LIS_tppLista pLista,int x, int y,LIS_tppLi
  *  ****/
 TAB_tpCondRet TAB_MoverPeca(LIS_tppLista pLista,int xo,int yi,int xd,int yi2) {
     char corPecaLista,corPecaTabuleiro,idPecaLista,idPecaTabuleiro;
-    int i,qtdMov,xObtido,yObtido,achou = 0,achou2 = 0,qtdUnitarios = 0,verificaMov;
+    int i,qtdMov,xObtido,yObtido,achou = 0,achou2 = 0,qtdUnitarios = 0,verificaMov,h,k;
     Peca *pecaLista = NULL;
+    LIS_tppLista noLista,noCasa;
+    pCasa pAux;
+    
+    
+    
+    
     
 	   PEC_CriaPeca(&pecaLista,'V','V');
 	   
@@ -858,12 +875,41 @@ TAB_tpCondRet TAB_MoverPeca(LIS_tppLista pLista,int xo,int yi,int xd,int yi2) {
     return TAB_CondRetMovimentoIrregular;
 }/* Fim funÁ„o: TAB  &Mover Peca */
 
+TAB_tpCondRet TAB_DestruirCasa(pCasa casa) {
+    if(casa->elemento != NULL) {
+        LIS_DestroiLista(casa->ameacados);
+        LIS_DestroiLista(casa->ameacantes);
+        PEC_LiberaPeca(casa->elemento);
+    }
+    return TAB_CondRetOK;
+}
+
 /***************************************************************************
  *
  *  FunÁ„o: TAB  &Destruir Tabuleiro
  *  ****/
-TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu) {
-    int i=0,j;
+TAB_tpCondRet TAB_DestruirTabuleiro(LIS_tppLista tabu) {
+    int k,h;
+    LIS_tppLista noLista;
+    pCasa noCasa;
+    IrInicioLista(tabu);
+    for (k = 0; k<8; k++) {
+        LIS_ObterNo(tabu, (void **)&noLista);
+        IrInicioLista(noLista);
+        for (h = 0; h<8; h++) {
+            LIS_ObterNo(noLista, (void **)&noCasa);
+            TAB_DestruirCasa(noCasa);
+            LIS_IrProx(noLista);
+        }
+        
+        
+        LIS_IrProx(tabu);
+    }
+    
+    
+    LIS_DestroiLista(tabu);
+    
+    /*
     while(i<8) {
         j=0;
         while(j<8) {
@@ -877,6 +923,7 @@ TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu) {
         }
         i++;
     }
+     */
     LIS_DestroiLista(listaPecas);
     return TAB_CondRetOK;
 }/* Fim funÁ„o: TAB  &Destruir Tabuleiro*/
@@ -892,7 +939,6 @@ TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu) {
  *  FunÁ„o: TAB  &Destruir Valor
  *  ****/
 void destruirValor(void *pValor) {
-    //printf("na destruir valor: %x\n",pValor);
     free(pValor);
     #ifdef _DEBUG
         //CED_MarcarEspacoNaoAtivo(pValor);

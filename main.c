@@ -10,8 +10,8 @@ int converteCharParaInt(char i) {
     return (int)i - 'A';
 }
 
-void inserirPecasPadrao(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
-    ptTabuleiro tabu;
+void inserirPecasPadrao(TAB_tpCondRet(*InserirNoTab)(LIS_tppLista tabu,int x,int y,char cor,char id),ptJudge j) {
+    LIS_tppLista tabu;
     int y,xi,continuar = 1;
     char cor,id,x;
     /*
@@ -79,8 +79,8 @@ void inserirPecasPadrao(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int 
 }
 
 
-void inserirPecasNovas(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j) {
-    ptTabuleiro tabu;
+void inserirPecasNovas(TAB_tpCondRet(*InserirNoTab)(LIS_tppLista tabu,int x,int y,char cor,char id),ptJudge j) {
+    LIS_tppLista tabu;
     int y,xi,continuar = 1;
     char cor,id,x;
     /*
@@ -299,7 +299,7 @@ void loopJogo(ptJudge j) {
 
 int main()
 {
-    ptTabuleiro tabu;
+    LIS_tppLista tabu;
     int ret,modoJogo;
     char cor,id,corAmeacados[16],idAmeacados[16];
     int numElem;

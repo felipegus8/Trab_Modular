@@ -275,6 +275,8 @@ void EsvaziarLista(LIS_tppLista pLista);
 
 LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista, int *numElem);
 
+LIS_tpCondRet LIS_VerificaSeVazia(LIS_tppLista pLista);
+
 /************************************************************************
  
  *  $FC Função: LIS  &Destroi lista
@@ -293,66 +295,6 @@ LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista, int *numElem);
 
 LIS_tpCondRet LIS_DestroiLista(LIS_tppLista lista);
 
-/************************************************************************
- 
- *  $FC Função: LIS  &Retorna Tamanho Da Lista
- *
- *  $ED Descrição da função
- *     Retorna tamanho da lista passada como parametro
- *
- *  $EP Parâmetros
- *     lista = ponteiro para a lista que se deseja saber o tamanho
- *
- *  $FV Valor retornado
- *     Retorna OK caso o retorno do tamanho tenha sido OK
- *     Retorna ListaNExiste, caso a lista não exista
- 
- ************************************************************************/
-
-#ifdef _DEBUG
-LIS_tpCondRet LIS_RetornaTamanhoLista(LIS_tppLista lista,int *tamanhoLista);
-#endif
-
-/************************************************************************
-
-*  $FC Função: LIS  &Verifica Se Lista Está Vazia
-*
-*  $ED Descrição da função
-*     Verifica se a lista passada como parametro se encontra vazia
-*
-*  $EP Parâmetros
-*     lista = ponteiro para a lista que se deseja verificar se está vazia
-*
-*  $FV Valor retornado
-*     Retorna OK caso a lista não esteja vazia
-*     Retorna ListaVazia, caso a lista esteja vazia
-*     Retorna ListaNExiste, caso a lista não exista
-
-************************************************************************/
-
-#ifdef _DEBUG
-LIS_tpCondRet LIS_VerificaSeVazia(LIS_tppLista pLista);
-#endif
-
-/************************************************************************
- 
- *  $FC Função: LIS  &Altera Tamanho Da Lista
- *
- *  $ED Descrição da função
- *     Altera tamanho da lista passada como parametro
- *
- *  $EP Parâmetros
- *     lista = ponteiro para a lista que se deseja alterar o tamanho
- *
- *  $FV Valor retornado
- *     Retorna OK caso a alteração do tamanho tenha sido OK
- *     Retorna ListaNExiste, caso a lista não exista
- 
- ************************************************************************/
-
-#ifdef _DEBUG
-LIS_tpCondRet LIS_AlteraTamanhoLista(LIS_tppLista lista,int tamanhoLista);
-#endif
 
 /********** Fim do módulo de definição: LIS  Lista duplamente encadeada **********/
 

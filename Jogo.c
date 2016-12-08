@@ -29,7 +29,7 @@ typedef struct juiz {
     /*Ponteiro para o primeiro jogador associado ao juiz*/
     ptJogador jogador2;
     /*Ponteiro para o segundo jogador associado ao juiz*/
-    ptTabuleiro tabu;
+    LIS_tppLista tabu;
     /*Ponteiro para o tabuleiro associado ao juiz*/
     int xReiBranco;
     /*Posição Atual em X do Rei de Cor Branca*/
@@ -39,6 +39,8 @@ typedef struct juiz {
     /*Posição Atual em X do Rei de Cor Preta*/
     int yReiPreto;
     /*Posição Atual em Y do Rei de Cor Preta*/
+    int vez;
+    /*Int para determinar de quem é a vez de jogar */
 }Judge;
 
 /***** Protótipos das funções encapuladas no módulo *****/
@@ -67,7 +69,7 @@ JOG_tpCondRet JOG_CriaJogador(ptJogador *j,char *nome,char cor) {
  *
  *  Função: JOG  &Obtem Tabuleiro
  *  ****/
-JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,ptTabuleiro *tabu) {
+JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,LIS_tppLista *tabu) {
     if(j->tabu == NULL) {
         return JOG_CondRetTabuleiroNulo;
     }
@@ -95,7 +97,7 @@ JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,char nomeJogadorA[30],char nomeJogadorB[30
     if(retJogo == JOG_CondRetFaltouMemoria) {
         return retJogo;
     }
-    retTab = TAB_CriaTabuleiro(&(novo->tabu));
+    retTab = TAB_CriaLL(&(novo->tabu));
     if(retTab == TAB_CondRetFaltouMemoria) {
         return JOG_CondRetTabuleiroNulo;
     }
@@ -212,7 +214,7 @@ JOG_tpCondRet JOG_GeraMatrizTabuleiro(ptJudge j,char matriz[8][8][2]) {
  *
  *  Função: JOG  &Comecar Jogo
  *  ****/
-JOG_tpCondRet JOG_ComecarJogo(ptJudge j,void (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro tabu,int x,int y,char cor,char id),ptJudge j)) {
+JOG_tpCondRet JOG_ComecarJogo(ptJudge j,void (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(LIS_tppLista tabu,int x,int y,char cor,char id),ptJudge j)) {
     
     InserirPecas(TAB_InserirPeca,j);
     
@@ -298,21 +300,21 @@ JOG_tpCondRet JOG_AvaliaCheck(ptJudge j,int corRei) {
         LIS_ObterNo(ameacantes, (void **)&ameacante);
         PEC_RetornaCor(ameacante, &corAmeacante);
         PEC_RetornaId(ameacante, &idAmeacante);
-        TAB_AchaPecaCheck(j->tabu, corAmeacante, idAmeacante, &xAmeacante, &yAmeacante, j->xReiBranco, j->yReiBranco);retCheckMate = TAB_VerificaCheckMate(j->tabu, j->xReiBranco, j->yReiBranco, xAmeacante, yAmeacante);
+        TAB_AchaPecaCheck(j->tabu, corAmeacante, idAmeacante, &xAmeacante, &yAmeacante, j->xReiBranco, j->yReiBranco);/*encontra a primeira peça da lista ameaçantes do rei branco */retCheckMate = TAB_VerificaCheckMate(j->tabu, j->xReiBranco, j->yReiBranco, xAmeacante, yAmeacante);
     } else {
         TAB_ObterListaAmeacantes(j->tabu, j->xReiPreto, j->yReiPreto, &ameacantes);
         LIS_ObterNo(ameacantes, (void **)&ameacante);
         PEC_RetornaCor(ameacante, &corAmeacante);
         PEC_RetornaId(ameacante, &idAmeacante);
-        TAB_AchaPecaCheck(j->tabu, corAmeacante, idAmeacante, &xAmeacante, &yAmeacante, j->xReiPreto, j->yReiPreto);
+        TAB_AchaPecaCheck(j->tabu, corAmeacante, idAmeacante, &xAmeacante, &yAmeacante, j->xReiPreto, j->yReiPreto);/*encontra a primeira peça da lista ameaçantes do rei preto */
         retCheckMate = TAB_VerificaCheckMate(j->tabu, j->xReiPreto, j->yReiPreto, xAmeacante, yAmeacante);
     }
-    if (retCheckMate == TAB_CondRetNoCheckMate) {
+    if (retCheckMate == TAB_CondRetEscapouSeMovimentando) {
         return JOG_CondRetNoCheckMate;
     } else if(retCheckMate == TAB_CondRetSeSacrificou || retCheckMate == TAB_CondRetComeuParaSalvar) {
         LIS_RetornaNumElementos(ameacantes, &numElem);
         if(numElem <=1) {
-            /*Caso as peças tenham que se movimentar para salvar o rei, elas, logicamente, terão que usar um movimento. Nesse caso, se houver mais alguma outra peça que coloca o rei em cheque, acabará o jogo, visto que as peças da cor do rei terão que realizar um dos movimentos para evitar que o rei seja capturado pela primeira peça e, com isso, a segunda peça que ameaça o rei pode o capturar  */
+            /*Caso as peças tenham que se movimentar para salvar o rei, elas, logicamente, terão que usar um movimento. Nesse caso, se houver mais alguma outra peça que coloca o rei em cheque, acabará o jogo, visto que as peças da cor do rei terão que realizar um dos movimentos para evitar que o rei seja capturado pela primeira peça e, com isso, a segunda peça que ameaça o rei poderá o capturar  */
             return JOG_CondRetNoCheckMate;
         }
         

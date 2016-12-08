@@ -287,7 +287,7 @@ TAB_tpCondRet TAB_ObterPeca(LIS_tppLista pLista,int x, int y, char *cor, char *i
 *     Se executou corretamente retona Ok.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu);
+TAB_tpCondRet TAB_DestruirTabuleiro(LIS_tppLista pLista);
 
 /***********************************************************************
  

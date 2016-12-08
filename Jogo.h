@@ -133,7 +133,9 @@ JOG_tpCondRet JOG_CriaJuiz(ptJudge *j,char nomeJogadorA[30], char nomeJogadorB[3
 *    Se executou corretamente retona OK.
 
 ***********************************************************************/
-JOG_tpCondRet JOG_ComecarJogo(ptJudge j,void (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id),ptJudge j));
+//JOG_tpCondRet JOG_ComecarJogo(ptJudge j,void (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(ptTabuleiro,int x,int y,char cor,char id),ptJudge j));
+
+JOG_tpCondRet JOG_ComecarJogo(ptJudge j,void (*InserirPecas)(TAB_tpCondRet(*InserirNoTab)(LIS_tppLista tabu,int x,int y,char cor,char id),ptJudge j));
 
 /***********************************************************************
 
@@ -169,8 +171,8 @@ JOG_tpCondRet JOG_AssasinarJuiz(ptJudge j);
 *    Se o tabuleiro for nulo retorna  TabuleiroNulo.
 
 ***********************************************************************/
-JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,ptTabuleiro *tabu);
-
+//JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,ptTabuleiro *tabu);
+JOG_tpCondRet JOG_ObtemTabuleiro(ptJudge j,LIS_tppLista *tabu);
 /***********************************************************************
 
 *  $FC Função: JOG &Gera Matriz Tabuleiro

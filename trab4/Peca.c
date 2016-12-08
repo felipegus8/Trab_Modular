@@ -40,9 +40,6 @@ typedef struct peca {
     int qtdMov; //quantidade de movimentos da peça
     int podePular; // Bool para ver se a peça move para trás ou não(0 ou 1).
     Movimento *movPeca; //Vetor da struct movimento contendo todos os movimentos que a peça pode fazer
-    #ifdef _DEBUG
-        int tamanhoTotalPeca; /*tamanho da peça em bytes */
-    #endif
 }Peca;
 
 PEC_tpCondRet retornoPeca;
@@ -77,10 +74,7 @@ PEC_tpCondRet PEC_CriaPeca(Peca **novo,char id,char cor) {
             return PEC_CondRetFaltouMemoria;
         }
     }
-#ifdef _DEBUG
-    novoCopia->tamanhoTotalPeca = sizeof(Peca) + 2 * novoCopia->qtdMov * sizeof(int);
-    //CED_DefinirTipoEspaco(novoCopia , PEC_TipoPeca) ;
-#endif
+    
 		  *novo = novoCopia;
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Criar peca */
@@ -346,17 +340,14 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
             (*novo)->movPeca[7].y = 1;
             break;
         case 'V':
-			(*novo)->qtdMov = 0;
-			(*novo)->movPeca = NULL;
-			(*novo)->podePular = 0;
+            (*novo)->qtdMov = 0;
+            (*novo)->movPeca = NULL;
+            (*novo)->podePular = 0;
             break;
             
         default:
             return PEC_CondRetNaoAchouPeca;
     }
-    #ifdef _DEBUG
-        //CED_DefinirTipoEspaco((*novo)->movPeca , PEC_TipoMovimento) ;
-    #endif
     return PEC_CondRetOK;
 } /* Fim função: PEC  &Ensina Movimentos Pecas Conhecidas */
 /***************************************************************************
@@ -366,9 +357,9 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasConhecidas(Peca **novo)
 PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
 {
     char idLido,corLido;
-    int x,y,i;
+    int x,y,i,j;
     FILE *fp;
-    fp = fopen("/Users/Victor/Desktop/PecasNovas.txt","r");
+    fp = fopen("PecasNovas.txt","r");
     //O arquivo PecasNovas.txt contem todas as peças novas que podem ser usadas no jogo.Para criar uma nova peça,o usuário deve escrever nesse arquivo,seguindo o formato lá apresentado.
     if (fp==NULL)
     {
@@ -396,12 +387,10 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
     }
     i = 0;
     fclose(fp);
-    
-    if ((fp=fopen("/Users/Victor/Desktop/PecasNovas.txt","r"))==NULL)
+    if ((fp=fopen("PecasNovas.txt","r"))==NULL)
     {
         exit(1);
     }
-    
     while(fscanf(fp,"%c %c",&idLido,&corLido) == 2)
     {
         if ((idLido == (*novo)->id) && (corLido == (*novo)->cor))
@@ -420,9 +409,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
     }
     (*novo)->qtdMov = i;
     fclose(fp);
-    #ifdef _DEBUG
-        //CED_DefinirTipoEspaco((*novo)->movPeca , PEC_TipoMovimento) ;
-    #endif
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Ensina Movimentos Pecas Desconhecidas */
 
@@ -433,11 +419,6 @@ PEC_tpCondRet PEC_EnsinaMovimentosPecasDesconhecidas(Peca **novo)
  *  Função: PEC  &Libera Peca
  *  ****/
 PEC_tpCondRet PEC_LiberaPeca(Peca *peca) {
-    if(peca != NULL) {
-        if(peca->movPeca != NULL) {
-            free(peca->movPeca);
-        }
-    }
     free(peca);
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Libera Peca */
@@ -538,19 +519,9 @@ PEC_tpCondRet PEC_EliminarPeca(Peca *peca)
     peca->qtdMov = 0;
     peca->podePular = 0;
     peca->movPeca = NULL;
+    free(peca);
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Eliminar Peca */
 
-
-#ifdef _DEBUG
-PEC_tpCondRet PEC_RetornaTamanhoPeca(Peca *peca,int *tamanhoPeca) {
-    if (peca == NULL) {
-        return PEC_CondRetNaoAchouPeca;
-    }
-    *tamanhoPeca = peca->tamanhoTotalPeca;
-    return PEC_CondRetOK;
-}
-#endif
-
-
 /********** Fim do módulo de implementação: PEC  Peca **********/
+

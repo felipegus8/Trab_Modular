@@ -16,6 +16,11 @@ typedef struct tagElemLista {
     struct tagElemLista * pProx ;
     /* Ponteiro para o elemento sucessor */
     
+#ifdef _DEBUG
+    LIS_tppLista cabeca;
+#endif
+    
+    
 } tpElemLista ;
 
 
@@ -39,9 +44,7 @@ typedef struct LIS_tagLista {
     /* Ponteiro para a função de destruição do valor contido em um elemento */
     
 #ifdef _DEBUG
-    /*Obs: Essa lista só possui um tipo de elemento em seus nós */
-    char tipo; /*Tipo do elemento alocado */
-    int tamanhoLista; /*Tamanho em bytes da lista*/
+    char tipo;
 #endif
     
     
@@ -89,9 +92,7 @@ LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,
 	   
     listaCopia->ExcluirValor = ExcluirValor;
     
-#ifdef _DEBUG
-    //CED_DefinirTipoEspaco(lista , LIS_TipoCabecaLista) ;
-#endif
+    
     
     *lista = listaCopia;
     
@@ -133,10 +134,6 @@ LIS_tpCondRet LIS_InserirNo(LIS_tppLista pLista, void *pValor) {
         return LIS_CondRetFaltouMemoria ;
     } /* if */
     
-    #ifdef _DEBUG
-        //CED_DefinirTipoEspaco(pElem , LIS_TipoNoLista) ;
-    #endif
-    
     /* Encadear o elemento após o elemento */
     
     if ( pLista->pElemCorr == NULL )
@@ -162,6 +159,7 @@ LIS_tpCondRet LIS_InserirNo(LIS_tppLista pLista, void *pValor) {
     pLista->pElemCorr = pElem ;
     
     
+    
     return LIS_CondRetOK ;
     
 } /* Fim função: LIS  &Inserir elemento após */
@@ -178,6 +176,7 @@ LIS_tpCondRet LIS_ObterNo(LIS_tppLista lista, void **referencia) {
     assert( lista != NULL ) ;
 #endif
     if(lista->pElemCorr == NULL) {
+        printf("xaxando porra\n");
         *referencia = NULL;
         return LIS_CondRetListaVazia;
     }
@@ -203,26 +202,6 @@ void IrInicioLista( LIS_tppLista pLista )
     
 } /* Fim função: LIS  &Ir para o elemento inicial */
 
-#ifdef _DEBUG
-
-/***************************************************************************
- 
- *
- *  Função: LIS  &Verifica se lista está vazia
- *  ****/
-
-LIS_tpCondRet LIS_VerificaSeVazia(LIS_tppLista pLista) {
-    if(pLista == NULL) {
-        return LIS_CondRetListaNExiste;
-    }
-    if(pLista->pOrigemLista == NULL) {
-        return LIS_CondRetListaVazia;
-    }
-    return LIS_CondRetOK;
-}
-
-#endif
-
 /***************************************************************************
  
  *
@@ -231,10 +210,10 @@ LIS_tpCondRet LIS_VerificaSeVazia(LIS_tppLista pLista) {
 
 //AE:Recebe uma LIS_tppLista lista já criada
 LIS_tpCondRet LIS_ExcluirNoCorrente(LIS_tppLista lista) {
-
+    
     tpElemLista * pElem;
-
-    #ifdef _DEBUG
+    
+#ifdef _DEBUG
     assert(lista != NULL ) ;
 #endif
     pElem = lista->pElemCorr;
@@ -273,12 +252,12 @@ LIS_tpCondRet LIS_ExcluirNoCorrente(LIS_tppLista lista) {
  *  ****/
 //AE:Recebe uma LIS_tppLista lista já criada
 LIS_tpCondRet LIS_IrProx(LIS_tppLista pLista) {
-
+    
     tpElemLista * pElem ;
-
-    #ifdef _DEBUG
+    
+#ifdef _DEBUG
     assert(pLista != NULL ) ;
-     #endif
+#endif
     if ( pLista->pElemCorr == NULL )
     {
         
@@ -360,11 +339,6 @@ LIS_tpCondRet LIS_DestroiLista(LIS_tppLista lista) {
     EsvaziarLista( lista );
     
     free( lista );
-    
-#ifdef _DEBUG
-    //CED_MarcarEspacoNaoAtivo(lista);
-#endif
-    
     return LIS_CondRetOK;
 } /* Fim funÁ„o: LIS  &Destruir lista */
 //AS: A lista criada deverá excluir todos os nós delas e ainda libera da memória a propria lista recebida como parametro
@@ -389,17 +363,10 @@ void LiberarElemento( LIS_tppLista   lista ,
     if ( ( lista->ExcluirValor != NULL )
         && ( pElem->pValor != NULL        ))
     {
-        //printf("valor na libera: %x\n",pElem->pValor);
         lista->ExcluirValor( pElem->pValor ) ;
     } /* if */
     
     free( pElem ) ;
-    
-#ifdef _DEBUG
-    
-    //CED_MarcarEspacoNaoAtivo(pElem);
-    
-#endif
     
     lista->numElem-- ;
     
@@ -428,10 +395,6 @@ tpElemLista * CriarElemento( LIS_tppLista lista ,
     pElem->pAnt   = NULL  ;
     pElem->pProx  = NULL  ;
     
-#ifdef _DEBUG
-    //CED_MarcarEspacoAtivo(pElem);
-#endif
-    
     lista->numElem ++ ;
     
     return pElem ;
@@ -452,9 +415,6 @@ void LimparCabeca( LIS_tppLista lista )
     lista->pFimLista = NULL ;
     lista->pElemCorr = NULL ;
     lista->numElem   = 0 ;
-    #ifdef _DEBUG
-        lista->tamanhoLista = 0;
-    #endif
     
 } /* Fim função: LIS  -Limpar a cabeça da lista */
 //AS: A cabeça da lista será limpada de seus valores originais
@@ -473,9 +433,7 @@ void EsvaziarLista( LIS_tppLista lista ) {
 #endif
     
     pElem = lista->pOrigemLista;
-    if(pElem != NULL) {
-    printf("%x\n",pElem->pValor);
-    }
+
     while ( pElem != NULL )
     {
         pProx = pElem->pProx ;
@@ -496,25 +454,12 @@ LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista,int *numElem) {
     return LIS_CondRetOK;
 }
 
-
-#ifdef _DEBUG
-LIS_tpCondRet LIS_RetornaTamanhoLista(LIS_tppLista lista,int *tamanhoLista) {
-    if (lista == NULL) {
-        return LIS_CondRetListaNExiste;
+LIS_tpCondRet LIS_VerificaSeVazia(LIS_tppLista pLista) {
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
     }
-    *tamanhoLista = lista->tamanhoLista;
     return LIS_CondRetOK;
-} /* Fim função: LIS  &Retorna tamanho lista */
-#endif
+}
 
-#ifdef _DEBUG
-LIS_tpCondRet LIS_AlteraTamanhoLista(LIS_tppLista lista,int tamanhoLista) {
-    if (lista == NULL) {
-        return LIS_CondRetListaNExiste;
-    }
-    lista->tamanhoLista = tamanhoLista;
-    return LIS_CondRetOK;
-} /* Fim função: LIS  &Retorna tamanho lista */
-#endif
 
 /********** Fim do módulo de implementação: LIS  Lista duplamente encadeada **********/

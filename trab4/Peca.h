@@ -296,30 +296,5 @@ PEC_tpCondRet PEC_RetornaYMovimento(Peca *peca,int i,int *y);
  ***********************************************************************/
 PEC_tpCondRet PEC_EliminarPeca(Peca *peca);
 
-
-/***********************************************************************
- *  $FC Função: PEC  &Retorna Tamanho Peça
- *
- *  $ED Descrição da função
- *  Retorna o tamanho em bytes da peça dada como parametro
- *
- *
- *  $EP Parâmetros
- *     peca - peca que se quer obter o tamanho
- *     tamanhoPeca - ponteiro para o inteiro que receberá o tamanho da peça
- *
- *  $FV Valor retornado
- *     Retorna OK se peça não for nula
- *     Retorna NaoAchouPeca se peça for nula
- *
- *
- *
- *
- ***********************************************************************/
-
-#ifdef _DEBUG
-PEC_tpCondRet PEC_RetornaTamanhoPeca(Peca *peca,int *tamanhoPeca);
-#endif
-
 /********** Fim do módulo de definição: PEC  Peça **********/
 

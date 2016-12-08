@@ -91,7 +91,7 @@ TAB_tpCondRet TAB_CriaCasa(pCasa*casa,char cor,char id) {
 
 TAB_tpCondRet TAB_CriaLL(LIS_tppLista *pLista) {
     LIS_tppLista novo,novo2,noLista;
-    Casa *novaCasa,noCasa;
+    Casa *novaCasa,*noCasa;
     int i,j,h,k;
     LIS_CriarLista(&novo,idLL,destruirValor);
     criarListaPecas();
@@ -102,23 +102,13 @@ TAB_tpCondRet TAB_CriaLL(LIS_tppLista *pLista) {
                 TAB_CriaCasa((Casa **)&(novaCasa),'V','V');
             
             LIS_InserirNo(novo2,(void *)novaCasa);
-            printf("nova casa: %x\n",novaCasa);
         }
     }
     
-    for (k = 0; k<8; k++) {
-        LIS_ObterNo(novo, (void **)&noLista);
-        for (h = 0; h<8; h++) {
-            LIS_ObterNo(noLista, (void **)&noCasa);
-            printf("Casa teste: %x\n",noCasa);
-            printf("%x\n",noLista);
-            LIS_IrProx(noLista);
-        }
-        printf("end lis: %x\n",novo);
-        LIS_IrProx(novo);
-    }
+    
     
     printf("terminei cria\n");
+    
     *pLista = novo;
     return TAB_CondRetOK;
 }/* Fim função: TAB  &Criar lista de listas duplamente encadeada*/
@@ -241,14 +231,14 @@ TAB_tpCondRet TAB_VerificaTabuleiro(ptTabuleiro tabu, int *numErros) {
     if(tabu->corrente->ant == NULL){/*3 atribui NULL ao ponteiro para uma casa predecessora.*/
         //CNT_CONTAR("erro ancessor = nulo");
     }
-    if(tabu->corrente->suc == (Casa *)EspacoLixo){/*4 atribui lixo ao ponteiro para a referência a uma casa sucessora*/
+    if(tabu->corrente->suc == (Casa *)EspacoLixo){/*4 atribui lixo ao ponteiro para a referência a uma casa sucessora*/
         //CNT_CONTAR("erro lixo na sucessora");
     }
-    if(tabu->corrente->ant == (Casa *)EspacoLixo)/*5 atribui lixo ao ponteiro para a referência a uma casa predecessora.*/
+    if(tabu->corrente->ant == (Casa *)EspacoLixo)/*5 atribui lixo ao ponteiro para a referência a uma casa predecessora.*/
     {
         //CNT_CONTAR("erro lixo na antecessora");
     }
-    if(tabu->corrente->elemento == NULL)/*6 atribui NULL ao ponteiro para o conteúdo da casa.*/
+    if(tabu->corrente->elemento == NULL)/*6 atribui NULL ao ponteiro para o conteúdo da casa.*/
     {
         //CNT_CONTAR("erro null no conteudo da casa");
     }
@@ -410,15 +400,15 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
 
 
 TAB_tpCondRet TAB_InserirPeca(LIS_tppLista pLista,int x, int yi,char cor,char id) {
-    //int yi = (int)(y - 'A');
-    //printf("Criou a lista\n");
+    Peca *pecaLista;
+    pCasa aux;
     
     if(x>7 || x<0 || yi>7 || yi<0) {
         
         return TAB_CondRetCoordenadaNExiste;
     }
     
-    pCasa aux;
+    
     
     TAB_Converte(pLista, x, yi, (Casa **)&aux);
     
@@ -431,7 +421,13 @@ TAB_tpCondRet TAB_InserirPeca(LIS_tppLista pLista,int x, int yi,char cor,char id
     }
     //printf("%d e %d\n",x,yi);
     //printf("cor obtida: %c e id obtida: %c\n",corObtida,idObtida);
-    retLis = LIS_InserirNo(listaPecas,(void *)(aux->elemento)); //insere peÁa nova na lista
+    
+    retPeca = PEC_CriaPeca((Peca **)&pecaLista,id,cor);//cria peÁa nova
+    
+    if(retPeca == PEC_CondRetFaltouMemoria) {
+        return TAB_CondRetFaltouMemoria;
+    }
+    retLis = LIS_InserirNo(listaPecas,(void *)pecaLista); //insere peÁa nova na lista
     
     //retPeca = PEC_EnsinaMovimentosPecasConhecidas((Peca **)&(tabuleiro->tab[x][yi].elemento)); //obtem o movimento da peÁa caso esta for "conhecida"
     //printf("Chegou aqui");
@@ -779,7 +775,6 @@ TAB_tpCondRet TAB_MoverPeca(LIS_tppLista pLista,int xo,int yi,int xd,int yi2) {
     
     
     
-    exit(-1);
     
 	   PEC_CriaPeca(&pecaLista,'V','V');
 	   
@@ -880,13 +875,11 @@ TAB_tpCondRet TAB_MoverPeca(LIS_tppLista pLista,int xo,int yi,int xd,int yi2) {
 }/* Fim funÁ„o: TAB  &Mover Peca */
 
 TAB_tpCondRet TAB_DestruirCasa(pCasa casa) {
-    printf("Entrei na destruir e %d\n",casa->ameacados);
     if(casa->elemento != NULL) {
         LIS_DestroiLista(casa->ameacados);
         LIS_DestroiLista(casa->ameacantes);
         PEC_LiberaPeca(casa->elemento);
     }
-    free(casa);
     return TAB_CondRetOK;
 }
 
@@ -895,25 +888,25 @@ TAB_tpCondRet TAB_DestruirCasa(pCasa casa) {
  *  FunÁ„o: TAB  &Destruir Tabuleiro
  *  ****/
 TAB_tpCondRet TAB_DestruirTabuleiro(LIS_tppLista tabu) {
-    int i=0,j;
+    int k,h;
     LIS_tppLista noLista;
     pCasa noCasa;
-    while (i<8) {
+    IrInicioLista(tabu);
+    for (k = 0; k<8; k++) {
         LIS_ObterNo(tabu, (void **)&noLista);
-        j=0;
-        while (j<8) {
+        IrInicioLista(noLista);
+        for (h = 0; h<8; h++) {
             LIS_ObterNo(noLista, (void **)&noCasa);
-            printf("Casa(%d,%d): %x\n",i,j,noCasa);
             TAB_DestruirCasa(noCasa);
-            
             LIS_IrProx(noLista);
-            printf("(%d,%d)\n",i,j);
-            j++;
         }
-        LIS_DestroiLista(tabu);
+        
+        
         LIS_IrProx(tabu);
-        i++;
     }
+    
+    
+    LIS_DestroiLista(tabu);
     
     /*
     while(i<8) {
@@ -931,6 +924,7 @@ TAB_tpCondRet TAB_DestruirTabuleiro(LIS_tppLista tabu) {
     }
      */
     LIS_DestroiLista(listaPecas);
+	printf("destruiu tabuleiro e lista pecas\n");
     return TAB_CondRetOK;
 }/* Fim funÁ„o: TAB  &Destruir Tabuleiro*/
 
@@ -945,7 +939,7 @@ TAB_tpCondRet TAB_DestruirTabuleiro(LIS_tppLista tabu) {
  *  FunÁ„o: TAB  &Destruir Valor
  *  ****/
 void destruirValor(void *pValor) {
-    //printf("na destruir valor: %x\n",pValor);
+    printf("na destruir valor: %x\n",pValor);
     free(pValor);
     #ifdef _DEBUG
         //CED_MarcarEspacoNaoAtivo(pValor);

@@ -66,8 +66,8 @@ typedef enum {
             /* rei está em cheque*/
         TAB_CondRetNoCheck,
             /* rei não está em cheque*/
-         TAB_CondRetNoCheckMate,
-             /* rei está em cheque, porém não em cheque mate */
+         TAB_CondRetEscapouSeMovimentando,
+             /* rei escapou do cheque se movimentando */
     
         TAB_CondRetCheckMate,
             /* rei está em cheque mate */
@@ -75,14 +75,20 @@ typedef enum {
             /* coordenada inserida não existe */
         TAB_CondRetSeSacrificou,
             /* peça se sacrificou para salvar o rei */
-        TAB_CondRetComeuParaSalvar
+        TAB_CondRetComeuParaSalvar,
             /*peca comeu peça que estava colocando rei em cheque */
+        #ifdef _DEBUG
+            TAB_CondRetRetonoTamanhoPecaFalhou,
+            /* retorno da função que retorna o tamanho da peça foi nulo */
+            TAB_CondRetRetornoTamanhoListaFalhou
+            /* retorno da função que retorna o tamanho da lista foi nulo */
+        #endif
    } TAB_tpCondRet ;
 
 
 
 /* Tipo Casa */
-typedef struct casa Casa;
+typedef struct casa* pCasa;
 /*Tipo ponteiro para tabuleiro*/
 typedef struct TAG_tabuleiro * ptTabuleiro;
 
@@ -127,8 +133,12 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu);
 *     Se alguma das coordenadas passadas como parâmetro estiver fora do intervalo de tamanho do tabuleiro retorna CoordenadaNExiste.
 
 ***********************************************************************/
- TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id);
+ //TAB_tpCondRet TAB_InserirPeca(ptTabuleiro tabuleiro,int x, int yi,char cor,char id);
+TAB_tpCondRet TAB_InserirPeca(LIS_tppLista pLista,int x, int yi,char cor,char id);
 
+TAB_tpCondRet TAB_CriaLL(LIS_tppLista *pLista);
+
+TAB_tpCondRet TAB_Converte(LIS_tppLista pLista,int x,int y,pCasa *casa);
 
 
 /***********************************************************************
@@ -155,8 +165,9 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu);
 *    Se a peça em questão não pode realizar aquele movimento retorna Movimento Irregular.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2);
+//TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2);
 
+TAB_tpCondRet TAB_MoverPeca(LIS_tppLista pLista,int xo,int yi,int xd,int yi2);
 
 /***********************************************************************
 
@@ -179,7 +190,9 @@ TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2);
 
 ***********************************************************************/
 
- TAB_tpCondRet TAB_RetirarPeca(ptTabuleiro tabu,int x,int y);
+ //TAB_tpCondRet TAB_RetirarPeca(ptTabuleiro tabu,int x,int y);
+
+TAB_tpCondRet TAB_RetirarPeca(LIS_tppLista pLista,int x,int y);
 
 
 /***********************************************************************
@@ -204,7 +217,9 @@ TAB_tpCondRet TAB_MoverPeca(ptTabuleiro tabu,int xo,int yi,int xd,int yi2);
 
 ***********************************************************************/
 
-TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id);
+//TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id);
+
+TAB_tpCondRet TAB_ObterPeca(LIS_tppLista pLista,int x, int y, char *cor, char *id);
 
 /***********************************************************************
 
@@ -227,7 +242,10 @@ TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id);
 *     Se a lista não existir retorna ListaAmeacantesNaoExiste.
 
 ***********************************************************************/
- TAB_tpCondRet TAB_ObterListaAmeacantes(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacantes); //a ser editada
+
+// TAB_tpCondRet TAB_ObterListaAmeacantes(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacantes); //a ser editada
+
+ TAB_tpCondRet TAB_ObterListaAmeacantes(LIS_tppLista pLista,int x, int y,LIS_tppLista *listaAmeacantes); //a ser editada
 
 
 
@@ -252,7 +270,7 @@ TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id);
 *     Se a lista não existir retorna ListaAmeacadosNaoExiste.
 
 ***********************************************************************/
- TAB_tpCondRet TAB_ObterListaAmeacados(ptTabuleiro tabu,int x, int y,LIS_tppLista *listaAmeacados);  //a ser editada
+ TAB_tpCondRet TAB_ObterListaAmeacados(LIS_tppLista pLista,int x, int y,LIS_tppLista *listaAmeacados);  //a ser editada
 
 
 /***********************************************************************
@@ -269,7 +287,7 @@ TAB_tpCondRet TAB_ObterPeca(ptTabuleiro tabu,int x, int y, char *cor, char *id);
 *     Se executou corretamente retona Ok.
 
 ***********************************************************************/
-TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu);
+TAB_tpCondRet TAB_DestruirTabuleiro(LIS_tppLista pLista);
 
 /***********************************************************************
  
@@ -290,7 +308,7 @@ TAB_tpCondRet TAB_DestruirTabuleiro(ptTabuleiro tabu);
  ***********************************************************************/
 
 
-TAB_tpCondRet TAB_VerificaCheck(ptTabuleiro tabu,int xRei,int yRei);
+TAB_tpCondRet TAB_VerificaCheck(LIS_tppLista pLista,int xRei,int yRei);
 
 /***********************************************************************
  
@@ -308,12 +326,16 @@ TAB_tpCondRet TAB_VerificaCheck(ptTabuleiro tabu,int xRei,int yRei);
  *
  *  $FV Valor retornado
  *     Se o rei na posição (xRei, yRei) estiver em cheque mate pela peça que o colocou em cheque retorna TAB_CondRetCheckMate.
- *     Se o rei na posição (xRei, yRei) não estiver em cheque mate pela peça que o colocou em cheque retorna TAB_CondRetNoCheckMate.
+ *     Se o rei na posição (xRei, yRei) não estiver em cheque mate pela peça que o colocou em cheque, pois ele pode se mover retorna TAB_CondRetNoCheckMate.
+ *     Se o rei na posição (xRei, yRei) não estiver em cheque mate pela peça que o colocou em cheque, pois alguma peça pode comer a peça que o deixa em cheque e, se rei não puder se movimentar, retorna TAB_CondRetComeuParaSalvar.
+  *     Se o rei na posição (xRei, yRei) não puder se mover para sair do cheque,se nenhuma peça puder comer a peça que colocou o rei em cheque, se alguma peça da cor do rei possa entrar no caminho do movimento que a peça que coloca o rei em cheque faria para o capturar, retorna TAB_CondRetSeSacrificou
  
  ***********************************************************************/
 
 
-TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmeacante,int yAmeacante);
+//TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmeacante,int yAmeacante);
+
+TAB_tpCondRet TAB_VerificaCheckMate(LIS_tppLista pLista,int xRei,int yRei,int xAmeacante,int yAmeacante);
 
 /***********************************************************************
  
@@ -336,7 +358,9 @@ TAB_tpCondRet TAB_VerificaCheckMate(ptTabuleiro tabu,int xRei,int yRei,int xAmea
  
  ***********************************************************************/
 
-TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *xAmeacante,int *yAmeacante,int xRei,int yRei);
+//TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *xAmeacante,int *yAmeacante,int xRei,int yRei);
+
+TAB_tpCondRet TAB_AchaPecaCheck(LIS_tppLista pLista,char cor,char id,int *xAmeacante,int *yAmeacante,int xRei,int yRei);
 
 /***********************************************************************
  
@@ -361,7 +385,9 @@ TAB_tpCondRet TAB_AchaPecaCheck(ptTabuleiro tabu,char cor,char id,int *xAmeacant
  
  ***********************************************************************/
 
-TAB_tpCondRet TAB_VerificaMovimentoRei(ptTabuleiro tabu,int xRei, int yRei, char cor,int xFim,int yFim);
+//TAB_tpCondRet TAB_VerificaMovimentoRei(ptTabuleiro tabu,int xRei, int yRei, char cor,int xFim,int yFim);
+
+TAB_tpCondRet TAB_VerificaMovimentoRei(LIS_tppLista pLista,int xRei, int yRei, char cor,int xFim,int yFim);
 
 /********** Fim do módulo de definição: TAB  Tabuleiro **********/
 #endif
