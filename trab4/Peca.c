@@ -531,5 +531,13 @@ PEC_tpCondRet PEC_EliminarPeca(Peca *peca)
     return PEC_CondRetOK;
 }/* Fim função: PEC  &Eliminar Peca */
 
+#ifdef _DEBUG
+PEC_tpCondRet PEC_RetornaMovimento(Peca *peca,void **movimento) {
+    *movimento = (void *)peca->movPeca;
+    return PEC_CondRetOK;
+}
+#endif
+
+
 /********** Fim do módulo de implementação: PEC  Peca **********/
 

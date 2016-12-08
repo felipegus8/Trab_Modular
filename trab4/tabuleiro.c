@@ -108,6 +108,9 @@ TAB_tpCondRet TAB_CriaLL(LIS_tppLista *pLista) {
     return TAB_CondRetOK;
 }/* Fim função: TAB  &Criar lista de listas duplamente encadeada*/
 
+
+
+
 /***************************************************************************
  *
  *  Função: TAB  &Converter coordenadas de matriz para lista de listas
@@ -194,8 +197,10 @@ TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
     int i, j, qtdIguaisCasa,qtdElementos,numElemListaDeCabecas,numElemListaDeCasas;
     Peca *obtidaAmeacante,*obtidaAmeacado,*ameacadoCorrente,*ameacanteCorrente;
     pCasa auxCorrente,auxCorrente2;
-    LIS_tppLista noCabeca,noCasa;
+    LIS_tppLista noCabeca;
+    pCasa noCasa;
     LIS_tpCondRet retLis;
+    void *movimento;
     
     
     retLis = LIS_RetornaNumElementos(tabu, &numElemListaDeCabecas);
@@ -210,6 +215,8 @@ TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
         //CNT_Contar(TAB_QtdNosInvalidaListaCabecas , __LINE__ );
         return TAB_CondRetQtdNosInvalida;
     }
+    //CED_MarcarTodosEspacosInativos();
+    
     IrInicioLista(tabu);
     
     for(i =0;i<8;i++) {
@@ -221,6 +228,12 @@ TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
         }
         for (j=0; j<8; j++) {
             LIS_ObterNo(noCabeca, (void **)&noCasa);
+            //CED_MarcarEspacoAtivo((void *)noCasa);
+            //CED_MarcarEspacoAtivo(noCasa->elemento);
+            //CED_MarcarEspacoAtivo((void *)noCasa->ameacados);
+            //CED_MarcarEspacoAtivo((void *)noCasa->ameacantes);
+            PEC_RetornaMovimento((Peca *)noCasa->elemento, &movimento);
+            //CED_MarcarEspacoAtivo(movimento);
             LIS_IrProx(noCabeca);
         }
         LIS_IrProx(tabu);
@@ -1195,6 +1208,8 @@ TAB_tpCondRet TAB_AchaPecaCheck(LIS_tppLista pLista,char cor,char id,int *x,int 
     }
     return 0;
 }/* Fim funÁ„o: TAB  -Verifica Acha Peca Check*/
+
+
 
 
 /********** Fim do mÛdulo de implementaÁ„o: TAB  Tabuleiro **********/
