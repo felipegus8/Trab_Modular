@@ -219,32 +219,32 @@ TAB_tpCondRet TAB_VerificaTabuleiro(ptTabuleiro tabu, int *numErros) {
     pCasa auxCorrente,auxCorrente2;
     LIS_tppLista pListaAmeacantes,pListaAmeacados;
     if(tabu == NULL) {
-      //CNT_CONTAR("erro tabuleiro nulo");
+      CNT_CONTAR("erro tabuleiro nulo");
     }
     if(tabu->corrente == NULL) {
-       //CNT_CONTAR("erro corrente nulo");
+       CNT_CONTAR("erro corrente nulo");
     }
     if(tabu->corrente->suc == NULL/* 2 atribui NULL ao ponteiro para uma casa sucessora*/)
     {
-        //CNT_CONTAR("erro sucessor = nulo");
+        CNT_CONTAR("erro sucessor = nulo");
     }
     if(tabu->corrente->ant == NULL){/*3 atribui NULL ao ponteiro para uma casa predecessora.*/
-        //CNT_CONTAR("erro ancessor = nulo");
+        CNT_CONTAR("erro ancessor = nulo");
     }
     if(tabu->corrente->suc == (Casa *)EspacoLixo){/*4 atribui lixo ao ponteiro para a referência a uma casa sucessora*/
-        //CNT_CONTAR("erro lixo na sucessora");
+        CNT_CONTAR("erro lixo na sucessora");
     }
     if(tabu->corrente->ant == (Casa *)EspacoLixo)/*5 atribui lixo ao ponteiro para a referência a uma casa predecessora.*/
     {
-        //CNT_CONTAR("erro lixo na antecessora");
+        CNT_CONTAR("erro lixo na antecessora");
     }
     if(tabu->corrente->elemento == NULL)/*6 atribui NULL ao ponteiro para o conteúdo da casa.*/
     {
-        //CNT_CONTAR("erro null no conteudo da casa");
+        CNT_CONTAR("erro null no conteudo da casa");
     }
     if(tabu->corrente->tipoElemento == 'P')/*7 altera o tipo de estrutura apontado na casa.*/
     {
-        //CNT_CONTAR("erro no tipo da estrutura");
+        CNT_CONTAR("erro no tipo da estrutura");
     }
     
     auxCorrente = tabu->tab[0][0];
@@ -253,7 +253,7 @@ TAB_tpCondRet TAB_VerificaTabuleiro(ptTabuleiro tabu, int *numErros) {
         
         if(auxCorrente == NULL)
         {
-            //CNT_CONTAR("erro corrente nao nulo");
+            CNT_CONTAR("erro corrente nao nulo");
         }
         pListaAmeacantes = auxCorrente->ameacantes;
         pListaAmeacados = auxCorrente->ameacados;
@@ -264,7 +264,7 @@ TAB_tpCondRet TAB_VerificaTabuleiro(ptTabuleiro tabu, int *numErros) {
             if(auxCorrente == auxCorrente2) {
                 qtdIguaisCasa++;
                 if(qtdIguaisCasa>1) {
-                        //CNT_CONTAR("matriz tabuleiro possui duas casas identicas");
+                        CNT_CONTAR("matriz tabuleiro possui duas casas identicas");
                 }
             } else {
                 if(LIS_VerificaSeVazia(pListaAmeacados) == LIS_CondRetOK) {
@@ -278,15 +278,15 @@ TAB_tpCondRet TAB_VerificaTabuleiro(ptTabuleiro tabu, int *numErros) {
                             IrInicioLista(auxCorrente2->ameacados);
                             LIS_ObterNo(auxCorrente2->ameacados, (void **)&obtidaAmeacado);
                             if(obtidaAmeacado == NULL) {
-                                //CNT_CONTAR("lista ameacados nula");
+                                CNT_CONTAR("lista ameacados nula");
                                 break;
                             }
                             if(ameacadoCorrente == obtidaAmeacado) {
-                                //CNT_CONTAR("lista ameacados de uma casa possui valores identicos a de outra casa");
+                                CNT_CONTAR("lista ameacados de uma casa possui valores identicos a de outra casa");
                             }
                             LIS_IrProx(auxCorrente2->ameacados);
                         } else if(LIS_VerificaSeVazia(auxCorrente2->ameacantes) == LIS_CondRetListaNExiste) {
-                            //CNT_CONTAR("lista ameacados vazia");
+                            CNT_CONTAR("lista ameacados vazia");
                         }
                         LIS_IrProx(pListaAmeacados);
                     }
@@ -303,16 +303,16 @@ TAB_tpCondRet TAB_VerificaTabuleiro(ptTabuleiro tabu, int *numErros) {
                             while(1) {
                                 LIS_ObterNo(auxCorrente2->ameacantes, (void **)&obtidaAmeacante);
                                 if(obtidaAmeacante == NULL) {
-                                    //CNT_CONTAR("lista ameacantes nula");
+                                    CNT_CONTAR("lista ameacantes nula");
                                     break;
                                 }
                                 if(ameacanteCorrente == obtidaAmeacante) {
-                                    //CNT_CONTAR("lista ameacantes de uma casa possui valores identicos a de outra casa");
+                                    CNT_CONTAR("lista ameacantes de uma casa possui valores identicos a de outra casa");
                                 }
                                 LIS_IrProx(auxCorrente2->ameacantes);
                             }
                         } else if(LIS_VerificaSeVazia(auxCorrente2->ameacantes) == LIS_CondRetListaNExiste) {
-                                //CNT_CONTAR("lista ameacantes vazia");
+                                CNT_CONTAR("lista ameacantes vazia");
                         }
                         LIS_IrProx(pListaAmeacantes);
                     }
