@@ -351,7 +351,13 @@ LIS_tpCondRet LIS_RetornaOrigemLista(LIS_tppLista pLista, void **pOrigem);
 
 LIS_tpCondRet LIS_RetornaFimLista(LIS_tppLista pLista, void **pFinal);
 
-LIS_tpCondRet LIS_RetornaCorrente(LIS_tppLista pLista, void **pCorr);
+LIS_tpCondRet LIS_RetornoAnteriorDoProximo(LIS_tppLista pLista,void **antDoProx);
+
+LIS_tpCondRet LIS_RetornoProximoDoAnterior(LIS_tppLista pLista,void **proxDoAnt);
+
+LIS_tpCondRet LIS_RetornaTipoEspaco(LIS_tppLista pLista, char *tipo);
+
+LIS_tpEspaco LIS_RetornaTipoEspaco(LIS_tppLista pLista);
 
 #endif
 /********** Fim do módulo de definição: LIS  Lista duplamente encadeada **********/

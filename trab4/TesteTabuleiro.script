@@ -1,0 +1,164 @@
+// Script:    TesteTabuleiro.script
+// Autor:     Felipe Viberti,Luis Claudio,Victor Nogueira
+// Data:      06/Oct/2016
+// Propósito: Testar o módulo tabuleiro
+// Esse script inicializa um tabuleiro tradicional de xadrez com todas as peças exceto os peões
+
+ ==Inicializar valores  
+=declararparm    int0      int    0
+=declararparm    int1      int    1
+=declararparm    int2      int    2
+=declararparm    int3      int    3
+=declararparm    int4      int    4
+=declararparm    int5      int    5
+=declararparm    int6      int    6
+=declararparm    int7      int    7
+=declararparm    int8      int    8
+
+=declararparm    charP    char    'P'
+=declararparm    charB    char    'B'
+=declararparm    charA    char    'A'
+=declararparm    charC    char    'C'
+=declararparm    charD    char    'D'
+=declararparm    charE    char    'E'
+=declararparm    charF    char    'F'
+=declararparm    charG    char    'G'
+=declararparm    charH    char    'H'
+=declararparm    torre    char    'T'
+=declararparm    rainha   char    'D'
+=declararparm    rei      char    'R'
+=declararparm    charV    char    'V'
+
+=declararparm    pNull    int      0
+=declararparm    pNaoNull int      1
+
+
+=declararparm   OK                     int  0
+=declararparm   CasaVazia              int  1
+=declararparm   CoodenadaNExiste       int  2
+=declararparm   NaoAchouPeca           int  3
+=declararparm   FaltouMemoria          int  4
+=declararparm   AmecadosNaoExiste      int  5
+=declararparm   AmecantesNaoExiste     int  6
+=declararparm   MovimentoIrregular     int  7 
+
+== Inicializar contadores
+=inicializarcontadores ""
+=lercontadores "Contadores"
+=iniciarcontagem
+
+==Parte que cria um tabuleiro
+=criartabuleiro         int8   int8  OK
+
+==Insere Peca(torres brancas e pretas)
+=inserepeca int0 charA  charB   torre  OK
+=inserepeca int0 charH  charB   torre  OK
+=inserepeca int7 charA  charP   torre  OK
+=inserepeca int7 charH  charP   torre  OK
+
+==Insere Peca(rainhas branca e preta)
+=inserepeca int0  charD  charB  rainha  OK
+=inserepeca int7  charD  charP  rainha  OK
+
+==Insere Peca(bispos brancos e pretos)
+=inserepeca int0 charC charB  charB OK
+=inserepeca int0 charF charB  charB OK
+=inserepeca int7 charC charP  charB OK
+=inserepeca int7 charF charP  charB OK
+
+==Insere Peca(cavalos brancos e pretos)
+=inserepeca int0 charB charB  charC  OK
+=inserepeca int0 charG charB  charC  OK
+=inserepeca int7 charB charP  charC  OK
+=inserepeca int7 charG charP  charC  OK
+
+==Insere Peca(reis branco e preto)
+=inserepeca int0 charE charB rei  OK
+=inserepeca int7 charE charP rei  OK
+
+==Insere Peca(nova peca)
+=inserepeca int2 charF  charB  charH OK
+
+==Obter Peca(torres)
+=obterpeca int0 charA  charB   torre  OK
+=obterpeca int0 charH  charB   torre  OK
+=obterpeca int7 charA  charP   torre  OK
+=obterpeca int7 charH  charP   torre  OK 
+
+
+==Obter Peca(rainhas)
+=obterpeca  int0  charD  charB  rainha  OK
+=obterpeca  int7  charD  charP  rainha  OK
+
+==Obter Peca(bispos)
+=obterpeca int0 charC charB  charB OK
+=obterpeca int0 charF charB  charB OK
+=obterpeca int7 charC charP  charB OK
+=obterpeca int7 charF charP  charB OK
+
+==Obter Peca(cavalos)
+=obterpeca int0 charB charB  charC  OK
+=obterpeca int0 charG charB  charC  OK
+=obterpeca int7 charB charP  charC  OK
+=obterpeca int7 charG charP  charC  OK
+
+==Obter Peca(reis)
+=obterpeca int0 charE charB rei  OK
+=obterpeca int7 charE charP rei  OK
+
+==Obter Peca(nova peca)
+=obterpeca int2 charF  charB  charH OK
+
+==Verificar se uma peca não captura outra da mesma cor
+=inserepeca int1 charA  charB  rainha  OK
+=moverpeca int0 charA int1 charA OK
+=obterpeca int0 charA charB torre OK
+=obterpeca int1  charA  charB rainha  OK
+
+==MoverPeca(mover a torre branca)
+=moverpeca int0 charA int5 charA OK
+
+==MoverPeca(mover a torre de forma errada)
+=moverpeca int7 charA  int3  charH  MovimentoIrregular
+
+==MoverPeca(mover o bispo de forma errada)
+=moverpeca int0 charC  int0 charH  MovimentoIrregular
+
+
+==Obter lista ameacados
+=obterlistaameacados  int0 charA  pNaoNull
+
+==Obter lista ameacantes
+=obterlistaameacantes  int0 charA  pNaoNull
+
+==Verificar se casa onde a torre se encontrava está vazia
+=obterpeca int0 charA charV charV OK
+
+==MoverPeca(mover a rainha branca)
+=moverpeca int0  charD int3 charG OK
+
+==Verificar se casa onde a rainha se encontrava está vazia
+=obterpeca int0 charD charV charV OK
+
+==MoverPeca(mover a outra torre branca para capturar a torre preta)
+=moverpeca int0  charH  int7 charH OK
+
+==Verificar se a torre branca capturou a preta
+=obterpeca int7 charH charB torre OK
+
+==Verificar se a casa onde a torre branca estava ficou vazia
+=obterpeca int0 charH charV  charV  OK
+
+==Destruir Tabuleiro
+=destruirtabuleiro OK
+
+
+== Verificar vazamento de memória
+=obternumeroespacosalocados 0
+
+
+== Gravar contadores
+=registraracumulador "Resultado"
+
+== Terminar contagem
+=terminarcontadores

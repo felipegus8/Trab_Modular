@@ -1,0 +1,34 @@
+//////////////////////////////////////////////////////////////////////
+// Contadores acumulados, gerado: 2015/07/04-01:50:51
+//////////////////////////////////////////////////////////////////////
+
+erro-OrigemNulaFimNaoNulo
+erro-OrigemNulaCorrenteNaoNulo
+erro-OrigemNaoNulaFimNulo
+erro-TabuleiroNulo
+erro-QtdNosInvalidaListaCabecas
+verificar-AntecessorNuloListaCabecas
+erro-AntecessorNuloListaCabecas
+verificar-AntecessorNaoNuloListaCabecas
+verificar-AntecessorLixoListaCabecas
+erro-AntecessorNaoNuloPrimeiroNaListaCabecas
+erro-numCasasErrado
+verificar-AntecessorNuloListaCasas
+erro-AntecessorNuloListaCasas
+verificar-AntecessorNaoNuloListaCasas
+erro-AntecessorLixo
+erro-AntecessorNaoNuloPrimeiroNaListaCasas
+verificar-SucessorNuloListaCabecas
+erro-SucessorNuloListaCabecas
+verificar-SucessorNaoNuloListaCabecas
+verificar-SucessorLixoListaCabecas
+erro-SucessorNaoNuloPrimeiroNaListaCabecas
+verificar-SucessorNuloListaCasas
+verificar-SucessorNaoNuloListaCasas
+erro-SucessorLixo
+erro-SucessorNaoNuloPrimeiroNaListaCasas
+erro-OrigemNulaENumElemNulo
+
+//////////////////////////////////////////////////////////////////////
+// Fim arquivo de contadores acumulados
+//////////////////////////////////////////////////////////////////////

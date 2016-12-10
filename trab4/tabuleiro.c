@@ -87,9 +87,9 @@ TAB_tpCondRet TAB_CriaCasa(pCasa*casa,char cor,char id) {
  *  ****/
 
 TAB_tpCondRet TAB_CriaLL(LIS_tppLista *pLista) {
-    LIS_tppLista novo,novo2,noLista;
-    Casa *novaCasa,*noCasa;
-    int i,j,h,k;
+    LIS_tppLista novo,novo2;
+    Casa *novaCasa;
+    int i,j;
     LIS_CriarLista(&novo,idLL,destruirValor);
     criarListaPecas();
     for(i=0;i<8;i++) {
@@ -119,7 +119,6 @@ TAB_tpCondRet TAB_CriaLL(LIS_tppLista *pLista) {
 TAB_tpCondRet TAB_Converte(LIS_tppLista pLista,int x,int y,pCasa *casa) {
     int i;
     pCasa aux;
-    char cor,id;
     LIS_tppLista cabecaNo;
     if(pLista == NULL) {
         return 1;
@@ -152,20 +151,24 @@ TAB_tpCondRet TAB_Deturpa(LIS_tppLista tabu,int acao) {
             LIS_DeturpaEliminaCorrente(tabu);
             break;
         case 2:
-            LIS_DeturpaAtribuiNullSucessor(tabu);
+			LIS_ObterNo(tabu,(void **)&noCabecas);
+            LIS_DeturpaAtribuiNullSucessor(noCabecas);
             break;
         case 3:
-            LIS_DeturpaAtribuiNullAntecessor(tabu);
+			LIS_ObterNo(tabu,(void **)&noCabecas);
+            LIS_DeturpaAtribuiNullAntecessor(noCabecas);
             break;
         case 4:
-            LIS_DeturpaAtribuiLixoSucessor(tabu);
+			LIS_ObterNo(tabu,(void **)&noCabecas);
+            LIS_DeturpaAtribuiLixoSucessor(noCabecas);
             break;
         case 5:
-            LIS_DeturpaAtribuiLixoAntecessor(tabu);
+			LIS_ObterNo(tabu,(void **)&noCabecas);
+            LIS_DeturpaAtribuiLixoAntecessor(noCabecas);
             break;
         case 6:
             LIS_ObterNo(tabu, (void **)&noCabecas);
-            LIS_InserirNo(noCabecas, (void **)&noCasa);
+            LIS_ObterNo(noCabecas, (void **)&noCasa);
             noCasa = NULL;
             break;
         case 7:
@@ -203,133 +206,223 @@ TAB_tpCondRet TAB_Deturpa(LIS_tppLista tabu,int acao) {
 
 #ifdef _DEBUG
 
-TAB_tpCondRet TAB_VerificaCabecaLista(LIS_tppLista cabecaLista) {
+void TAB_VerificaCabecaLista(LIS_tppLista cabecaLista,int *numErros) {
     void *pOrigem,*pFimLista,*pCorrente;
-    int passouOrigem = 0;
+    int passouOrigem = 0,numElem,NumEspacos;
     LIS_RetornaOrigemLista(cabecaLista, &pOrigem);
+	LIS_RetornaNumElementos(cabecaLista,&numElem);
+	
+	
     if(pOrigem == NULL) {
         LIS_RetornaFimLista(cabecaLista, pFimLista);
         if(pFimLista != NULL) {
-            //CNT_Contar("TAB_OrigemNulaFimNaoNulo" , __LINE__ );
+            CNT_Contar("erro-OrigemNulaFimNaoNulo" , __LINE__ );
+			(*numErros)++;
         }
-        LIS_RetornaCorrente(cabecaLista, &pCorrente);
+        LIS_ObterNo(cabecaLista, &pCorrente);
         if(pCorrente != NULL) {
-            //CNT_Contar("TAB_OrigemNulaCorrenteNaoNulo" , __LINE__ );
+            CNT_Contar("erro-OrigemNulaCorrenteNaoNulo" , __LINE__ );
+			(*numErros)++;
         }
         passouOrigem = 1;
     }
     if (pFimLista == NULL && passouOrigem == 0) {
-        //CNT_Contar("TAB_OrigemNaoNulaFimNulo");
+        CNT_Contar("erro-OrigemNaoNulaFimNulo");
+		(*numErros)++;
     }
     
-    return TAB_CondRetOK;
+	if(numElem>0) {
+		CNT_Contar("verifica-NumElemMaiorQueZero" , __LINE__ );
+		if(numElem == 1) {
+			CNT_Contar("verifica-NumElemIgualUm" , __LINE__ );
+			if(pOrigem == NULL) {
+				CNT_Contar("erro-OrigemNulaNumElemIgualUm" , __LINE__ );
+				(*numErros)++;
+			}
+			if(pOrigem != pFimLista) {
+				CNT_Contar("erro-FimDifInicio" , __LINE__ );
+				(*numErros)++;
+			}
+		}
+	} else {
+		if(pOrigem != NULL) {
+			CNT_Contar("erro-OrigemNulaENumElemNulo");
+			(*numErros)++;
+		}
+		if(pFimLista != NULL) {
+			CNT_Contar("erro-FimNuloENumElemNulo");
+			(*numErros)++;
+		}
+		if(pCorrente != NULL) {
+			CNT_Contar("erro-CorrenteNuloENumElemNulo");
+			(*numErros)++;
+		}
+	}
 }
 
+
 TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
-    int i, j, qtdIguaisCasa,qtdElementos,numElemListaDeCabecas,numElemListaDeCasas;
+    int i, j, qtdIguaisCasa,qtdElementos,numElemListaDeCabecas,numElemListaDeCasas,Iterador,EstaAtivo,TipoEspaco;
     Peca *obtidaAmeacante,*obtidaAmeacado,*ameacadoCorrente,*ameacanteCorrente;
     pCasa auxCorrente,auxCorrente2;
-    void *noSucessor,*noAntecessor;
+	LIS_tpEspaco tipoNoCabecaListaCabecas,tipoNoCabecaListaCasas;
+    void *noSucessor,*noAntecessor,*PonteiroVoid,*noCorrente,*noAntDoProx,*noProxDoAnt ;
     LIS_tppLista noCabeca;
     pCasa noCasa;
     LIS_tpCondRet retLis;
     
+    TAB_VerificaCabecaLista(tabu,numErros);
     
-    retLis = LIS_RetornaNumElementos(tabu, &numElemListaDeCabecas);
-    
-    if (retLis == LIS_CondRetListaNExiste) {
-        //CNT_Contar("TAB_VerificarTabuleiroNulo" , __LINE__ );
-        return TAB_CondRetTabuleiroNulo;
-        
-    }
-    
-    if(numElemListaDeCabecas != 8) {
-        //CNT_Contar("TAB_QtdNosInvalidaListaCabecas" , __LINE__ );
-        return TAB_CondRetQtdNosInvalida;
-    }
-    //CED_MarcarEspacoAtivo((void *)tabu);
-    //CED_MarcarTodosEspacosInativos();
-    
-    TAB_VerificaCabecaLista(tabu);
+    CED_MarcarEspacoAtivo((void *)tabu);
     
     IrInicioLista(tabu);
-    
-   
-        
-    
-    
-    for(i =0;i<8;i++) {
-        
-        //CED_MarcarEspacoAtivo((void *)noCabeca);
-        LIS_RetornaNumElementos(tabu, &numElemListaDeCasas);
-        TAB_VerificaCabecaLista(noCabeca);
-        LIS_RetornaAntecessor(tabu, &noAntecessor);
-        if (noAntecessor == NULL) {
-        //CNT_Contar("TAB_VerificarAntecessorNuloListaCabecas" , __LINE__ );
-        if (j>0) {
-            //CNT_Contar("TAB_AntecessorNuloListaCabecas" , __LINE__ );
-        }
-    } else {
-        //CNT_Contar("TAB_VerificarAntecessorNaoNuloListaCabecas", __LINE__);
-        if (noAntecessor == 12) {
-            //CNT_Contar("TAB_VerificarAntecessorLixoListaCabecas", __LINE__);
-        }
-        if(j == 0) {
-            //CNT_Contar("TAB_AntecessorNaoNuloPrimeiroNaListaCabecas, __LINE__);
-        }
-    }
-        IrInicioLista(noCabeca);
-        if(numElemListaDeCasas != 8) {
-            //CNT_Contar("TAB_VerificarTabuleiroNulo" , __LINE__ );
-            return TAB_CondRetQtdNosInvalida;
-        }
-        
-        
-        for (j=0; j<8; j++) {
-            LIS_ObterNo(noCabeca, (void **)&noCasa);
-            LIS_RetornaAntecessor(noCabeca, &noAntecessor);
-        
-        if (noAntecessor == NULL) {
-            //CNT_Contar("TAB_VerificarAntecessorNuloListaCasas" , __LINE__ );
-            if (j>0) {
-                //CNT_Contar("TAB_AntecessorNuloListaCasas" , __LINE__ );
-            }
-        } else {
-            //CNT_Contar("TAB_VerificarAntecessorNaoNuloListaCasas", __LINE__);
-            if (noAntecessor == 12) {
-                //CNT_Contar("TAB_VerificarAntecessorLixo", __LINE__);
-            }
-            if(j == 0) {
-                //CNT_Contar("TAB_AntecessorNaoNuloPrimeiroNaListaCasas", __LINE__);
-            }
-            
-        }
-        
-        
-            //CED_MarcarEspacoAtivo((void *)noCasa);
-            //CED_MarcarEspacoAtivo(noCasa->elemento);
-            LIS_IrProx(noCabeca);
-        } /* for */
-        LIS_IrProx(tabu);
-    }/* for */
+		
+	for(i=0;i<8;i++) {
+		LIS_ObterNo(tabu,&noCabeca);
+		LIS_RetornaAntecessor(tabu,&noAntecessor);
+		LIS_RetornaSucessor(tabu,&noSucessor);
+		TAB_VerificaCabecaLista(noCabeca,numErros);
+		tipoNoCabecaListaCabecas = LIS_RetornaTipo(tabu);
+		tipoNoCabecaListaCasas = LIS_RetornaTipo(noCabeca);
+		if(tipoNoCabecaListaCabecas != LIS_tpCabeca) {
+			CNT_Contar("erro-tipoNoCabecaErrado",__LINE__);
+			(*numErros)++;
+		}
+		if(tipoNoCabecaListaCasas != LIS_tpCabeca) {
+			CNT_Contar("erro-tipoNoCasasErrado",__LINE__);
+			(*numErros)++;
+		}
+			if(noAntecessor == NULL) {
+				CNT_Contar("verifica-AntecessorNuloListaCabecas",__LINE__);
+				if(i>0) {
+					CNT_Contar("erro-AntecessorNuloListaCabecas",__LINE__);
+					(*numErros)++;
+				}
+				
+			} else {
+				CNT_Contar("verifica-AntecessorNaoNuloListaCabecas",__LINE__);
+				if(i == 0) {
+					CNT_Contar("erro-AntecessorNaoNuloListaCabecas",__LINE__);
+					(*numErros)++;
+				}
+				if(noAntecessor == 12) {
+					CNT_Contar("erro-AntecessorLixoListaCabecas",__LINE__);
+					(*numErros)++;
+				} else {
+					LIS_RetornaProximoDoAntecessor(tabu,&noProxDoAnt);
+					if(noProxDoAnt != noCabeca) {
+						(*numErros)++;
+						CNT_Contar("erro-sucessorDoAnteriorDifCorrenteListaCabecas",__LINE__);
+					}
+				}
+			}
+			if(noSucessor == NULL) {
+				CNT_Contar("verifica-SucessorNuloListaCabecas",__LINE__);
+				if(i<7) {
+					CNT_Contar("erro-sucessorNuloListaCabecas",__LINE__);
+					(*numErros)++;
+				}
+			} else {
+				CNT_Contar("verifica-sucessorNaoNuloListaCabecas",__LINE__);
+				if(i == 7) {
+					CNT_Contar("erro-sucessorNaoNuloListaCabecas",__LINE__);
+					(*numErros)++;
+				}
+				if(noSucessor == 12) {
+					CNT_Contar("erro-SucessorLixoListaCabecas",__LINE__);
+				} else {
+					CNT_Contar("verificar-SucessorNaoLixoListaCabecas",__LINE__);
+					LIS_RetornaAnteriorDoProximo(tabu,&noAntDoProx);
+					if(noAntDoProx != noCabeca) {
+						(*numErros)++;
+						CNT_Contar("erro-anteriorDoSucessorDifCorrenteListaCabecas",__LINE__);
+					}
+				}
+			}
+			for(j=0;j<8;j++) {
+				LIS_ObterNo(noCabeca,&noCasa);
+				LIS_RetornaAntecessor(tabu,&noAntecessor);
+				LIS_RetornaSucessor(tabu,&noSucessor);
+			if(noAntecessor == NULL) {
+				CNT_Contar("verifica-AntecessorNuloListaCasas",__LINE__);
+				if(i>0) {
+					CNT_Contar("erro-AntecessorNuloListaCasas",__LINE__);
+					(*numErros)++;
+				}
+				
+			} else {
+				CNT_Contar("verifica-AntecessorNaoNuloListaCasas",__LINE__);
+				if(i == 0) {
+					CNT_Contar("erro-AntecessorNaoNuloListaCasas",__LINE__);
+					(*numErros)++;
+				}
+				if(noAntecessor == 12) {
+					CNT_Contar("erro-AntecessorLixoListaCasas",__LINE__);
+					(*numErros)++;
+				} else {
+					LIS_RetornaProximoDoAntecessor(tabu,&noProxDoAnt);
+					if(noProxDoAnt != noCasa) {
+						(*numErros)++;
+						CNT_Contar("erro-sucessorDoAnteriorDifCorrenteListaCasas",__LINE__);
+					}
+				}
+			}
+			if(noSucessor == NULL) {
+				CNT_Contar("verifica-SucessorNuloListaCasas",__LINE__);
+				if(i<7) {
+					CNT_Contar("erro-sucessorNuloListaCasas",__LINE__);
+					(*numErros)++;
+				}
+			} else {
+				CNT_Contar("verifica-sucessorNaoNuloListaCasas",__LINE__);
+				if(i == 7) {
+					CNT_Contar("erro-sucessorNaoNuloListaCasas",__LINE__);
+					(*numErros)++;
+				}
+				if(noSucessor == 12) {
+					CNT_Contar("erro-SucessorLixoListaCasas",__LINE__);
+				} else {
+					CNT_Contar("verificar-SucessorNaoLixoListaCasas",__LINE__);
+					LIS_RetornaAnteriorDoProximo(tabu,&noAntDoProx);
+					if(noAntDoProx != noCasa) {
+						(*numErros)++;
+						CNT_Contar("erro-anteriorDoSucessorDifCorrenteListaCasas",__LINE__);
+					}
+				}
+			}
+				LIS_IrProx(noCabeca);
+			}
+		LIS_IrProx(tabu);
+	}
 
     
-    
+    NumEspacos = CED_ObterNumeroEspacosAlocados() ;
+
+	CED_InicializarIteradorEspacos() ;
         
+	for(Iterador = 0;Iterador<NumEspacos;Iterador++) {
+		PonteiroVoid = CED_ObterPonteiroEspacoCorrente();
+		EstaAtivo = CED_EhEspacoAtivo(PonteiroVoid);
+		TipoEspaco = CED_ObterTipoEspaco(PonteiroVoid);
+		if(TipoEspaco ==  LIS_tpCabeca || TipoEspaco ==  LIS_tpNo || TipoEspaco = TipoEspaco ==  LIS_tpCasa) {
+			if(EstaAtivo == 0) {
+				CNT_CONTAR("erro-VazamentoDeMemoria");
+				CED_TerminarIteradorEspacos();
+				return TAB_VerificarVazamentoDeMemoria;
+			}
+		}
+		CED_AvancarProximoEspaco();
+	}
+	
+	CED_TerminarIteradorEspacos();
+	
+	
         
    
     return TAB_CondRetOK;
 }
 
 #endif
-
-/***************************************************************************
- *
- *  FunÁ„o: TAB  &Criar Tabuleiro
- *  ****/
-
-
-
 
 /***************************************************************************
  *
@@ -626,15 +719,9 @@ TAB_tpCondRet TAB_ObterListaAmeacados(LIS_tppLista pLista,int x, int y,LIS_tppLi
  *  ****/
 TAB_tpCondRet TAB_MoverPeca(LIS_tppLista pLista,int xo,int yi,int xd,int yi2) {
     char corPecaLista,corPecaTabuleiro,idPecaLista,idPecaTabuleiro;
-    int i,qtdMov,xObtido,yObtido,achou = 0,achou2 = 0,qtdUnitarios = 0,verificaMov,h,k;
+    int i,qtdMov,xObtido,yObtido,achou = 0,achou2 = 0,qtdUnitarios = 0,verificaMov;
     Peca *pecaLista = NULL;
-    LIS_tppLista noLista,noCasa;
-    pCasa pAux;
-    
-    
-    
-    
-    
+   
 	   PEC_CriaPeca(&pecaLista,'V','V');
 	   
 	   TAB_ObterPeca(pLista,xo,yi,&corPecaTabuleiro,&idPecaTabuleiro);
@@ -763,7 +850,7 @@ TAB_tpCondRet TAB_DestruirTabuleiro(LIS_tppLista tabu) {
 void destruirValor(void *pValor) {
     free(pValor);
     #ifdef _DEBUG
-        //CED_MarcarEspacoNaoAtivo(pValor);
+        CED_MarcarEspacoNaoAtivo(pValor);
     #endif
     //
 }/* Fim funÁ„o: TAB  -Destruir Valor*/

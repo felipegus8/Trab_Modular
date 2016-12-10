@@ -667,18 +667,25 @@ LIS_tpCondRet LIS_RetornaFimLista(LIS_tppLista pLista, void **pFinal) {
     return LIS_CondRetOK;
 }
 
-LIS_tpCondRet LIS_RetornaCorrente(LIS_tppLista pLista, void **pCorr) {
-    if(pLista == NULL) {
+LIS_tpCondRet LIS_RetornoAnteriorDoProximo(LIS_tppLista pLista,void **antDoProx) {
+	if(pLista == NULL) {
         return LIS_CondRetListaNExiste;
     }
-    if(pLista->pElemCorr == NULL) {
-        return LIS_CondRetListaVazia;
-    }
-    *pCorr = pLista->pElemCorr;
-    return LIS_CondRetOK;
+	*antDoProx = pLista->pElemCorr->pProx->pAnt;
+	return LIS_CondRetOK;
 }
 
+LIS_tpCondRet LIS_RetornoProximoDoAnterior(LIS_tppLista pLista,void **proxDoAnt) {
+	if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+	*proxDoAnt = pLista->pElemCorr->pAnt->pProx;
+	return LIS_CondRetOK;
+}
 
+LIS_tpEspaco LIS_RetornaTipoEspaco(LIS_tppLista pLista) {
+	return pLista->tipo;
+}
 
 #endif
 
