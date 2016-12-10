@@ -90,9 +90,9 @@ TAB_tpCondRet TAB_CriaCasa(pCasa*casa,char cor,char id) {
  *  ****/
 
 TAB_tpCondRet TAB_CriaLL(LIS_tppLista *pLista) {
-    LIS_tppLista novo,novo2,noLista;
-    Casa *novaCasa,*noCasa;
-    int i,j,h,k;
+    LIS_tppLista novo,novo2;
+    Casa *novaCasa;
+    int i,j;
     LIS_CriarLista(&novo,idLL,destruirValor);
     criarListaPecas();
     for(i=0;i<8;i++) {
@@ -121,7 +121,6 @@ TAB_tpCondRet TAB_CriaLL(LIS_tppLista *pLista) {
 TAB_tpCondRet TAB_Converte(LIS_tppLista pLista,int x,int y,pCasa *casa) {
     int i;
     pCasa aux;
-    char cor,id;
     LIS_tppLista cabecaNo;
     if(pLista == NULL) {
         return 1;
@@ -767,14 +766,8 @@ TAB_tpCondRet TAB_ObterListaAmeacados(LIS_tppLista pLista,int x, int y,LIS_tppLi
  *  ****/
 TAB_tpCondRet TAB_MoverPeca(LIS_tppLista pLista,int xo,int yi,int xd,int yi2) {
     char corPecaLista,corPecaTabuleiro,idPecaLista,idPecaTabuleiro;
-    int i,qtdMov,xObtido,yObtido,achou = 0,achou2 = 0,qtdUnitarios = 0,verificaMov,h,k;
+    int i,qtdMov,xObtido,yObtido,achou = 0,achou2 = 0,qtdUnitarios = 0,verificaMov;
     Peca *pecaLista = NULL;
-    LIS_tppLista noLista,noCasa;
-    pCasa pAux;
-    
-    
-    
-    
     
 	   PEC_CriaPeca(&pecaLista,'V','V');
 	   
@@ -877,6 +870,7 @@ TAB_tpCondRet TAB_MoverPeca(LIS_tppLista pLista,int xo,int yi,int xd,int yi2) {
 TAB_tpCondRet TAB_DestruirCasa(pCasa casa) {
     if(casa->elemento != NULL) {
         LIS_DestroiLista(casa->ameacados);
+		
         LIS_DestroiLista(casa->ameacantes);
         PEC_LiberaPeca(casa->elemento);
     }
@@ -897,6 +891,7 @@ TAB_tpCondRet TAB_DestruirTabuleiro(LIS_tppLista tabu) {
         IrInicioLista(noLista);
         for (h = 0; h<8; h++) {
             LIS_ObterNo(noLista, (void **)&noCasa);
+			printf("(%d,%d)\n",k,h);
             TAB_DestruirCasa(noCasa);
             LIS_IrProx(noLista);
         }

@@ -104,9 +104,6 @@
 ==Obter Peca(nova peca)
 =obterpeca int2 charF  charB  charH OK
 
-==Retirar Peca(nova peca)
-=retirarpeca int7 charA OK
-
 ==Verificar se uma peca não captura outra da mesma cor
 =inserepeca int1 charA  charB  rainha  OK
 =moverpeca int0 charA int1 charA OK
