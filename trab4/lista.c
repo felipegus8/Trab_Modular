@@ -471,12 +471,7 @@ LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista,int *numElem) {
 
 
 #ifdef _DEBUG
-LIS_tpCondRet LIS_VerificaSeVazia(LIS_tppLista pLista) {
-    if(pLista->pElemCorr == NULL) {
-        return LIS_CondRetListaVazia;
-    }
-    return LIS_CondRetOK;
-}
+
 
 LIS_tpCondRet LIS_insereTipo(LIS_tppLista pLista,LIS_tpEspaco tipo) {
     if(pLista == NULL) {
@@ -487,11 +482,32 @@ LIS_tpCondRet LIS_insereTipo(LIS_tppLista pLista,LIS_tpEspaco tipo) {
     return LIS_CondRetOK;
 }
 
+
+
 LIS_tpCondRet LIS_DeturpaEliminaCorrente(LIS_tppLista pLista) {
     if(pLista == NULL) {
         return LIS_CondRetListaNExiste;
     }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
     free(pLista->pElemCorr);
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_DeturpaAtribuiNullOrigem(LIS_tppLista pLista) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    pLista->pOrigemLista = NULL;
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_DeturpaAtribuiNullFim(LIS_tppLista pLista) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    pLista->pFimLista = NULL;
     return LIS_CondRetOK;
 }
 
@@ -593,6 +609,76 @@ LIS_tpCondRet LIS_DeturpaNosApontamIgual(LIS_tppLista pLista) {
     pLista->pElemCorr->pValor = pLista->pFimLista->pValor;
     return LIS_CondRetOK;
 }
+
+LIS_tpCondRet LIS_DeturpaTrocaNumElem(LIS_tppLista pLista) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    pLista->numElem = 2;
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_RetornaAntecessor(LIS_tppLista pLista,void **antecessor) {
+    
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    *antecessor = pLista->pElemCorr->pAnt;
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_RetornaSucessor(LIS_tppLista pLista,void **sucessor) {
+    
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    *sucessor = pLista->pElemCorr->pProx;
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_RetornaOrigemLista(LIS_tppLista pLista, void **pOrigem) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    *pOrigem = pLista->pOrigemLista;
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_RetornaFimLista(LIS_tppLista pLista, void **pFinal) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    *pFinal = pLista->pFimLista;
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_RetornaCorrente(LIS_tppLista pLista, void **pCorr) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    *pCorr = pLista->pElemCorr;
+    return LIS_CondRetOK;
+}
+
+
 
 #endif
 

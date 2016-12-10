@@ -300,7 +300,6 @@ void EsvaziarLista(LIS_tppLista pLista);
 
 LIS_tpCondRet LIS_RetornaNumElementos(LIS_tppLista lista, int *numElem);
 
-LIS_tpCondRet LIS_VerificaSeVazia(LIS_tppLista pLista);
 
 /************************************************************************
  
@@ -336,7 +335,23 @@ LIS_tpCondRet LIS_DeturpaDesencadeiaSemFree(LIS_tppLista pLista);
 
 LIS_tpCondRet LIS_DeturpaAtribuiNullCorrente(LIS_tppLista pLista);
 
+LIS_tpCondRet LIS_DeturpaAtribuiNullOrigem(LIS_tppLista pLista);
+
+LIS_tpCondRet LIS_DeturpaAtribuiNullFim(LIS_tppLista pLista);
+
 LIS_tpCondRet LIS_DeturpaNosApontamIgual(LIS_tppLista pLista);
+
+LIS_tpCondRet LIS_DeturpaTrocaNumElem(LIS_tppLista pLista);
+
+LIS_tpCondRet LIS_RetornaAntecessor(LIS_tppLista pLista,void **antecessor);
+
+LIS_tpCondRet LIS_RetornaSucessor(LIS_tppLista pLista,void **sucessor);
+
+LIS_tpCondRet LIS_RetornaOrigemLista(LIS_tppLista pLista, void **pOrigem);
+
+LIS_tpCondRet LIS_RetornaFimLista(LIS_tppLista pLista, void **pFinal);
+
+LIS_tpCondRet LIS_RetornaCorrente(LIS_tppLista pLista, void **pCorr);
 
 #endif
 /********** Fim do módulo de definição: LIS  Lista duplamente encadeada **********/
