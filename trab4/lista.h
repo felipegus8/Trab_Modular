@@ -102,6 +102,8 @@ typedef enum {
     
     LIS_tpCasa,
     
+    LIS_tpNoCasa,
+    
     LIS_tpElemLista
     
 }LIS_tpEspaco;
@@ -138,7 +140,7 @@ typedef enum {
  *
  ***********************************************************************/
 
-LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,void( * ExcluirValor ) ( void * pDado ));
+LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,void( * ExcluirValor ) ( void * pDado ),LIS_tpEspaco tipo);
 
 
 
@@ -343,6 +345,10 @@ LIS_tpCondRet LIS_DeturpaNosApontamIgual(LIS_tppLista pLista);
 
 LIS_tpCondRet LIS_DeturpaTrocaNumElem(LIS_tppLista pLista);
 
+LIS_tpCondRet LIS_DeturpaTrocaTipoLista(LIS_tppLista pLista,LIS_tpEspaco novoTipo);
+
+LIS_tpCondRet LIS_DeturpaAtribuiNullValorNo(LIS_tppLista pLista);
+
 LIS_tpCondRet LIS_RetornaAntecessor(LIS_tppLista pLista,void **antecessor);
 
 LIS_tpCondRet LIS_RetornaSucessor(LIS_tppLista pLista,void **sucessor);
@@ -351,11 +357,9 @@ LIS_tpCondRet LIS_RetornaOrigemLista(LIS_tppLista pLista, void **pOrigem);
 
 LIS_tpCondRet LIS_RetornaFimLista(LIS_tppLista pLista, void **pFinal);
 
-LIS_tpCondRet LIS_RetornoAnteriorDoProximo(LIS_tppLista pLista,void **antDoProx);
+LIS_tpCondRet LIS_RetornaAnteriorDoProximo(LIS_tppLista pLista,void **antDoProx);
 
-LIS_tpCondRet LIS_RetornoProximoDoAnterior(LIS_tppLista pLista,void **proxDoAnt);
-
-LIS_tpCondRet LIS_RetornaTipoEspaco(LIS_tppLista pLista, char *tipo);
+LIS_tpCondRet LIS_RetornaProximoDoAnterior(LIS_tppLista pLista,void **proxDoAnt);
 
 LIS_tpEspaco LIS_RetornaTipoEspaco(LIS_tppLista pLista);
 

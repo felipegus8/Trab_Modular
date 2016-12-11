@@ -69,7 +69,7 @@ static void LimparCabeca( LIS_tppLista lista );
  *  ****/
 //AE:A lista não possui nenhum elemento e deve receber ponteiro LIS_tppLista e um ponteiro com a id
 LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,
-                             void   ( * ExcluirValor ) ( void * pDado ))
+                             void   ( * ExcluirValor ) ( void * pDado ),LIS_tpEspaco tipo)
 {
     
     //LIS_tppLista * lista = NULL ;
@@ -86,6 +86,7 @@ LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,
     
 #ifdef _DEBUG
     //CED_DefinirTipoEspaco(listaCopia,LIS_tpCabeca);
+    listaCopia->tipo = tipo;
 #endif
     
     
@@ -621,6 +622,25 @@ LIS_tpCondRet LIS_DeturpaTrocaNumElem(LIS_tppLista pLista) {
     return LIS_CondRetOK;
 }
 
+LIS_tpCondRet LIS_DeturpaTrocaTipoLista(LIS_tppLista pLista,LIS_tpEspaco novoTipo) {
+    if (pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    pLista->tipo = novoTipo;
+    return LIS_CondRetOK;
+}
+
+LIS_tpCondRet LIS_DeturpaAtribuiNullValorNo(LIS_tppLista pLista) {
+    if (pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    pLista->pElemCorr->pValor = NULL;
+    return LIS_CondRetOK;
+}
+
 LIS_tpCondRet LIS_RetornaAntecessor(LIS_tppLista pLista,void **antecessor) {
     
     if(pLista == NULL) {
@@ -667,7 +687,7 @@ LIS_tpCondRet LIS_RetornaFimLista(LIS_tppLista pLista, void **pFinal) {
     return LIS_CondRetOK;
 }
 
-LIS_tpCondRet LIS_RetornoAnteriorDoProximo(LIS_tppLista pLista,void **antDoProx) {
+LIS_tpCondRet LIS_RetornaAnteriorDoProximo(LIS_tppLista pLista,void **antDoProx) {
 	if(pLista == NULL) {
         return LIS_CondRetListaNExiste;
     }
@@ -675,7 +695,7 @@ LIS_tpCondRet LIS_RetornoAnteriorDoProximo(LIS_tppLista pLista,void **antDoProx)
 	return LIS_CondRetOK;
 }
 
-LIS_tpCondRet LIS_RetornoProximoDoAnterior(LIS_tppLista pLista,void **proxDoAnt) {
+LIS_tpCondRet LIS_RetornaProximoDoAnterior(LIS_tppLista pLista,void **proxDoAnt) {
 	if(pLista == NULL) {
         return LIS_CondRetListaNExiste;
     }
