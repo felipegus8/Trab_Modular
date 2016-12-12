@@ -29,8 +29,10 @@ static const char OBTER_PECA              				            [ ] = "=obterpeca" ;
 static const char RETIRAR_PECA              				        [ ] = "=retirarpeca"        ;
 static const char MOVER_PECA              				            [ ] = "=moverpeca"        ;
 static const char DESTRUIR_TABULEIRO                                [ ] = "=destruirtabuleiro"        ;
-static const char DETURPA                                           [ ] = "=deturpa"     ;
-static const char VERIFICA                                          [ ] = "=verifica"     ;
+#ifdef _DEBUG
+    static const char DETURPA                                           [ ] = "=deturpa"     ;
+    static const char VERIFICA                                          [ ] = "=verifica" ;
+#endif
 
 
 #define TRUE  1
