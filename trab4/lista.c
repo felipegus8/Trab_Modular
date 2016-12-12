@@ -691,7 +691,15 @@ LIS_tpCondRet LIS_RetornaAnteriorDoProximo(LIS_tppLista pLista,void **antDoProx)
 	if(pLista == NULL) {
         return LIS_CondRetListaNExiste;
     }
-	*antDoProx = pLista->pElemCorr->pProx->pAnt;
+    if(pLista->pElemCorr == NULL) {
+        *antDoProx = NULL;
+        return LIS_CondRetListaVazia;
+    }
+    if(pLista->pElemCorr->pProx != NULL) {
+        if(pLista->pElemCorr->pProx->pAnt != NULL) {
+            *antDoProx = pLista->pElemCorr->pProx->pAnt->pValor;
+        }
+    }
 	return LIS_CondRetOK;
 }
 
@@ -699,7 +707,14 @@ LIS_tpCondRet LIS_RetornaProximoDoAnterior(LIS_tppLista pLista,void **proxDoAnt)
 	if(pLista == NULL) {
         return LIS_CondRetListaNExiste;
     }
-	*proxDoAnt = pLista->pElemCorr->pAnt->pProx;
+    if(pLista->pElemCorr == NULL) {
+        return LIS_CondRetListaVazia;
+    }
+    if(pLista->pElemCorr->pAnt != NULL) {
+        if(pLista->pElemCorr->pAnt->pProx != NULL) {
+            *proxDoAnt = pLista->pElemCorr->pAnt->pProx->pValor;
+        }
+    }
 	return LIS_CondRetOK;
 }
 

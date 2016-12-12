@@ -29,6 +29,8 @@ static const char OBTER_PECA              				            [ ] = "=obterpeca" ;
 static const char RETIRAR_PECA              				        [ ] = "=retirarpeca"        ;
 static const char MOVER_PECA              				            [ ] = "=moverpeca"        ;
 static const char DESTRUIR_TABULEIRO                                [ ] = "=destruirtabuleiro"        ;
+static const char DETURPA                                           [ ] = "=deturpa"     ;
+static const char VERIFICA                                          [ ] = "=verifica"     ;
 
 
 #define TRUE  1
@@ -79,7 +81,7 @@ int diminui1DeX(int coordX);
    {
 
       int  numLidos   = -1 ,
-          CondRetEsp = -1  ;
+          CondRetEsp = -1  ,acao,numErrosEsperados,numErrosEncontrados;
 
       TST_tpCondRet CondRet;
 
@@ -281,6 +283,26 @@ int diminui1DeX(int coordX);
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao destruir um tabuleiro" );
 
          } /* fim ativa: Testar Destruir tabuleiro */
+       
+         /* Deturpar Tabuleiro */
+         else if(strcmp( ComandoTeste , DETURPA ) == 0) {
+             numLidos = LER_LerParametros("i",&acao);
+             if (numLidos != 1) {
+                 return TST_CondRetParm ;
+             }
+             TAB_Deturpa(tabu,acao);
+         }
+       
+         /*Testar Verificação do Tabuleiro */
+         else if(strcmp( ComandoTeste , VERIFICA ) == 0) {
+             numLidos = LER_LerParametros("i",&numErrosEsperados);
+             if (numLidos != 1) {
+                 return TST_CondRetParm ;
+             }
+             TAB_VerificaTabuleiro(tabu,&numErrosEncontrados);
+             return TST_CompararInt(numErrosEsperados, numErrosEncontrados,"Numeros de erros esperados é distinto do numero encontrado");
+         }
+       
 		 return TST_CondRetNaoConhec ;
 }
 

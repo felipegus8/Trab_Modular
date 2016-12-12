@@ -391,5 +391,9 @@ TAB_tpCondRet TAB_VerificaMovimentoRei(LIS_tppLista pLista,int xRei, int yRei, c
 
 TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros);
 
+TAB_tpCondRet TAB_Deturpa(LIS_tppLista tabu,int acao);
+
+TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros);
+
 /********** Fim do módulo de definição: TAB  Tabuleiro **********/
 #endif
