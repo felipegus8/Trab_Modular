@@ -303,10 +303,8 @@ TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
     
     
     IrInicioLista(tabu);
-    printf("passou daqui\n");
 	for(i=0;i<8;i++) {
 		retLis = LIS_ObterNo(tabu,(void **)&noCabeca);
-        printf("cab it e %d: %x\n",i,noCabeca);
         //printf("noCabeca: %x\n",noCabeca);
         if(retLis == LIS_CondRetListaVazia) {
             //CNT_Contar("erro-noCabecaNulo",__LINE__);
@@ -382,7 +380,6 @@ TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
             IrInicioLista(noCabeca);
 			for(j=0;j<8;j++) {
 				retLis = LIS_ObterNo(noCabeca,(void **)&noCasa);
-                printf("no casa:%x\n",noCasa);
                 if(retLis == LIS_CondRetListaVazia) {
                     //printf("passei aqui\n");
                     //CNT_Contar("erro-noCasaNulo",__LINE__);
@@ -392,7 +389,6 @@ TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
 				LIS_RetornaSucessor(noCabeca,&noSucessor);
 			if(noAntecessor == NULL) {
 				//CNT_Contar("verifica-AntecessorNuloListaCasas",__LINE__);
-                printf("passou aqui %d\n",j);
 				if(j>0) {
 					//CNT_Contar("erro-AntecessorNuloListaCasas",__LINE__);
 					(*numErros)++;
@@ -905,12 +901,8 @@ TAB_tpCondRet TAB_DestruirTabuleiro(LIS_tppLista tabu) {
             TAB_DestruirCasa(noCasa);
             LIS_IrProx(noLista);
         }
-        
-        
         LIS_IrProx(tabu);
     }
-    
-    
     LIS_DestroiLista(tabu);
     
     LIS_DestroiLista(listaPecas);

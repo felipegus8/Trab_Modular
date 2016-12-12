@@ -9,23 +9,29 @@
 #include <stdio.h>
 #include "tabuleiro.h"
 
-LIS_tppLista pLista;
+LIS_tppLista pLista,pCabeca;
 pCasa cas;
 
 int main(int argc, const char * argv[]) {
     char cor,id;
-    int numErros;
-#ifdef _DEBUG
-    printf("to em debug\n");
-#endif
+    int numErros = 0;
     TAB_CriaLL((LIS_tppLista *)&pLista);
-    //Imprime(pLista);
-    TAB_InserirPeca(pLista, 0, 0, 'B', 'R');
-    TAB_ObterPeca(pLista, 0, 0, &cor, &id);
+    TAB_Deturpa(pLista, 7);
     TAB_VerificaTabuleiro(pLista, &numErros);
     TAB_DestruirTabuleiro(pLista);
+    printf("%d\n",numErros);
+    numErros = 0;
+    TAB_CriaLL((LIS_tppLista *)&pLista);
+    TAB_Deturpa(pLista, 4);
+    TAB_VerificaTabuleiro(pLista, &numErros);
+    printf("num erros: %d\n",numErros);
+    TAB_DestruirTabuleiro(pLista);
+    TAB_CriaLL((LIS_tppLista *)&pLista);
+    TAB_Deturpa(pLista, 1);
+    TAB_VerificaTabuleiro(pLista, &numErros);
+    printf("num erros: %d\n",numErros);
+    TAB_DestruirTabuleiro(pLista);
     
-    //Imprime(pLista);
-    printf("%c e %c\n",cor,id);
+    
     return 0;
 }
