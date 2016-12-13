@@ -287,7 +287,6 @@ LIS_tpCondRet LIS_IrProx(LIS_tppLista pLista) {
         pLista->pElemCorr = pElem ;
         return LIS_CondRetOK ;
     } /* if */
-    
     pLista->pElemCorr = pLista->pFimLista ;
     return LIS_CondRetFimLista ;
     
@@ -306,6 +305,7 @@ LIS_tpCondRet LIS_IrAnt(LIS_tppLista pLista) {
 #endif
     
     pElem = pLista->pElemCorr ;
+    printf("%d\n",pElem);
     pElem = pElem->pAnt ;
     
     if ( pElem != NULL )
@@ -485,16 +485,7 @@ LIS_tpCondRet LIS_insereTipo(LIS_tppLista pLista,LIS_tpEspaco tipo) {
 
 
 
-LIS_tpCondRet LIS_DeturpaEliminaCorrente(LIS_tppLista pLista) {
-    if(pLista == NULL) {
-        return LIS_CondRetListaNExiste;
-    }
-    if(pLista->pElemCorr == NULL) {
-        return LIS_CondRetListaVazia;
-    }
-    free(pLista->pElemCorr);
-    return LIS_CondRetOK;
-}
+
 
 LIS_tpCondRet LIS_DeturpaAtribuiNullOrigem(LIS_tppLista pLista) {
     if(pLista == NULL) {
@@ -512,14 +503,14 @@ LIS_tpCondRet LIS_DeturpaAtribuiNullFim(LIS_tppLista pLista) {
     return LIS_CondRetOK;
 }
 
-LIS_tpCondRet LIS_DeturpaAtribuiNullCorrente(LIS_tppLista pLista) {
+LIS_tpCondRet LIS_DeturpaAtribuiNullValorNo(LIS_tppLista pLista) {
     if(pLista == NULL) {
         return LIS_CondRetListaNExiste;
     }
     if(pLista->pElemCorr == NULL) {
         return LIS_CondRetListaVazia;
     }
-    pLista->pElemCorr = NULL;
+    pLista->pElemCorr->pValor = NULL;
     return LIS_CondRetOK;
 }
 
@@ -563,7 +554,7 @@ LIS_tpCondRet LIS_DeturpaAtribuiLixoAntecessor(LIS_tppLista pLista) {
     if(pLista->pElemCorr == NULL) {
         return LIS_CondRetListaVazia;
     }
-    pLista->pElemCorr->pProx = 12;
+    pLista->pElemCorr->pAnt = 12;
     return LIS_CondRetOK;
 }
 
@@ -630,16 +621,6 @@ LIS_tpCondRet LIS_DeturpaTrocaTipoLista(LIS_tppLista pLista,LIS_tpEspaco novoTip
     return LIS_CondRetOK;
 }
 
-LIS_tpCondRet LIS_DeturpaAtribuiNullValorNo(LIS_tppLista pLista) {
-    if (pLista == NULL) {
-        return LIS_CondRetListaNExiste;
-    }
-    if(pLista->pElemCorr == NULL) {
-        return LIS_CondRetListaVazia;
-    }
-    pLista->pElemCorr->pValor = NULL;
-    return LIS_CondRetOK;
-}
 
 LIS_tpCondRet LIS_RetornaAntecessor(LIS_tppLista pLista,void **antecessor) {
     
@@ -696,7 +677,8 @@ LIS_tpCondRet LIS_RetornaAnteriorDoProximo(LIS_tppLista pLista,void **antDoProx)
         return LIS_CondRetListaVazia;
     }
     if(pLista->pElemCorr->pProx != NULL) {
-        if(pLista->pElemCorr->pProx->pAnt != NULL) {
+        if(pLista->pElemCorr->pProx->pAnt != NULL && pLista->pElemCorr->pProx->pAnt != 12) {
+            printf("prox: %x\n",pLista->pElemCorr->pProx->pAnt);
             *antDoProx = pLista->pElemCorr->pProx->pAnt->pValor;
         }
     }
@@ -719,6 +701,9 @@ LIS_tpCondRet LIS_RetornaProximoDoAnterior(LIS_tppLista pLista,void **proxDoAnt)
 }
 
 LIS_tpEspaco LIS_RetornaTipoEspaco(LIS_tppLista pLista) {
+    if(pLista == NULL) {
+        return LIS_CondRetListaNExiste;
+    }
 	return pLista->tipo;
 }
 

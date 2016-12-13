@@ -323,7 +323,6 @@ LIS_tpCondRet LIS_DestroiLista(LIS_tppLista lista);
 
 #ifdef _DEBUG
 
-LIS_tpCondRet LIS_DeturpaEliminaCorrente(LIS_tppLista pLista);
 
 LIS_tpCondRet LIS_DeturpaAtribuiNullSucessor(LIS_tppLista pLista);
 
@@ -334,8 +333,6 @@ LIS_tpCondRet LIS_DeturpaAtribuiLixoSucessor(LIS_tppLista pLista);
 LIS_tpCondRet LIS_DeturpaAtribuiLixoAntecessor(LIS_tppLista pLista);
 
 LIS_tpCondRet LIS_DeturpaDesencadeiaSemFree(LIS_tppLista pLista);
-
-LIS_tpCondRet LIS_DeturpaAtribuiNullCorrente(LIS_tppLista pLista);
 
 LIS_tpCondRet LIS_DeturpaAtribuiNullOrigem(LIS_tppLista pLista);
 
