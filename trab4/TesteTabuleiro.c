@@ -83,7 +83,7 @@ int diminui1DeX(int coordX);
    {
 
       int  numLidos   = -1 ,
-          CondRetEsp = -1  ,acao,numErrosEsperados,numErrosEncontrados;
+          CondRetEsp = -1  ,acao,numErrosEsperados,numErrosEncontrados = 0;
 
       TST_tpCondRet CondRet;
 
