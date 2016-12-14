@@ -293,6 +293,7 @@ int diminui1DeX(int coordX);
                  return TST_CondRetParm ;
              }
              TAB_Deturpa(tabu,acao);
+			 return  TST_CondRetOK;
          }
        
          /*Testar Verificação do Tabuleiro */

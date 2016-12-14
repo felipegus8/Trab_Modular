@@ -85,7 +85,32 @@ typedef enum {
         #endif
    } TAB_tpCondRet ;
 
-
+ #ifdef _DEBUG
+ typedef enum {
+	 TAB_NenhumErroEncontrado,
+	 //Erros esperados
+	 TAB_ErroCabecaTabuleiroNula,
+	 /*Cabeça do Tabuleiro Nula em virtude da deturpacao*/
+	 TAB_ErroCabecaDaColunaNula,
+	 /*Cabeça da Primeira Coluna Nula em vitude da deturpacao*/
+	 TAB_ErroLinhaNula,
+	 /*Linha do Tabuleiro Nula em vitude da deturpacao*/
+	 TAB_ErroTipoLinha,
+	 /*Tipo da estrutura que armazenada a linha do Tabuleiro diferente do esperado em virtude da deturpacao*/
+	 TAB_ErroTipoNoCasaTabuleiro,
+	 /*Tipo da estrutura que armazena a casa do Tabuleiro diferente do esperado em virtude da deturpacao */
+	 TAB_ErroLinhaAntecessoraNula,
+	 /*Linha do Tabuleiro e nula em virtude da Deturpacao*/
+	 TAB_ErroLinhaAntecessoraNaoNula,
+	 /*Linha do Tabuleiro nao é nula quando deveria ser pela deturpacao*/
+	 TAB_ErroLinhaAntecessoraLixo,
+	 /*Linha do Tabuleiro contem lixo de memoria em funçao da deturpacao*/
+	 TAB_ErroCasasEstaoNasPosicoesErradas,
+	 /*Casas do Tabuleiro estão em posicoes diferentes das esperadas em função da deturpacao */
+	 TAB_ErroLinhaSucessoraNula,
+	 /*Linha do Tabuleiro e nula em virtude da Deturpacao*/
+ }TAB_DeturpaCondRet;
+ #endif
 
 /* Tipo Casa */
 typedef struct casa* pCasa;
