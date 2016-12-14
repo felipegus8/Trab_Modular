@@ -1,0 +1,55 @@
+// Script:    TesteTabuleiro.script
+// Autor:     Felipe Viberti,Luis Claudio,Victor Nogueira
+// Data:      12/Dez/2016
+// Propósito: Testar o módulo tabuleiro
+// Esse script testa as deturpações no módulo Tabuleiro
+
+==Inicializar valores  
+//Parâmetros para a deturpação
+=declararparm   EliminarCasaAtual                  int      1
+=declararparm   AtribuirNullParaCasaSucessora      int      2
+=declararparm   AtribuirNullParaCasaAntecessora    int      3
+=declararparm   AtribuirLixoParaCasaSucessora      int      4 
+=declararparm   AtribuirLixoParaCasaAntecessora    int      5
+=declararparm   AtribuirNullPonteiroApontadoCasa   int      6
+=declararparm   AlterarTipoEstruturaDasLinhas      int      7
+=declararparm   DestacarLinhaTabuleiroSemFree      int      8 
+=declararparm   AtribuirNullLinhaAtual             int      9
+=declararparm   AtribuirMesmoEspaçoDeMemoriaDuasCasasDiferentes     int   10
+=declararparm   AtribuirNullParaOrigem                              int   11
+=declararparm   AtribuirNullParaFinal                               int   12
+=declararparm   AlterarNumeroDeLinhasTabuleiro      int   13
+=declararparm   DestacarCasaTabuleiroSemFree        int   14
+=declararparm   AtribuirNullCasaAtual               int   15
+=declararparm   AlterarTipoEstruturaDasCasas        int   16
+=declararparm   EliminarColunaAtualTabuleiro        int   17
+=declararparm   AlterarNumeroDeColunasTabuleiro     int   18
+
+
+=declararparm    torre    char    'T'
+
+=declararparm    int0      int    0
+=declararparm    int1      int    1
+=declararparm    int2      int    2
+=declararparm    int3      int    3
+=declararparm    int4      int    4
+=declararparm    int5      int    5
+=declararparm    int6      int    6
+=declararparm    int7      int    7
+=declararparm    int8      int    8
+
+
+==Parte que cria um tabuleiro
+=criartabuleiro         int8   int8  OK
+
+==Insere Peca(torre branca)
+=inserepeca int0 charA  charB   torre  OK
+
+==Testar deturpacao de eliminar a casa atual
+=deturpa   EliminarCasaAtual
+
+==Verificar se a deturpação resultou no esperado
+=verifica int1
+
+==Destruir Tabuleiro
+=destruirtabuleiro OK

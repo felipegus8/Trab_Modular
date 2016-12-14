@@ -42,26 +42,6 @@
 =declararparm   AmecantesNaoExiste     int  6
 =declararparm   MovimentoIrregular     int  7 
 
-//Parâmetros para a deturpação
-=declararparm   EliminarCasaAtual                  int      1
-=declararparm   AtribuirNullParaCasaSucessora      int      2
-=declararparm   AtribuirNullParaCasaAntecessora    int      3
-=declararparm   AtribuirLixoParaCasaSucessora      int      4 
-=declararparm   AtribuirLixoParaCasaAntecessora    int      5
-=declararparm   AtribuirNullPonteiroApontadoCasa   int      6
-=declararparm   AlterarTipoEstruturaDasLinhas      int      7
-=declararparm   DestacarLinhaTabuleiroSemFree      int      8 
-=declararparm   AtribuirNullLinhaAtual             int      9
-=declararparm   AtribuirMesmoEspaçoDeMemoriaDuasCasasDiferentes     int   10
-=declararparm   AtribuirNullParaOrigem                              int   11
-=declararparm   AtribuirNullParaFinal                               int   12
-=declararparm   AlterarNumeroDeLinhasTabuleiro      int   13
-=declararparm   DestacarCasaTabuleiroSemFree        int   14
-=declararparm   AtribuirNullCasaAtual               int   15
-=declararparm   AlterarTipoEstruturaDasCasas        int   16
-=declararparm   EliminarColunaAtualTabuleiro        int   17
-=declararparm   AlterarNumeroDeColunasTabuleiro     int   18
-
 == Inicializar contadores
 =inicializarcontadores ""
 =lercontadores "Contadores"
@@ -171,7 +151,6 @@
 
 ==Destruir Tabuleiro
 =destruirtabuleiro OK
-
 
 == Verificar vazamento de memória
 =obternumeroespacosalocados 0
