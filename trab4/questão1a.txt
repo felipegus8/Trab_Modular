@@ -57,14 +57,18 @@ Termino da repetição
 
 Argumentação de seleção 
 AE && (C == TRUE) + B4 -> AS
+-Vale a AE e executará o B4, isso vai resultar na AS
 AE && (C == FALSE) -> AS
+-Vale a AE e esse teste vai gerar a AS
 Argumentação de sequencia
 AE:Recebe o nome corrente e o nome procurado
 AS: Sai do teste
 AI4: Retorna que achou o nome procurado
 Argumentação de seleção
 AE && (C == TRUE) + B5 -> AS
+-Vale a AE e executará o B5, isso vai resultar na AS
 AE && (C == FALSE) + B6 -> AS
+-Vale a AE e executará o B6, isso vai resultar na AS
 Argumentação de sequencia
 AE: Recebe o nome corrente e o nome procurado
 AS: Sai do teste
