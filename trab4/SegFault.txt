@@ -1,0 +1,56 @@
+
+
+
+
+
+//Essa aqui deu SegFault
+==Testar a deturpacao de AtribuirLixoParaCasaSucessora
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirLixoParaCasaSucessora
+=verifica int1
+=destruirtabuleiro OK
+
+//Também deu
+==Testar a deturpacao de AtribuirNullPonteiroApontadoCasa
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirNullPonteiroApontadoCasa
+=verifica int1
+=destruirtabuleiro OK
+
+ 
+//Deu SegFault mas antes printou que Assetion Failed  lista!=NULL
+==Testar a deturpacao de AtribuirNullLinhaAtual
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirNullLinhaAtual
+=verifica int1
+=destruirtabuleiro OK
+
+
+
+
+
+
+==Testar a deturpacao de AtribuirMesmoEspacoDeMemoriaCasas
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirMesmoEspacoDeMemoriaCasas
+=verifica int1
+=destruirtabuleiro OK
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

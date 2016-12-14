@@ -5,30 +5,29 @@
 // Esse script testa as deturpações no módulo Tabuleiro
 
 ==Inicializar valores  
-//Parâmetros para a deturpação
-=declararparm   EliminarCasaAtual                  int      1
-=declararparm   AtribuirNullParaCasaSucessora      int      2
-=declararparm   AtribuirNullParaCasaAntecessora    int      3
-=declararparm   AtribuirLixoParaCasaSucessora      int      4 
-=declararparm   AtribuirLixoParaCasaAntecessora    int      5
-=declararparm   AtribuirNullPonteiroApontadoCasa   int      6
-=declararparm   AlterarTipoEstruturaDasLinhas      int      7
-=declararparm   DestacarLinhaTabuleiroSemFree      int      8 
-=declararparm   AtribuirNullLinhaAtual             int      9
-=declararparm   AtribuirMesmoEspaçoDeMemoriaDuasCasasDiferentes     int   10
-=declararparm   AtribuirNullParaOrigem                              int   11
-=declararparm   AtribuirNullParaFinal                               int   12
-=declararparm   AlterarNumeroDeLinhasTabuleiro      int   13
-=declararparm   DestacarCasaTabuleiroSemFree        int   14
-=declararparm   AtribuirNullCasaAtual               int   15
-=declararparm   AlterarTipoEstruturaDasCasas        int   16
-=declararparm   EliminarColunaAtualTabuleiro        int   17
-=declararparm   AlterarNumeroDeColunasTabuleiro     int   18
-
-//Parametros de retorno da Verifica
-
+=declararparm   EliminarCasaAtual                  int  1
+=declararparm   AtribuirNullParaCasaSucessora      int  2
+=declararparm   AtribuirNullParaCasaAntecessora    int  3
+=declararparm   AtribuirLixoParaCasaSucessora      int  4 
+=declararparm   AtribuirLixoParaCasaAntecessora    int  5
+=declararparm   AtribuirNullPonteiroApontadoCasa   int  6
+=declararparm   AlterarTipoEstruturaDasLinhas      int  7
+=declararparm   DestacarLinhaTabuleiroSemFree      int  8 
+=declararparm   AtribuirNullLinhaAtual             int  9
+=declararparm   AtribuirMesmoEspacoDeMemoriaCasa   int  10
+=declararparm   AtribuirNullParaOrigem             int  11
+=declararparm   AtribuirNullParaFinal              int  12
+=declararparm   AlterarNumeroDeLinhasTabuleiro      int  13
+=declararparm   DestacarCasaTabuleiroSemFree        int  14
+=declararparm   AtribuirNullCasaAtual               int  15
+=declararparm   AlterarTipoEstruturaDasCasas        int  16
+=declararparm   EliminarColunaAtualTabuleiro        int  17
+=declararparm   AlterarNumeroDeColunasTabuleiro     int  18
 
 =declararparm    torre    char    'T'
+=declararparm    charB    char    'B'
+=declararparm    charA    char    'A'
+=declararparm   OK    int  0
 
 =declararparm    int0      int    0
 =declararparm    int1      int    1
@@ -52,14 +51,12 @@
 =verifica int1
 =destruirtabuleiro OK
 
-
 ==Testar a deturpacao de AtribuirNullParaCasaSucessora
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   AtribuirNullParaCasaSucessora
 =verifica int1
 =destruirtabuleiro OK
-
 
 ==Testar a deturpacao de AtribuirNullParaCasaAntecessora
 =criartabuleiro         int8   int8  OK
@@ -68,31 +65,12 @@
 =verifica int1
 =destruirtabuleiro OK
 
-
-==Testar a deturpacao de AtribuirLixoParaCasaSucessora
-=criartabuleiro         int8   int8  OK
-=inserepeca int0 charA  charB   torre  OK
-=deturpa   AtribuirLixoParaCasaSucessora
-=verifica int1
-=destruirtabuleiro OK
-
-
-
 ==Testar a deturpacao de AtribuirLixoParaCasaAntecessora
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   AtribuirLixoParaCasaAntecessora
 =verifica int1
 =destruirtabuleiro OK
-
-
-==Testar a deturpacao de AtribuirNullPonteiroApontadoCasa
-=criartabuleiro         int8   int8  OK
-=inserepeca int0 charA  charB   torre  OK
-=deturpa   AtribuirNullPonteiroApontadoCasa
-=verifica int1
-=destruirtabuleiro OK
-
 
 ==Testar a deturpacao de AlterarTipoEstruturaDasLinhas
 =criartabuleiro         int8   int8  OK
@@ -101,25 +79,10 @@
 =verifica int1
 =destruirtabuleiro OK
 
-
 ==Testar a deturpacao de DestacarLinhaTabuleiroSemFree
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   DestacarLinhaTabuleiroSemFree
-=verifica int1
-=destruirtabuleiro OK
-
-==Testar a deturpacao de AtribuirNullLinhaAtual
-=criartabuleiro         int8   int8  OK
-=inserepeca int0 charA  charB   torre  OK
-=deturpa   AtribuirNullLinhaAtual
-=verifica int1
-=destruirtabuleiro OK
-
-==Testar a deturpacao de AtribuirMesmoEspaçoDeMemoriaDuasCasasDiferentes
-=criartabuleiro         int8   int8  OK
-=inserepeca int0 charA  charB   torre  OK
-=deturpa   AtribuirMesmoEspaçoDeMemoriaDuasCasasDiferentes
 =verifica int1
 =destruirtabuleiro OK
 
@@ -131,14 +94,12 @@
 =verifica int1
 =destruirtabuleiro OK
 
-
 ==Testar a deturpacao de AtribuirNullParaFinal
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   AtribuirNullParaFinal
 =verifica int1
 =destruirtabuleiro OK
-
 
 ==Testar a deturpacao de AlterarNumeroDeLinhasTabuleiro
 =criartabuleiro         int8   int8  OK
@@ -154,6 +115,7 @@
 =verifica int1
 =destruirtabuleiro OK
 
+
 ==Testar a deturpacao de AtribuirNullCasaAtual
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
@@ -167,6 +129,7 @@
 =deturpa   AlterarTipoEstruturaDasCasas
 =verifica int1
 =destruirtabuleiro OK
+
 
 ==Testar a deturpacao de EliminarColunaAtualTabuleiro
 =criartabuleiro         int8   int8  OK

@@ -15,8 +15,8 @@ erro-CorrenteNuloENumElemNulo
 erro-CabeçaDoTabuleiroNula
 erro-CabecaDaColunaNula
 erro-LinhaNula
-erro-tipoLinha
-erro-tipoNoCasa
+erro-TipoLinha
+erro-TipoNoCasa
 erro-LinhaAntecessoraNula
 erro-LinhaAntecessoraNaoNula
 erro-LinhaAntecessoraLixo
