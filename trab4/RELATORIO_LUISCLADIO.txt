@@ -1,5 +1,5 @@
 ﻿Data            Horas Trabalhadas       	Tipo Tarefa                                     			Descrição da Tarefa Realizada
-26/11/2015	30 minutos	Estudei	em grupo por video conferencia com meus colegas 		Estudo dos módulos CONTA e CESPDIN
-26/11/2015	2 horas		Codificar módulo gerando deturpações							Modificação do módulo TABULEIRO
-27/11/2015	3 horas		Codificar módulo												Modificação do módulo TABULEIRO
-27/11/2015	2 horas		Diagnosticar e corrigir os problemas encontrados				Correção de Bugs
+6/12/2016	30 minutos	Estudei	em grupo por video conferencia com meus colegas 		Estudo dos módulos CONTA e CESPDIN
+9/12/2016	2 horas		Codificar módulo gerando deturpações							Modificação do módulo TABULEIRO
+12/12/2016	3 horas		Codificar módulo												Modificação do módulo TABULEIRO
+14/12/2016	2 horas		Diagnosticar e corrigir os problemas encontrados				Correção de Bugs
