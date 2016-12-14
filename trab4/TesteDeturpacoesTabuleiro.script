@@ -1,4 +1,4 @@
-// Script:    TesteTabuleiro.script
+// Script:    TesteDeturpacoesTabuleiro.script
 // Autor:     Felipe Viberti,Luis Claudio,Victor Nogueira
 // Data:      12/Dez/2016
 // Propósito: Testar o módulo tabuleiro
@@ -25,6 +25,8 @@
 =declararparm   EliminarColunaAtualTabuleiro        int   17
 =declararparm   AlterarNumeroDeColunasTabuleiro     int   18
 
+//Parametros de retorno da Verifica
+
 
 =declararparm    torre    char    'T'
 
@@ -38,18 +40,153 @@
 =declararparm    int7      int    7
 =declararparm    int8      int    8
 
+== Inicializar contadores
+=inicializarcontadores ""
+=lercontadores "Contadores"
+=iniciarcontagem
 
-==Parte que cria um tabuleiro
+==Testar a deturpacao de eliminar a casa Atual
 =criartabuleiro         int8   int8  OK
-
-==Insere Peca(torre branca)
 =inserepeca int0 charA  charB   torre  OK
-
-==Testar deturpacao de eliminar a casa atual
 =deturpa   EliminarCasaAtual
-
-==Verificar se a deturpação resultou no esperado
 =verifica int1
-
-==Destruir Tabuleiro
 =destruirtabuleiro OK
+
+
+==Testar a deturpacao de AtribuirNullParaCasaSucessora
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirNullParaCasaSucessora
+=verifica int1
+=destruirtabuleiro OK
+
+
+==Testar a deturpacao de AtribuirNullParaCasaAntecessora
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirNullParaCasaAntecessora
+=verifica int1
+=destruirtabuleiro OK
+
+
+==Testar a deturpacao de AtribuirLixoParaCasaSucessora
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirLixoParaCasaSucessora
+=verifica int1
+=destruirtabuleiro OK
+
+
+
+==Testar a deturpacao de AtribuirLixoParaCasaAntecessora
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirLixoParaCasaAntecessora
+=verifica int1
+=destruirtabuleiro OK
+
+
+==Testar a deturpacao de AtribuirNullPonteiroApontadoCasa
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirNullPonteiroApontadoCasa
+=verifica int1
+=destruirtabuleiro OK
+
+
+==Testar a deturpacao de AlterarTipoEstruturaDasLinhas
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AlterarTipoEstruturaDasLinhas
+=verifica int1
+=destruirtabuleiro OK
+
+
+==Testar a deturpacao de DestacarLinhaTabuleiroSemFree
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   DestacarLinhaTabuleiroSemFree
+=verifica int1
+=destruirtabuleiro OK
+
+==Testar a deturpacao de AtribuirNullLinhaAtual
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirNullLinhaAtual
+=verifica int1
+=destruirtabuleiro OK
+
+==Testar a deturpacao de AtribuirMesmoEspaçoDeMemoriaDuasCasasDiferentes
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirMesmoEspaçoDeMemoriaDuasCasasDiferentes
+=verifica int1
+=destruirtabuleiro OK
+
+
+==Testar a deturpacao de AtribuirNullParaOrigem
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirNullParaOrigem
+=verifica int1
+=destruirtabuleiro OK
+
+
+==Testar a deturpacao de AtribuirNullParaFinal
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirNullParaFinal
+=verifica int1
+=destruirtabuleiro OK
+
+
+==Testar a deturpacao de AlterarNumeroDeLinhasTabuleiro
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AlterarNumeroDeLinhasTabuleiro
+=verifica int1
+=destruirtabuleiro OK
+
+==Testar a deturpacao de DestacarCasaTabuleiroSemFree
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   DestacarCasaTabuleiroSemFree
+=verifica int1
+=destruirtabuleiro OK
+
+==Testar a deturpacao de AtribuirNullCasaAtual
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AtribuirNullCasaAtual
+=verifica int1
+=destruirtabuleiro OK
+
+==Testar a deturpacao de AlterarTipoEstruturaDasCasas
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AlterarTipoEstruturaDasCasas
+=verifica int1
+=destruirtabuleiro OK
+
+==Testar a deturpacao de EliminarColunaAtualTabuleiro
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   EliminarColunaAtualTabuleiro
+=verifica int1
+=destruirtabuleiro OK
+
+==Testar a deturpacao de AlterarNumeroDeColunasTabuleiro
+=criartabuleiro         int8   int8  OK
+=inserepeca int0 charA  charB   torre  OK
+=deturpa   AlterarNumeroDeColunasTabuleiro
+=verifica int1
+=destruirtabuleiro OK
+
+== Verificar vazamento de memória
+=obternumeroespacosalocados 0
+
+== Gravar contadores
+=registraracumulador "Resultado"
+
+== Terminar contagem
+=terminarcontadores
