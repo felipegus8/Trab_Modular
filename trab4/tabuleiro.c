@@ -179,7 +179,8 @@ TAB_tpCondRet TAB_Deturpa(LIS_tppLista tabu,int acao) {
             LIS_DeturpaAtribuiLixoAntecessor(noCabecas);
             break;
         case 6:
-            LIS_AlterarNoCorrente(tabu, NULL);
+            LIS_AlterarNoCorrente(tabu, (void **)&noCabecas);
+	    LIS_DeturpaAtribuiNullValorNo(noCabecas);
             break;
         case 7:
             LIS_ObterNo(tabu, (void **)&noCabecas);
