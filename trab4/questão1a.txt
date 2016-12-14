@@ -44,10 +44,16 @@ Argumentação de repetição
 AE: Rebece um no corrente
 AS: para a repetição
 AE -> AINV
+-Pela AE corrente então não é nulo
 AE && (C == F) -> AS
+-Pela AE corrente é nulo
 AE && (C == V) + B2 -> AINV
+-Pela AE corrente não é nulo e irá executar o bloco B2, primeira repetição está ok
 AINV && (C == V) + B2 -> AINV
+-A AINV é valida e B2 executa o garantinho uma proxima repetição
 AINV && (C == F) -> AS
+-A AINV neste caso saiu correto depois das n iterações 
+Termino da repetição
 
 Argumentação de seleção 
 AE && (C == TRUE) + B4 -> AS
