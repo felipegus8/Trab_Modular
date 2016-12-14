@@ -307,7 +307,7 @@ void TAB_VerificaCabecaLista(LIS_tppLista cabecaLista,int *numErros) {
 TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
     int i, j,Iterador,EstaAtivo,TipoEspaco,numEspacos;
 	LIS_tpEspaco tipoNoCabecaListaCabecas,tipoNoCabecaListaCasas;
-    void *noSucessor,*noAntecessor,*noAntDoProx,*noProxDoAnt;
+    void *noSucessor,*noAntecessor,*noAntDoProx,*noProxDoAnt,*PonteiroVoid;
     LIS_tppLista noCabeca;
     pCasa noCasa;
     LIS_tpCondRet retLis;
@@ -524,7 +524,7 @@ TAB_tpCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
         TipoEspaco = CED_ObterTipoEspaco(PonteiroVoid);
 		if(TipoEspaco ==  LIS_tpCabeca || TipoEspaco ==  LIS_tpElemLista || TipoEspaco ==  LIS_tpCasa) {
 			if(EstaAtivo == 0) {
-				CNT_CONTAR("erro-VazamentoDeMemoria",__LINE__);
+				CNT_Contar("erro-VazamentoDeMemoria",__LINE__);
 				CED_TerminarIteradorEspacos();
 			}
 		}
