@@ -1,0 +1,68 @@
+//Procurar um determinado nome dentro de uma arvore binária chamada de arvo
+//arvo contem nome/telefone em seu no
+//aux = recebe um ponteiro com o ponteiro da raiz
+AE 
+{
+	// Vai para o primeiro elemento
+	AI1 
+	ARV_Ir_Raiz(arvo);
+	// aux aponta para o ponteiro
+	AI2
+	ARV_ObtemNoCorr(arvo, aux)
+	A_De_Repetição
+	enquanto(aux != NULL)
+	{
+		A_De_Seleção
+		se(aux->nome == nome)
+			A_de_Sequencia
+			A14
+			retorno ARV_tp_CondRet_Achou
+		A_De_Seleção
+		se(aux->nome > nome)
+			//Vai para o no da esquerda
+			A_de_Sequencia
+			AI5
+			ARV_Ir_Esq(aux)
+		senao
+			//Vai para o no da direita
+			A_de_Sequencia
+			AI6
+			ARV_Ir_Dir(aux)
+	}
+	AI3
+	retorna ARV_tp_ContRet_Nao_Achou
+}
+AS 
+
+Argumentação de sequencia
+AE: Rebece uma arvore e um nome
+AS: aux aponta para o elemento achado ou aux não aponta pra ninguém
+AI1: Arvore é inicializada na raiz
+AI2: aux aponta para o elemento corrente
+
+Argumentação de repetição
+AE: Rebece um no corrente
+AS: para a repetição
+AE -> AINV
+AE && (C == F) -> AS
+AE && (C == V) + B2 -> AINV
+AINV && (C == V) + B2 -> AINV
+AINV && (C == F) -> AS
+
+Argumentação de seleção 
+AE && (C == TRUE) + B4 -> AS
+AE && (C == FALSE) -> AS
+Argumentação de sequencia
+AE:Recebe o nome corrente e o nome procurado
+AS: Sai do teste
+AI4: Retorna que achou o nome procurado
+Argumentação de seleção
+AE && (C == TRUE) + B5 -> AS
+AE && (C == FALSE) + B6 -> AS
+Argumentação de sequencia
+AE: Recebe o nome corrente e o nome procurado
+AS: Sai do teste
+AI5: Vai para o filho a esquerda
+AI6: Vai para o filho a direita
+
+AI3: retorna que não achou o elemento
