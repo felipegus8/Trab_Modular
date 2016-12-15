@@ -2,7 +2,7 @@
 
 08/12 - 1h:Correção de alguns bugs que apareceram quando fui rodar o código feito pelo grupo no arcabouço.
 
-14/12 - 2h:Fiz o script para testar as deturpações  no módulo Tabuleiro.Rodei e inicialmente tive alguns problemas de SegFault em alguns casos de teste mas depois consegui corrigir.
+14/12 - 2h:Fiz o script para testar as deturpações  no módulo Tabuleiro.Rodei e inicialmente tive alguns problemas de SegFault em alguns casos de teste mas depois consegui corrigir.Fiz os arquivos .count que estavam faltando.
 
 15/12 - 30min:Fiz o leia-me.
 
