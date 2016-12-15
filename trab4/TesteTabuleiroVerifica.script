@@ -1,8 +1,8 @@
-// Script:    TesteTabuleiro.script
+// Script:    TesteTabuleiroDebug.script
 // Autor:     Felipe Viberti,Luis Claudio,Victor Nogueira
 // Data:      06/Oct/2016
 // Propósito: Testar o módulo tabuleiro
-// Esse script inicializa um tabuleiro tradicional de xadrez com todas as peças exceto os peões
+// Esse script inicializa um tabuleiro tradicional de xadrez com todas as peças exceto os peões e testa o verificador.
 
  ==Inicializar valores  
 =declararparm    int0      int    0
@@ -42,109 +42,142 @@
 =declararparm   AmecantesNaoExiste     int  6
 =declararparm   MovimentoIrregular     int  7 
 
-
+== Inicializar contadores
+=inicializarcontadores ""
+=lercontadores "Contadores"
+=iniciarcontagem
 
 ==Parte que cria um tabuleiro
 =criartabuleiro         int8   int8  OK
+=verifica 0
 
 ==Insere Peca(torres brancas e pretas)
 =inserepeca int0 charA  charB   torre  OK
 =inserepeca int0 charH  charB   torre  OK
 =inserepeca int7 charA  charP   torre  OK
 =inserepeca int7 charH  charP   torre  OK
+=verifica 0
 
 ==Insere Peca(rainhas branca e preta)
 =inserepeca int0  charD  charB  rainha  OK
 =inserepeca int7  charD  charP  rainha  OK
+=verifica 0
 
 ==Insere Peca(bispos brancos e pretos)
 =inserepeca int0 charC charB  charB OK
 =inserepeca int0 charF charB  charB OK
 =inserepeca int7 charC charP  charB OK
 =inserepeca int7 charF charP  charB OK
+=verifica 0
 
 ==Insere Peca(cavalos brancos e pretos)
 =inserepeca int0 charB charB  charC  OK
 =inserepeca int0 charG charB  charC  OK
 =inserepeca int7 charB charP  charC  OK
 =inserepeca int7 charG charP  charC  OK
+=verifica 0
 
 ==Insere Peca(reis branco e preto)
 =inserepeca int0 charE charB rei  OK
 =inserepeca int7 charE charP rei  OK
+=verifica 0
 
 ==Insere Peca(nova peca)
 =inserepeca int2 charF  charB  charH OK
+=verifica 0
 
 ==Obter Peca(torres)
 =obterpeca int0 charA  charB   torre  OK
 =obterpeca int0 charH  charB   torre  OK
 =obterpeca int7 charA  charP   torre  OK
 =obterpeca int7 charH  charP   torre  OK 
+=verifica 0
 
 
 ==Obter Peca(rainhas)
 =obterpeca  int0  charD  charB  rainha  OK
 =obterpeca  int7  charD  charP  rainha  OK
+=verifica 0
 
 ==Obter Peca(bispos)
 =obterpeca int0 charC charB  charB OK
 =obterpeca int0 charF charB  charB OK
 =obterpeca int7 charC charP  charB OK
 =obterpeca int7 charF charP  charB OK
+=verifica 0
 
 ==Obter Peca(cavalos)
 =obterpeca int0 charB charB  charC  OK
 =obterpeca int0 charG charB  charC  OK
 =obterpeca int7 charB charP  charC  OK
 =obterpeca int7 charG charP  charC  OK
+=verifica 0
 
 ==Obter Peca(reis)
 =obterpeca int0 charE charB rei  OK
 =obterpeca int7 charE charP rei  OK
+=verifica 0
 
 ==Obter Peca(nova peca)
 =obterpeca int2 charF  charB  charH OK
+=verifica 0
 
 ==Verificar se uma peca não captura outra da mesma cor
 =inserepeca int1 charA  charB  rainha  OK
 =moverpeca int0 charA int1 charA MovimentoIrregular
 =obterpeca int0 charA charB torre OK
 =obterpeca int1  charA  charB rainha  OK
+=verifica 0
 
 ==MoverPeca(mover a torre branca de forma irregular)
 =moverpeca int0 charA int5 charA MovimentoIrregular
+=verifica 0
 
 ==MoverPeca(mover a torre de forma errada)
 =moverpeca int7 charA  int3  charH  MovimentoIrregular
+=verifica 0
 
 ==MoverPeca(mover o bispo de forma errada)
 =moverpeca int0 charC  int0 charH  MovimentoIrregular
+=verifica 0
 
 
 ==Obter lista ameacados
 =obterlistaameacados  int0 charA  pNaoNull
+=verifica 0
 
 ==Obter lista ameacantes
 =obterlistaameacantes  int0 charA  pNaoNull
+=verifica 0
 
 ==Verificar se casa onde a torre se encontrava está vazia
 =obterpeca int0 charA charV charV OK
+=verifica 0
 
 ==MoverPeca(mover a rainha branca de forma irregular)
 =moverpeca int0  charD int3 charG MovimentoIrregular
+=verifica 0
 
 ==Verificar se casa onde a rainha se encontrava está vazia
 =obterpeca int0 charD charV charV OK
-
-==MoverPeca(mover a outra torre branca para capturar a torre preta)
-=moverpeca int0  charH  int7 charH ComeuPeca
+=verifica 0
 
 ==Verificar se a torre branca capturou a preta
 =obterpeca int7 charH charB torre OK
+=verifica 0
 
 ==Verificar se a casa onde a torre branca estava ficou vazia
 =obterpeca int0 charH charV  charV  OK
+=verifica 0
 
 ==Destruir Tabuleiro
 =destruirtabuleiro OK
+
+== Verificar vazamento de memória
+=obternumeroespacosalocados 0
+
+== Gravar contadores
+=registraracumulador "Resultado"
+
+== Terminar contagem
+=terminarcontadores

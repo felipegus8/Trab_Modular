@@ -5,6 +5,11 @@
 #include "lista.h"
 
 
+#ifdef _DEBUG
+#include "CESPDIN.H"
+#endif
+
+
 typedef struct tagElemLista {
     
     void * pValor ;
@@ -68,8 +73,9 @@ static void LimparCabeca( LIS_tppLista lista );
  *  Função: LIS  &Criar lista
  *  ****/
 //AE:A lista não possui nenhum elemento e deve receber ponteiro LIS_tppLista e um ponteiro com a id
+#ifdef _DEBUG
 LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,
-                             void   ( * ExcluirValor ) ( void * pDado ),LIS_tpEspaco tipo)
+	void   ( * ExcluirValor ) ( void * pDado ),LIS_tpEspaco tipo)
 {
     
     //LIS_tppLista * lista = NULL ;
@@ -84,10 +90,9 @@ LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,
         return LIS_CondRetFaltouMemoria ;
     } /* if */
     
-#ifdef _DEBUG
-    //CED_DefinirTipoEspaco(listaCopia,LIS_tpCabeca);
+    CED_DefinirTipoEspaco(listaCopia,tipo);
+	//CED_MarcarEspacoAtivo(listaCopia);
     listaCopia->tipo = tipo;
-#endif
     
     
     
@@ -106,6 +111,39 @@ LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,
     return LIS_CondRetOK;
     
 } /* Fim função: LIS  &Criar lista */
+#else 
+LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,
+	void   ( * ExcluirValor ) ( void * pDado ))
+{
+    
+    //LIS_tppLista * lista = NULL ;
+    
+	   LIS_tppLista listaCopia;
+    
+	   listaCopia = (LIS_tpLista *) malloc(sizeof(LIS_tpLista));
+	   
+    
+    if ( listaCopia == NULL )
+    {
+        return LIS_CondRetFaltouMemoria ;
+    } /* if */
+    
+    LimparCabeca(listaCopia );
+    
+    listaCopia->idLista = (char *) malloc(strlen(idLista) + 1);
+	   
+    strcpy(listaCopia->idLista,idLista);
+	   
+    listaCopia->ExcluirValor = ExcluirValor;
+    
+    
+    
+    *lista = listaCopia;
+    
+    return LIS_CondRetOK;
+    
+} /* Fim função: LIS  &Criar lista */
+#endif
 //AS: Uma lista foi criada com id e cabeça
 
 /***************************************************************************
@@ -135,7 +173,7 @@ LIS_tpCondRet LIS_InserirNo(LIS_tppLista pLista, void *pValor) {
     
     /* Criar elemento a inerir após */
     
-    pElem = CriarElemento( pLista , pValor ) ;
+    pElem = CriarElemento( pLista , pValor );
     if ( pElem == NULL )
     {
         return LIS_CondRetFaltouMemoria ;
@@ -401,7 +439,9 @@ tpElemLista * CriarElemento( LIS_tppLista lista ,
     } /* if */
     
 #ifdef _DEBUG
-    //CED_DefinirTipoEspaco(listaCopia,LIS_tpElemLista);
+    CED_DefinirTipoEspaco(pValor,LIS_tpElemLista);
+	//CED_MarcarEspacoAtivo(pElem);
+	//CED_MarcarEspacoAtivo(pValor);
 #endif
     
     
@@ -591,16 +631,6 @@ LIS_tpCondRet LIS_DeturpaDesencadeiaSemFree(LIS_tppLista pLista) {
     return LIS_CondRetOK;
 }
 
-LIS_tpCondRet LIS_DeturpaNosApontamIgual(LIS_tppLista pLista) {
-    if(pLista == NULL) {
-        return LIS_CondRetListaNExiste;
-    }
-    if(pLista->pElemCorr == NULL) {
-        return LIS_CondRetListaVazia;
-    }
-    pLista->pElemCorr->pValor = pLista->pFimLista->pValor;
-    return LIS_CondRetOK;
-}
 
 LIS_tpCondRet LIS_DeturpaTrocaNumElem(LIS_tppLista pLista) {
     if(pLista == NULL) {
@@ -646,27 +676,6 @@ LIS_tpCondRet LIS_RetornaSucessor(LIS_tppLista pLista,void **sucessor) {
     return LIS_CondRetOK;
 }
 
-LIS_tpCondRet LIS_RetornaOrigemLista(LIS_tppLista pLista, void **pOrigem) {
-    if(pLista == NULL) {
-        return LIS_CondRetListaNExiste;
-    }
-    if(pLista->pElemCorr == NULL) {
-        return LIS_CondRetListaVazia;
-    }
-    *pOrigem = pLista->pOrigemLista;
-    return LIS_CondRetOK;
-}
-
-LIS_tpCondRet LIS_RetornaFimLista(LIS_tppLista pLista, void **pFinal) {
-    if(pLista == NULL) {
-        return LIS_CondRetListaNExiste;
-    }
-    if(pLista->pElemCorr == NULL) {
-        return LIS_CondRetListaVazia;
-    }
-    *pFinal = pLista->pFimLista;
-    return LIS_CondRetOK;
-}
 
 LIS_tpCondRet LIS_RetornaAnteriorDoProximo(LIS_tppLista pLista,void **antDoProx) {
 	if(pLista == NULL) {
@@ -678,7 +687,6 @@ LIS_tpCondRet LIS_RetornaAnteriorDoProximo(LIS_tppLista pLista,void **antDoProx)
     }
     if(pLista->pElemCorr->pProx != NULL) {
         if(pLista->pElemCorr->pProx->pAnt != NULL && pLista->pElemCorr->pProx->pAnt != 12) {
-            printf("prox: %x\n",pLista->pElemCorr->pProx->pAnt);
             *antDoProx = pLista->pElemCorr->pProx->pAnt->pValor;
         }
     }

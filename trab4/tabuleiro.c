@@ -15,10 +15,14 @@
 #include <assert.h>
 #include <string.h>
 #include "Tabuleiro.h"
+
+
 #ifdef _DEBUG
-#include "CONTA.h"
-#include "CESPDIN.h"
+#include "Generico.h"
+#include "Conta.h"
+#include "CESPDIN.H"
 #endif
+
 char idListaPecas[5] = "PeLi"; //identificaÁ„o da lista de peÁas
 LIS_tppLista listaPecas;
 Peca *lis;
@@ -70,13 +74,20 @@ int verificaPeao(LIS_tppLista pLista,int posIniX,int posIniY,int posFimX,int pos
 TAB_tpCondRet TAB_CriaCasa(pCasa*casa,char cor,char id) {
     pCasa novo;
     novo = (Casa *) malloc(sizeof(Casa));
-#ifdef _DEBUG
-    CED_DefinirTipoEspaco(casa,LIS_tpCasa);
-#endif
+
     PEC_CriaPeca((Peca **)&(novo->elemento),cor,id);
-    LIS_CriarLista((LIS_tppLista *)&(novo->ameacados),a,destruirValor,LIS_tpElemLista);
-    LIS_CriarLista((LIS_tppLista *)&(novo->ameacantes),b,destruirValor,LIS_tpElemLista);
+	#ifdef _DEBUG
+    LIS_CriarLista((LIS_tppLista *)&(novo->ameacados),a,destruirValor,LIS_tpNoGenerico);
+    LIS_CriarLista((LIS_tppLista *)&(novo->ameacantes),b,destruirValor,LIS_tpNoGenerico);
+	#else
+		LIS_CriarLista((LIS_tppLista *)&(novo->ameacados),a,destruirValor);
+		LIS_CriarLista((LIS_tppLista *)&(novo->ameacantes),b,destruirValor);
+	#endif
     *casa = novo;
+	#ifdef _DEBUG
+		//CED_MarcarEspacoAtivo(casa);
+		CED_DefinirTipoEspaco(novo,LIS_tpCasa);
+	#endif
     return TAB_CondRetOK;
 }/* Fim função: TAB  &Criar Casa*/
 
@@ -89,7 +100,9 @@ TAB_tpCondRet TAB_CriaTabuleiro(ptTabuleiro *tabu) {
     ptTabuleiro novo;
     novo = (Tabuleiro *) malloc(sizeof(Tabuleiro));
     TAB_CriaLL(&novo->Casas);
-    novo->tamanho = 64;
+	#ifdef _DEBUG
+		novo->tamanho = 64;
+	#endif
     return TAB_CondRetOK;
 }
 
@@ -103,10 +116,18 @@ TAB_tpCondRet TAB_CriaLL(LIS_tppLista *pLista) {
     LIS_tppLista novo,novo2;
     Casa *novaCasa;
     int i,j;
-    LIS_CriarLista(&novo,idLL,destruirValor,LIS_tpCabeca);
+	#ifdef _DEBUG
+		LIS_CriarLista(&novo,idLL,destruirValor,LIS_tpCabeca);
+	#else
+		LIS_CriarLista(&novo,idLL,destruirValor);
+	#endif
     criarListaPecas();
     for(i=0;i<8;i++) {
-        LIS_CriarLista((LIS_tppLista *)&novo2,idLL,destruirValor,LIS_tpNoCasa);
+		#ifdef _DEBUG
+			LIS_CriarLista((LIS_tppLista *)&novo2,idLL,destruirValor,LIS_tpElemLista);
+		#else
+			LIS_CriarLista((LIS_tppLista *)&novo2,idLL,destruirValor);
+		#endif
         LIS_InserirNo(novo,(void *)novo2);
         for(j=0;j<8;j++) {
             TAB_CriaCasa((Casa **)&(novaCasa),'V','V');
@@ -155,6 +176,7 @@ TAB_tpCondRet TAB_Converte(LIS_tppLista pLista,int x,int y,pCasa *casa) {
 #ifdef _DEBUG
 TAB_tpCondRet TAB_Deturpa(LIS_tppLista tabu,int acao) {
     LIS_tppLista noCabecas;
+	printf("acao realizada %d\n",acao);
     switch (acao) {
         case 1:
             /*Elimina casa atual */
@@ -194,34 +216,24 @@ TAB_tpCondRet TAB_Deturpa(LIS_tppLista tabu,int acao) {
             LIS_AlterarNoCorrente(tabu, NULL);
             break;
         case 10:
-            LIS_ObterNo(tabu, (void **)&noCabecas);
-            LIS_DeturpaNosApontamIgual(noCabecas);
-            break;
-        case 11:
-            LIS_DeturpaAtribuiNullOrigem(tabu);
-            break;
-        case 12:
-            LIS_DeturpaAtribuiNullFim(tabu);
-            break;
-        case 13:
             /*altera numero de linhas*/
             LIS_DeturpaTrocaNumElem(tabu);
             break;
-        case 14:
+        case 11:
             LIS_ObterNo(tabu, (void **)&noCabecas);
             LIS_DeturpaDesencadeiaSemFree(noCabecas);
             break;
-        case 15:
+        case 12:
             LIS_ObterNo(tabu, (void **)&noCabecas);
             LIS_AlterarNoCorrente(noCabecas, NULL);
             break;
-        case 16:
+        case 13:
             LIS_DeturpaTrocaTipoLista(tabu, LIS_tpElemLista);
             break;
-        case 17:
+        case 14:
             /*Elimina coluna atual */
             LIS_ExcluirNoCorrente(tabu);
-        case 18:
+        case 15:
             /*altera numero de colunas */
             LIS_ObterNo(tabu, (void **)&noCabecas);
             LIS_DeturpaTrocaNumElem(noCabecas);
@@ -237,89 +249,32 @@ TAB_tpCondRet TAB_Deturpa(LIS_tppLista tabu,int acao) {
 
 #ifdef _DEBUG
 
-void TAB_VerificaCabecaLista(LIS_tppLista cabecaLista,int *numErros) {
-    void *pOrigem,*pFimLista,*pCorrente;
-    int passouOrigem = 0,numElem;
-    LIS_RetornaOrigemLista(cabecaLista, &pOrigem);
-    LIS_RetornaFimLista(cabecaLista, &pFimLista);
-	LIS_RetornaNumElementos(cabecaLista,&numElem);
-    LIS_ObterNo(cabecaLista, &pCorrente);
-    
-    if (pFimLista == NULL) {
-        printf("ta nulo\n");
-    }
-	
-    if(pOrigem == NULL) {
-        
-        printf("xaxando\n");
-        if(pFimLista != NULL) {
-            CNT_Contar("erro-OrigemNulaFimNaoNulo" , __LINE__ );
-			(*numErros)++;
-        }
-        LIS_ObterNo(cabecaLista, &pCorrente);
-        if(pCorrente != NULL) {
-            CNT_Contar("erro-OrigemNulaCorrenteNaoNulo" , __LINE__ );
-			(*numErros)++;
-        }
-        passouOrigem = 1;
-    }
-    if (pFimLista == NULL && passouOrigem == 0) {
-        printf("ceci bon\n");
-        CNT_Contar("erro-OrigemNaoNulaFimNulo", __LINE__ );
-		(*numErros)++;
-    }
-    
-	if(numElem>0) {
-		CNT_Contar("verifica-NumElemMaiorQueZero" , __LINE__ );
-		if(numElem == 1) {
-			CNT_Contar("verifica-NumElemIgualUm" , __LINE__ );
-			if(pOrigem == NULL) {
-				CNT_Contar("erro-OrigemNulaNumElemIgualUm" , __LINE__ );
-				(*numErros)++;
-			}
-			if(pOrigem != pFimLista) {
-				CNT_Contar("erro-FimDifInicio" , __LINE__ );
-				(*numErros)++;
-			}
-        } else if(numElem!= 8) {
-            (*numErros)++;
-            CNT_Contar("erro-numeroDeElementosInvalido",__LINE__);
-        }
-	} else {
-		if(pOrigem != NULL) {
-			CNT_Contar("erro-OrigemNulaENumElemNulo", __LINE__ );
-			(*numErros)++;
-		}
-		if(pFimLista != NULL) {
-			CNT_Contar("erro-FimNuloENumElemNulo", __LINE__ );
-			(*numErros)++;
-		}
-		if(pCorrente != NULL) {
-			CNT_Contar("erro-CorrenteNuloENumElemNulo", __LINE__ );
-			(*numErros)++;
-		}
-	}
-    printf("num erros no ver cabeca %d\n",*numErros);
-}
 
 
 TAB_DeturpaCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
-    int i, j,Iterador,EstaAtivo,TipoEspaco,numEspacos;
+    int i, j,Iterador,EstaAtivo,TipoEspaco,numEspacos,EhIgual,numLinhas,numColunas;
 	LIS_tpEspaco tipoNoCabecaListaCabecas,tipoNoCabecaListaCasas;
     void *noSucessor,*noAntecessor,*noAntDoProx,*noProxDoAnt,*PonteiroVoid;
     LIS_tppLista noCabeca;
     pCasa noCasa;
     LIS_tpCondRet retLis;
-   
-    CED_MarcarEspacoAtivo((void *)tabu);
-    
+   (*numErros) = 0;
+    printf("numErrosInicio:%d\n",*numErros);
+
+
+
     IrInicioLista(tabu);
     if (tabu == NULL) {
         CNT_Contar("erro-CabeçaDoTabuleiroNula", __LINE__ );
-		return TAB_ErroCabecaTabuleiroNula;
     } else {
         CNT_Contar("ok-CabeçaDoTabuleiroNaoNula", __LINE__ );
-        TAB_VerificaCabecaLista(tabu, numErros);
+		LIS_RetornaNumElementos(tabu,&numLinhas);
+		if(numLinhas == 8) {
+			CNT_Contar("ok-NumLinhasOk", __LINE__);
+		} else {
+			CNT_Contar("erro-NumLinhasErrado", __LINE__);
+			(*numErros)++;
+		}
     }
 	for(i=0;i<8;i++) {
 		retLis = LIS_ObterNo(tabu,(void **)&noCabeca);
@@ -327,35 +282,41 @@ TAB_DeturpaCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
         if(retLis == LIS_CondRetListaVazia) {
             CNT_Contar("erro-CabecaDaColunaNula",__LINE__);
             (*numErros)++;
-			return TAB_ErroCabecaDaColunaNula;
             //printf("passei aqui 1\n");
         } else {
         CNT_Contar("ok-CabecaDaColunaNaoNula",__LINE__);
         if(noCabeca == NULL) {
             CNT_Contar("erro-LinhaNula",__LINE__);
             (*numErros)++;
-            return TAB_ErroLinhaNula;
         } else {
             CNT_Contar("ok-LinhaNaoNula",__LINE__);
         }
 		LIS_RetornaAntecessor(tabu,&noAntecessor);
 		LIS_RetornaSucessor(tabu,&noSucessor);
         printf("(%d,%d)",i,j);
-            
-		TAB_VerificaCabecaLista(noCabeca,numErros);
+
+		
+		LIS_RetornaNumElementos(noCabeca, &numColunas);
+		printf("num Colunas %d\n",numColunas);
+		if(numColunas != 8) {
+			CNT_Contar("erro-NumColunasErrado",__LINE__);
+			(*numErros)++;
+		} else {
+			CNT_Contar("ok-NumColunasOk",__LINE__);
+		}
+		
+
 		tipoNoCabecaListaCabecas = LIS_RetornaTipoEspaco(tabu);
         if(tipoNoCabecaListaCabecas != LIS_tpCabeca) {
             CNT_Contar("erro-TipoLinha",__LINE__);
             (*numErros)++;
-			 return TAB_ErroTipoLinha;
         } else {
             CNT_Contar("ok-TipoLinhaValido",__LINE__);
         }
 		tipoNoCabecaListaCasas = LIS_RetornaTipoEspaco(noCabeca);
-        if (tipoNoCabecaListaCasas != LIS_tpNoCasa) {
+        if (tipoNoCabecaListaCasas != LIS_tpElemLista) {
             CNT_Contar("erro-TipoNoCasa",__LINE__);
             (*numErros)++;
-			return TAB_ErroTipoNoCasaTabuleiro;
         } else {
             CNT_Contar("ok-TipoNoCasaValido",__LINE__);
         }
@@ -365,7 +326,6 @@ TAB_DeturpaCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
 				if(i>0) {
 					CNT_Contar("erro-LinhaAntecessoraNula",__LINE__);
 					(*numErros)++;
-					return TAB_ErroLinhaAntecessoraNula;
 				}
 				
 			} else {
@@ -373,18 +333,15 @@ TAB_DeturpaCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
 				if(i == 0) {
 					CNT_Contar("erro-LinhaAntecessoraNaoNula",__LINE__);
 					(*numErros)++;
-					return TAB_ErroLinhaAntecessoraNaoNula;
 				}
 				if(noAntecessor == 12) {
 					CNT_Contar("erro-LinhaAntecessoraLixo",__LINE__);
 					(*numErros)++;
-					return  TAB_ErroLinhaAntecessoraLixo;
 				} else {
 					LIS_RetornaProximoDoAnterior(tabu,&noProxDoAnt);
 					if(noProxDoAnt != noCabeca) {
 						(*numErros)++;
 						CNT_Contar("erro-CasasEstaoNasPosicoesErradas",__LINE__);
-						 return TAB_ErroCasasEstaoNasPosicoesErradas;
                     } else {
                         CNT_Contar("ok-CasasEstaoNasPosicoesCertas",__LINE__);
                     }
@@ -394,7 +351,6 @@ TAB_DeturpaCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
 				if(i<7) {
 					CNT_Contar("erro-LinhaSucessoraNula",__LINE__);
 					(*numErros)++;
-					return TAB_ErroLinhaSucessoraNula;
                 } else {
                     CNT_Contar("ok-LinhaSucessoraNaoNula",__LINE__);
                 }
@@ -403,6 +359,8 @@ TAB_DeturpaCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
 				if(i == 7) {
 					CNT_Contar("erro-SucessorNaoNuloListaCabecas",__LINE__);
 					(*numErros)++;
+				} else {
+					
 				}
 				if(noSucessor == 12) {
 					CNT_Contar("erro-LinhaSucessoraInvalida",__LINE__);
@@ -445,10 +403,9 @@ TAB_DeturpaCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
                 }
                 
 			} else {
-				CNT_Contar("verifica-AntecessorNaoNuloListaCasas",__LINE__);
+				CNT_Contar("verifica-ColunaAnteriorNaoNula",__LINE__);
 				if(j == 0) {
-					CNT_Contar("erro-AntecessorNaoNuloListaCasas",__LINE__);
-                    
+					CNT_Contar("erro-ColunaAnteriorNaoNula",__LINE__);
 					(*numErros)++;
                 } else {
                     
@@ -461,7 +418,9 @@ TAB_DeturpaCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
 					LIS_RetornaProximoDoAnterior(noCabeca,&noProxDoAnt);
 					if(noProxDoAnt != noCasa) {
 						(*numErros)++;
-						CNT_Contar("erro-SucessorDoAnteriorDifCorrenteListaCasas",__LINE__);
+						CNT_Contar("erro-PosicionamentoDasCasas",__LINE__);
+					} else {
+						CNT_Contar("ok-PosicionamentoDasCasas",__LINE__);
 					}
 				}
 			}
@@ -480,17 +439,18 @@ TAB_DeturpaCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
 					(*numErros)++;
 				}
 				if(noSucessor == 12) {
+					printf("erro sucessor lixo lista casas\n");
 					CNT_Contar("erro-SucessorLixoListaCasas",__LINE__);
                     (*numErros)++;
                     break;
 				} else {
 					CNT_Contar("verifica-SucessorNaoLixoListaCasas",__LINE__);
-                        printf("suc: %x\n",noSucessor);
 					LIS_RetornaAnteriorDoProximo(noCabeca,&noAntDoProx);
 					if(noAntDoProx != noCasa) {
-                        printf("xaxando2\n");
 						(*numErros)++;
-						CNT_Contar("erro-AnteriorDoSucessorDifCorrenteListaCasas",__LINE__);
+						CNT_Contar("erro-PosicionamentoDasCasas",__LINE__);
+					} else {
+						CNT_Contar("ok-PosicionamentoDasCasas",__LINE__);
 					}
 				
                 }
@@ -502,32 +462,52 @@ TAB_DeturpaCondRet TAB_VerificaTabuleiro(LIS_tppLista tabu, int *numErros) {
         }/*else grande */
 		LIS_IrProx(tabu);
 	}
-    printf("num erros: %d\n",*numErros);
     
     /*Verifica se há dois nós casa iguais */
     
-    
-    
-    
-    
-    numEspacos = CED_ObterNumeroEspacosAlocados() ;
+ 
+
+	numEspacos = CED_ObterNumeroEspacosAlocados() ;
 
 	CED_InicializarIteradorEspacos() ;
-        
+
 	for(Iterador = 0;Iterador<numEspacos;Iterador++) {
-		PonteiroVoid = CED_ObterPonteiroEspacoCorrente();
-		EstaAtivo = CED_EhEspacoAtivo(PonteiroVoid);
-        TipoEspaco = CED_ObterTipoEspaco(PonteiroVoid);
-		if(TipoEspaco ==  LIS_tpCabeca || TipoEspaco ==  LIS_tpElemLista || TipoEspaco ==  LIS_tpCasa) {
-			if(EstaAtivo == 0) {
-				CNT_Contar("erro-VazamentoDeMemoria",__LINE__);
-				CED_TerminarIteradorEspacos();
-			}
+	EhIgual = 0;
+	PonteiroVoid = CED_ObterPonteiroEspacoCorrente();
+	TipoEspaco = CED_ObterTipoEspaco(PonteiroVoid);
+	//printf("ponteiro corrente: %x e %d e %d\n",PonteiroVoid,TipoEspaco,LIS_tpCabeca);
+	IrInicioLista(tabu);
+	if(tabu == PonteiroVoid) {
+		EhIgual = 1;
+	}
+	//printf("tabu %x\n",tabu);
+	if(TipoEspaco == LIS_tpCabeca || TipoEspaco ==  LIS_tpElemLista || TipoEspaco ==  LIS_tpCasa) {
+	for(i=0;i<8;i++) {
+		LIS_ObterNo(tabu,(LIS_tppLista *)&noCabeca);
+		if(noCabeca == PonteiroVoid) {
+			EhIgual = 1;
 		}
+		IrInicioLista(noCabeca);
+		for(j=0;j<8;j++) {
+			LIS_ObterNo(noCabeca,(pCasa *)&noCasa);
+			if(PonteiroVoid == noCasa) {
+				EhIgual = 1;
+			}
+			LIS_IrProx(noCabeca);
+		}
+		LIS_IrProx(tabu);
+	}
+		if(EhIgual == 0) {
+			CNT_Contar("erro-VazamentoDeMemoria",__LINE__);
+			(*numErros)++;
+		} else {
+			CNT_Contar("ok-SemVazamentoDeMemoria",__LINE__);
+		}
+	}
 		CED_AvancarProximoEspaco();
 	}
-	
 	CED_TerminarIteradorEspacos();
+    
 	
 	 return TAB_NenhumErroEncontrado;
        
@@ -783,7 +763,11 @@ TAB_tpCondRet TAB_ObterListaAmeacantes(LIS_tppLista pLista,int x, int y,LIS_tppL
 {
     pCasa aux;
     LIS_tppLista listaAmeacantesCopia = NULL;
-    LIS_CriarLista(&listaAmeacantesCopia,a,destruirValor,LIS_tpElemLista);
+	#ifdef _DEBUG
+		LIS_CriarLista(&listaAmeacantesCopia,a,destruirValor,LIS_tpNoGenerico);
+	#else
+		LIS_CriarLista(&listaAmeacantesCopia,a,destruirValor);
+	#endif
     if(listaAmeacantesCopia == NULL) {
         return TAB_CondRetListaAmeacantesNaoExiste;
     }
@@ -808,7 +792,11 @@ TAB_tpCondRet TAB_ObterListaAmeacados(LIS_tppLista pLista,int x, int y,LIS_tppLi
 {
     pCasa aux;
     LIS_tppLista listaAmeacadosCopia = NULL;
-    LIS_CriarLista(&listaAmeacadosCopia,a,destruirValor,LIS_tpElemLista);
+	#ifdef _DEBUG
+		LIS_CriarLista(&listaAmeacadosCopia,a,destruirValor,LIS_tpNoGenerico);
+	#else
+		LIS_CriarLista(&listaAmeacadosCopia,a,destruirValor);
+	#endif
     if(listaAmeacadosCopia == NULL) {
         return TAB_CondRetListaAmeacantesNaoExiste;
     }
@@ -915,6 +903,7 @@ TAB_tpCondRet TAB_DestruirCasa(pCasa casa) {
         LIS_DestroiLista(casa->ameacados);
         LIS_DestroiLista(casa->ameacantes);
         PEC_LiberaPeca(casa->elemento);
+		free(casa);
     }
     return TAB_CondRetOK;
 }
@@ -985,10 +974,8 @@ TAB_tpCondRet TAB_DestruirTabuleiro(LIS_tppLista tabu) {
  *  FunÁ„o: TAB  &Destruir Valor
  *  ****/
 void destruirValor(void *pValor) {
+	
     free(pValor);
-    #ifdef _DEBUG
-        //CED_MarcarEspacoNaoAtivo(pValor);
-    #endif
     //
 }/* Fim funÁ„o: TAB  -Destruir Valor*/
 /***************************************************************************
@@ -996,7 +983,11 @@ void destruirValor(void *pValor) {
  *  FunÁ„o: TAB  &Criar Lista Pecas
  *  ****/
 TAB_tpCondRet criarListaPecas() {
-    retLis = LIS_CriarLista(&listaPecas,idListaPecas,destruirValor,LIS_tpElemLista);
+	#ifdef _DEBUG
+		retLis = LIS_CriarLista(&listaPecas,idListaPecas,destruirValor,LIS_tpNoGenerico);
+	#else if
+		retLis = LIS_CriarLista(&listaPecas,idListaPecas,destruirValor);
+	#endif
     if(retLis == LIS_CondRetOK) {
         return TAB_CondRetOK;
     }

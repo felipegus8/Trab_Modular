@@ -14,15 +14,12 @@
 =declararparm   AlterarTipoEstruturaDasLinhas      int  7
 =declararparm   DestacarLinhaTabuleiroSemFree      int  8 
 =declararparm   AtribuirNullLinhaAtual             int  9
-=declararparm   AtribuirMesmoEspacoDeMemoriaCasa   int  10
-=declararparm   AtribuirNullParaOrigem             int  11
-=declararparm   AtribuirNullParaFinal              int  12
-=declararparm   AlterarNumeroDeLinhasTabuleiro      int  13
-=declararparm   DestacarCasaTabuleiroSemFree        int  14
-=declararparm   AtribuirNullCasaAtual               int  15
-=declararparm   AlterarTipoEstruturaDasCasas        int  16
-=declararparm   EliminarColunaAtualTabuleiro        int  17
-=declararparm   AlterarNumeroDeColunasTabuleiro     int  18
+=declararparm   AlterarNumeroDeLinhasTabuleiro     int  10
+=declararparm   DestacarCasaTabuleiroSemFree       int  11
+=declararparm   AtribuirNullCasaAtual              int  12
+=declararparm   AlterarTipoEstruturaDasCasas       int  13
+=declararparm   EliminarColunaAtualTabuleiro       int  14
+=declararparm   AlterarNumeroDeColunasTabuleiro    int  15
 
 =declararparm    torre    char    'T'
 =declararparm    charB    char    'B'
@@ -48,28 +45,28 @@
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   EliminarCasaAtual
-=verifica int1
+=verifica 2
 =destruirtabuleiro OK
 
 ==Testar a deturpacao de AtribuirNullParaCasaSucessora
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   AtribuirNullParaCasaSucessora
-=verifica int1
+=verifica 13
 =destruirtabuleiro OK
 
 ==Testar a deturpacao de AtribuirNullParaCasaAntecessora
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   AtribuirNullParaCasaAntecessora
-=verifica int1
+=verifica 2
 =destruirtabuleiro OK
 
 ==Testar a deturpacao de AtribuirLixoParaCasaAntecessora
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   AtribuirLixoParaCasaAntecessora
-=verifica int1
+=verifica 2
 =destruirtabuleiro OK
 
 ==Testar a deturpacao de AlterarTipoEstruturaDasLinhas
@@ -83,23 +80,9 @@
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   DestacarLinhaTabuleiroSemFree
-=verifica int1
+=verifica 10
 =destruirtabuleiro OK
 
-
-==Testar a deturpacao de AtribuirNullParaOrigem
-=criartabuleiro         int8   int8  OK
-=inserepeca int0 charA  charB   torre  OK
-=deturpa   AtribuirNullParaOrigem
-=verifica int1
-=destruirtabuleiro OK
-
-==Testar a deturpacao de AtribuirNullParaFinal
-=criartabuleiro         int8   int8  OK
-=inserepeca int0 charA  charB   torre  OK
-=deturpa   AtribuirNullParaFinal
-=verifica int1
-=destruirtabuleiro OK
 
 ==Testar a deturpacao de AlterarNumeroDeLinhasTabuleiro
 =criartabuleiro         int8   int8  OK
@@ -112,7 +95,7 @@
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   DestacarCasaTabuleiroSemFree
-=verifica int1
+=verifica 2
 =destruirtabuleiro OK
 
 
@@ -120,14 +103,14 @@
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   AtribuirNullCasaAtual
-=verifica int1
+=verifica 2
 =destruirtabuleiro OK
 
 ==Testar a deturpacao de AlterarTipoEstruturaDasCasas
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   AlterarTipoEstruturaDasCasas
-=verifica int1
+=verifica 8
 =destruirtabuleiro OK
 
 
@@ -135,7 +118,7 @@
 =criartabuleiro         int8   int8  OK
 =inserepeca int0 charA  charB   torre  OK
 =deturpa   EliminarColunaAtualTabuleiro
-=verifica int1
+=verifica 11
 =destruirtabuleiro OK
 
 ==Testar a deturpacao de AlterarNumeroDeColunasTabuleiro
@@ -144,6 +127,7 @@
 =deturpa   AlterarNumeroDeColunasTabuleiro
 =verifica int1
 =destruirtabuleiro OK
+
 
 == Verificar vazamento de memória
 =obternumeroespacosalocados 0

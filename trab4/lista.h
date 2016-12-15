@@ -38,6 +38,7 @@
  *
  ***************************************************************************/
 
+
 #if defined( LISTA_OWN )
 #define LISTA_EXT
 #else
@@ -98,11 +99,11 @@ typedef enum {
 #ifdef _DEBUG
 
 typedef enum {
-    LIS_tpCabeca,
+    LIS_tpNoGenerico,
     
     LIS_tpCasa,
     
-    LIS_tpNoCasa,
+    LIS_tpCabeca,
     
     LIS_tpElemLista
     
@@ -139,10 +140,14 @@ typedef enum {
  *     Não ser dada mais informação quanto ao problema ocorrido.
  *
  ***********************************************************************/
-
+#ifdef _DEBUG
+ 
 LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,void( * ExcluirValor ) ( void * pDado ),LIS_tpEspaco tipo);
 
+#else
+LIS_tpCondRet LIS_CriarLista(LIS_tppLista *lista,char *idLista,void( * ExcluirValor ) ( void * pDado ));
 
+#endif
 
 /***********************************************************************
  
@@ -338,8 +343,6 @@ LIS_tpCondRet LIS_DeturpaAtribuiNullOrigem(LIS_tppLista pLista);
 
 LIS_tpCondRet LIS_DeturpaAtribuiNullFim(LIS_tppLista pLista);
 
-LIS_tpCondRet LIS_DeturpaNosApontamIgual(LIS_tppLista pLista);
-
 LIS_tpCondRet LIS_DeturpaTrocaNumElem(LIS_tppLista pLista);
 
 LIS_tpCondRet LIS_DeturpaTrocaTipoLista(LIS_tppLista pLista,LIS_tpEspaco novoTipo);
@@ -349,10 +352,6 @@ LIS_tpCondRet LIS_DeturpaAtribuiNullValorNo(LIS_tppLista pLista);
 LIS_tpCondRet LIS_RetornaAntecessor(LIS_tppLista pLista,void **antecessor);
 
 LIS_tpCondRet LIS_RetornaSucessor(LIS_tppLista pLista,void **sucessor);
-
-LIS_tpCondRet LIS_RetornaOrigemLista(LIS_tppLista pLista, void **pOrigem);
-
-LIS_tpCondRet LIS_RetornaFimLista(LIS_tppLista pLista, void **pFinal);
 
 LIS_tpCondRet LIS_RetornaAnteriorDoProximo(LIS_tppLista pLista,void **antDoProx);
 

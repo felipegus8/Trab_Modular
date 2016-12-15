@@ -21,6 +21,10 @@
 
 #include    "Tabuleiro.h"
 
+#ifdef _DEBUG
+#include "CESPDIN.H"
+#endif
+
 static const char CRIAR_TABULEIRO          	                        [ ] = "=criartabuleiro" ;
 static const char INSERE_PECA        	                            [ ] = "=inserepeca"   ;
 static const char OBTER_LISTA_AMEACANTES                            [ ] = "=obterlistaameacantes"      ;
@@ -89,7 +93,7 @@ int diminui1DeX(int coordX);
 
       char   StringDado[  DIM_VALOR ],StringDado2[  DIM_VALOR  ] ;
 
-	  int x, xf,coordYInt,coordYInt2;
+	  int x, xf,coordYInt,coordYInt2,iterador;
 	  char y, yf, cor, id,corLida,idLido;
 
 	  LIS_tppLista ameacas;
@@ -110,7 +114,13 @@ int diminui1DeX(int coordX);
                return TST_CondRetParm ;
             } /* if */
 
-
+			  #ifdef _DEBUG
+			CED_InicializarIteradorEspacos();
+				while( CED_ExisteEspacoCorrente() != 0)
+				{
+					CED_ExcluirEspacoCorrente();
+				}
+			#endif
             CondRet = TAB_CriaLL(&tabu);
 			printf("%d\n",CondRet);
 
@@ -282,10 +292,19 @@ int diminui1DeX(int coordX);
 			 
 			 CondRet = TAB_DestruirTabuleiro(tabu);
 
+			 #ifdef _DEBUG
+			CED_InicializarIteradorEspacos();
+				while( CED_ExisteEspacoCorrente() != 0)
+				{
+					CED_ExcluirEspacoCorrente();
+				}
+			#endif
+
+
             return TST_CompararInt( CondRetEsp , CondRet ,"Condicao de retorno errada ao destruir um tabuleiro" );
 
          } /* fim ativa: Testar Destruir tabuleiro */
-       
+       #ifdef _DEBUG
          /* Deturpar Tabuleiro */
          else if(strcmp( ComandoTeste , DETURPA ) == 0) {
              numLidos = LER_LerParametros("i",&acao);
@@ -302,10 +321,11 @@ int diminui1DeX(int coordX);
              if (numLidos != 1) {
                  return TST_CondRetParm ;
              }
+			 numErrosEncontrados = 0;
              TAB_VerificaTabuleiro(tabu,&numErrosEncontrados);
              return TST_CompararInt(numErrosEsperados, numErrosEncontrados,"Numeros de erros esperados é distinto do numero encontrado");
          }
-       
+       #endif
 		 return TST_CondRetNaoConhec ;
 }
 

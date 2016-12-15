@@ -2,15 +2,7 @@
 // Contadores acumulados, gerado: 2015/07/04-01:50:51
 //////////////////////////////////////////////////////////////////////
 
-erro-OrigemNulaFimNaoNulo
-erro-OrigemNulaCorrenteNaoNulo
-erro-OrigemNaoNulaFimNulo
-erro-OrigemNulaNumElemIgualUm
-erro-FimDifInicio
-erro-numeroDeElementosInvalido
-erro-OrigemNulaENumElemNulo
-erro-FimNuloENumElemNulo
-erro-CorrenteNuloENumElemNulo
+
 
 erro-CabeçaDoTabuleiroNula
 erro-CabecaDaColunaNula
@@ -28,29 +20,31 @@ erro-ColunasEstaoDesordenadas
 erro-PonteiroParaCasaNulo
 erro-CasaNula
 erro-CasaAntecessoraNula
-erro-AntecessorNaoNuloListaCasas
+erro-ColunaAnteriorNaoNula
 erro-AntecessorLixoListaCasas
-erro-SucessorDoAnteriorDifCorrenteListaCasas
 erro-SucessorNuloListaCasas
 erro-SucessorNaoNuloListaCasas
 erro-SucessorLixoListaCasas
-erro-AnteriorDoSucessorDifCorrenteListaCasas
+erro-NumLinhasErrado
+erro-NumColunasErrado
+erro-PosicionamentoDasCasas
 erro-VazamentoDeMemoria
-verifica-NumElemMaiorQueZero
-verifica-NumElemIgualUm
 verifica-LinhaAntecessoraNula
-verifica-LinhaAntecessoraNaoNula
+verifica-ColunaAnteriorNaoNula
 verifica-SucessorNaoNuloListaCabecas
 verifica-AntecessorNaoNuloListaCasas
 verifica-SucessorNuloListaCasas
 verifica-SucessorNaoNuloListaCasas
 verifica-SucessorNaoLixoListaCasas
+verifica-LinhaAntecessoraNaoNula
 ok-CabeçaDoTabuleiroNaoNula
 ok-CabecaDaColunaNaoNula
 ok-LinhaNaoNula
 ok-TipoLinhaValido
 ok-TipoNoCasaValido
 ok-CasasEstaoNasPosicoesCertas
+ok-NumLinhasOk
+ok-NumColunasOk
 ok-LinhaSucessoraNaoNula
 ok-LinhaSucessoraValida
 ok-CasasEstaoNasOrdenasCorretamente
@@ -59,6 +53,8 @@ ok-CasaNaoNula
 ok-CasaAntecessoraNaoNula
 ok-AntecessorLixoColunas
 ok-SucessorNulo
+ok-SemVazamentoDeMemoria
+ok-PosicionamentoDasCasas
 
 //////////////////////////////////////////////////////////////////////
 // Fim arquivo de contadores acumulados
