@@ -1,0 +1,101 @@
+Assertivas Estruturais do tabuleiro como lista de listas duplamente enseada
+
+A lista possui na cabeça:
+   —Origem
+   —Fim
+   —Corrente
+   —Id
+   —Número de Elementos
+   —Tipo
+
+O Nó da lista também é uma cabeça de lista e corresponde às linhas do tabuleiro, possui:
+
+   —Origem
+   —Fim
+   —Corrente
+   —Id
+   —Número de Elementos
+   —Sucessor
+   —Antecessor
+   —Valor
+   —Tipo
+   —Ponteiro para a cabeça da estrutura
+
+ O Nó da segunda lista corresponde  à coluna do tabuleiro, possui:
+
+  —Valor
+  —Antecessor
+  —Sucessor
+  —Ponteiro para a cabeça(estrutura que corresponde às linhas) da estrutura
+  
+if lista->numElem = 0
+{
+    lista->pElemCorr = NULL;
+    lista->pOrigemLista = NULL;
+    pFimLista = NULL;
+
+}
+
+if lista->numElem > 0
+     lista->pElemCorr != NULL
+
+if lista->numElem == 1
+{
+	lista->pELemCorr = lista->pOrigemLista
+	lista->pOrigemLista = lista->pFimLista
+}
+
+If lista->CabecaColunas->pProx != NULL
+	lista->CabecaColunas->pProx->pAnt = lista->CabecaColunas;
+
+if lista->CabecasColunas->pAnt != NULL
+	lista->CabecasColunas->pAnt->pProx = lista->CabecaColunas
+
+if lista—>CabecaColunas — >numElem == 0 {
+	lista—>CabecaColunas—>pElemCorr = NULL;
+	lista—>CabecaColunas—>pOrigemLista = NULL;
+	lista—>CabecaColunas—>pFimLista = NULL;
+}
+
+if lista—>CabecaColunas —>numElem == 1 {
+	lista—>CabecaColunas—>pElemCorr = lista—>CabecaColunas—>pOrigemLista;
+	llista—>CabecaColunas—>pOrigemLista = lista—>CabecaColunas—>pFimLista = NULL;
+}
+
+if lista->CabecaColunas ->numElem > 0 
+	lista->CabecaColunas ->pElemCorr != NULL;
+
+
+lista—>CabecaColunas—>pCabeca != NULL
+
+lista—>CabecaColunas—>pCabeca = lista
+
+if lista->CabecaColunas->CabecaLinhas->pProx != NULL
+         lista->CabecaColunas->CabecaLinhas->pProx->pAnt = lista->CabecaColunas->CabecaLinhas
+
+if lista->CabecaColunas->CabecaLinhas->pAnt != NULL
+         lista->CabecaColunas->CabecaLinhas->pAnt->pProx = lista->CabecaColunas->CabecaLinhas
+
+if ista->CabecaColunas->CabecaLinhas->numElementos == 0
+{
+	lista—>CabecaColunas->CabecaLinhas-—>pElemCorr = NULL;
+	lista—>CabecaColunas->CabecaLinhas-—>pOrigemLista = NULL;
+	lista—>CabecaColunas->CabecaLinhas-—>pFimLista = NULL;
+}
+
+if lista->CabecaColunas->CabecaLinhas— >numElem > 0
+lista->CabecaColunas->CabecaLinhas->pElemCorr != NULL;
+
+if lista—>CabecaColunas->CabecaLinhas-> — >numElem == 1 {
+	lista—>CabecaColunas->CabecaLinhas->—>pElemCorr = lista—>CabecaColunas—>CabecaLinhas->pOrigemLista;
+	lista—>CabecaColunas—>CabecaLinhas->pOrigemLista = lista—>CabecaColunas—>CabecaLinhas->pFimLista = NULL;
+
+}
+
+lista->CabecaColunas->CabecaLinhas->pCabeca != NULL;
+
+lista->CabecaColunas->CabecaLinhas->pCabeca = lista->CabecaColunas;
+
+
+
+
