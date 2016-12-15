@@ -1,0 +1,11 @@
+20/11 - 1h: Especificação do Trabalho 4. Especifiquei o que deveria ser feito no módulo Tabuleiro e comecei a estudar os módulos CONTA e CESPDIN.
+
+08/12 - 1h:Correção de alguns bugs que apareceram quando fui rodar o código feito pelo grupo no arcabouço.
+
+14/12 - 2h:Fiz o script para testar as deturpações  no módulo Tabuleiro.Rodei e inicialmente tive alguns problemas de SegFault em alguns casos de teste mas depois consegui corrigir.
+
+15/12 - 30min:Fiz o leia-me.
+
+15/12 - 3h:Corrigindo bugs finais.A versão release já está funcionando e a versão debug está quase lá.
+
+15/12 - 2h:Terminando a versão debug que agora está funcionando como esperado com as deturpações.
